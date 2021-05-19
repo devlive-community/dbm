@@ -46,6 +46,21 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/data',
+    component: Layout,
+    redirect: '/data/source',
+    name: 'DataSource',
+    meta: { title: 'DataSource', icon: 'example' },
+    children: [
+      {
+        path: 'source',
+        name: 'DataSource',
+        component: () => import('@/views/data/source'),
+        meta: { title: 'DataSource', icon: 'table' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

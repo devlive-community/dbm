@@ -12,6 +12,14 @@ import store from './store'
 
 import '@/icons' // icon
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUser, faCamera } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUser, faCamera)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI, { locale })

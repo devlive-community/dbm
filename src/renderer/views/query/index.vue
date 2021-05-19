@@ -1,9 +1,16 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-input placeholder="http://localhost:8123" size="mini" v-model="inputValue">
-        <template slot="prepend">ClickHouse Server</template>
-      </el-input>
+      <el-select v-model="selectValue" size="mini" placeholder="ClickHouse Server">
+        <el-option
+          v-for="item in selectServers"
+          :key="item.name"
+          :label="item.name"
+          :value="item.name">
+          <span style="float: left">{{ item.name }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px; margin-left: 10px;">{{ item.host }}</span>
+        </el-option>
+      </el-select>
       <el-button type="primary" icon="el-icon-edit" size="mini" @click="handlerExecute()">Execute</el-button>
     </el-row>
     <el-row>
@@ -46,7 +53,9 @@ export default {
       inputValue: '',
       headers: [],
       columns: [],
-      statistics: {}
+      statistics: {},
+      selectValue: {},
+      selectServers: []
     }
   },
   mounted() {
@@ -71,15 +80,29 @@ export default {
           }
         }
       })
+      this._initializeServer()
+    },
+    _initializeServer() {
+      this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
     },
     handlerExecute() {
-      runExecute(this.inputValue, this.editor.getValue()).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-          this.statistics = response.data.statistics
-        }
-      })
+      const dataSource = this.selectServers.filter(item => item.name === this.selectValue)
+      if (dataSource.length < 1) {
+        this.$notify({
+          title: 'Notification',
+          type: 'error',
+          message: 'Please select data source!'
+        })
+      } else {
+        this.inputValue = 'http://' + dataSource[0].host + ':' + dataSource[0].port
+        runExecute(this.inputValue, this.editor.getValue()).then(response => {
+          if (response.status === 200) {
+            this.headers = response.data.meta
+            this.columns = response.data.data
+            this.statistics = response.data.statistics
+          }
+        })
+      }
     }
   }
 }

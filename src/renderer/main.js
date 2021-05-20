@@ -12,11 +12,15 @@ import store from './store'
 
 import '@/icons' // icon
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUser, faCamera } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import fontawesome from '@fortawesome/fontawesome'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import solid from '@fortawesome/fontawesome-free-solid'
+import regular from '@fortawesome/fontawesome-free-regular'
+import brands from '@fortawesome/fontawesome-free-brands'
 
-library.add(faUser, faCamera)
+fontawesome.library.add(solid)
+fontawesome.library.add(regular)
+fontawesome.library.add(brands)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

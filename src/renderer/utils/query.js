@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
 import { Promise } from 'es6-promise'
 
 export function post(url, data = {}) {
@@ -8,12 +7,7 @@ export function post(url, data = {}) {
       .then(response => {
         resolve(response)
       }, error => {
-        Message({
-          message: error.message,
-          type: 'error',
-          duration: 5 * 1000
-        })
-        reject(error)
+        reject(error.response)
       })
   })
 }

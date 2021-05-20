@@ -6,4 +6,4 @@ module.exports = {
     userName: 'Database_User',
     password: 'Database_Pass'
   }
-};
+}

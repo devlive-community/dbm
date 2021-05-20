@@ -58,6 +58,12 @@ export const constantRouterMap = [
         name: 'DataSource',
         component: () => import('@/views/data/source'),
         meta: { title: 'DataSource', icon: 'table' }
+      },
+      {
+        path: 'metadata/:name',
+        name: 'Metadata',
+        component: () => import('@/views/data/metadata'),
+        meta: { title: 'Metadata', icon: 'table' }
       }
     ]
   },

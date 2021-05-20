@@ -53,6 +53,7 @@ require('codemirror/addon/selection/active-line')
 require('codemirror/mode/sql/sql')
 require('codemirror/addon/hint/show-hint')
 require('codemirror/addon/hint/sql-hint')
+
 export default {
   name: 'codeMirror',
   data() {

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-button type="primary" size="mini" @click="dialogFormVisible = true">
-        <font-awesome-icon :icon="['fa', 'plus']"></font-awesome-icon> Add New
+        Add New
       </el-button>
     </el-row>
     <el-table
@@ -16,12 +16,16 @@
         label="Action"
         width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handlerEdit(scope.row)">Edit</el-button>
-          <el-button type="text" size="small" @click="handlerDelete(scope.row)">Delete</el-button>
+          <el-popover placement="top">
+            <p>Are you sure you want to delete {{scope.row.name}} data source？</p>
+            <div style="text-align: right; margin: 0">
+              <el-button type="primary" size="mini"  @click="handlerDelete(scope.row)">确定</el-button>
+            </div>
+            <el-button type="text" size="small" slot="reference">Delete</el-button>
+          </el-popover>
         </template>
       </el-table-column>
     </el-table>
-   
     <!-- DataSource Dialog -->
     <el-dialog title="Add New DataSource" :visible.sync="dialogFormVisible">
       <el-form :model="form">

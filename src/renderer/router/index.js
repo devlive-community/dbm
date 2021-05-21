@@ -42,7 +42,7 @@ export const constantRouterMap = [
         path: 'table',
         name: 'Query',
         component: () => import('@/views/query/index'),
-        meta: { title: 'Query', icon: 'table' }
+        meta: { title: 'Query', icon: 'eye' }
       }
     ]
   },
@@ -63,7 +63,7 @@ export const constantRouterMap = [
         path: 'metadata/:name',
         name: 'Metadata',
         component: () => import('@/views/data/metadata'),
-        meta: { title: 'Metadata', icon: 'table' }
+        meta: { title: 'Metadata', icon: 'password' }
       }
     ]
   },

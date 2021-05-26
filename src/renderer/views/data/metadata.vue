@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <!-- Server -->
-      Server: 
+      <i class="fa fa-server"></i>
       <el-select 
         v-model="selectServerValue"
         size="mini"
@@ -20,7 +20,7 @@
       </el-select>
       <!-- Database -->
       <el-span v-if="selectDatabases.length > 0">
-        Database: 
+        <i class="fa fa-database"></i>
         <el-select
           v-model="selectDatabaseValue"
           size="mini"
@@ -54,8 +54,7 @@
         <el-table-column
           v-if="columns.length > 0"
           fixed="right"
-          label="Action"
-          width="100">
+          label="Action">
           <template slot-scope="scope">
             <el-popover
               placement="top-start"
@@ -67,6 +66,18 @@
                 :loading="buttonLoading"
                 @click="handlerShowDDL(scope.row)">
                 <i class="fa fa-bolt"></i> DDL
+              </el-button>
+            </el-popover>
+            <el-popover
+              placement="top-start"
+              trigger="hover"
+              content="Table Detail">
+              <el-button type="text" 
+                size="small" 
+                slot="reference"
+                :loading="buttonLoading"
+                @click="handlerToDetail(scope.row)">
+                <i class="fa fa-bolt"></i> Detail
               </el-button>
             </el-popover>
           </template>
@@ -82,14 +93,20 @@
         <el-button type="primary" @click="tableDDLDialogVisible = false" size="mini">Close</el-button>
       </span>
     </el-dialog>
+    <!-- <table-detail :columns="columns" :headers="headers" :tableDetailDialogVisible="tableDetailDialogVisible"></table-detail> -->
   </div>
 </template>
 
 <script>
 import { runExecute } from '@/api/query'
-import { stringFormat } from '@/utils/utils'
+import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
+
+import TableDetail from './components/table-detail'
 
 export default {
+  components: {
+    TableDetail
+  },
   data() {
     return {
       selectServers: [],
@@ -108,7 +125,8 @@ export default {
       currentPage: 1,
       tableDDLDialogVisible: false,
       tableDDLTitle: '',
-      tableDDL: ''
+      tableDDL: '',
+      tableDetailDialogVisible: false
     }
   },
   mounted() {
@@ -145,9 +163,9 @@ export default {
     },
     handlerDatabase() {
       this.loading = true
-      const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
+      const dataSource = getDataSource(this.selectServerValue)
       this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
-      const sql = stringFormat('SELECT name, uuid, engine, partition_key, sorting_key, total_rows, total_bytes FROM system.tables WHERE database = \'{0}\'', [this.selectDatabaseValue])
+      const sql = stringFormat('SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes FROM system.tables WHERE database = \'{0}\'', [this.selectDatabaseValue])
       runExecute(this.inputValue, sql).then(response => {
         if (response.status === 200) {
           this.headers = response.data.meta
@@ -162,8 +180,8 @@ export default {
       })
     },
     handlerTable() {
-      const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
-      this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
+      const dataSource = getDataSource(this.selectServerValue)
+      this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
       const sql = stringFormat('SELECT * FROM system.columns WHERE database = \'{0}\' and table = \'{1}\'', [this.selectDatabaseValue, this.selectTableValue])
       runExecute(this.inputValue, sql).then(response => {
         if (response.status === 200) {
@@ -182,8 +200,8 @@ export default {
     },
     handlerShowDDL(row) {
       this.buttonLoading = true
-      const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
-      this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
+      const dataSource = getDataSource(this.selectServerValue)
+      this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
       const sql = stringFormat('SELECT create_table_query FROM system.tables WHERE database = \'{0}\' and name = \'{1}\'', [this.selectDatabaseValue, row.name])
       runExecute(this.inputValue, sql).then(response => {
         if (response.status === 200) {
@@ -192,6 +210,12 @@ export default {
           this.tableDDLDialogVisible = true
           this.buttonLoading = false
         }
+      })
+    },
+    handlerToDetail(row) {
+      const path = stringFormat('/data/detail/{0}/{1}/{2}', [this.selectServerValue, this.selectDatabaseValue, row.name])
+      this.$router.push({
+        path: path
       })
     }
   }

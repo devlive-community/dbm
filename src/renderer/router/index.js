@@ -64,6 +64,13 @@ export const constantRouterMap = [
         name: 'Metadata',
         component: () => import('@/views/data/metadata'),
         meta: { title: 'Metadata', icon: 'password' }
+      },
+      {
+        path: 'detail/:server/:database/:table',
+        name: 'Detail',
+        hidden: true,
+        component: () => import('@/views/data/detail'),
+        meta: { title: 'Table Detail', icon: 'password' }
       }
     ]
   },

@@ -74,6 +74,37 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-tabs v-model="activeTab">
+      <el-tab-pane label="Columns" name="Columns">
+        <el-table v-loading.body="loading"
+          style="width: 100%"
+          border
+          :data="columns">
+          <template v-for="(item,index) in headers">
+            <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
+          </template>
+          <el-table-column
+            v-if="columns.length > 0"
+            fixed="right"
+            label="Action">
+            <template slot-scope="scope">
+              <el-popover
+                placement="top-start"
+                trigger="hover"
+                content="Table Detail">
+                <el-button type="text" 
+                  size="small" 
+                  slot="reference"
+                  :loading="buttonLoading"
+                  @click="handlerToDetail(scope.row)">
+                  <i class="fa fa-bolt"></i> Detail
+                </el-button>
+              </el-popover>
+            </template>
+        </el-table-column>
+        </el-table>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -89,7 +120,11 @@ export default {
         database: '',
         table: ''
       },
-      tableInfo: {}
+      tableInfo: {},
+      headers: [],
+      columns: [],
+      loading: false,
+      activeTab: 'Columns'
     }
   },
   created() {
@@ -97,6 +132,7 @@ export default {
   },
   methods: {
     _initialize() {
+      this.loading = true
       this.common = this.$route.params
       const dataSource = getDataSource(this.common.server)
       this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
@@ -111,36 +147,20 @@ export default {
           message: response.data
         })
       })
+      const columnsSql = stringFormat('SELECT name, type, position, default_kind, default_expression, data_compressed_bytes, data_uncompressed_bytes, marks_bytes, comment, is_in_partition_key, is_in_sorting_key, is_in_primary_key, is_in_sampling_key, compression_codec FROM system.columns WHERE database = \'{0}\' AND table = \'{1}\'', [this.common.database, this.common.table])
+      runExecute(this.inputValue, columnsSql).then(response => {
+        if (response.status === 200) {
+          this.headers = response.data.meta
+          this.columns = response.data.data
+          this.loading = false
+        }
+      }).catch(response => {
+        this.$notify.error({
+          title: 'Error',
+          message: response.data
+        })
+      })
     }
   }
 }
 </script>
-
-<style scoped >
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-</style>

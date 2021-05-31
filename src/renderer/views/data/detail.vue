@@ -22,12 +22,18 @@
               <i class="fa fa-table"></i> {{ common.table }}
               <i class="fa fa-calendar"></i> {{ tableInfo.metadata_modification_time }}
             </span>
-            <el-button style="float: right; padding: 3px 0" type="text"></el-button>
+            <el-tooltip class="item" effect="dark" content="Refresh" placement="top">
+              <el-button style="float: right; padding: 3px 0"
+                type="text"
+                icon="el-icon-refresh"
+                @click="handlerRefresh()">
+              </el-button>
+            </el-tooltip>
           </div>
           <div class="text item">
             <el-row :gutter="20">
               <el-col :span="8">
-                <el-card>
+                <el-card class="box-card" v-loading="loading">
                   <div slot="header" class="clearfix">
                     <span>Basic Info</span>
                   </div>
@@ -46,7 +52,7 @@
                 </el-card>
               </el-col>
               <el-col :span="8">
-                <el-card>
+                <el-card class="box-card" v-loading="loading">
                   <div slot="header" class="clearfix">
                     <span>Partition Info</span>
                   </div>
@@ -59,7 +65,7 @@
                 </el-card>
               </el-col>
               <el-col :span="8">
-                <el-card class="box-card">
+                <el-card class="box-card" v-loading="loading">
                   <div slot="header" class="clearfix">
                     <span>Data Size</span>
                   </div>
@@ -74,7 +80,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-tabs v-model="activeTab">
+    <el-tabs v-model="activeTab" @tab-click="handlerTabClick()">
       <el-tab-pane label="Columns" name="Columns">
         <el-table v-loading.body="loading"
           style="width: 100%"
@@ -83,25 +89,16 @@
           <template v-for="(item,index) in headers">
             <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
           </template>
-          <el-table-column
-            v-if="columns.length > 0"
-            fixed="right"
-            label="Action">
-            <template slot-scope="scope">
-              <el-popover
-                placement="top-start"
-                trigger="hover"
-                content="Table Detail">
-                <el-button type="text" 
-                  size="small" 
-                  slot="reference"
-                  :loading="buttonLoading"
-                  @click="handlerToDetail(scope.row)">
-                  <i class="fa fa-bolt"></i> Detail
-                </el-button>
-              </el-popover>
-            </template>
-        </el-table-column>
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane v-loading="tableLoading" label="Preview" name="Preview">
+        <el-table v-loading="tableLoading"
+          style="width: 100%"
+          border
+          :data="columns">
+          <template v-for="(item,index) in headers">
+            <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
+          </template>
         </el-table>
       </el-tab-pane>
     </el-tabs>
@@ -124,6 +121,7 @@ export default {
       headers: [],
       columns: [],
       loading: false,
+      tableLoading: false,
       activeTab: 'Columns'
     }
   },
@@ -140,6 +138,7 @@ export default {
       runExecute(this.inputValue, sql).then(response => {
         if (response.status === 200) {
           this.tableInfo = response.data.data[0]
+          this.loading = false
         }
       }).catch(response => {
         this.$notify.error({
@@ -147,12 +146,40 @@ export default {
           message: response.data
         })
       })
+      this.handlerTabClick()
+    },
+    handlerRefresh() {
+      this._initialize()
+    },
+    handlerTabClick() {
+      this.tableLoading = true
+      if (this.activeTab === 'Columns') {
+        this.handlerDataForColumns()
+      } else if (this.activeTab === 'Preview') {
+        this.handlerDataForPreview()
+      }
+      this.tableLoading = false
+    },
+    handlerDataForColumns() {
       const columnsSql = stringFormat('SELECT name, type, position, default_kind, default_expression, data_compressed_bytes, data_uncompressed_bytes, marks_bytes, comment, is_in_partition_key, is_in_sorting_key, is_in_primary_key, is_in_sampling_key, compression_codec FROM system.columns WHERE database = \'{0}\' AND table = \'{1}\'', [this.common.database, this.common.table])
       runExecute(this.inputValue, columnsSql).then(response => {
         if (response.status === 200) {
           this.headers = response.data.meta
           this.columns = response.data.data
-          this.loading = false
+        }
+      }).catch(response => {
+        this.$notify.error({
+          title: 'Error',
+          message: response.data
+        })
+      })
+    },
+    handlerDataForPreview() {
+      const columnsSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 10', [this.common.database, this.common.table])
+      runExecute(this.inputValue, columnsSql).then(response => {
+        if (response.status === 200) {
+          this.headers = response.data.meta
+          this.columns = response.data.data
         }
       }).catch(response => {
         this.$notify.error({

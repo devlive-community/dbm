@@ -56,30 +56,20 @@
           fixed="right"
           label="Action">
           <template slot-scope="scope">
-            <el-popover
-              placement="top-start"
-              trigger="hover"
-              content="Table DDL">
+            <el-tooltip class="item" effect="dark" content="Table DDL" placement="top">
               <el-button type="text" 
                 size="small" 
-                slot="reference"
                 :loading="buttonLoading"
-                @click="handlerShowDDL(scope.row)">
-                <i class="fa fa-bolt"></i> DDL
-              </el-button>
-            </el-popover>
-            <el-popover
-              placement="top-start"
-              trigger="hover"
-              content="Table Detail">
+                icon="el-icon-search"
+                @click="handlerShowDDL(scope.row)"></el-button>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="Table Detail" placement="top">
               <el-button type="text" 
                 size="small" 
-                slot="reference"
                 :loading="buttonLoading"
-                @click="handlerToDetail(scope.row)">
-                <i class="fa fa-bolt"></i> Detail
-              </el-button>
-            </el-popover>
+                icon="el-icon-more"
+                @click="handlerToDetail(scope.row)"></el-button>
+            </el-tooltip>
           </template>
       </el-table-column>
       </el-table>

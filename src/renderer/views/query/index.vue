@@ -13,10 +13,10 @@
       </el-select>
       <el-button type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
     </el-row>
-    <el-row>
+    <el-row v-loading="executeLoading">
       <textarea ref='mycode' class='codesql' v-model='code'></textarea>
     </el-row>
-    <el-row>
+    <el-row v-loading="executeLoading">
       <el-tag size="mini">
         <i class="fa fa-clock-o"></i> Elapsed Time {{ statistics.elapsed }} sec
       </el-tag>
@@ -31,7 +31,7 @@
       </el-tag>
     </el-row>
     <el-row>
-      <el-table style="width: 100%" border :data="columns">
+      <el-table v-loading="executeLoading" style="width: 100%" border :data="columns">
         <template v-for="(item,index) in headers">
           <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
         </template>
@@ -111,10 +111,18 @@ export default {
         this.inputValue = 'http://' + dataSource[0].host + ':' + dataSource[0].port
         runExecute(this.inputValue, this.editor.getValue()).then(response => {
           if (response.status === 200) {
-            this.headers = response.data.meta
-            this.columns = response.data.data
-            this.rows = response.data.rows
-            this.statistics = response.data.statistics
+            if (response.data) {
+              this.headers = response.data.meta
+              this.columns = response.data.data
+              this.rows = response.data.rows
+              this.statistics = response.data.statistics
+            } else {
+              this.$notify({
+                title: 'Notification',
+                type: 'success',
+                message: 'Operation successful!'
+              })
+            }
             this.executeLoading = false
           }
         }).catch(response => {

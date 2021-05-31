@@ -28,7 +28,7 @@
     </el-table>
     <!-- DataSource Dialog -->
     <el-dialog title="Add New DataSource" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
+      <el-form :model="form" size="mini">
         <el-form-item label="Alias Name" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
@@ -38,14 +38,9 @@
         <el-form-item label="Port" :label-width="formLabelWidth">
           <el-input v-model="form.port" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="User Name" :label-width="formLabelWidth">
-          <el-input v-model="form.userName" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="User Password" :label-width="formLabelWidth">
-          <el-input v-model="form.password" autocomplete="off"></el-input>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
+        <el-button size="mini" type="success" @click="hadnlerTest()">Test Connection</el-button>
         <el-button size="mini" @click="dialogFormVisible = false">Cancel</el-button>
         <el-button type="primary" size="mini" @click="handlerSave()">OK</el-button>
       </div>
@@ -54,6 +49,9 @@
 </template>
 
 <script>
+import { checkHealth } from '@/api/query'
+import { stringFormat } from '@/utils/utils'
+
 export default {
   data() {
     return {
@@ -81,7 +79,6 @@ export default {
       let dataSources = JSON.parse(localStorage.getItem('DataSources'))
       dataSources = dataSources === null ? [] : dataSources
       const dataSource = dataSources.filter(item => item.name === this.form.name)
-      console.log(dataSource)
       if (dataSource !== null && dataSource.length > 0) {
         this.$notify({
           title: 'Notification',
@@ -104,6 +101,30 @@ export default {
       const dataSources = JSON.parse(localStorage.getItem('DataSources')).filter(item => item.name !== row.name)
       localStorage.setItem('DataSources', JSON.stringify(dataSources))
       this._initialize()
+    },
+    hadnlerTest() {
+      const serverUrl = stringFormat('http://{0}:{1}', [this.form.host, this.form.port])
+      checkHealth(serverUrl).then(response => {
+        console.log(response)
+        if (response.status === 200) {
+          if (response.data.indexOf('Ok') !== -1) {
+            this.$notify.success({
+              title: 'Success',
+              message: stringFormat('ClickHouse Server <{0}> connection successful!', [this.form.host])
+            })
+          } else {
+            this.$notify.error({
+              title: 'Error',
+              message: 'Please check whether the version of Clickhouse supports it!'
+            })
+          }
+        }
+      }).catch(response => {
+        this.$notify.error({
+          title: 'Error',
+          message: response.data
+        })
+      })
     }
   }
 }

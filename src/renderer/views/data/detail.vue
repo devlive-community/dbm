@@ -175,8 +175,8 @@ export default {
       })
     },
     handlerDataForPreview() {
-      const columnsSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 10', [this.common.database, this.common.table])
-      runExecute(this.inputValue, columnsSql).then(response => {
+      const previewSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 10', [this.common.database, this.common.table])
+      runExecute(this.inputValue, previewSql).then(response => {
         if (response.status === 200) {
           this.headers = response.data.meta
           this.columns = response.data.data

@@ -12,6 +12,17 @@ export function post(url, data = {}) {
   })
 }
 
+export function get(url) {
+  return new Promise((resolve, reject) => {
+    axios.get(url)
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error.response)
+      })
+  })
+}
+
 export function patch(url, data = {}) {
   return new Promise((resolve, reject) => {
     axios.patch(url, data)

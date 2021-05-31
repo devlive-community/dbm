@@ -56,6 +56,11 @@ function createWindow() {
             label: 'Paste',
             accelerator: 'CmdOrCtrl+V',
             selector: 'paste:'
+          },
+          {
+            label: 'Select All',
+            accelerator: 'CmdOrCtrl+A',
+            selector: 'selectAll:'
           }
         ]
       }

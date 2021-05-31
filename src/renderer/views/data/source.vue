@@ -122,7 +122,7 @@ export default {
       }).catch(response => {
         this.$notify.error({
           title: 'Error',
-          message: response.data
+          message: 'Please check whether the version of Clickhouse supports it!'
         })
       })
     }

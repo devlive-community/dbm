@@ -78,24 +78,23 @@
     <el-dialog
       :title="tableDDLTitle"
       :visible.sync="tableDDLDialogVisible">
-      <code>{{tableDDL}}</code>
+      <code-mirror :value="tableDDL" :config="{'readOnly': 'nocursor'}"></code-mirror>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="tableDDLDialogVisible = false" size="mini">Close</el-button>
       </span>
     </el-dialog>
-    <!-- <table-detail :columns="columns" :headers="headers" :tableDetailDialogVisible="tableDetailDialogVisible"></table-detail> -->
   </div>
 </template>
 
 <script>
+import CodeMirror from '@/components/CodeMirror'
+
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
 
-import TableDetail from './components/table-detail'
-
 export default {
   components: {
-    TableDetail
+    CodeMirror
   },
   data() {
     return {

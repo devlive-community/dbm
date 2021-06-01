@@ -62,7 +62,7 @@ export const constantRouterMap = [
       {
         path: 'metadata/:name',
         name: 'Metadata',
-        component: () => import('@/views/data/metadata'),
+        component: () => import('@/views/data/metadata/index'),
         meta: { title: 'Metadata', icon: 'password' }
       },
       {

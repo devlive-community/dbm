@@ -19,7 +19,7 @@
           <el-popover placement="top">
             <p>Are you sure you want to delete {{scope.row.name}} data source？</p>
             <div style="text-align: right; margin: 0">
-              <el-button type="primary" size="mini"  @click="handlerDelete(scope.row)">确定</el-button>
+              <el-button type="primary" size="mini"  @click="handlerDelete(scope.row)">OK?</el-button>
             </div>
             <el-button type="text" size="small" slot="reference">Delete</el-button>
           </el-popover>

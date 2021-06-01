@@ -35,6 +35,11 @@
           </el-option>
         </el-select>
       </el-span>
+      <el-button type="primary" size="mini" @click="handlerDatabaseAdd">Add DataBase</el-button>
+      <add-database
+        :loading="addDatabaseLoading"
+        :server="selectServerValue"
+        @close="closeAddDatabase"></add-database>
     </el-row>
     <el-row>
       <el-pagination
@@ -88,18 +93,20 @@
 
 <script>
 import CodeMirror from '@/components/CodeMirror'
+import AddDatabase from '../components/AddDatabase'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
 
 export default {
   components: {
-    CodeMirror
+    CodeMirror,
+    AddDatabase
   },
   data() {
     return {
       selectServers: [],
-      selectServerValue: {},
+      selectServerValue: null,
       selectDatabases: [],
       selectDatabaseValue: {},
       selectTables: [],
@@ -110,6 +117,7 @@ export default {
       statistics: {},
       loading: false,
       buttonLoading: false,
+      addDatabaseLoading: false,
       pagesize: 10,
       currentPage: 1,
       tableDDLDialogVisible: false,
@@ -206,6 +214,12 @@ export default {
       this.$router.push({
         path: path
       })
+    },
+    handlerDatabaseAdd() {
+      this.addDatabaseLoading = true
+    },
+    closeAddDatabase() {
+      this.addDatabaseLoading = false
     }
   }
 }

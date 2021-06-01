@@ -1,7 +1,5 @@
 <template>
-  <div class="app-container">
-    <textarea ref='mycode' class='codesql' v-model='value'></textarea>
-  </div>
+  <textarea ref='mycode' class='codesql' v-model='value'></textarea>
 </template>
 
 <script>

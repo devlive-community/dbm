@@ -16,6 +16,16 @@
   margin: 0 auto;
 }
 
+.el-dialog__header {
+  border-bottom: 1px solid #e8eaec;
+  padding: 15px 20px 10px;
+}
+
+.el-dialog__footer {
+  border-top: 1px solid #e8eaec;
+  padding: 10px 20px 15px;
+}
+
 //element ui upload
 .upload-container {
   .el-upload {

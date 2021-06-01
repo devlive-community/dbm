@@ -31,16 +31,13 @@
       </el-tag>
     </el-row>
     <el-row>
-      <el-table v-loading="executeLoading" style="width: 100%" border :data="columns">
-        <template v-for="(item,index) in headers">
-          <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
-        </template>
-      </el-table>
+      <table-detail :columns="columns" :headers="headers" :loading="executeLoading"></table-detail>
     </el-row>
   </div>
 </template>
 
 <script>
+import TableDetail from '@/components/Table'
 import { runExecute } from '@/api/query'
 
 import 'codemirror/theme/ambiance.css'
@@ -56,6 +53,9 @@ require('codemirror/addon/hint/sql-hint')
 
 export default {
   name: 'codeMirror',
+  components: {
+    TableDetail
+  },
   data() {
     return {
       editor: null,
@@ -84,12 +84,6 @@ export default {
         matchBrackets: true,
         extraKeys: {
           'Ctrl': 'autocompconste'
-        },
-        hintOptions: {
-          tables: {
-            users: ['name', 'score', 'birthDate'],
-            countries: ['name', 'population', 'size']
-          }
         }
       })
       this._initializeServer()

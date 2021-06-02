@@ -35,11 +35,7 @@
           </el-option>
         </el-select>
       </el-span>
-      <el-button type="primary" size="mini" @click="handlerDatabaseAdd">Add DataBase</el-button>
-      <add-database
-        :loading="addDatabaseLoading"
-        :server="selectServerValue"
-        @close="closeAddDatabase"></add-database>
+      <el-button type="primary" size="mini" @click="handlerAddDatabase">Add DataBase</el-button>
     </el-row>
     <el-row>
       <el-pagination
@@ -75,10 +71,26 @@
                 icon="el-icon-more"
                 @click="handlerToDetail(scope.row)"></el-button>
             </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="Delete Table" placement="top">
+              <el-button type="text" 
+                size="small" 
+                :loading="buttonLoading"
+                icon="el-icon-delete"
+                @click="handlerDeleteTable(scope.row)"></el-button>
+            </el-tooltip>
           </template>
       </el-table-column>
       </el-table>
     </el-row>
+    <!-- Add Database -->
+    <add-database :loading="addDatabaseLoading" :server="selectServerValue" @close="handlerCloseAddDatabase"></add-database>
+    <!-- Delete Table -->
+    <delete-table
+      :loading="deleteTableLoading"
+      :server="selectServerValue"
+      :database="selectDatabaseValue"
+      :table="selectTableValue"
+      @close="handlerCloseDeleteTable"></delete-table>
     <!-- DDL -->
     <el-dialog
       :title="tableDDLTitle"
@@ -94,6 +106,7 @@
 <script>
 import CodeMirror from '@/components/CodeMirror'
 import AddDatabase from '../components/AddDatabase'
+import DeleteTable from '../components/DeleteTable'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
@@ -101,16 +114,17 @@ import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
 export default {
   components: {
     CodeMirror,
-    AddDatabase
+    AddDatabase,
+    DeleteTable
   },
   data() {
     return {
       selectServers: [],
       selectServerValue: null,
       selectDatabases: [],
-      selectDatabaseValue: {},
+      selectDatabaseValue: null,
       selectTables: [],
-      selectTableValue: {},
+      selectTableValue: null,
       headers: [],
       columns: [],
       rows: null,
@@ -123,7 +137,8 @@ export default {
       tableDDLDialogVisible: false,
       tableDDLTitle: '',
       tableDDL: '',
-      tableDetailDialogVisible: false
+      tableDetailDialogVisible: false,
+      deleteTableLoading: false
     }
   },
   mounted() {
@@ -215,11 +230,18 @@ export default {
         path: path
       })
     },
-    handlerDatabaseAdd() {
+    handlerAddDatabase() {
       this.addDatabaseLoading = true
     },
-    closeAddDatabase() {
+    handlerCloseAddDatabase() {
       this.addDatabaseLoading = false
+    },
+    handlerDeleteTable(row) {
+      this.deleteTableLoading = true
+      this.selectTableValue = row.name
+    },
+    handlerCloseDeleteTable() {
+      this.deleteTableLoading = false
     }
   }
 }

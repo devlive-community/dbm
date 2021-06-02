@@ -12,6 +12,12 @@
         </el-option>
       </el-select>
       <el-button type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
+      <el-button
+        type="success"
+        icon="el-icon-more"
+        size="mini"
+        style="float: right;"
+        @click="handlerQuickQuery()">Quick Query</el-button>
     </el-row>
     <el-row v-loading="executeLoading">
       <textarea ref='mycode' class='codesql' v-model='code'></textarea>
@@ -33,6 +39,8 @@
     <el-row>
       <table-detail :columns="columns" :headers="headers" :loading="executeLoading"></table-detail>
     </el-row>
+  <!-- Quick Query -->
+  <quick-query :loading="quickQueryLoading" @close="handlerCloseQuickQuery" @getQuickSql="handlerGetQuickSql"></quick-query>
   </div>
 </template>
 
@@ -43,6 +51,7 @@ import { runExecute } from '@/api/query'
 import 'codemirror/theme/ambiance.css'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/hint/show-hint.css'
+import QuickQuery from './components/QuickQuery.vue'
 
 const CodeMirror = require('codemirror/lib/codemirror')
 require('codemirror/addon/edit/matchbrackets')
@@ -54,7 +63,8 @@ require('codemirror/addon/hint/sql-hint')
 export default {
   name: 'codeMirror',
   components: {
-    TableDetail
+    TableDetail,
+    QuickQuery
   },
   data() {
     return {
@@ -67,7 +77,8 @@ export default {
       rows: null,
       statistics: {},
       selectValue: {},
-      selectServers: []
+      selectServers: [],
+      quickQueryLoading: false
     }
   },
   mounted() {
@@ -127,6 +138,15 @@ export default {
           this.executeLoading = false
         })
       }
+    },
+    handlerQuickQuery() {
+      this.quickQueryLoading = true
+    },
+    handlerCloseQuickQuery() {
+      this.quickQueryLoading = false
+    },
+    handlerGetQuickSql(value) {
+      this.editor.setValue(value)
     }
   }
 }

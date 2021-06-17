@@ -14,7 +14,7 @@
       <el-button type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
       <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
         <el-button
-          type="primary"
+          type="danger"
           size="mini" 
           :disabled="disabled.cancel" 
           @click="handlerCancel()">Cancel
@@ -131,6 +131,7 @@ export default {
         })
         this.executeLoading = false
         this.disabled.quickQuery = false
+        this.disabled.cancel = true
       } else {
         this.inputValue = 'http://' + dataSource[0].host + ':' + dataSource[0].port
         runExecute(this.inputValue, this.editor.getValue()).then(response => {
@@ -158,6 +159,7 @@ export default {
           })
           this.executeLoading = false
           this.disabled.quickQuery = false
+          this.disabled.cancel = true
         })
       }
     },

@@ -35,7 +35,15 @@
           </el-option>
         </el-select>
       </el-span>
-      <el-button type="primary" size="mini" @click="handlerAddDatabase">Add DataBase</el-button>
+      <el-button type="primary" size="mini" @click="loading.addDatabase = true">Add DataBase</el-button>
+      <el-button
+        v-if="disabled.infomation"
+        type="success"
+        size="mini"
+        icon="el-icon-info"
+        @click="loading.serverStatus = true">
+        Infomation
+      </el-button>
     </el-row>
     <el-row>
       <el-pagination
@@ -45,7 +53,7 @@
         :total="columns.length"
         background>
       </el-pagination>
-      <el-table v-loading.body="loading"
+      <el-table v-loading.body="loading.tableBody"
         style="width: 100%"
         border
         :data="columns.slice((currentPage - 1) * pagesize, currentPage * pagesize)">
@@ -83,7 +91,8 @@
       </el-table>
     </el-row>
     <!-- Add Database -->
-    <add-database :loading="addDatabaseLoading" :server="selectServerValue" @close="handlerCloseAddDatabase"></add-database>
+    <add-database :loading="loading.addDatabase" :server="selectServerValue" @close="loading.addDatabase = false"></add-database>
+    <server-status :loading="loading.serverStatus" :server="selectServerValue" @close="loading.serverStatus = false"></server-status>
     <!-- Delete Table -->
     <delete-table
       :loading="deleteTableLoading"
@@ -107,6 +116,7 @@
 import CodeMirror from '@/components/CodeMirror'
 import AddDatabase from '../components/AddDatabase'
 import DeleteTable from '../components/DeleteTable'
+import ServerStatus from '../components/ServerStatus'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
@@ -115,7 +125,8 @@ export default {
   components: {
     CodeMirror,
     AddDatabase,
-    DeleteTable
+    DeleteTable,
+    ServerStatus
   },
   data() {
     return {
@@ -129,16 +140,22 @@ export default {
       columns: [],
       rows: null,
       statistics: {},
-      loading: false,
       buttonLoading: false,
-      addDatabaseLoading: false,
       pagesize: 10,
       currentPage: 1,
       tableDDLDialogVisible: false,
       tableDDLTitle: '',
       tableDDL: '',
       tableDetailDialogVisible: false,
-      deleteTableLoading: false
+      deleteTableLoading: false,
+      disabled: {
+        infomation: false
+      },
+      loading: {
+        tableBody: false,
+        serverStatus: false,
+        addDatabase: false
+      }
     }
   },
   mounted() {
@@ -164,6 +181,7 @@ export default {
         runExecute(this.inputValue, 'SHOW DATABASES').then(response => {
           if (response.status === 200) {
             this.selectDatabases = response.data.data
+            this.disabled.infomation = true
           }
         }).catch(response => {
           this.$notify.error({
@@ -174,7 +192,7 @@ export default {
       }
     },
     handlerDatabase() {
-      this.loading = true
+      this.loading.tableBody = true
       const dataSource = getDataSource(this.selectServerValue)
       this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
       const sql = stringFormat('SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes FROM system.tables WHERE database = \'{0}\'', [this.selectDatabaseValue])
@@ -182,7 +200,7 @@ export default {
         if (response.status === 200) {
           this.headers = response.data.meta
           this.columns = response.data.data
-          this.loading = false
+          this.loading.tableBody = false
         }
       }).catch(response => {
         this.$notify.error({
@@ -229,12 +247,6 @@ export default {
       this.$router.push({
         path: path
       })
-    },
-    handlerAddDatabase() {
-      this.addDatabaseLoading = true
-    },
-    handlerCloseAddDatabase() {
-      this.addDatabaseLoading = false
     },
     handlerDeleteTable(row) {
       this.deleteTableLoading = true

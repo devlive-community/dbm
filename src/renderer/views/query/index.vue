@@ -12,11 +12,20 @@
         </el-option>
       </el-select>
       <el-button type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
+      <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
+        <el-button
+          type="primary"
+          size="mini" 
+          :disabled="disabled.cancel" 
+          @click="handlerCancel()">Cancel
+        </el-button>
+      </el-tooltip>
       <el-button
         type="success"
         icon="el-icon-more"
         size="mini"
         style="float: right;"
+        :disabled="disabled.quickQuery" 
         @click="handlerQuickQuery()">Quick Query</el-button>
     </el-row>
     <el-row v-loading="executeLoading">
@@ -78,7 +87,14 @@ export default {
       statistics: {},
       selectValue: {},
       selectServers: [],
-      quickQueryLoading: false
+      quickQueryLoading: false,
+      loading: {
+        cancel: false
+      },
+      disabled: {
+        cancel: true,
+        quickQuery: false
+      }
     }
   },
   mounted() {
@@ -104,6 +120,8 @@ export default {
     },
     handlerExecute() {
       this.executeLoading = true
+      this.disabled.cancel = false
+      this.disabled.quickQuery = true
       const dataSource = this.selectServers.filter(item => item.name === this.selectValue)
       if (dataSource.length < 1) {
         this.$notify({
@@ -112,6 +130,7 @@ export default {
           message: 'Please select data source!'
         })
         this.executeLoading = false
+        this.disabled.quickQuery = false
       } else {
         this.inputValue = 'http://' + dataSource[0].host + ':' + dataSource[0].port
         runExecute(this.inputValue, this.editor.getValue()).then(response => {
@@ -129,6 +148,8 @@ export default {
               })
             }
             this.executeLoading = false
+            this.disabled.quickQuery = false
+            this.disabled.cancel = true
           }
         }).catch(response => {
           this.$notify.error({
@@ -136,6 +157,7 @@ export default {
             message: response.data
           })
           this.executeLoading = false
+          this.disabled.quickQuery = false
         })
       }
     },
@@ -147,6 +169,11 @@ export default {
     },
     handlerGetQuickSql(value) {
       this.editor.setValue(value)
+    },
+    handlerCancel() {
+      this.disabled.cancel = false
+      this.disabled.quickQuery = false
+      this.executeLoading = false
     }
   }
 }

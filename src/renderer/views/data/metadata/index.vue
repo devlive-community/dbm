@@ -35,18 +35,16 @@
           </el-option>
         </el-select>
       </el-span>
-      <el-tooltip class="item" effect="dark" content="Add DataBase" placement="top">
+      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Add DataBase" placement="top">
         <el-button
-          v-if="disabled.showButton"
           type="primary"
           size="mini"
           icon="el-icon-plus"
           @click="loading.addDatabase = true">
         </el-button>
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="Delete Database" placement="top">
+      <el-tooltip v-if="disabled.showButton && selectDatabaseValue" class="item" effect="dark" content="Delete Database" placement="top">
         <el-button
-          v-if="disabled.showButton && selectDatabaseValue"
           type="danger"
           size="mini"
           icon="el-icon-delete"
@@ -96,7 +94,7 @@
                 icon="el-icon-more"
                 @click="handlerToDetail(scope.row)"></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Delete Table" placement="top">
+            <el-tooltip v-if="selectDatabaseValue !== 'system'" class="item" effect="dark" content="Delete Table" placement="top">
               <el-button type="text" 
                 size="small" 
                 :loading="buttonLoading"

@@ -60,7 +60,7 @@ import { runExecute } from '@/api/query'
 import 'codemirror/theme/ambiance.css'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/hint/show-hint.css'
-import QuickQuery from './components/QuickQuery'
+import QuickQuery from '@/views/components/QuickQuery'
 
 const CodeMirror = require('codemirror/lib/codemirror')
 require('codemirror/addon/edit/matchbrackets')

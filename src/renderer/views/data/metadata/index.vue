@@ -135,10 +135,10 @@
 
 <script>
 import CodeMirror from '@/components/CodeMirror'
-import AddDatabase from '../components/AddDatabase'
-import DeleteTable from '../components/DeleteTable'
-import ServerStatus from '../components/ServerStatus'
-import DeleteDatabase from '../components/DeleteDatabase'
+import AddDatabase from '@/views/components/AddDatabase'
+import DeleteTable from '@/views/components/DeleteTable'
+import ServerStatus from '@/views/components/ServerStatus'
+import DeleteDatabase from '@/views/components/DeleteDatabase'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'

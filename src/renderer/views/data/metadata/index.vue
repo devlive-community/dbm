@@ -35,9 +35,26 @@
           </el-option>
         </el-select>
       </el-span>
-      <el-button type="primary" size="mini" @click="loading.addDatabase = true">Add DataBase</el-button>
+      <el-tooltip class="item" effect="dark" content="Add DataBase" placement="top">
+        <el-button
+          v-if="disabled.showButton"
+          type="primary"
+          size="mini"
+          icon="el-icon-plus"
+          @click="loading.addDatabase = true">
+        </el-button>
+      </el-tooltip>
+      <el-tooltip class="item" effect="dark" content="Delete Database" placement="top">
+        <el-button
+          v-if="disabled.showButton && selectDatabaseValue"
+          type="danger"
+          size="mini"
+          icon="el-icon-delete"
+          @click="loading.deleteDatabase = true">
+        </el-button>
+      </el-tooltip>
       <el-button
-        v-if="disabled.infomation"
+        v-if="disabled.showButton"
         type="success"
         size="mini"
         icon="el-icon-info"
@@ -93,13 +110,19 @@
     <!-- Add Database -->
     <add-database :loading="loading.addDatabase" :server="selectServerValue" @close="loading.addDatabase = false"></add-database>
     <server-status :loading="loading.serverStatus" :server="selectServerValue" @close="loading.serverStatus = false"></server-status>
-    <!-- Delete Table -->
     <delete-table
-      :loading="deleteTableLoading"
+      :loading="loading.deleteTable"
       :server="selectServerValue"
       :database="selectDatabaseValue"
       :table="selectTableValue"
-      @close="handlerCloseDeleteTable"></delete-table>
+      @close="handlerCloseDeleteTable">
+    </delete-table>
+    <delete-database
+      :loading="loading.deleteDatabase"
+      :server="selectServerValue"
+      :database="selectDatabaseValue"
+      @close="handlerCloseDeleteDatabase">
+    </delete-database>
     <!-- DDL -->
     <el-dialog
       :title="tableDDLTitle"
@@ -117,6 +140,7 @@ import CodeMirror from '@/components/CodeMirror'
 import AddDatabase from '../components/AddDatabase'
 import DeleteTable from '../components/DeleteTable'
 import ServerStatus from '../components/ServerStatus'
+import DeleteDatabase from '../components/DeleteDatabase'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
@@ -126,7 +150,8 @@ export default {
     CodeMirror,
     AddDatabase,
     DeleteTable,
-    ServerStatus
+    ServerStatus,
+    DeleteDatabase
   },
   data() {
     return {
@@ -147,14 +172,15 @@ export default {
       tableDDLTitle: '',
       tableDDL: '',
       tableDetailDialogVisible: false,
-      deleteTableLoading: false,
       disabled: {
-        infomation: false
+        showButton: false
       },
       loading: {
         tableBody: false,
         serverStatus: false,
-        addDatabase: false
+        addDatabase: false,
+        deleteTable: false,
+        deleteDatabase: false
       }
     }
   },
@@ -181,7 +207,7 @@ export default {
         runExecute(this.inputValue, 'SHOW DATABASES').then(response => {
           if (response.status === 200) {
             this.selectDatabases = response.data.data
-            this.disabled.infomation = true
+            this.disabled.showButton = true
           }
         }).catch(response => {
           this.$notify.error({
@@ -249,11 +275,14 @@ export default {
       })
     },
     handlerDeleteTable(row) {
-      this.deleteTableLoading = true
+      this.loading.deleteTable = true
       this.selectTableValue = row.name
     },
     handlerCloseDeleteTable() {
-      this.deleteTableLoading = false
+      this.loading.deleteTable = false
+    },
+    handlerCloseDeleteDatabase() {
+      this.loading.deleteDatabase = false
     }
   }
 }

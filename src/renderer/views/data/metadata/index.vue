@@ -51,14 +51,14 @@
           @click="loading.deleteDatabase = true">
         </el-button>
       </el-tooltip>
-      <el-button
-        v-if="disabled.showButton"
-        type="success"
-        size="mini"
-        icon="el-icon-info"
-        @click="loading.serverStatus = true">
-        Infomation
-      </el-button>
+      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Infomation" placement="top">
+        <el-button
+          type="success"
+          size="mini"
+          icon="el-icon-info"
+          @click="loading.serverStatus = true">
+        </el-button>
+       </el-tooltip>
     </el-row>
     <el-row>
       <el-pagination

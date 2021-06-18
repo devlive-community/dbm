@@ -44,7 +44,7 @@
               :key="index"
               :index="table.name"
               @click="handlerShowData(table.name, null)">
-              <span slot="title"> {{table.name}} </span>
+              <span slot="title"> <i :class="handlerGetIcon(table.engine)" aria-hidden="true"></i> {{table.name}} </span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -64,7 +64,7 @@
 
 <script>
 import { runExecute } from '@/api/query'
-import { stringFormat } from '@/utils/utils'
+import { stringFormat, getFaIcon } from '@/utils/utils'
 
 export default {
   name: 'QuickQuery',
@@ -138,6 +138,9 @@ export default {
       }
       this.$emit('getQuickSql', this.quickSql)
       this.closeDialog()
+    },
+    handlerGetIcon(engine) {
+      return getFaIcon(engine)
     }
   },
   watch: {

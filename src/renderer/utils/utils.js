@@ -23,3 +23,34 @@ export function getServerURL(host, port, url) {
   }
   return serverUrl
 }
+
+export function getFaIcon(source) {
+  let icon = 'fa fa-adjust'
+  switch (source) {
+    case 'MergeTree':
+    case 'SystemMergeTreeSettings':
+    case 'SystemMerges':
+      icon = 'fa fa-tree'
+      break
+    case 'MaterializedView':
+      icon = 'fa fa-eye'
+      break
+    case 'SystemAggregateFunctionCombinators':
+    case 'SystemBuildOptions':
+      icon = 'fa fa-cog'
+      break
+    case 'SystemAsynchronousMetrics':
+    case 'SystemGraphite':
+    case 'SystemMetrics':
+      icon = 'fa fa-line-chart'
+      break
+    case 'SystemClusters':
+      icon = 'fa fa-cubes'
+      break
+    case 'SystemCurrentRoles':
+    case 'SystemEnabledRoles':
+      icon = 'fa fa-flag'
+      break
+  }
+  return icon
+}

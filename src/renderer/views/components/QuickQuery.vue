@@ -2,7 +2,7 @@
   <el-dialog title="Quick Query" :visible.sync="bodyLoading" @close="closeDialog">
     <el-row :gutter="20">
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-server"></i> DataSource</span>
           </div>
@@ -18,7 +18,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-database"></i> Databases</span>
           </div>
@@ -34,7 +34,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-table"></i> Tables</span>
           </div>
@@ -63,8 +63,9 @@
 </template>
 
 <script>
-import { runExecute } from '@/api/query'
+// import { runExecute } from '@/api/query'
 import { stringFormat, getFaIcon } from '@/utils/utils'
+import { getDatabasesOrTables } from '@/services/Query'
 
 export default {
   name: 'QuickQuery',
@@ -80,6 +81,7 @@ export default {
   data() {
     return {
       bodyLoading: false,
+      cardLoading: false,
       remoteServer: null,
       remoteDatabase: null,
       remoteTable: null,
@@ -94,38 +96,33 @@ export default {
     closeDialog() {
       this.$emit('close')
     },
-    handlerShowData(source, type) {
-      switch (type) {
-        case 'database':
-          this.remoteServer = stringFormat('http://{0}:{1}', [source.host, source.port])
-          this.remoteQuerySql = 'SHOW DATABASES'
-          this.remoteTable = null
-          break
-        case 'table':
-          this.remoteDatabase = source
-          this.remoteQuerySql = stringFormat('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [source])
-          this.remoteTable = null
-          break
-        default:
-          this.remoteTable = source
+    async handlerShowData(source, type) {
+      this.cardLoading = true
+      if (type === 'database') {
+        this.remoteServer = source.name
       }
-      runExecute(this.remoteServer, this.remoteQuerySql).then(response => {
-        if (response.status === 200) {
+      if (type) {
+        const response = await getDatabasesOrTables(this.remoteServer, type, source)
+        if (response.status) {
           switch (type) {
             case 'database':
-              this.databases = response.data.data
+              this.databases = response.data
               break
             case 'table':
-              this.tables = response.data.data
+              this.remoteDatabase = source
+              this.tables = response.data
               break
           }
+        } else {
+          this.$notify.error({
+            title: 'Error',
+            message: response.message
+          })
         }
-      }).catch(response => {
-        this.$notify.error({
-          title: 'Error',
-          message: response.data
-        })
-      })
+      } else {
+        this.remoteTable = source
+      }
+      this.cardLoading = false
     },
     hadnlerGenerSql(quick) {
       switch (quick) {

@@ -55,7 +55,9 @@
       <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql"> Quick
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="DESCRIBE">DESCRIBE ...</el-dropdown-item>
+          <el-dropdown-item command="CREATE_TABLE">SHOW CREATE TABLE ...</el-dropdown-item>
           <el-dropdown-item command="LIMIT">SELECT ... LIMIT 100</el-dropdown-item>
+          <el-dropdown-item command="SELECT_COUNT">SELECT COUNT FROM ...</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -63,9 +65,8 @@
 </template>
 
 <script>
-// import { runExecute } from '@/api/query'
-import { stringFormat, getFaIcon } from '@/utils/utils'
-import { getDatabasesOrTables } from '@/services/Query'
+import { getFaIcon } from '@/utils/utils'
+import { getDatabasesOrTables, getQuickSql } from '@/services/Query'
 
 export default {
   name: 'QuickQuery',
@@ -125,14 +126,7 @@ export default {
       this.cardLoading = false
     },
     hadnlerGenerSql(quick) {
-      switch (quick) {
-        case 'DESCRIBE':
-          this.quickSql = stringFormat('DESCRIBE {0}.{1}', [this.remoteDatabase, this.remoteTable])
-          break
-        case 'LIMIT':
-          this.quickSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 100', [this.remoteDatabase, this.remoteTable])
-          break
-      }
+      this.quickSql = getQuickSql(quick, this.remoteDatabase, this.remoteTable)
       this.$emit('getQuickSql', this.quickSql)
       this.closeDialog()
     },

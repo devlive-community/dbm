@@ -32,3 +32,22 @@ export async function getDatabasesOrTables(server, type, database) {
   })
   return result
 }
+
+export function getQuickSql(quick, database, table) {
+  let quickSql = ''
+  switch (quick) {
+    case 'DESCRIBE':
+      quickSql = stringFormat('DESCRIBE {0}.{1}', [database, table])
+      break
+    case 'LIMIT':
+      quickSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 100', [database, table])
+      break
+    case 'CREATE_TABLE':
+      quickSql = stringFormat('SHOW CREATE TABLE {0}.{1}', [database, table])
+      break
+    case 'SELECT_COUNT':
+      quickSql = stringFormat('SELECT COUNT(1) FROM {0}.{1}', [database, table])
+      break
+  }
+  return quickSql
+}

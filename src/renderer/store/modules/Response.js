@@ -1,7 +1,5 @@
-module.exports = {
-  Response: {
-    status: false,
-    message: null,
-    data: null
-  }
+export default class Response {
+  status = false;
+  message = null;
+  data = null;
 }

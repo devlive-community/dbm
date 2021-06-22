@@ -20,6 +20,14 @@
           @click="handlerCancel()">Cancel
         </el-button>
       </el-tooltip>
+      <el-tooltip class="item" effect="dark" content="Only 100 records are recorded and displayed!" placement="bottom">
+        <el-button
+          type="primary"
+          size="mini" 
+          @click="disabled.history = true">
+          <i class="fa fa-history"></i>
+        </el-button>
+      </el-tooltip>
       <el-button
         type="success"
         icon="el-icon-more"
@@ -49,17 +57,19 @@
       <table-detail v-if="data.headers" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
     </el-row>
     <quick-query :loading="quickQueryLoading" @close="handlerCloseQuickQuery" @getQuickSql="handlerGetQuickSql"></quick-query>
+    <query-history :loading="disabled.history" @close="disabled.history = false"></query-history>
   </div>
 </template>
 
 <script>
 import TableDetail from '@/components/Table'
+import QuickQuery from '@/views/components/QuickQuery'
+import QueryHistory from '@/views/components/query/QueryHistory'
 import { getQuery } from '@/services/Query'
 
 import 'codemirror/theme/ambiance.css'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/hint/show-hint.css'
-import QuickQuery from '@/views/components/QuickQuery'
 
 const CodeMirror = require('codemirror/lib/codemirror')
 require('codemirror/addon/edit/matchbrackets')
@@ -72,7 +82,8 @@ export default {
   name: 'codeMirror',
   components: {
     TableDetail,
-    QuickQuery
+    QuickQuery,
+    QueryHistory
   },
   data() {
     return {
@@ -89,7 +100,8 @@ export default {
       },
       disabled: {
         cancel: true,
-        quickQuery: false
+        quickQuery: false,
+        history: false
       }
     }
   },

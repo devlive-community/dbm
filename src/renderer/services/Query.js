@@ -1,5 +1,7 @@
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
+import QueryHistory from '@/store/modules/QueryHistory'
+import Response from '@/store/modules/Response'
 
 /**
  * Get Database or table from remote server
@@ -69,6 +71,10 @@ export async function getQuery(server, query) {
   const dataSource = getDataSource(server)
   const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
   const result = {}
+  const queryHistory = new QueryHistory()
+  queryHistory.server = server
+  queryHistory.query = query
+  queryHistory.startTime = Date.parse(new Date())
   await runExecute(remoteServer, query).then(response => {
     if (response.status === 200) {
       if (response.data) {
@@ -80,10 +86,58 @@ export async function getQuery(server, query) {
         result.message = 'Operation successful!'
       }
       result.status = true
+      queryHistory.status = true
     }
   }).catch(response => {
     result.message = response.data
     result.status = false
+    queryHistory.status = false
+    queryHistory.message = response.data
   })
+  queryHistory.endTime = Date.parse(new Date())
+  queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime
+  saveQuery(queryHistory)
   return result
+}
+
+/**
+ * save query history
+ * @param {*} queryHistory query history
+ * @returns query history
+ */
+export function saveQuery(queryHistory) {
+  let histroy = JSON.parse(localStorage.getItem('QueryHistory'))
+  histroy = histroy === null ? [] : histroy
+  let index = 1
+  if (histroy.length > 0) {
+    index = histroy.length + 1
+  }
+  if (index < 100) {
+    queryHistory.id = index
+    histroy.push(queryHistory)
+    localStorage.setItem('QueryHistory', JSON.stringify(histroy))
+  }
+  return queryHistory
+}
+
+/**
+ * get history
+ * @returns query history
+ */
+export function getQueryHistory() {
+  const response = new Response()
+  response.status = true
+  const history = JSON.parse(localStorage.getItem('QueryHistory'))
+  if (history.length > 0) {
+    const headers = []
+    Object.keys(history[0]).forEach(key => {
+      headers.push({
+        'name': key,
+        'type': 'String'
+      })
+    })
+    response.headers = headers
+  }
+  response.columns = history
+  return response
 }

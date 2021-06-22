@@ -33,6 +33,13 @@ export async function getDatabasesOrTables(server, type, database) {
   return result
 }
 
+/**
+ * Generate quick sql
+ * @param {*} quick quick type
+ * @param {*} database database name
+ * @param {*} table table name
+ * @returns quick sql
+ */
 export function getQuickSql(quick, database, table) {
   let quickSql = ''
   switch (quick) {
@@ -50,4 +57,33 @@ export function getQuickSql(quick, database, table) {
       break
   }
   return quickSql
+}
+
+/**
+ * Get query response from remote server
+ * @param {*} server remote server
+ * @param {*} query query sql
+ * @returns query response
+ */
+export async function getQuery(server, query) {
+  const dataSource = getDataSource(server)
+  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
+  const result = {}
+  await runExecute(remoteServer, query).then(response => {
+    if (response.status === 200) {
+      if (response.data) {
+        result.headers = response.data.meta
+        result.columns = response.data.data
+        result.rows = response.data.rows
+        result.statistics = response.data.statistics
+      } else {
+        result.message = 'Operation successful!'
+      }
+      result.status = true
+    }
+  }).catch(response => {
+    result.message = response.data
+    result.status = false
+  })
+  return result
 }

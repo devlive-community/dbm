@@ -31,31 +31,30 @@
     <el-row v-loading="executeLoading">
       <textarea ref='mycode' class='codesql' v-model='code'></textarea>
     </el-row>
-    <el-row v-loading="executeLoading">
+    <el-row v-if="data.statistics" v-loading="executeLoading">
       <el-tag size="mini">
-        <i class="fa fa-clock-o"></i> Elapsed Time {{ statistics.elapsed }} sec
+        <i class="fa fa-clock-o"></i> Elapsed Time {{ data.statistics.elapsed }} sec
       </el-tag>
       <el-tag type="success" size="mini">
-        <i class="fa fa-grip-lines"></i> Total Rows {{ rows }} rows
+        <i class="fa fa-grip-lines"></i> Total Rows {{ data.rows }} rows
       </el-tag>
       <el-tag type="success" size="mini">
-        <i class="fa fa-adjust"></i> Total Read Rows {{ statistics.rows_read }} row
+        <i class="fa fa-adjust"></i> Total Read Rows {{ data.statistics.rows_read }} row
       </el-tag>
       <el-tag type="success" size="mini">
-        <i class="fa fa-perbyte"></i> Bytes Read {{ statistics.bytes_read }} bytes
+        <i class="fa fa-perbyte"></i> Bytes Read {{ data.statistics.bytes_read }} bytes
       </el-tag>
     </el-row>
     <el-row>
-      <table-detail :columns="columns" :headers="headers" :loading="executeLoading"></table-detail>
+      <table-detail v-if="data.headers" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
     </el-row>
-  <!-- Quick Query -->
-  <quick-query :loading="quickQueryLoading" @close="handlerCloseQuickQuery" @getQuickSql="handlerGetQuickSql"></quick-query>
+    <quick-query :loading="quickQueryLoading" @close="handlerCloseQuickQuery" @getQuickSql="handlerGetQuickSql"></quick-query>
   </div>
 </template>
 
 <script>
 import TableDetail from '@/components/Table'
-import { runExecute } from '@/api/query'
+import { getQuery } from '@/services/Query'
 
 import 'codemirror/theme/ambiance.css'
 import 'codemirror/lib/codemirror.css'
@@ -79,12 +78,9 @@ export default {
     return {
       editor: null,
       code: '',
+      data: {},
       executeLoading: false,
       inputValue: '',
-      headers: [],
-      columns: [],
-      rows: null,
-      statistics: {},
       selectValue: {},
       selectServers: [],
       quickQueryLoading: false,
@@ -118,50 +114,30 @@ export default {
     _initializeServer() {
       this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
     },
-    handlerExecute() {
+    async handlerExecute() {
       this.executeLoading = true
       this.disabled.cancel = false
       this.disabled.quickQuery = true
-      const dataSource = this.selectServers.filter(item => item.name === this.selectValue)
-      if (dataSource.length < 1) {
-        this.$notify({
-          title: 'Notification',
-          type: 'error',
-          message: 'Please select data source!'
+      const response = await getQuery(this.selectValue, this.editor.getValue())
+      if (!response.status) {
+        this.$notify.error({
+          title: 'Error',
+          message: response.message
         })
-        this.executeLoading = false
-        this.disabled.quickQuery = false
-        this.disabled.cancel = true
       } else {
-        this.inputValue = 'http://' + dataSource[0].host + ':' + dataSource[0].port
-        runExecute(this.inputValue, this.editor.getValue()).then(response => {
-          if (response.status === 200) {
-            if (response.data) {
-              this.headers = response.data.meta
-              this.columns = response.data.data
-              this.rows = response.data.rows
-              this.statistics = response.data.statistics
-            } else {
-              this.$notify({
-                title: 'Notification',
-                type: 'success',
-                message: 'Operation successful!'
-              })
-            }
-            this.executeLoading = false
-            this.disabled.quickQuery = false
-            this.disabled.cancel = true
-          }
-        }).catch(response => {
-          this.$notify.error({
-            title: 'Error',
-            message: response.data
+        if (response.message) {
+          this.$notify({
+            title: 'Notification',
+            type: 'success',
+            message: 'Operation successful!'
           })
-          this.executeLoading = false
-          this.disabled.quickQuery = false
-          this.disabled.cancel = true
-        })
+        } else {
+          this.data = response
+        }
       }
+      this.executeLoading = false
+      this.disabled.quickQuery = false
+      this.disabled.cancel = true
     },
     handlerQuickQuery() {
       this.quickQueryLoading = true
@@ -173,7 +149,7 @@ export default {
       this.editor.setValue(value)
     },
     handlerCancel() {
-      this.disabled.cancel = false
+      this.disabled.cancel = true
       this.disabled.quickQuery = false
       this.executeLoading = false
     }

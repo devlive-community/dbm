@@ -22,7 +22,7 @@ export default {
       default: false
     }
   },
-  mounted() {
+  created() {
     this._initialize()
   },
   data() {

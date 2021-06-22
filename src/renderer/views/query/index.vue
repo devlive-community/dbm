@@ -34,7 +34,7 @@
         size="mini"
         style="float: right;"
         :disabled="disabled.quickQuery" 
-        @click="handlerQuickQuery()">Quick Query</el-button>
+        @click="loading.quickQuery = true">Quick Query</el-button>
     </el-row>
     <el-row v-loading="executeLoading">
       <textarea ref='mycode' class='codesql' v-model='code'></textarea>
@@ -54,16 +54,16 @@
       </el-tag>
     </el-row>
     <el-row>
-      <table-detail v-if="data.headers" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
+      <table-detail v-if="data.headers" :showIndex="true" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
     </el-row>
-    <quick-query :loading="quickQueryLoading" @close="handlerCloseQuickQuery" @getQuickSql="handlerGetQuickSql"></quick-query>
+    <query-quick :loading="loading.quickQuery" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
     <query-history :loading="disabled.history" @close="disabled.history = false"></query-history>
   </div>
 </template>
 
 <script>
 import TableDetail from '@/components/Table'
-import QuickQuery from '@/views/components/QuickQuery'
+import QueryQuick from '@/views/components/query/QueryQuick'
 import QueryHistory from '@/views/components/query/QueryHistory'
 import { getQuery } from '@/services/Query'
 
@@ -82,7 +82,7 @@ export default {
   name: 'codeMirror',
   components: {
     TableDetail,
-    QuickQuery,
+    QueryQuick,
     QueryHistory
   },
   data() {
@@ -94,9 +94,9 @@ export default {
       inputValue: '',
       selectValue: {},
       selectServers: [],
-      quickQueryLoading: false,
       loading: {
-        cancel: false
+        cancel: false,
+        quickQuery: false
       },
       disabled: {
         cancel: true,
@@ -150,12 +150,6 @@ export default {
       this.executeLoading = false
       this.disabled.quickQuery = false
       this.disabled.cancel = true
-    },
-    handlerQuickQuery() {
-      this.quickQueryLoading = true
-    },
-    handlerCloseQuickQuery() {
-      this.quickQueryLoading = false
     },
     handlerGetQuickSql(value) {
       this.editor.setValue(value)

@@ -127,7 +127,8 @@ export function saveQuery(queryHistory) {
 export function getQueryHistory() {
   const response = new Response()
   response.status = true
-  const history = JSON.parse(localStorage.getItem('QueryHistory'))
+  const queryHistory = JSON.parse(localStorage.getItem('QueryHistory'))
+  const history = queryHistory === null ? [] : queryHistory
   if (history.length > 0) {
     const headers = []
     Object.keys(history[0]).forEach(key => {
@@ -137,7 +138,7 @@ export function getQueryHistory() {
       })
     })
     response.headers = headers
+    response.columns = history
   }
-  response.columns = history
   return response
 }

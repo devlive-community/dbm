@@ -69,7 +69,7 @@ import { getFaIcon } from '@/utils/utils'
 import { getDatabasesOrTables, getQuickSql } from '@/services/Query'
 
 export default {
-  name: 'QuickQuery',
+  name: 'QueryQuick',
   props: {
     loading: {
       type: Boolean,

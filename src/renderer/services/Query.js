@@ -142,3 +142,10 @@ export function getQueryHistory() {
   }
   return response
 }
+
+/**
+ * remove query history
+ */
+export function clearQueryHistory() {
+  localStorage.removeItem('QueryHistory')
+}

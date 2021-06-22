@@ -62,7 +62,11 @@
       @close="loading.quickQuery = false"
       @getQuickSql="handlerGetQuickSql">
     </query-quick>
-    <query-history :loading="disabled.history" @close="disabled.history = false"></query-history>
+    <query-history
+      :loading="disabled.history"
+      :width="'80%'"
+      @close="disabled.history = false">
+    </query-history>
   </div>
 </template>
 
@@ -97,7 +101,7 @@ export default {
       data: {},
       executeLoading: false,
       inputValue: '',
-      selectValue: {},
+      selectValue: null,
       selectServers: [],
       loading: {
         cancel: false,

@@ -19,7 +19,7 @@
         </el-option>
       </el-select>
       <!-- Database -->
-      <el-span v-if="selectDatabases.length > 0">
+      <span v-if="selectDatabases && selectDatabases.length > 0">
         <i class="fa fa-database"></i>
         <el-select
           v-model="selectDatabaseValue"
@@ -34,7 +34,7 @@
             :value="item.name">
           </el-option>
         </el-select>
-      </el-span>
+      </span>
       <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Add DataBase" placement="top">
         <el-button
           type="primary"

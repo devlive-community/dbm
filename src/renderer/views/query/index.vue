@@ -56,7 +56,12 @@
     <el-row>
       <table-detail v-if="data.headers" :showIndex="true" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
     </el-row>
-    <query-quick :loading="loading.quickQuery" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
+    <query-quick
+      :loading="loading.quickQuery"
+      :width="'70%'"
+      @close="loading.quickQuery = false"
+      @getQuickSql="handlerGetQuickSql">
+    </query-quick>
     <query-history :loading="disabled.history" @close="disabled.history = false"></query-history>
   </div>
 </template>

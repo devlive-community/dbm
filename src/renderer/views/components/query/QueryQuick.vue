@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Quick Query" :visible.sync="bodyLoading" @close="closeDialog">
+  <el-dialog title="Quick Query" :visible.sync="bodyLoading" :width="width" @close="closeDialog">
     <el-row :gutter="20">
       <el-col :span="8">
         <el-card class="box-card" v-loading="cardLoading">
@@ -74,6 +74,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: '50%'
     }
   },
   created() {
@@ -140,6 +144,9 @@ export default {
       handler() {
         this.bodyLoading = this.loading
       }
+    },
+    width: {
+      deep: true
     }
   }
 }

@@ -1,9 +1,9 @@
-module.exports = {
-  DataSource: {
-    alias: 'Database_Alias',
-    host: 'Database_Host',
-    port: 8123,
-    userName: 'Database_User',
-    password: 'Database_Pass'
-  }
+export default class DataSource {
+  id = 1;
+  name = null;
+  alias = 'localhost';
+  host = 'localhost';
+  port = 8123;
+  userName = 'default';
+  password = '123456';
 }

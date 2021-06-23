@@ -54,3 +54,10 @@ export function getFaIcon(source) {
   }
   return icon
 }
+
+export function getValue(source, defaultValue) {
+  if (source) {
+    return source
+  }
+  return defaultValue
+}

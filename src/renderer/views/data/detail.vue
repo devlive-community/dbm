@@ -107,7 +107,7 @@
 
 <script>
 import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
+import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
 
 export default {
   data() {

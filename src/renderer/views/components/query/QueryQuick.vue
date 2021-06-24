@@ -1,8 +1,8 @@
 <template>
-  <el-dialog title="Quick Query" :visible.sync="bodyLoading" @close="closeDialog">
+  <el-dialog title="Quick Query" :visible.sync="bodyLoading" :width="width" @close="closeDialog">
     <el-row :gutter="20">
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-server"></i> DataSource</span>
           </div>
@@ -18,7 +18,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-database"></i> Databases</span>
           </div>
@@ -34,7 +34,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card class="box-card">
+        <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
             <span><i class="fa fa-table"></i> Tables</span>
           </div>
@@ -44,7 +44,7 @@
               :key="index"
               :index="table.name"
               @click="handlerShowData(table.name, null)">
-              <span slot="title"> {{table.name}} </span>
+              <span slot="title"> <i :class="handlerGetIcon(table.engine)" aria-hidden="true"></i> {{table.name}} </span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -55,7 +55,9 @@
       <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql"> Quick
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="DESCRIBE">DESCRIBE ...</el-dropdown-item>
+          <el-dropdown-item command="CREATE_TABLE">SHOW CREATE TABLE ...</el-dropdown-item>
           <el-dropdown-item command="LIMIT">SELECT ... LIMIT 100</el-dropdown-item>
+          <el-dropdown-item command="SELECT_COUNT">SELECT COUNT FROM ...</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -63,15 +65,19 @@
 </template>
 
 <script>
-import { runExecute } from '@/api/query'
-import { stringFormat } from '@/utils/utils'
+import { getFaIcon } from '@/utils/Utils'
+import { getDatabasesOrTables, getQuickSql } from '@/services/Query'
 
 export default {
-  name: 'QuickQuery',
+  name: 'QueryQuick',
   props: {
     loading: {
       type: Boolean,
       default: false
+    },
+    width: {
+      type: String,
+      default: '50%'
     }
   },
   created() {
@@ -80,6 +86,7 @@ export default {
   data() {
     return {
       bodyLoading: false,
+      cardLoading: false,
       remoteServer: null,
       remoteDatabase: null,
       remoteTable: null,
@@ -94,50 +101,41 @@ export default {
     closeDialog() {
       this.$emit('close')
     },
-    handlerShowData(source, type) {
-      switch (type) {
-        case 'database':
-          this.remoteServer = stringFormat('http://{0}:{1}', [source.host, source.port])
-          this.remoteQuerySql = 'SHOW DATABASES'
-          this.remoteTable = null
-          break
-        case 'table':
-          this.remoteDatabase = source
-          this.remoteQuerySql = stringFormat('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [source])
-          this.remoteTable = null
-          break
-        default:
-          this.remoteTable = source
+    async handlerShowData(source, type) {
+      this.cardLoading = true
+      if (type === 'database') {
+        this.remoteServer = source.name
       }
-      runExecute(this.remoteServer, this.remoteQuerySql).then(response => {
-        if (response.status === 200) {
+      if (type) {
+        const response = await getDatabasesOrTables(this.remoteServer, type, source)
+        if (response.status) {
           switch (type) {
             case 'database':
-              this.databases = response.data.data
+              this.databases = response.data
               break
             case 'table':
-              this.tables = response.data.data
+              this.remoteDatabase = source
+              this.tables = response.data
               break
           }
+        } else {
+          this.$notify.error({
+            title: 'Error',
+            message: response.message
+          })
         }
-      }).catch(response => {
-        this.$notify.error({
-          title: 'Error',
-          message: response.data
-        })
-      })
+      } else {
+        this.remoteTable = source
+      }
+      this.cardLoading = false
     },
     hadnlerGenerSql(quick) {
-      switch (quick) {
-        case 'DESCRIBE':
-          this.quickSql = stringFormat('DESCRIBE {0}.{1}', [this.remoteDatabase, this.remoteTable])
-          break
-        case 'LIMIT':
-          this.quickSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 100', [this.remoteDatabase, this.remoteTable])
-          break
-      }
+      this.quickSql = getQuickSql(quick, this.remoteDatabase, this.remoteTable)
       this.$emit('getQuickSql', this.quickSql)
       this.closeDialog()
+    },
+    handlerGetIcon(engine) {
+      return getFaIcon(engine)
     }
   },
   watch: {
@@ -146,6 +144,9 @@ export default {
       handler() {
         this.bodyLoading = this.loading
       }
+    },
+    width: {
+      deep: true
     }
   }
 }

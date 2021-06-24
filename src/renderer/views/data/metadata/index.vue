@@ -141,7 +141,7 @@ import ServerStatus from '@/views/components/ServerStatus'
 import DeleteDatabase from '@/views/components/DeleteDatabase'
 
 import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
+import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
 
 export default {
   components: {

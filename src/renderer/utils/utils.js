@@ -1,3 +1,10 @@
+/**
+ * Format string
+ * <p>stringFormat('format {0}', ['test']) return 'format test'</p>
+ * @param {*} formatted format style
+ * @param {*} args format parmater
+ * @returns formatted string
+ */
 export function stringFormat(formatted, args) {
   for (let i = 0; i < args.length; i++) {
     const regexp = new RegExp('\\{' + i + '\\}', 'gi')
@@ -60,4 +67,20 @@ export function getValue(source, defaultValue) {
     return source
   }
   return defaultValue
+}
+
+export function getLength(source) {
+  return source.length
+}
+
+export function getLengthGtZore(source) {
+  return getLength(source) > 0
+}
+
+export function getLengthLtZore(source) {
+  return getLength(source) < 0
+}
+
+export function getLengthEqZore(source) {
+  return getLength(source) === 0
 }

@@ -11,7 +11,7 @@
           <span style="float: right; color: #8492a6; font-size: 13px; margin-left: 10px;">{{ item.host }}</span>
         </el-option>
       </el-select>
-      <el-button type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
+      <el-button v-if="getLengthGtZore(selectServers)" type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
       <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
         <el-button
           type="danger"
@@ -28,13 +28,21 @@
           <i class="fa fa-history"></i>
         </el-button>
       </el-tooltip>
+      <el-tooltip class="item" effect="dark" content="Add New DataSource" placement="bottom">
+        <el-button type="primary" size="mini" style="float: right;" @click="disabled.newDataSource = true">
+          <i class="fa fa-plus-circle"></i>
+        </el-button>
+      </el-tooltip>
       <el-button
+        v-if="getLengthGtZore(selectServers)"
         type="success"
         icon="el-icon-more"
         size="mini"
         style="float: right;"
         :disabled="disabled.quickQuery" 
-        @click="loading.quickQuery = true">Quick Query</el-button>
+        @click="loading.quickQuery = true">
+        Quick Query
+      </el-button>
     </el-row>
     <el-row v-loading="executeLoading">
       <textarea ref='mycode' class='codesql' v-model='code'></textarea>
@@ -56,17 +64,9 @@
     <el-row>
       <table-detail v-if="data.headers" :showIndex="true" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
     </el-row>
-    <query-quick
-      :loading="loading.quickQuery"
-      :width="'70%'"
-      @close="loading.quickQuery = false"
-      @getQuickSql="handlerGetQuickSql">
-    </query-quick>
-    <query-history
-      :loading="disabled.history"
-      :width="'80%'"
-      @close="disabled.history = false">
-    </query-history>
+    <query-quick :loading="loading.quickQuery" :width="'70%'" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
+    <query-history :loading="disabled.history" :width="'80%'" @close="disabled.history = false"></query-history>
+    <data-source :title="'Add New DataSource'" :loading="disabled.newDataSource" @close="disabled.newDataSource = false"></data-source>
   </div>
 </template>
 
@@ -74,7 +74,9 @@
 import TableDetail from '@/components/Table'
 import QueryQuick from '@/views/components/query/QueryQuick'
 import QueryHistory from '@/views/components/query/QueryHistory'
+import DataSource from '@/views/components/data/datasource/DataSource'
 import { getQuery } from '@/services/Query'
+import { getDataSources } from '@/services/DataSource'
 
 import 'codemirror/theme/ambiance.css'
 import 'codemirror/lib/codemirror.css'
@@ -92,7 +94,8 @@ export default {
   components: {
     TableDetail,
     QueryQuick,
-    QueryHistory
+    QueryHistory,
+    DataSource
   },
   data() {
     return {
@@ -110,7 +113,8 @@ export default {
       disabled: {
         cancel: true,
         quickQuery: false,
-        history: false
+        history: false,
+        newDataSource: false
       }
     }
   },
@@ -133,7 +137,7 @@ export default {
       this._initializeServer()
     },
     _initializeServer() {
-      this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
+      this.selectServers = getDataSources(null).columns
     },
     async handlerExecute() {
       this.executeLoading = true

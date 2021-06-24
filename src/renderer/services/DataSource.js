@@ -1,5 +1,5 @@
 import { checkHealth } from '@/api/query'
-import { stringFormat, getValue } from '@/utils/utils'
+import { stringFormat, getValue } from '@/utils/Utils'
 import DataSource from '@/store/modules/DataSource'
 import Response from '@/store/modules/Response'
 

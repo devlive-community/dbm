@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { stringFormat } from '@/utils/utils'
+import { stringFormat } from '@/utils/Utils'
 import { deleteDatabase } from '@/api/metadata/Database'
 
 export default {

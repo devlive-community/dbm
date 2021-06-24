@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { getFaIcon } from '@/utils/utils'
+import { getFaIcon } from '@/utils/Utils'
 import { getDatabasesOrTables, getQuickSql } from '@/services/Query'
 
 export default {

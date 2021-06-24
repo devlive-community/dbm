@@ -5,7 +5,7 @@
 <script>
 import TableDetail from '@/components/Table'
 import { runExecute } from '@/api/query'
-import { getDataSource, getServerURL } from '@/utils/utils'
+import { getDataSource, getServerURL } from '@/utils/Utils'
 
 export default {
   name: 'ServerStatusInfomation',

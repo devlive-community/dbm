@@ -32,6 +32,7 @@
 
 <script>
 import DataSource from '@/views/components/data/datasource/DataSource'
+import { getDataSources } from '@/services/DataSource'
 
 export default {
   components: {
@@ -51,7 +52,7 @@ export default {
   },
   methods: {
     _initialize() {
-      this.tableDatas = JSON.parse(localStorage.getItem('DataSources'))
+      this.tableDatas = getDataSources(null).columns
     },
     handlerDelete(row) {
       const dataSources = JSON.parse(localStorage.getItem('DataSources')).filter(item => item.name !== row.name)

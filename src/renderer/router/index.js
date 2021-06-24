@@ -51,7 +51,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/data/source',
     name: 'DataSource',
-    meta: { title: 'DataSource', icon: 'example' },
+    meta: { title: 'DataSource', icon: 'adjust' },
     children: [
       {
         path: 'source',
@@ -63,7 +63,7 @@ export const constantRouterMap = [
         path: 'metadata/:name',
         name: 'Metadata',
         component: () => import('@/views/data/metadata/index'),
-        meta: { title: 'Metadata', icon: 'password' }
+        meta: { title: 'Metadata', icon: 'archive' }
       },
       {
         path: 'detail/:server/:database/:table',

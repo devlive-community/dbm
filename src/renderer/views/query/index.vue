@@ -66,7 +66,9 @@
     </el-row>
     <query-quick :loading="loading.quickQuery" :width="'70%'" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
     <query-history :loading="disabled.history" :width="'80%'" @close="disabled.history = false"></query-history>
-    <data-source :title="'Add New DataSource'" :loading="disabled.newDataSource" @close="disabled.newDataSource = false"></data-source>
+    <data-source :title="'Add New DataSource'" :loading="disabled.newDataSource"
+      @close="disabled.newDataSource = false"
+      @refresh="_initializeServer"></data-source>
   </div>
 </template>
 

@@ -2,13 +2,13 @@
   <el-dialog :title="title" :visible.sync="elementLoading.body" :width="width" @close="closeDialog">
     <el-form :model="form" size="mini">
       <el-form-item label="Alias Name" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off"></el-input>
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="Host" :label-width="formLabelWidth">
-        <el-input v-model="form.host" autocomplete="off"></el-input>
+        <el-input v-model="form.host"></el-input>
       </el-form-item>
       <el-form-item label="Port" :label-width="formLabelWidth">
-        <el-input v-model="form.port" autocomplete="off"></el-input>
+        <el-input v-model="form.port"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -70,6 +70,7 @@ export default {
           message: response.message
         })
         this.closeDialog()
+        this.$emit('refresh')
       }
     },
     async hadnlerTest() {

@@ -56,6 +56,7 @@ export default {
         type: 'success',
         message: 'Clear Query History successful!'
       })
+      this._initialize()
     },
     closeDialog() {
       this.$emit('close')
@@ -66,6 +67,7 @@ export default {
       deep: true,
       handler() {
         this.bodyLoading = this.loading
+        this._initialize()
       }
     },
     width: {

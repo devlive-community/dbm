@@ -1,9 +1,11 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-button type="primary" size="mini" @click="disabled.dataSource = true">
-        Add New
-      </el-button>
+      <el-tooltip class="item" effect="dark" content="Add New DataSource" placement="bottom">
+        <el-button type="primary" size="mini" @click="disabled.dataSource = true">
+          <i class="fa fa-plus-circle"></i>
+        </el-button>
+      </el-tooltip>
     </el-row>
     <el-table
       :data="tableDatas"
@@ -26,7 +28,9 @@
         </template>
       </el-table-column>
     </el-table>
-    <data-source :title="'Add New DataSource'" :loading="disabled.dataSource" @close="disabled.dataSource = false"></data-source>
+    <data-source :title="'Add New DataSource'" :loading="disabled.dataSource"
+      @close="disabled.dataSource = false"
+      @refresh="_initialize"></data-source>
   </div>
 </template>
 

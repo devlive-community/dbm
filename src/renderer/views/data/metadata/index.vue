@@ -58,7 +58,7 @@
           icon="el-icon-info"
           @click="loading.serverStatus = true">
         </el-button>
-       </el-tooltip>
+      </el-tooltip>
     </el-row>
     <el-row>
       <el-pagination

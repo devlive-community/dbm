@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
   Welcome to DBM(Incubator)
+  <el-tag type="danger">{{'Version for ' + VERSION}}</el-tag>
   </div>
 </template>
 

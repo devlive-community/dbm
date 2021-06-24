@@ -25,6 +25,9 @@ Vue.prototype.getLengthLtZore = getLengthLtZore
 Vue.prototype.getLengthEqZore = getLengthEqZore
 Vue.prototype.getFaIcon = getFaIcon
 
+import config from '../../package.json'
+Vue.prototype.VERSION = config.version
+
 fontawesome.library.add(solid)
 fontawesome.library.add(regular)
 fontawesome.library.add(brands)

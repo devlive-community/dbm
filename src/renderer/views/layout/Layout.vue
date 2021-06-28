@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper" :class="classObj">
-    <sidebar class="sidebar-container"></sidebar>
+    <sidebar></sidebar>
     <div class="main-container">
       <navbar></navbar>
       <app-main></app-main>

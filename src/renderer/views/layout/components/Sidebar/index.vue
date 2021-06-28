@@ -1,35 +1,73 @@
 <template>
-  <scroll-bar>
     <el-menu
-      mode="vertical"
-      :show-timeout="200"
+      mode="horizontal"
+      router
       :default-active="$route.path"
-      :collapse="isCollapse"
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="#409EFF"
     >
-      <sidebar-item :routes="routes"></sidebar-item>
+      <template v-for="item in routes" v-if="!item.hidden&&item.children">
+        <el-menu-item
+          v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
+        :key="item.children[0].name"
+        :index="item.path+'/'+item.children[0].path"
+        >
+          <i v-if="item.children[0].meta&&item.children[0].meta.icon" :class="'fa fa-' + item.children[0].meta.icon"></i>
+          {{item.children[0].meta.title}}
+        </el-menu-item>
+        <el-submenu v-else :index="item.name||item.path" :key="item.name">
+          <template slot="title">
+            <i v-if="item.meta && item.meta.icon" :class="'fa fa-' + item.meta.icon"></i>
+            {{item.meta.title}}
+          </template>
+          <template v-for="child in item.children" v-if="!child.hidden">
+            <sidebar-item :is-nest="true" v-if="child.children&&child.children.length>0" :routes="[child]" :key="child.path"></sidebar-item>
+            <router-link v-else :to="item.path+'/'+child.path" :key="child.name">
+              <el-menu-item :index="item.path+'/'+child.path">
+                <i v-if="child.meta&&child.meta.icon" :class="'fa fa-' + child.meta.icon"></i>
+                <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
+              </el-menu-item>
+            </router-link>
+          </template>
+        </el-submenu>
+      </template>
+
+      <el-submenu :index="'rightInfo'" style="float: right;">
+        <template slot="title">
+          <div class="avatar-wrapper">
+            <span>DBM(Incubator)</span>
+            <i class="el-icon-caret-bottom"></i>
+          </div>
+        </template>
+        <el-menu-item index="/">Home</el-menu-item>
+      </el-submenu>
     </el-menu>
-  </scroll-bar>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SidebarItem from './SidebarItem'
 import ScrollBar from '@/components/ScrollBar'
 
 export default {
-  components: { SidebarItem, ScrollBar },
+  components: { ScrollBar },
   computed: {
     ...mapGetters([
       'sidebar'
     ]),
     routes() {
       return this.$router.options.routes
-    },
-    isCollapse() {
-      return !this.sidebar.opened
+    }
+  },
+  methods: {
+    hasOneShowingChildren(children) {
+      const showingChildren = children.filter(item => {
+        return !item.hidden
+      })
+      if (showingChildren.length === 1) {
+        return true
+      }
+      return false
     }
   }
 }

@@ -3,6 +3,8 @@
   "version": "1.2.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "Dababase Manager Tools",
+  "credits": "EdurtIO",
+  "github": "https://github.com/EdurtIO/incubator-dbm.git",
   "license": "Apache",
   "main": "./dist/electron/main.js",
   "scripts": {

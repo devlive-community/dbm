@@ -31,6 +31,10 @@ function createWindow() {
         label: 'Application',
         submenu: [
           {
+            label: 'About',
+            role: 'about'
+          },
+          {
             label: 'Quit',
             accelerator: 'Command+Q',
             click: function() {
@@ -76,6 +80,21 @@ function createWindow() {
     mainWindow = null
   })
 }
+
+/**
+ * About Application
+ */
+import config from '../../package.json'
+
+app.setAboutPanelOptions({
+  applicationName: config.name,
+  description: config.description,
+  applicationVersion: config.version,
+  version: config.version,
+  credits: config.credits,
+  copyright: config.author,
+  GitHub: config.github
+})
 
 app.on('ready', createWindow)
 

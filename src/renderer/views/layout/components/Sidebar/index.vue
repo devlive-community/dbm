@@ -40,7 +40,9 @@
             <i class="el-icon-caret-bottom"></i>
           </div>
         </template>
-        <el-menu-item index="/">Home</el-menu-item>
+        <el-menu-item index="/">
+          <i class="fa fa-home"></i> Home
+        </el-menu-item>
       </el-submenu>
     </el-menu>
 </template>

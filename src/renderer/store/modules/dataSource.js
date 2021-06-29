@@ -7,4 +7,5 @@ export default class DataSource {
   userName = 'default';
   password = '123456';
   status = false;
+  message = 'Please check whether the version of Clickhouse supports it!';
 }

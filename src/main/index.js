@@ -93,7 +93,7 @@ app.setAboutPanelOptions({
   version: config.version,
   credits: config.credits,
   copyright: config.author,
-  GitHub: config.github
+  website: config.github
 })
 
 app.on('ready', createWindow)

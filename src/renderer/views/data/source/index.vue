@@ -11,6 +11,17 @@
       <el-table-column prop="name" label="Name"></el-table-column>
       <el-table-column prop="host" label="Host"></el-table-column>
       <el-table-column prop="port" label="Port"></el-table-column>
+      <el-table-column prop="status" label="Connection Status">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" placement="top"
+            :content="scope.row.status ? 'The current service is available for query or other operations!' : 'The current service is not available. Please check the configuration or remove it!'" >
+            <el-button type="text">
+              <i :class="'fa fa-' + (scope.row.status ? 'play-circle' : 'stop-circle')"
+                :style="'color: ' + (scope.row.status ? '#67C23A' : '#F56C6C')"></i>
+            </el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column
         fixed="right"
         label="Action"

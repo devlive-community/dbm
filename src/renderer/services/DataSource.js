@@ -1,9 +1,10 @@
 import { checkHealth } from '@/api/query'
-import { stringFormat, getValue } from '@/utils/Utils'
+import { stringFormat, getServerURL, getValue, getLengthGtZore } from '@/utils/Utils'
+import Support from '@/store/Support'
 import DataSource from '@/store/modules/DataSource'
 import Response from '@/store/modules/Response'
 
-const token = 'DataSources'
+const token = Support.DATASOURCE
 
 /**
  * Save data source
@@ -30,6 +31,19 @@ export async function saveDataSource(formBody) {
     response.message = stringFormat('DataSouece <{0}> Save Success!', [formBody.name])
   }
   return response
+}
+
+/**
+ * Update exists data source
+ * @param {*} unique data source unique name
+ * @param {*} dataSource data source info
+ */
+export function updateDataSource(unique, dataSource) {
+  if (getLengthGtZore(unique)) {
+    const dataSources = JSON.parse(localStorage.getItem(token)).filter(item => item.name !== unique)
+    dataSources.push(dataSource)
+    localStorage.setItem(token, JSON.stringify(dataSources))
+  }
 }
 
 /**
@@ -66,7 +80,7 @@ export function getDataSources(name) {
  * @returns response
  */
 export async function getConnection(host, port) {
-  const serverUrl = stringFormat('http://{0}:{1}', [host, port])
+  const serverUrl = getServerURL(host, port, null)
   const result = new Response()
   await checkHealth(serverUrl).then(response => {
     if (response.status === 200) {

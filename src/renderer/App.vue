@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { jobOfCheckHealth } from '@/job/JobDataSource'
+
 export default {
   name: 'App',
   created() {
@@ -12,12 +14,12 @@ export default {
   },
   methods: {
     getData() {
-      console.log(1)
+      jobOfCheckHealth()
     },
     _initialize() {
       return setInterval(() => {
         this.getData()
-      }, 5000)
+      }, 1000 * 60)
     }
   }
 }

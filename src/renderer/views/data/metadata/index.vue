@@ -3,21 +3,12 @@
     <el-row>
       <!-- Server -->
       <i class="fa fa-server"></i>
-      <el-select 
-        v-model="selectServerValue"
-        size="mini"
-        filterable
-        @change="handlerServer()"
-        placeholder="ClickHouse Server">
-        <el-option
-          v-for="item in selectServers"
-          :key="item.name"
-          :label="item.name"
-          :value="item.name">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px; margin-left: 10px;">{{ item.host }}</span>
-        </el-option>
-      </el-select>
+      <data-source-select
+        v-if="getLengthGtZore(selectServers)"
+        :items="selectServers"
+        @getValue="handlerServer"
+        :placeholder="'ClickHouse Server'">
+      </data-source-select>
       <!-- Database -->
       <span v-if="selectDatabases && selectDatabases.length > 0">
         <i class="fa fa-database"></i>
@@ -139,6 +130,7 @@ import AddDatabase from '@/views/components/AddDatabase'
 import DeleteTable from '@/views/components/DeleteTable'
 import ServerStatus from '@/views/components/ServerStatus'
 import DeleteDatabase from '@/views/components/DeleteDatabase'
+import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
@@ -149,7 +141,8 @@ export default {
     AddDatabase,
     DeleteTable,
     ServerStatus,
-    DeleteDatabase
+    DeleteDatabase,
+    DataSourceSelect
   },
   data() {
     return {
@@ -192,7 +185,8 @@ export default {
     _initializeServer() {
       this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
     },
-    handlerServer() {
+    handlerServer(value) {
+      this.selectServerValue = value
       const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
       if (dataSource.length < 1) {
         this.$notify({

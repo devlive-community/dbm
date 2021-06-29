@@ -6,9 +6,10 @@ import { getDataSources, getConnection, updateDataSource } from '@/services/Data
 export async function jobOfCheckHealth() {
   const dataSources = getDataSources(null).columns
   dataSources.forEach(async element => {
-    const response = await getConnection(element.name, element.port)
+    const response = await getConnection(element.host, element.port)
     if (response.status !== element.status) {
       element.status = response.status
+      element.message = response.message
       updateDataSource(element.name, element)
     }
   })

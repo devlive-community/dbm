@@ -1,16 +1,12 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-select v-model="selectValue" size="mini" placeholder="ClickHouse Server">
-        <el-option
-          v-for="item in selectServers"
-          :key="item.name"
-          :label="item.name"
-          :value="item.name">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px; margin-left: 10px;">{{ item.host }}</span>
-        </el-option>
-      </el-select>
+      <data-source-select
+        v-if="getLengthGtZore(selectServers)"
+        :items="selectServers"
+        @getValue="handlerDataSource"
+        :placeholder="'ClickHouse Server'">
+      </data-source-select>
       <el-button v-if="getLengthGtZore(selectServers)" type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
       <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
         <el-button
@@ -78,6 +74,7 @@ import TableDetail from '@/components/Table'
 import QueryQuick from '@/views/components/query/QueryQuick'
 import QueryHistory from '@/views/components/query/QueryHistory'
 import DataSource from '@/views/components/data/datasource/DataSource'
+import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getQuery } from '@/services/Query'
 import { getDataSources } from '@/services/DataSource'
 
@@ -98,7 +95,8 @@ export default {
     TableDetail,
     QueryQuick,
     QueryHistory,
-    DataSource
+    DataSource,
+    DataSourceSelect
   },
   data() {
     return {
@@ -174,6 +172,9 @@ export default {
       this.disabled.cancel = true
       this.disabled.quickQuery = false
       this.executeLoading = false
+    },
+    handlerDataSource(value) {
+      this.selectValue = value
     }
   }
 }

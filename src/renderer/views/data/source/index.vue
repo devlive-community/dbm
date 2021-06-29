@@ -7,9 +7,7 @@
         </el-button>
       </el-tooltip>
     </el-row>
-    <el-table
-      :data="tableDatas"
-      style="width: 100%">
+    <el-table :data="tableDatas" style="width: 100%">
       <el-table-column prop="name" label="Name"></el-table-column>
       <el-table-column prop="host" label="Host"></el-table-column>
       <el-table-column prop="port" label="Port"></el-table-column>
@@ -23,7 +21,11 @@
             <div style="text-align: right; margin: 0">
               <el-button type="primary" size="mini"  @click="handlerDelete(scope.row)">OK?</el-button>
             </div>
-            <el-button type="text" size="small" slot="reference">Delete</el-button>
+            <el-tooltip class="item" effect="dark" content="Delete DataSource?" placement="bottom" slot="reference">
+              <el-button type="text">
+                <i class="fa fa-trash"></i>
+              </el-button>
+            </el-tooltip>
           </el-popover>
         </template>
       </el-table-column>

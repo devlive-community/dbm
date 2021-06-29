@@ -29,7 +29,7 @@
         </el-button>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="Add New DataSource" placement="bottom">
-        <el-button type="primary" size="mini" style="float: right;" @click="disabled.newDataSource = true">
+        <el-button type="primary" size="mini" style="float: right;" :disabled="disabled.quickQuery" @click="disabled.newDataSource = true">
           <i class="fa fa-plus-circle"></i>
         </el-button>
       </el-tooltip>
@@ -66,7 +66,8 @@
     </el-row>
     <query-quick :loading="loading.quickQuery" :width="'70%'" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
     <query-history :loading="disabled.history" :width="'80%'" @close="disabled.history = false"></query-history>
-    <data-source :title="'Add New DataSource'" :loading="disabled.newDataSource"
+    <data-source :title="'Add New DataSource'"
+      :loading="disabled.newDataSource"
       @close="disabled.newDataSource = false"
       @refresh="_initializeServer"></data-source>
   </div>

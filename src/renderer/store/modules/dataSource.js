@@ -6,4 +6,5 @@ export default class DataSource {
   port = 8123;
   userName = 'default';
   password = '123456';
+  status = false;
 }

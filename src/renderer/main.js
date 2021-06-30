@@ -31,6 +31,9 @@ fontawesome.library.add(regular)
 fontawesome.library.add(brands)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+// Support i18n
+import { i18n } from './i18n'
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI, { locale })
@@ -41,5 +44,6 @@ new Vue({
   components: { App },
   router,
   store,
+  i18n,
   template: '<App/>'
 }).$mount('#app')

@@ -11,7 +11,7 @@
     </el-row>
     <table-detail :columns="data.columns" :headers="data.headers" :loading="tableBodyLoading"></table-detail>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="bodyLoading = false" size="mini">Cancel</el-button>
+      <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
     </div>
   </el-dialog>
 </template>

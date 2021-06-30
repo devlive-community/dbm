@@ -32,7 +32,6 @@
           </template>
         </el-submenu>
       </template>
-
       <el-submenu :index="'rightInfo'" style="float: right;">
         <template slot="title">
           <div class="avatar-wrapper">
@@ -41,8 +40,16 @@
           </div>
         </template>
         <el-menu-item index="/">
-          <i class="fa fa-home"></i> Home
+          <i class="fa fa-home"></i> {{ this.$t('router.index') }}
         </el-menu-item>
+      </el-submenu>
+      <!-- i18n -->
+      <el-submenu :index="'rightLang'" style="float: right;">
+        <template slot="title">
+            <i class="fa fa-language"></i>
+        </template>
+        <el-menu-item :index="'#en_US'" @click.native="toggleLang('en_US')" :disabled="$i18n.locale == 'en_US'">English</el-menu-item>
+        <el-menu-item :index="'#zh_CN'" @click.native="toggleLang('zh_CN')" :disabled="$i18n.locale == 'zh_CN'">中文</el-menu-item>
       </el-submenu>
     </el-menu>
 </template>
@@ -70,6 +77,27 @@ export default {
         return true
       }
       return false
+    },
+    toggleLang(lang) {
+      if (lang === 'zh_CN') {
+        localStorage.setItem('locale', 'zh_CN')
+        this.$i18n.locale = localStorage.getItem('locale')
+        this.$message({
+          message: '切换为中文！',
+          type: 'success'
+        })
+      } else if (lang === 'en_US') {
+        localStorage.setItem('locale', 'en_US')
+        this.$i18n.locale = localStorage.getItem('locale')
+        this.$message({
+          message: 'Switch to English!',
+          type: 'success'
+        })
+      }
+      setTimeout(this.reloadPage, 2000)
+    },
+    reloadPage() {
+      window.location.reload()
     }
   }
 }

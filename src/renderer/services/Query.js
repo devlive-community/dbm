@@ -2,6 +2,7 @@ import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
 import QueryHistory from '@/store/modules/QueryHistory'
 import Response from '@/store/modules/Response'
+import i18n from '@/i18n'
 
 /**
  * Get Database or table from remote server
@@ -75,25 +76,33 @@ export async function getQuery(server, query) {
   queryHistory.server = server
   queryHistory.query = query
   queryHistory.startTime = Date.parse(new Date())
-  await runExecute(remoteServer, query).then(response => {
-    if (response.status === 200) {
-      if (response.data) {
-        result.headers = response.data.meta
-        result.columns = response.data.data
-        result.rows = response.data.rows
-        result.statistics = response.data.statistics
-      } else {
-        result.message = 'Operation successful!'
-      }
-      result.status = true
-      queryHistory.status = true
-    }
-  }).catch(response => {
-    result.message = response.data
+  if (dataSource[0].delivery && query.toLowerCase().startsWith('drop') > 0) {
+    const message = i18n.t('prompt.component.warning_drop')
+    result.message = message
     result.status = false
     queryHistory.status = false
-    queryHistory.message = response.data
-  })
+    queryHistory.message = message
+  } else {
+    await runExecute(remoteServer, query).then(response => {
+      if (response.status === 200) {
+        if (response.data) {
+          result.headers = response.data.meta
+          result.columns = response.data.data
+          result.rows = response.data.rows
+          result.statistics = response.data.statistics
+        } else {
+          result.message = 'Operation successful!'
+        }
+        result.status = true
+        queryHistory.status = true
+      }
+    }).catch(response => {
+      result.message = response.data
+      result.status = false
+      queryHistory.status = false
+      queryHistory.message = response.data
+    })
+  }
   queryHistory.endTime = Date.parse(new Date())
   queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime
   saveQuery(queryHistory)

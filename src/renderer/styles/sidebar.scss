@@ -3,7 +3,7 @@
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
-    margin-left: 180px;
+    // margin-left: 180px;
   }
 
   .sidebar-container {
@@ -37,9 +37,9 @@
     .sidebar-container {
       width: 36px !important;
     }
-    .main-container {
-      margin-left: 36px;
-    }
+    // .main-container {
+    //   margin-left: 36px;
+    // }
     .submenu-title-noDropdown {
       padding-left: 10px !important;
       position: relative;

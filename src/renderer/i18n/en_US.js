@@ -8,7 +8,21 @@ export default {
     ok: 'OK',
     quick: 'Quick',
     quick_query: 'Quick Query',
-    test_connection: 'Test Connection'
+    test_connection: 'Test Connection',
+    alias_name: 'Alias Name',
+    name: 'Name',
+    host: 'Host',
+    port: 'Port',
+    username: 'User Name',
+    password: 'Password',
+    beta: 'Beta',
+    setting_connection: 'Connection Setting',
+    advanced_connection: 'Advanced Setting'
+  },
+  prompt: {
+    component: {
+      warning_drop: 'Drop operation is forbidden in data source<br/>If you need to recover, please modify the data source configuration'
+    }
   },
   router: {
     index: 'Home',
@@ -18,6 +32,27 @@ export default {
       metadata: 'Metadata',
       table: {
         detail: 'Table Detail'
+      }
+    }
+  },
+  view: {
+    component: {
+      data: {
+        source: {
+          placeholder: {
+            alias_name: 'Please input alias name',
+            host: 'Please input remote host',
+            port: 'Please enter the port of the remote host'
+          },
+          tooltip: {
+            alias_name: 'This field is only used to mark an alias of the current attribute <br/> which is easy to remember and has no special meaning',
+            host: 'Enter the host name or IP address of the remote server here',
+            port: 'Enter the host address of the remote server here, corresponding to the open port'
+          },
+          title: {
+            warning_drop: 'Prohibit DROP operation (only support query)'
+          }
+        }
       }
     }
   }

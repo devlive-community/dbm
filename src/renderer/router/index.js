@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import i18n from '@/i18n'
 
 Vue.use(Router)
 
@@ -36,13 +37,13 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/example/table',
     name: 'Query',
-    meta: { title: 'Query', icon: 'example' },
+    meta: { title: i18n.t('router.query'), icon: 'example' },
     children: [
       {
         path: 'table',
         name: 'Query',
         component: () => import('@/views/query/index'),
-        meta: { title: 'Query', icon: 'eye' }
+        meta: { title: i18n.t('router.query'), icon: 'eye' }
       }
     ]
   },
@@ -51,26 +52,26 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/data/source',
     name: 'DataSource',
-    meta: { title: 'DataSource', icon: 'adjust' },
+    meta: { title: i18n.t('router.data.source'), icon: 'adjust' },
     children: [
       {
         path: 'source',
         name: 'DataSource',
         component: () => import('@/views/data/source/index'),
-        meta: { title: 'DataSource', icon: 'table' }
+        meta: { title: i18n.t('router.data.source'), icon: 'table' }
       },
       {
         path: 'metadata/:name',
         name: 'Metadata',
         component: () => import('@/views/data/metadata/index'),
-        meta: { title: 'Metadata', icon: 'archive' }
+        meta: { title: i18n.t('router.data.metadata'), icon: 'archive' }
       },
       {
         path: 'detail/:server/:database/:table',
         name: 'Detail',
         hidden: true,
         component: () => import('@/views/data/detail'),
-        meta: { title: 'Table Detail', icon: 'password' }
+        meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
       }
     ]
   },

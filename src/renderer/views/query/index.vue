@@ -7,13 +7,20 @@
         @getValue="handlerDataSource"
         :placeholder="'ClickHouse Server'">
       </data-source-select>
-      <el-button v-if="getLengthGtZore(selectServers)" type="primary" icon="el-icon-edit" size="mini" :loading="executeLoading" @click="handlerExecute()">Execute</el-button>
+      <el-button v-if="getLengthGtZore(selectServers)"
+        type="primary"
+        icon="el-icon-edit"
+        size="mini"
+        :loading="executeLoading"
+        @click="handlerExecute()">
+        {{ this.$t('common.execute') }}
+      </el-button>
       <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
         <el-button
           type="danger"
           size="mini" 
           :disabled="disabled.cancel" 
-          @click="handlerCancel()">Cancel
+          @click="handlerCancel()"> {{ this.$t('common.cancel') }}
         </el-button>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="Only 100 records are recorded and displayed!" placement="bottom">
@@ -37,7 +44,7 @@
         style="float: right;"
         :disabled="disabled.quickQuery" 
         @click="loading.quickQuery = true">
-        Quick Query
+        {{ this.$t('common.quick_query') }}
       </el-button>
     </el-row>
     <el-row v-loading="executeLoading">

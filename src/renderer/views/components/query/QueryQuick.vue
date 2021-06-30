@@ -4,7 +4,7 @@
       <el-col :span="8">
         <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
-            <span><i class="fa fa-server"></i> DataSource</span>
+            <span><i class="fa fa-server"></i> {{ this.$t('common.server') }}</span>
           </div>
           <el-menu>
             <el-menu-item
@@ -24,7 +24,7 @@
       <el-col :span="8">
         <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
-            <span><i class="fa fa-database"></i> Databases</span>
+            <span><i class="fa fa-database"></i> {{ this.$t('common.database') }}</span>
           </div>
           <el-menu>
             <el-menu-item
@@ -40,7 +40,7 @@
       <el-col :span="8">
         <el-card class="box-card" v-loading="cardLoading">
           <div slot="header" class="clearfix">
-            <span><i class="fa fa-table"></i> Tables</span>
+            <span><i class="fa fa-table"></i> {{ this.$t('common.table') }}</span>
           </div>
           <el-menu>
             <el-menu-item
@@ -55,8 +55,8 @@
       </el-col>
     </el-row>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="bodyLoading = false" size="mini">Cancel</el-button>
-      <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql"> Quick
+      <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
+      <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql">  {{ this.$t('common.quick') }}
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="DESCRIBE">DESCRIBE ...</el-dropdown-item>
           <el-dropdown-item command="CREATE_TABLE">SHOW CREATE TABLE ...</el-dropdown-item>

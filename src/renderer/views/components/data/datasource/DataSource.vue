@@ -12,9 +12,9 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button size="mini" :loading="elementLoading.test" type="success" @click="hadnlerTest()">Test Connection</el-button>
-      <el-button size="mini" @click="elementLoading.body = false">Cancel</el-button>
-      <el-button type="primary" size="mini" @click="handlerProcessor()">OK</el-button>
+      <el-button size="mini" :loading="elementLoading.test" type="success" @click="hadnlerTest()">{{ this.$t('common.test_connection') }}</el-button>
+      <el-button size="mini" @click="elementLoading.body = false">{{ this.$t('common.cancel') }}</el-button>
+      <el-button type="primary" size="mini" @click="handlerProcessor()">{{ this.$t('common.ok') }}</el-button>
     </div>
   </el-dialog>
 </template>

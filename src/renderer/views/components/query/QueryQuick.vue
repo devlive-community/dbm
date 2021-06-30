@@ -11,8 +11,12 @@
               v-for="(server, index) in servers" 
               :key="index"
               :index="server.name"
+              :disabled="!server.status"
               @click="handlerShowData(server, 'database')">
-              <span slot="title"> {{server.name}} </span>
+              <el-tooltip slot="title" v-if="!server.status" class="item" effect="dark" :content="server.message" placement="top">
+                <span> {{server.name}} </span>
+              </el-tooltip>
+              <span v-else> {{server.name}} </span>
             </el-menu-item>
           </el-menu>
         </el-card>

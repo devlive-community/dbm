@@ -16,6 +16,12 @@ export default {
     username: 'User Name',
     password: 'Password',
     beta: 'Beta',
+    setting: 'Setting',
+    switch: 'Switch to English!',
+    save: 'Save',
+    basic: 'Basic',
+    network: 'Network',
+    timeout: 'Timeout',
     setting_connection: 'Connection Setting',
     advanced_connection: 'Advanced Setting'
   },
@@ -51,6 +57,16 @@ export default {
           },
           title: {
             warning_drop: 'Prohibit DROP operation (only support query)'
+          }
+        }
+      },
+      setting: {
+        basic: {
+          placeholder: {
+            network: 'Please enter the network connection timeout'
+          },
+          tooltip: {
+            network: 'The timeout of accessing remote server is seconds by default'
           }
         }
       }

@@ -42,6 +42,9 @@
         <el-menu-item index="/">
           <i class="fa fa-home"></i> {{ this.$t('router.index') }}
         </el-menu-item>
+        <el-menu-item index="#Setting" @click.native="loading.setting = true">
+          <i class="fa fa-cogs"></i> {{ this.$t('common.setting') }}
+        </el-menu-item>
       </el-submenu>
       <!-- i18n -->
       <el-submenu :index="'rightLang'" style="float: right;">
@@ -51,21 +54,33 @@
         <el-menu-item :index="'#en_US'" @click.native="toggleLang('en_US')" :disabled="$i18n.locale == 'en_US'">English</el-menu-item>
         <el-menu-item :index="'#zh_CN'" @click.native="toggleLang('zh_CN')" :disabled="$i18n.locale == 'zh_CN'">中文</el-menu-item>
       </el-submenu>
+      <setting :loading="loading.setting" :width="'60%'" @close="loading.setting = false"></setting>
     </el-menu>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import ScrollBar from '@/components/ScrollBar'
+import Setting from '@/views/components/setting/Setting'
 
 export default {
-  components: { ScrollBar },
+  components: {
+    ScrollBar,
+    Setting
+  },
   computed: {
     ...mapGetters([
       'sidebar'
     ]),
     routes() {
       return this.$router.options.routes
+    }
+  },
+  data() {
+    return {
+      loading: {
+        setting: false
+      }
     }
   },
   methods: {
@@ -82,18 +97,14 @@ export default {
       if (lang === 'zh_CN') {
         localStorage.setItem('locale', 'zh_CN')
         this.$i18n.locale = localStorage.getItem('locale')
-        this.$message({
-          message: '切换为中文！',
-          type: 'success'
-        })
       } else if (lang === 'en_US') {
         localStorage.setItem('locale', 'en_US')
         this.$i18n.locale = localStorage.getItem('locale')
-        this.$message({
-          message: 'Switch to English!',
-          type: 'success'
-        })
       }
+      this.$message({
+        message: this.$i18n.t('common.switch'),
+        type: 'success'
+      })
       setTimeout(this.reloadPage, 2000)
     },
     reloadPage() {

@@ -5,7 +5,7 @@ export default {
     table: '数据表',
     execute: '执行',
     cancel: '取消',
-    ok: 'OK',
+    ok: '确认',
     quick: 'Quick',
     quick_query: '快速查询',
     test_connection: '测试连接',
@@ -16,6 +16,12 @@ export default {
     username: '用户名',
     password: '密码',
     beta: '测试版',
+    setting: '设置',
+    switch: '切换为中文！',
+    save: '保存',
+    basic: '基础',
+    network: '网络',
+    timeout: '超时',
     setting_connection: '连接设置',
     advanced_connection: '高级设置'
   },
@@ -51,6 +57,16 @@ export default {
           },
           title: {
             warning_drop: '禁止DROP操作（仅支持查询）'
+          }
+        }
+      },
+      setting: {
+        basic: {
+          placeholder: {
+            network: '请输入网络连接的超时时间'
+          },
+          tooltip: {
+            network: '访问远程服务器超时时间，默认是秒'
           }
         }
       }

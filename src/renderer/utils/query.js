@@ -1,35 +1,66 @@
 import axios from 'axios'
 import { Promise } from 'es6-promise'
 
+import Support from '@/store/Support'
+import { stringFormat } from '@/utils/Utils'
+
+let timeout = 10 * 1000
+const configuration = JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [Support.SETTING, 'Basic'])))
+
+if (configuration) {
+  timeout = configuration.network * 1000
+}
+
 export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
-    axios.post(url, data)
+    axios.post(url, data, { timeout: timeout })
       .then(response => {
         resolve(response)
       }, error => {
-        reject(error.response)
+        if (error.response) {
+          reject(error.response)
+        } else {
+          const result = {
+            data: error.message
+          }
+          reject(result)
+        }
       })
   })
 }
 
 export function get(url) {
   return new Promise((resolve, reject) => {
-    axios.get(url)
+    axios.get(url, { timeout: timeout })
       .then(response => {
         resolve(response)
       }, error => {
-        reject(error.response)
+        if (error.response) {
+          reject(error.response)
+        } else {
+          const result = {
+            data: error.message
+          }
+          reject(result)
+        }
       })
   })
 }
 
 export function patch(url, data = {}) {
   return new Promise((resolve, reject) => {
-    axios.patch(url, data)
+    axios.patch(url, data, { timeout: timeout })
       .then(response => {
         resolve(response.data)
-      }, err => {
-        reject(err.response)
+      }, error => {
+        if (error.response) {
+          reject(error.response)
+        } else {
+          const result = {
+            data: error.message
+          }
+          reject(result)
+        }
       })
   })
 }

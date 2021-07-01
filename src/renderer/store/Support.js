@@ -1,4 +1,5 @@
 const Support = {
-  DATASOURCE: 'DataSources'
+  DATASOURCE: 'DataSources',
+  SETTING: 'Settings'
 }
 export default Support

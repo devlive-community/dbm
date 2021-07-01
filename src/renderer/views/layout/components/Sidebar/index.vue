@@ -15,18 +15,23 @@
         >
           <i v-if="item.children[0].meta&&item.children[0].meta.icon" :class="'fa fa-' + item.children[0].meta.icon"></i>
           {{item.children[0].meta.title}}
+          <el-tag v-if="item.children[0].new" type="danger" size="mini" effect="dark">{{ $t('common.new') }}</el-tag>
         </el-menu-item>
         <el-submenu v-else :index="item.name||item.path" :key="item.name">
           <template slot="title">
             <i v-if="item.meta && item.meta.icon" :class="'fa fa-' + item.meta.icon"></i>
             {{item.meta.title}}
+            <el-tag v-if="item.new" type="danger" size="mini" effect="dark">{{ $t('common.new') }}</el-tag>
           </template>
           <template v-for="child in item.children" v-if="!child.hidden">
             <sidebar-item :is-nest="true" v-if="child.children&&child.children.length>0" :routes="[child]" :key="child.path"></sidebar-item>
             <router-link v-else :to="item.path+'/'+child.path" :key="child.name">
               <el-menu-item :index="item.path+'/'+child.path">
                 <i v-if="child.meta&&child.meta.icon" :class="'fa fa-' + child.meta.icon"></i>
-                <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
+                <span v-if="child.meta&&child.meta.title" slot="title">
+                  {{child.meta.title}} 
+                  <el-tag v-if="item.children[0].new" type="danger" size="mini" effect="dark">{{ $t('common.new') }}</el-tag>
+                </span>
               </el-menu-item>
             </router-link>
           </template>

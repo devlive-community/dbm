@@ -22,8 +22,22 @@ export default {
     basic: '基础',
     network: '网络',
     timeout: '超时',
+    monitor: '监控',
+    new: '新',
+    processor: '进程',
     setting_connection: '连接设置',
-    advanced_connection: '高级设置'
+    advanced_connection: '高级设置',
+    time: '时间',
+    rows: '行数',
+    elapsed: '消耗',
+    bytes: '字节',
+    memoryUsage: '占用内存',
+    bytesRead: '读取字节数',
+    bytesWritten: '写入字节数',
+    hash: 'Hase值',
+    threshold: '阈值',
+    auto: '自动',
+    refresh: '刷新'
   },
   prompt: {
     component: {

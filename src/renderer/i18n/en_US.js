@@ -22,8 +22,22 @@ export default {
     basic: 'Basic',
     network: 'Network',
     timeout: 'Timeout',
+    monitor: 'Monitor',
+    new: 'New',
+    processor: 'Processor',
     setting_connection: 'Connection Setting',
-    advanced_connection: 'Advanced Setting'
+    advanced_connection: 'Advanced Setting',
+    time: 'Time',
+    rows: 'Rows',
+    elapsed: 'Elapsed',
+    bytes: 'Bytes',
+    memoryUsage: 'Memory Usage',
+    bytesRead: 'Bytes Read',
+    bytesWritten: 'Bytes Written',
+    hash: 'Hase',
+    threshold: 'Threshold',
+    auto: 'Auto',
+    refresh: 'Refresh'
   },
   prompt: {
     component: {

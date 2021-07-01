@@ -35,7 +35,6 @@ export const constantRouterMap = [
   {
     path: '/query',
     component: Layout,
-    redirect: '/example/table',
     name: 'Query',
     meta: { title: i18n.t('router.query'), icon: 'example' },
     children: [
@@ -72,6 +71,23 @@ export const constantRouterMap = [
         hidden: true,
         component: () => import('@/views/data/detail'),
         meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
+      }
+    ]
+  },
+  {
+    path: '/monitor',
+    component: Layout,
+    redirect: '/monitor/processor',
+    name: 'Monitor',
+    new: true,
+    meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
+    children: [
+      {
+        path: 'processor',
+        name: 'Processor',
+        new: true,
+        component: () => import('@/views/monitor/processor'),
+        meta: { title: i18n.t('common.processor'), icon: 'bullseye' }
       }
     ]
   },

@@ -34,6 +34,9 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 // Support i18n
 import { i18n } from './i18n'
 
+import HighchartsVue from 'highcharts-vue'
+Vue.use(HighchartsVue)
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI, { locale })

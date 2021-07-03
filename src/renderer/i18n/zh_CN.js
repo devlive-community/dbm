@@ -37,7 +37,8 @@ export default {
     hash: 'Hase值',
     threshold: '阈值',
     auto: '自动',
-    refresh: '刷新'
+    refresh: '刷新',
+    count: '总数'
   },
   prompt: {
     component: {

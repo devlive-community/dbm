@@ -22,6 +22,7 @@
         </el-form-item>
       </el-form>
     </el-row>
+    <highcharts :options="chartOptions"></highcharts>
     <el-table v-if="getLengthGtZore(tableDatas)" :data="tableDatas" style="width: 100%">
       <el-table-column prop="time" :label="this.$t('common.time')"></el-table-column>
       <el-table-column prop="rows" :label="this.$t('common.rows')"></el-table-column>
@@ -40,6 +41,7 @@
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getDataSources } from '@/services/DataSource'
 import { getProcesses } from '@/services/Monitor'
+import { buildArray } from '@/utils/ArrayUtils'
 
 export default {
   components: {
@@ -55,7 +57,20 @@ export default {
         threshold: 2,
         auto: false
       },
-      disabled: true
+      disabled: true,
+      dataCount: [],
+      chartOptions: {
+        title: {
+          text: this.$t('common.processor') + this.$t('common.count')
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: this.$t('common.count'),
+          data: []
+        }]
+      }
     }
   },
   created() {
@@ -77,6 +92,7 @@ export default {
         this.tableDatas = response.columns
       }
       this.disabled = false
+      this.chartOptions.series[0].data = buildArray(this.dataCount, 20, true, this.tableDatas.length)
     },
     handlerAuto() {
       if (this.form.auto) {
@@ -93,6 +109,9 @@ export default {
     if (this.timer) {
       clearInterval(this.timer)
     }
+  },
+  watch: {
+    chartOptions: {}
   }
 }
 </script>

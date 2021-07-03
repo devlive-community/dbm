@@ -37,7 +37,8 @@ export default {
     hash: 'Hase',
     threshold: 'Threshold',
     auto: 'Auto',
-    refresh: 'Refresh'
+    refresh: 'Refresh',
+    count: 'Count'
   },
   prompt: {
     component: {

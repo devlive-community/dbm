@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import i18n from '@/i18n'
 
 Vue.use(Router)
 
@@ -23,26 +24,25 @@ export const constantRouterMap = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
+    redirect: '/index',
+    name: 'Index',
     hidden: true,
     children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
+      path: 'index',
+      component: () => import('@/views/index/index')
     }]
   },
   {
     path: '/query',
     component: Layout,
-    redirect: '/example/table',
     name: 'Query',
-    meta: { title: 'Query', icon: 'example' },
+    meta: { title: i18n.t('router.query'), icon: 'example' },
     children: [
       {
         path: 'table',
         name: 'Query',
         component: () => import('@/views/query/index'),
-        meta: { title: 'Query', icon: 'eye' }
+        meta: { title: i18n.t('router.query'), icon: 'eye' }
       }
     ]
   },
@@ -51,26 +51,43 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/data/source',
     name: 'DataSource',
-    meta: { title: 'DataSource', icon: 'example' },
+    meta: { title: i18n.t('router.data.source'), icon: 'adjust' },
     children: [
       {
         path: 'source',
         name: 'DataSource',
-        component: () => import('@/views/data/source'),
-        meta: { title: 'DataSource', icon: 'table' }
+        component: () => import('@/views/data/source/index'),
+        meta: { title: i18n.t('router.data.source'), icon: 'table' }
       },
       {
         path: 'metadata/:name',
         name: 'Metadata',
         component: () => import('@/views/data/metadata/index'),
-        meta: { title: 'Metadata', icon: 'password' }
+        meta: { title: i18n.t('router.data.metadata'), icon: 'archive' }
       },
       {
         path: 'detail/:server/:database/:table',
         name: 'Detail',
         hidden: true,
         component: () => import('@/views/data/detail'),
-        meta: { title: 'Table Detail', icon: 'password' }
+        meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
+      }
+    ]
+  },
+  {
+    path: '/monitor',
+    component: Layout,
+    redirect: '/monitor/processor',
+    name: 'Monitor',
+    new: true,
+    meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
+    children: [
+      {
+        path: 'processor',
+        name: 'Processor',
+        new: true,
+        component: () => import('@/views/monitor/processor'),
+        meta: { title: i18n.t('common.processor'), icon: 'bullseye' }
       }
     ]
   },

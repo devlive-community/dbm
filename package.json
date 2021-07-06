@@ -1,8 +1,10 @@
 {
   "name": "incubator-dbm",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "1.2.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "Dababase Manager Tools",
+  "credits": "EdurtIO",
+  "github": "https://github.com/EdurtIO/incubator-dbm.git",
   "license": "Apache",
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -62,12 +64,15 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "0.17.1",
     "codemirror": "^5.61.0",
+    "echarts": "^5.1.2",
     "element-ui": "2.3.4",
+    "highcharts-vue": "^1.4.0",
     "js-cookie": "^2.2.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "vue": "2.5.10",
     "vue-electron": "^1.0.6",
+    "vue-i18n": "^8.24.5",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
   },

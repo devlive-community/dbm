@@ -1,3 +1,10 @@
+/**
+ * Format string
+ * <p>stringFormat('format {0}', ['test']) return 'format test'</p>
+ * @param {*} formatted format style
+ * @param {*} args format parmater
+ * @returns formatted string
+ */
 export function stringFormat(formatted, args) {
   for (let i = 0; i < args.length; i++) {
     const regexp = new RegExp('\\{' + i + '\\}', 'gi')
@@ -22,4 +29,58 @@ export function getServerURL(host, port, url) {
     serverUrl = stringFormat('http://{0}', [host])
   }
   return serverUrl
+}
+
+export function getFaIcon(source) {
+  let icon = 'fa fa-adjust'
+  switch (source) {
+    case 'MergeTree':
+    case 'SystemMergeTreeSettings':
+    case 'SystemMerges':
+      icon = 'fa fa-tree'
+      break
+    case 'MaterializedView':
+      icon = 'fa fa-eye'
+      break
+    case 'SystemAggregateFunctionCombinators':
+    case 'SystemBuildOptions':
+      icon = 'fa fa-cog'
+      break
+    case 'SystemAsynchronousMetrics':
+    case 'SystemGraphite':
+    case 'SystemMetrics':
+      icon = 'fa fa-line-chart'
+      break
+    case 'SystemClusters':
+      icon = 'fa fa-cubes'
+      break
+    case 'SystemCurrentRoles':
+    case 'SystemEnabledRoles':
+      icon = 'fa fa-flag'
+      break
+  }
+  return icon
+}
+
+export function getValue(source, defaultValue) {
+  if (source) {
+    return source
+  }
+  return defaultValue
+}
+
+export function getLength(source) {
+  return source.length
+}
+
+export function getLengthGtZore(source) {
+  return getLength(source) > 0
+}
+
+export function getLengthLtZore(source) {
+  return getLength(source) < 0
+}
+
+export function getLengthEqZore(source) {
+  return getLength(source) === 0
 }

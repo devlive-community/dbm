@@ -1,4 +1,4 @@
-import { post, get } from '@/utils/query'
+import { post, get } from '@/utils/Query'
 
 export function runExecute(host, sql) {
   return post(host, sql + '\n FORMAT JSON')

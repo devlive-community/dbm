@@ -3,23 +3,14 @@
     <el-row>
       <!-- Server -->
       <i class="fa fa-server"></i>
-      <el-select 
-        v-model="selectServerValue"
-        size="mini"
-        filterable
-        @change="handlerServer()"
-        placeholder="ClickHouse Server">
-        <el-option
-          v-for="item in selectServers"
-          :key="item.name"
-          :label="item.name"
-          :value="item.name">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px; margin-left: 10px;">{{ item.host }}</span>
-        </el-option>
-      </el-select>
+      <data-source-select
+        v-if="getLengthGtZore(selectServers)"
+        :items="selectServers"
+        @getValue="handlerServer"
+        :placeholder="'ClickHouse Server'">
+      </data-source-select>
       <!-- Database -->
-      <el-span v-if="selectDatabases.length > 0">
+      <span v-if="selectDatabases && selectDatabases.length > 0">
         <i class="fa fa-database"></i>
         <el-select
           v-model="selectDatabaseValue"
@@ -34,8 +25,31 @@
             :value="item.name">
           </el-option>
         </el-select>
-      </el-span>
-      <el-button type="primary" size="mini" @click="handlerAddDatabase">Add DataBase</el-button>
+      </span>
+      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Add DataBase" placement="top">
+        <el-button
+          type="primary"
+          size="mini"
+          icon="el-icon-plus"
+          @click="loading.addDatabase = true">
+        </el-button>
+      </el-tooltip>
+      <el-tooltip v-if="disabled.showButton && selectDatabaseValue" class="item" effect="dark" content="Delete Database" placement="top">
+        <el-button
+          type="danger"
+          size="mini"
+          icon="el-icon-delete"
+          @click="loading.deleteDatabase = true">
+        </el-button>
+      </el-tooltip>
+      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Infomation" placement="top">
+        <el-button
+          type="success"
+          size="mini"
+          icon="el-icon-info"
+          @click="loading.serverStatus = true">
+        </el-button>
+      </el-tooltip>
     </el-row>
     <el-row>
       <el-pagination
@@ -45,7 +59,7 @@
         :total="columns.length"
         background>
       </el-pagination>
-      <el-table v-loading.body="loading"
+      <el-table v-loading.body="loading.tableBody"
         style="width: 100%"
         border
         :data="columns.slice((currentPage - 1) * pagesize, currentPage * pagesize)">
@@ -71,7 +85,7 @@
                 icon="el-icon-more"
                 @click="handlerToDetail(scope.row)"></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Delete Table" placement="top">
+            <el-tooltip v-if="selectDatabaseValue !== 'system'" class="item" effect="dark" content="Delete Table" placement="top">
               <el-button type="text" 
                 size="small" 
                 :loading="buttonLoading"
@@ -83,14 +97,21 @@
       </el-table>
     </el-row>
     <!-- Add Database -->
-    <add-database :loading="addDatabaseLoading" :server="selectServerValue" @close="handlerCloseAddDatabase"></add-database>
-    <!-- Delete Table -->
+    <add-database :loading="loading.addDatabase" :server="selectServerValue" @close="loading.addDatabase = false"></add-database>
+    <server-status :loading="loading.serverStatus" :server="selectServerValue" @close="loading.serverStatus = false"></server-status>
     <delete-table
-      :loading="deleteTableLoading"
+      :loading="loading.deleteTable"
       :server="selectServerValue"
       :database="selectDatabaseValue"
       :table="selectTableValue"
-      @close="handlerCloseDeleteTable"></delete-table>
+      @close="handlerCloseDeleteTable">
+    </delete-table>
+    <delete-database
+      :loading="loading.deleteDatabase"
+      :server="selectServerValue"
+      :database="selectDatabaseValue"
+      @close="handlerCloseDeleteDatabase">
+    </delete-database>
     <!-- DDL -->
     <el-dialog
       :title="tableDDLTitle"
@@ -105,17 +126,23 @@
 
 <script>
 import CodeMirror from '@/components/CodeMirror'
-import AddDatabase from '../components/AddDatabase'
-import DeleteTable from '../components/DeleteTable'
+import AddDatabase from '@/views/components/AddDatabase'
+import DeleteTable from '@/views/components/DeleteTable'
+import ServerStatus from '@/views/components/ServerStatus'
+import DeleteDatabase from '@/views/components/DeleteDatabase'
+import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 
 import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/utils'
+import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
 
 export default {
   components: {
     CodeMirror,
     AddDatabase,
-    DeleteTable
+    DeleteTable,
+    ServerStatus,
+    DeleteDatabase,
+    DataSourceSelect
   },
   data() {
     return {
@@ -129,16 +156,23 @@ export default {
       columns: [],
       rows: null,
       statistics: {},
-      loading: false,
       buttonLoading: false,
-      addDatabaseLoading: false,
       pagesize: 10,
       currentPage: 1,
       tableDDLDialogVisible: false,
       tableDDLTitle: '',
       tableDDL: '',
       tableDetailDialogVisible: false,
-      deleteTableLoading: false
+      disabled: {
+        showButton: false
+      },
+      loading: {
+        tableBody: false,
+        serverStatus: false,
+        addDatabase: false,
+        deleteTable: false,
+        deleteDatabase: false
+      }
     }
   },
   mounted() {
@@ -151,7 +185,8 @@ export default {
     _initializeServer() {
       this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
     },
-    handlerServer() {
+    handlerServer(value) {
+      this.selectServerValue = value
       const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
       if (dataSource.length < 1) {
         this.$notify({
@@ -164,6 +199,7 @@ export default {
         runExecute(this.inputValue, 'SHOW DATABASES').then(response => {
           if (response.status === 200) {
             this.selectDatabases = response.data.data
+            this.disabled.showButton = true
           }
         }).catch(response => {
           this.$notify.error({
@@ -174,7 +210,7 @@ export default {
       }
     },
     handlerDatabase() {
-      this.loading = true
+      this.loading.tableBody = true
       const dataSource = getDataSource(this.selectServerValue)
       this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
       const sql = stringFormat('SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes FROM system.tables WHERE database = \'{0}\'', [this.selectDatabaseValue])
@@ -182,7 +218,7 @@ export default {
         if (response.status === 200) {
           this.headers = response.data.meta
           this.columns = response.data.data
-          this.loading = false
+          this.loading.tableBody = false
         }
       }).catch(response => {
         this.$notify.error({
@@ -230,18 +266,15 @@ export default {
         path: path
       })
     },
-    handlerAddDatabase() {
-      this.addDatabaseLoading = true
-    },
-    handlerCloseAddDatabase() {
-      this.addDatabaseLoading = false
-    },
     handlerDeleteTable(row) {
-      this.deleteTableLoading = true
+      this.loading.deleteTable = true
       this.selectTableValue = row.name
     },
     handlerCloseDeleteTable() {
-      this.deleteTableLoading = false
+      this.loading.deleteTable = false
+    },
+    handlerCloseDeleteDatabase() {
+      this.loading.deleteDatabase = false
     }
   }
 }

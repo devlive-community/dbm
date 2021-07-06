@@ -10,18 +10,32 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import '@/icons' // icon
-
 import fontawesome from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import solid from '@fortawesome/fontawesome-free-solid'
 import regular from '@fortawesome/fontawesome-free-regular'
 import brands from '@fortawesome/fontawesome-free-brands'
 
+import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon } from './utils/Utils'
+Vue.prototype.getLength = getLength
+Vue.prototype.getLengthGtZore = getLengthGtZore
+Vue.prototype.getLengthLtZore = getLengthLtZore
+Vue.prototype.getLengthEqZore = getLengthEqZore
+Vue.prototype.getFaIcon = getFaIcon
+
+import config from '../../package.json'
+Vue.prototype.VERSION = config.version
+
 fontawesome.library.add(solid)
 fontawesome.library.add(regular)
 fontawesome.library.add(brands)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+// Support i18n
+import { i18n } from './i18n'
+
+import HighchartsVue from 'highcharts-vue'
+Vue.use(HighchartsVue)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
@@ -33,5 +47,6 @@ new Vue({
   components: { App },
   router,
   store,
+  i18n,
   template: '<App/>'
 }).$mount('#app')

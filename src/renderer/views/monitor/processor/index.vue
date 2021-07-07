@@ -18,7 +18,7 @@
           <el-switch v-model="form.auto" :disabled="disabled" @change="handlerAuto"></el-switch>
         </el-form-item>
         <el-form-item :label="this.$t('common.threshold')" style="float: right;">
-          <el-input-number v-model="form.threshold" :disabled="disabled" :min="1" :max="10"></el-input-number>
+          <el-input-number v-model="form.threshold" :disabled="form.auto" :min="1" :max="10"></el-input-number>
         </el-form-item>
       </el-form>
     </el-row>
@@ -42,6 +42,7 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import { getDataSources } from '@/services/DataSource'
 import { getProcesses } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
+import { stringFormat } from '@/utils/Utils'
 
 export default {
   components: {
@@ -66,11 +67,17 @@ export default {
         credits: {
           enabled: false
         },
-        series: [{
-          name: this.$t('common.count'),
-          data: []
-        }]
-      }
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        series: []
+      },
+      seriesMap: null
     }
   },
   created() {
@@ -78,6 +85,7 @@ export default {
   },
   methods: {
     _initialize() {
+      this.seriesMap = new Map()
       this.selectServers = getDataSources(null).columns
     },
     async handlerServer(value) {
@@ -92,7 +100,15 @@ export default {
         this.tableDatas = response.columns
       }
       this.disabled = false
-      this.chartOptions.series[0].data = buildArray(this.dataCount, 20, true, this.tableDatas.length)
+      const serie = {
+        name: stringFormat('{0}-({1})', [this.selectServerValue, this.$t('common.count')]),
+        data: buildArray(this.dataCount, 20, true, this.tableDatas.length)
+      }
+      if (this.seriesMap.has(this.selectServerValue)) {
+        this.seriesMap.delete(this.selectServerValue)
+      }
+      this.seriesMap.set(this.selectServerValue, serie)
+      this.chartOptions.series = Array.from(this.seriesMap.values())
     },
     handlerAuto() {
       if (this.form.auto) {

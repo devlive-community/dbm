@@ -33,12 +33,22 @@
       <el-table-column prop="bytesWritten" :label="this.$t('common.bytesWritten')"></el-table-column>
       <el-table-column prop="hash" :label="this.$t('common.hash')"></el-table-column>
       <el-table-column prop="host" :label="this.$t('common.host')"></el-table-column>
+      <el-table-column fixed="right" :label="this.$t('common.action')">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.ddl') }}</div>
+              <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
+            </el-tooltip>
+          </template>
+      </el-table-column>
     </el-table>
+    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
   </div>
 </template>
 
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
+import TableDdl from '@/views/components/table/TableDdl'
 import { getDataSources } from '@/services/DataSource'
 import { getProcesses } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
@@ -46,7 +56,8 @@ import { stringFormat } from '@/utils/Utils'
 
 export default {
   components: {
-    DataSourceSelect
+    DataSourceSelect,
+    TableDdl
   },
   data() {
     return {
@@ -77,7 +88,12 @@ export default {
         },
         series: []
       },
-      seriesMap: null
+      seriesMap: null,
+      ddl: {
+        visible: false,
+        title: '',
+        context: null
+      }
     }
   },
   created() {
@@ -119,6 +135,11 @@ export default {
       } else {
         clearInterval(this.timer)
       }
+    },
+    handlerShowDDL(row) {
+      this.ddl.visible = true
+      this.ddl.title = row.id
+      this.ddl.context = row.query
     }
   },
   beforeDestroy() {

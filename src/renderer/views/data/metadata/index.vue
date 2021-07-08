@@ -71,7 +71,8 @@
           fixed="right"
           label="Action">
           <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="Table DDL" placement="top">
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.ddl') }}</div>
               <el-button type="text" 
                 size="small" 
                 :loading="buttonLoading"
@@ -112,15 +113,7 @@
       :database="selectDatabaseValue"
       @close="handlerCloseDeleteDatabase">
     </delete-database>
-    <!-- DDL -->
-    <el-dialog
-      :title="tableDDLTitle"
-      :visible.sync="tableDDLDialogVisible">
-      <code-mirror :value="tableDDL" :config="{'readOnly': 'nocursor'}"></code-mirror>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="tableDDLDialogVisible = false" size="mini">Close</el-button>
-      </span>
-    </el-dialog>
+    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
   </div>
 </template>
 
@@ -131,6 +124,7 @@ import DeleteTable from '@/views/components/DeleteTable'
 import ServerStatus from '@/views/components/ServerStatus'
 import DeleteDatabase from '@/views/components/DeleteDatabase'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
+import TableDdl from '@/views/components/table/TableDdl'
 
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
@@ -142,7 +136,8 @@ export default {
     DeleteTable,
     ServerStatus,
     DeleteDatabase,
-    DataSourceSelect
+    DataSourceSelect,
+    TableDdl
   },
   data() {
     return {
@@ -159,9 +154,11 @@ export default {
       buttonLoading: false,
       pagesize: 10,
       currentPage: 1,
-      tableDDLDialogVisible: false,
-      tableDDLTitle: '',
-      tableDDL: '',
+      ddl: {
+        visible: false,
+        title: '',
+        context: null
+      },
       tableDetailDialogVisible: false,
       disabled: {
         showButton: false
@@ -253,9 +250,9 @@ export default {
       const sql = stringFormat('SELECT create_table_query FROM system.tables WHERE database = \'{0}\' and name = \'{1}\'', [this.selectDatabaseValue, row.name])
       runExecute(this.inputValue, sql).then(response => {
         if (response.status === 200) {
-          this.tableDDL = response.data.data[0].create_table_query
-          this.tableDDLTitle = row.name + ' DDL'
-          this.tableDDLDialogVisible = true
+          this.ddl.context = response.data.data[0].create_table_query
+          this.ddl.title = row.name + ' ' + this.$t('common.ddl')
+          this.ddl.visible = true
           this.buttonLoading = false
         }
       })

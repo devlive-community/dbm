@@ -38,7 +38,9 @@ export default {
     threshold: 'Threshold',
     auto: 'Auto',
     refresh: 'Refresh',
-    count: 'Count'
+    count: 'Count',
+    action: 'Action',
+    ddl: 'DDL'
   },
   prompt: {
     component: {

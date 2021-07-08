@@ -38,7 +38,9 @@ export default {
     threshold: '阈值',
     auto: '自动',
     refresh: '刷新',
-    count: '总数'
+    count: '总数',
+    action: '操作',
+    ddl: 'DDL'
   },
   prompt: {
     component: {

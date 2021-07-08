@@ -158,3 +158,32 @@ export function getQueryHistory() {
 export function clearQueryHistory() {
   localStorage.removeItem('QueryHistory')
 }
+
+/**
+ * Kill Query
+ * @param {*} server remote server
+ * @param {*} source source id
+ * @param {*} target target id
+ * @returns kill response
+ */
+export async function killQuery(server, source, target) {
+  const dataSource = getDataSource(server)
+  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
+  const result = new Response()
+  if (source !== target) {
+    result.message = i18n.t('alter.contrast_input')
+    result.status = false
+  } else {
+    const sql = stringFormat('KILL QUERY WHERE query_id = \'{0}\'', [source])
+    await runExecute(remoteServer, sql).then(response => {
+      if (response.status === 200) {
+        result.message = stringFormat('{0} {1} {2}', [i18n.t('common.kill'), source, i18n.t('common.success')])
+        result.status = true
+      }
+    }).catch(response => {
+      result.message = response.data
+      result.status = false
+    })
+  }
+  return result
+}

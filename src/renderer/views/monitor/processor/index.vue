@@ -39,16 +39,24 @@
               <div slot="content">{{ $t('common.ddl') }}</div>
               <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
             </el-tooltip>
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.kill') }}</div>
+              <el-button type="text" size="small" @click="handlerKill(scope.row)">
+                <i class="fa fa-stop danger"></i>
+              </el-button>
+            </el-tooltip>
           </template>
       </el-table-column>
     </el-table>
     <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
+    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :server="selectServerValue" @close="kill.visible = false"></query-kill>
   </div>
 </template>
 
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
+import QueryKill from '@/views/components/query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
 import { getProcesses } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
@@ -57,7 +65,8 @@ import { stringFormat } from '@/utils/Utils'
 export default {
   components: {
     DataSourceSelect,
-    TableDdl
+    TableDdl,
+    QueryKill
   },
   data() {
     return {
@@ -93,6 +102,11 @@ export default {
         visible: false,
         title: '',
         context: null
+      },
+      kill: {
+        visible: false,
+        title: null,
+        id: null
       }
     }
   },
@@ -140,6 +154,11 @@ export default {
       this.ddl.visible = true
       this.ddl.title = row.id
       this.ddl.context = row.query
+    },
+    handlerKill(row) {
+      this.kill.title = this.$t('common.kill') + ' ' + row.id
+      this.kill.visible = true
+      this.kill.id = row.id
     }
   },
   beforeDestroy() {

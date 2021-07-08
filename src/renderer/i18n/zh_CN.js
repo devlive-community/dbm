@@ -34,13 +34,18 @@ export default {
     memoryUsage: '占用内存',
     bytesRead: '读取字节数',
     bytesWritten: '写入字节数',
-    hash: 'Hase值',
+    hash: 'Hash值',
     threshold: '阈值',
     auto: '自动',
     refresh: '刷新',
     count: '总数',
     action: '操作',
-    ddl: 'DDL'
+    ddl: 'DDL',
+    kill: '结束',
+    no_callback: '不可回滚',
+    necessary: '必要',
+    success: '成功',
+    error: '失败'
   },
   prompt: {
     component: {
@@ -88,5 +93,12 @@ export default {
         }
       }
     }
+  },
+  alter: {
+    operation: '我们不建议您执行此操作',
+    operation_submit: '如果您要继续后续操作，请在可输入的输入框中输入必要的信息，点击OK或者确认按钮！',
+    result: '此操作产生以下结果:',
+    stop_on_cluster: '这将会停止在集群中的操作',
+    contrast_input: '输入的值和必要值不一致'
   }
 }

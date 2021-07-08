@@ -34,13 +34,18 @@ export default {
     memoryUsage: 'Memory Usage',
     bytesRead: 'Bytes Read',
     bytesWritten: 'Bytes Written',
-    hash: 'Hase',
+    hash: 'Hash',
     threshold: 'Threshold',
     auto: 'Auto',
     refresh: 'Refresh',
     count: 'Count',
     action: 'Action',
-    ddl: 'DDL'
+    ddl: 'DDL',
+    kill: 'Kill',
+    no_callback: 'No rollback',
+    necessary: 'Necessary',
+    success: 'Success',
+    error: 'Error'
   },
   prompt: {
     component: {
@@ -88,5 +93,12 @@ export default {
         }
       }
     }
+  },
+  alter: {
+    operation: 'We do not recommend that you do this',
+    operation_submit: 'If you want to continue the follow-up operation, please input the necessary information in the input box and click OK or confirm!',
+    result: 'This operation produces the following:',
+    stop_on_cluster: 'This will stop the operation in the cluster',
+    contrast_input: 'The value entered does not match the required value'
   }
 }

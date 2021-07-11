@@ -16,12 +16,13 @@ import solid from '@fortawesome/fontawesome-free-solid'
 import regular from '@fortawesome/fontawesome-free-regular'
 import brands from '@fortawesome/fontawesome-free-brands'
 
-import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon } from './utils/Utils'
+import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat } from './utils/Utils'
 Vue.prototype.getLength = getLength
 Vue.prototype.getLengthGtZore = getLengthGtZore
 Vue.prototype.getLengthLtZore = getLengthLtZore
 Vue.prototype.getLengthEqZore = getLengthEqZore
 Vue.prototype.getFaIcon = getFaIcon
+Vue.prototype.stringFormat = stringFormat
 
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version

@@ -45,7 +45,11 @@ export default {
     no_callback: '不可回滚',
     necessary: '必要',
     success: '成功',
-    error: '失败'
+    error: '失败',
+    add: '添加',
+    datasource: '数据源',
+    status: '状态',
+    delete: '删除'
   },
   prompt: {
     component: {
@@ -99,6 +103,9 @@ export default {
     operation_submit: '如果您要继续后续操作，请在可输入的输入框中输入必要的信息，点击OK或者确认按钮！',
     result: '此操作产生以下结果:',
     stop_on_cluster: '这将会停止在集群中的操作',
-    contrast_input: '输入的值和必要值不一致'
+    contrast_input: '输入的值和必要值不一致',
+    are_you_delete: '确定要删除吗?',
+    service_not_available: '当前服务不可用。请检查配置或将其删除!',
+    service_available: '当前服务可用于查询或其他操作!'
   }
 }

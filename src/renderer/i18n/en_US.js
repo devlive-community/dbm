@@ -45,7 +45,11 @@ export default {
     no_callback: 'No rollback',
     necessary: 'Necessary',
     success: 'Success',
-    error: 'Error'
+    error: 'Error',
+    add: 'Add',
+    datasource: 'DataSource',
+    status: 'Status',
+    delete: 'Delete'
   },
   prompt: {
     component: {
@@ -99,6 +103,9 @@ export default {
     operation_submit: 'If you want to continue the follow-up operation, please input the necessary information in the input box and click OK or confirm!',
     result: 'This operation produces the following:',
     stop_on_cluster: 'This will stop the operation in the cluster',
-    contrast_input: 'The value entered does not match the required value'
+    contrast_input: 'The value entered does not match the required value',
+    are_you_delete: 'Are you sure you want to delete?',
+    service_not_available: 'The current service is not available. Please check the configuration or remove it!',
+    service_available: 'The current service is available for query or other operations!'
   }
 }

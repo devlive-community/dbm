@@ -49,7 +49,11 @@ export default {
     add: '添加',
     datasource: '数据源',
     status: '状态',
-    delete: '删除'
+    delete: '删除',
+    query: '查询',
+    history: '历史',
+    clear: '清除',
+    notification: '通知'
   },
   prompt: {
     component: {

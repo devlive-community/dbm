@@ -1,18 +1,15 @@
 <template>
   <el-dialog
-    title="Query History" 
+    :title="stringFormat('{0}{1}', [this.$t('common.query'), this.$t('common.history')])" 
     :visible.sync="bodyLoading"
     :width="width"
     @close="closeDialog">
     <el-row style="margin-top: -10px;">
-      <el-tooltip class="item" effect="dark" content="Clear Query History" placement="top">
+      <el-tooltip class="item" effect="dark" :content="stringFormat('{0}{1}{2}', [$t('common.clear'), $t('common.query'), $t('common.history')])" placement="top">
         <el-button type="danger" icon="el-icon-delete" size="mini" @click="handlerClearHistory()"></el-button>
       </el-tooltip>
     </el-row>
-
-    <el-table v-loading.body="tableBodyLoading"
-      style="width: 100%"
-      :data="data.columns">
+    <el-table v-loading.body="tableBodyLoading" style="width: 100%" :data="data.columns">
       <el-table-column>
         <template slot-scope="scope">
           <el-card :class="'box-card ' + (scope.row.status ? 'success' : 'error')">
@@ -29,7 +26,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <div slot="footer" class="dialog-footer">
       <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
     </div>
@@ -39,6 +35,7 @@
 <script>
 import TableDetail from '@/components/Table'
 import { getQueryHistory, clearQueryHistory } from '@/services/Query'
+import { stringFormat } from '@/utils/Utils'
 
 export default {
   name: 'QueryHistory',
@@ -72,9 +69,9 @@ export default {
     handlerClearHistory() {
       clearQueryHistory()
       this.$notify({
-        title: 'Notification',
+        title: this.$t('common.notification'),
         type: 'success',
-        message: 'Clear Query History successful!'
+        message: stringFormat('{0} {1} {2} {3}!', [this.$t('common.clear'), this.$t('common.query'), this.$t('common.history'), this.$t('common.success')])
       })
       this._initialize()
     },

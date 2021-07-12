@@ -49,7 +49,11 @@ export default {
     add: 'Add',
     datasource: 'DataSource',
     status: 'Status',
-    delete: 'Delete'
+    delete: 'Delete',
+    query: 'Query',
+    history: 'History',
+    clear: 'Clear',
+    notification: 'Notification'
   },
   prompt: {
     component: {

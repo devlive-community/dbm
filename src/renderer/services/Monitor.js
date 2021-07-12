@@ -1,6 +1,4 @@
-import { runExecute } from '@/api/query'
-import { getServerURL, getDataSource } from '@/utils/Utils'
-import Response from '@/store/modules/Response'
+import { getResponse } from '@/services/Common'
 
 /**
  * Get processes from server
@@ -8,9 +6,6 @@ import Response from '@/store/modules/Response'
  * @returns common response
  */
 export async function getProcesses(server) {
-  const dataSource = getDataSource(server)
-  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
-  const result = new Response()
   const querySql = 'SELECT ' +
     'query_id AS id, ' +
     'now() AS time, ' +
@@ -26,14 +21,16 @@ export async function getProcesses(server) {
     'hostName() AS host ' +
     'FROM system.processes ' +
     'WHERE round(elapsed,1) > 0'
-  await runExecute(remoteServer, querySql).then(response => {
-    if (response.status === 200) {
-      result.columns = response.data.data
-      result.status = true
-    }
-  }).catch(response => {
-    result.message = response.data
-    result.status = false
-  })
-  return result
+  return await getResponse(server, querySql)
+}
+
+export async function getConnections(server) {
+  const querySql = 'SELECT ' +
+    'metric, ' +
+    'SUM(value) AS value ' +
+    'FROM system.metrics ' +
+    'WHERE metric LIKE \'%Connection\' ' +
+    'GROUP BY metric ' +
+    'ORDER BY metric DESC'
+  return await getResponse(server, querySql)
 }

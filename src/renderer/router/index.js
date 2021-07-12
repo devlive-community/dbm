@@ -85,9 +85,15 @@ export const constantRouterMap = [
       {
         path: 'processor',
         name: 'Processor',
-        new: true,
         component: () => import('@/views/monitor/processor'),
         meta: { title: i18n.t('common.processor'), icon: 'bullseye' }
+      },
+      {
+        path: 'connection',
+        name: 'Connection',
+        new: true,
+        component: () => import('@/views/monitor/connection'),
+        meta: { title: i18n.t('common.connection'), icon: 'compress' }
       }
     ]
   },

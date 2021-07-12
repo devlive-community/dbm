@@ -53,7 +53,8 @@ export default {
     query: '查询',
     history: '历史',
     clear: '清除',
-    notification: '通知'
+    notification: '通知',
+    connection: '连接'
   },
   prompt: {
     component: {

@@ -53,7 +53,8 @@ export default {
     query: 'Query',
     history: 'History',
     clear: 'Clear',
-    notification: 'Notification'
+    notification: 'Notification',
+    connection: 'Connection'
   },
   prompt: {
     component: {

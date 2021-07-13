@@ -11,6 +11,7 @@
         type="primary"
         icon="el-icon-edit"
         size="mini"
+        :disabled="!selectValue"
         :loading="executeLoading"
         @click="handlerExecute()">
         {{ this.$t('common.execute') }}

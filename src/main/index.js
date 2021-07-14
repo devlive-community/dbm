@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, globalShortcut } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -21,7 +21,12 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000,
-    webPreferences: { webSecurity: false }
+    webPreferences: {
+      webSecurity: false,
+      nodeIntegration: true,
+      // uncaught referenceerror module is not defined see https://stackoverflow.com/questions/66506331/electron-nodeintegration-not-working-also-general-weird-electron-behavior
+      contextIsolation: false
+    }
   })
 
   // Support copy and paste on mac
@@ -96,7 +101,16 @@ app.setAboutPanelOptions({
   website: config.github
 })
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  if (mainWindow == null) {
+    createWindow()
+  }
+  // Turn on debug mode
+  globalShortcut.register('CommandOrControl+Shift+L', () => {
+    const focusWin = BrowserWindow.getFocusedWindow()
+    focusWin && focusWin.toggleDevTools()
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

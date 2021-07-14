@@ -1,3 +1,6 @@
+import { isNotEmpty } from '@/utils/StringUtils'
+import Authentication from '@/store/modules/Authentication'
+
 /**
  * Format string
  * <p>stringFormat('format {0}', ['test']) return 'format test'</p>
@@ -70,7 +73,10 @@ export function getValue(source, defaultValue) {
 }
 
 export function getLength(source) {
-  return source.length
+  if (source !== undefined && source !== null) {
+    return source.length
+  }
+  return 0
 }
 
 export function getLengthGtZore(source) {
@@ -83,4 +89,35 @@ export function getLengthLtZore(source) {
 
 export function getLengthEqZore(source) {
   return getLength(source) === 0
+}
+
+export function formatAuthentication(host, port, username, password, server) {
+  const authentication = new Authentication()
+  if (isNotEmpty(host)) {
+    authentication.host = host
+  }
+  if (isNotEmpty(port)) {
+    authentication.port = port
+  }
+  if (isNotEmpty(username)) {
+    authentication.username = username
+  }
+  if (isNotEmpty(password)) {
+    authentication.password = password
+  }
+  if (isNotEmpty(server)) {
+    authentication.server = server
+  }
+  return authentication
+}
+
+export function formatRemoteUrl(configuration) {
+  let remoteUrl = null
+  const hasAuthentication = (isNotEmpty(configuration.username) && isNotEmpty(configuration.password))
+  if (hasAuthentication) {
+    remoteUrl = stringFormat('http://{0}:{1}/?user={2}&password={3}', [configuration.host, configuration.port, configuration.username, configuration.password])
+  } else {
+    remoteUrl = stringFormat('http://{0}:{1}', [configuration.host, configuration.port])
+  }
+  return remoteUrl
 }

@@ -155,13 +155,13 @@ export default {
       const response = await getQuery(this.selectValue, this.editor.getValue())
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
+          title: this.$t('common.success'),
           message: response.message
         })
       } else {
         if (response.message) {
           this.$notify({
-            title: 'Notification',
+            title: this.$t('common.notification'),
             type: 'success',
             message: 'Operation successful!'
           })

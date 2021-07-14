@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="Delete Table" 
+    :title="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])" 
     :visible.sync="bodyLoading"
     @close="closeDialog">
     <em>We don't recommend that you delete the data table <el-tag type="info" size="mini">{{deleteTable}}</el-tag>? This operation produces the following?</em>
@@ -10,15 +10,15 @@
       <li>If you want to confirm the deletion, enter the table name in the <el-input v-model="inputDeleteTable" size="mini"></el-input> and click the delete button below</li>
     </ol>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="bodyLoading = false" size="mini">Cancel</el-button>
-      <el-button type="danger" size="mini" @click="handlerDeleteTable" :loading="buttonLoading">Delete</el-button>
+      <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
+      <el-button type="danger" size="mini" @click="handlerDeleteTable" :loading="buttonLoading"> {{ this.$t('common.delete') }}</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
+import { deleteTable } from '@/services/Table'
+import { stringFormat } from '@/utils/Utils'
 
 export default {
   name: 'DeleteTable',
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    handlerDeleteTable() {
+    async handlerDeleteTable() {
       this.buttonLoading = true
       if (this.remoteServer === null) {
         this.$notify.error({
@@ -74,23 +74,19 @@ export default {
         this.buttonLoading = false
         return
       }
-      const dataSource = getDataSource(this.remoteServer)
-      const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
-      const sql = stringFormat('DROP TABLE {0}.{1}', [this.remoteDatabase, this.deleteTable])
-      runExecute(remoteServer, sql).then(response => {
-        if (response.status === 200) {
-          this.$notify.success({
-            title: 'Success',
-            message: stringFormat('Delete Table <{0}> On Database <{1}> successful!', [this.deleteTable, this.remoteDatabase])
-          })
-        }
-        this.closeDialog()
-      }).catch(response => {
+      const response = await deleteTable(this.remoteServer, this.remoteDatabase, this.inputDeleteTable)
+      if (!response.status) {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
+      } else {
+        this.$notify.success({
+          title: this.$t('common.success'),
+          message: response.message
+        })
+        this.closeDialog()
+      }
       this.buttonLoading = false
     },
     closeDialog() {

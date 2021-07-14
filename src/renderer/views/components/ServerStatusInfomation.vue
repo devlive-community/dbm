@@ -4,8 +4,7 @@
 
 <script>
 import TableDetail from '@/components/Table'
-import { runExecute } from '@/api/query'
-import { getDataSource, getServerURL } from '@/utils/Utils'
+import { getInfo } from '@/services/Server'
 
 export default {
   name: 'ServerStatusInfomation',
@@ -34,21 +33,17 @@ export default {
     }
   },
   methods: {
-    _initialize() {
-      const dataSource = getDataSource(this.server)
-      const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
-      const sql = 'SELECT * FROM system.build_options'
-      runExecute(remoteServer, sql).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-        }
-      }).catch(response => {
+    async _initialize() {
+      const response = await getInfo(this.server)
+      if (response.status) {
+        this.headers = response.headers
+        this.columns = response.columns
+      } else {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
+      }
     },
     closeDialog() {
       this.$emit('close')

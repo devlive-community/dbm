@@ -1,5 +1,5 @@
-import { checkHealth } from '@/api/query'
-import { stringFormat, getServerURL, getValue, getLengthGtZore } from '@/utils/Utils'
+import { stringFormat, getValue, getLengthGtZore, formatAuthentication } from '@/utils/Utils'
+import { getAuthenticationResponse } from '@/services/Common'
 import Support from '@/store/Support'
 import DataSource from '@/store/modules/DataSource'
 import Response from '@/store/modules/Response'
@@ -23,7 +23,7 @@ export async function saveDataSource(formBody) {
     dataSource.name = getValue(formBody.name, dataSource.name)
     dataSource.host = getValue(formBody.host, dataSource.host)
     dataSource.port = getValue(formBody.port, dataSource.port)
-    dataSource.userName = getValue(formBody.userName, dataSource.userName)
+    dataSource.username = getValue(formBody.username, dataSource.username)
     dataSource.password = getValue(formBody.password, dataSource.password)
     dataSource.delivery = getValue(formBody.delivery, dataSource.delivery)
     dataSources.push(dataSource)
@@ -80,26 +80,8 @@ export function getDataSources(name) {
  * @param {*} port remote port
  * @returns response
  */
-export async function getConnection(host, port) {
-  const serverUrl = getServerURL(host, port, null)
-  const result = new Response()
-  await checkHealth(serverUrl).then(response => {
-    if (response.status === 200) {
-      if (response.data.indexOf('Ok') !== -1) {
-        result.status = true
-        result.message = stringFormat('ClickHouse Server <{0}> connection successful!', [host])
-      } else {
-        result.status = false
-        result.message = 'Please check whether the version of Clickhouse supports it!'
-      }
-    }
-  }).catch(response => {
-    if (response) {
-      response.message = response.data
-    } else {
-      result.message = 'Please check whether the version of Clickhouse supports it!'
-    }
-    result.status = false
-  })
-  return result
+export async function getConnection(host, port, username, password) {
+  const authentication = formatAuthentication(host, port, username, password)
+  const querySql = 'SELECT 1'
+  return await getAuthenticationResponse(authentication, querySql)
 }

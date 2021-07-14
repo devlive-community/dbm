@@ -1,4 +1,4 @@
-import { getResponse } from '@/services/Common'
+import { getQuery } from '@/services/Metadata'
 
 /**
  * Get processes from server
@@ -21,7 +21,7 @@ export async function getProcesses(server) {
     'hostName() AS host ' +
     'FROM system.processes ' +
     'WHERE round(elapsed,1) > 0'
-  return await getResponse(server, querySql)
+  return await getQuery(server, querySql)
 }
 
 export async function getConnections(server) {
@@ -32,5 +32,5 @@ export async function getConnections(server) {
     'WHERE metric LIKE \'%Connection\' ' +
     'GROUP BY metric ' +
     'ORDER BY metric DESC'
-  return await getResponse(server, querySql)
+  return await getQuery(server, querySql)
 }

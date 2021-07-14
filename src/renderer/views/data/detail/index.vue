@@ -106,8 +106,7 @@
 </template>
 
 <script>
-import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
+import { getTableInfo, getTableColumns, getTablePreview } from '@/services/Table'
 
 export default {
   data() {
@@ -129,23 +128,19 @@ export default {
     this._initialize()
   },
   methods: {
-    _initialize() {
+    async _initialize() {
       this.loading = true
       this.common = this.$route.params
-      const dataSource = getDataSource(this.common.server)
-      this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
-      const sql = stringFormat('SELECT database, name, uuid, engine, is_temporary, data_paths, metadata_path, metadata_modification_time, dependencies_database, dependencies_table, create_table_query, engine_full, partition_key, sorting_key, primary_key, sampling_key, storage_policy, total_rows, total_bytes, lifetime_rows, lifetime_bytes FROM system.tables WHERE database = \'{0}\' AND name = \'{1}\'', [this.common.database, this.common.table])
-      runExecute(this.inputValue, sql).then(response => {
-        if (response.status === 200) {
-          this.tableInfo = response.data.data[0]
-          this.loading = false
-        }
-      }).catch(response => {
+      const response = await getTableInfo(this.common.server, this.common.database, this.common.table)
+      if (response.status) {
+        this.tableInfo = response.columns[0]
+        this.loading = false
+      } else {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
+      }
       this.handlerTabClick()
     },
     handlerRefresh() {
@@ -160,33 +155,29 @@ export default {
       }
       this.tableLoading = false
     },
-    handlerDataForColumns() {
-      const columnsSql = stringFormat('SELECT name, type, position, default_kind, default_expression, data_compressed_bytes, data_uncompressed_bytes, marks_bytes, comment, is_in_partition_key, is_in_sorting_key, is_in_primary_key, is_in_sampling_key, compression_codec FROM system.columns WHERE database = \'{0}\' AND table = \'{1}\'', [this.common.database, this.common.table])
-      runExecute(this.inputValue, columnsSql).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-        }
-      }).catch(response => {
+    async handlerDataForColumns() {
+      const response = await getTableColumns(this.common.server, this.common.database, this.common.table)
+      if (response.status) {
+        this.headers = response.headers
+        this.columns = response.columns
+      } else {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
+      }
     },
-    handlerDataForPreview() {
-      const previewSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 10', [this.common.database, this.common.table])
-      runExecute(this.inputValue, previewSql).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-        }
-      }).catch(response => {
+    async handlerDataForPreview() {
+      const response = await getTablePreview(this.common.server, this.common.database, this.common.table)
+      if (response.status) {
+        this.headers = response.headers
+        this.columns = response.columns
+      } else {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
+      }
     }
   }
 }

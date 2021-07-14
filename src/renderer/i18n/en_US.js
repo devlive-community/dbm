@@ -79,7 +79,9 @@ export default {
           placeholder: {
             alias_name: 'Please input alias name',
             host: 'Please input remote host',
-            port: 'Please enter the port of the remote host'
+            port: 'Please enter the port of the remote host',
+            username: 'Please enter the username',
+            password: 'Please enter the password'
           },
           tooltip: {
             alias_name: 'This field is only used to mark an alias of the current attribute <br/> which is easy to remember and has no special meaning',

@@ -115,16 +115,16 @@ export default {
         if (response.status) {
           switch (type) {
             case 'database':
-              this.databases = response.data
+              this.databases = response.columns
               break
             case 'table':
               this.remoteDatabase = source
-              this.tables = response.data
+              this.tables = response.columns
               break
           }
         } else {
           this.$notify.error({
-            title: 'Error',
+            title: this.$t('common.error'),
             message: response.message
           })
         }

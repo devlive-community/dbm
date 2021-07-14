@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="Delete Database" 
+    :title="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])" 
     :visible.sync="bodyLoading"
     @close="closeDialog">
     <em>We don't recommend that you delete the database <el-tag type="info" size="mini">{{deleteValue}}</el-tag>? This operation produces the following?</em>
@@ -10,15 +10,15 @@
       <li>If you want to confirm the deletion, enter the table name in the <el-input v-model="inputDeleteValue" size="mini"></el-input> and click the delete button below</li>
     </ol>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="bodyLoading = false" size="mini">Cancel</el-button>
-      <el-button type="danger" size="mini" @click="handlerDelete" :loading="buttonLoading">Delete</el-button>
+      <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
+      <el-button type="danger" size="mini" @click="handlerDelete" :loading="buttonLoading">{{ this.$t('common.delete') }}</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 import { stringFormat } from '@/utils/Utils'
-import { deleteDatabase } from '@/api/metadata/Database'
+import { deleteDatabase } from '@/services/DataBase'
 
 export default {
   name: 'DeleteDatabase',
@@ -64,12 +64,12 @@ export default {
       const response = await deleteDatabase(this.remoteServer, this.inputDeleteValue)
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
+          title: this.$t('common.error'),
           message: response.message
         })
       } else {
         this.$notify.success({
-          title: 'Success',
+          title: this.$t('common.success'),
           message: response.message
         })
       }

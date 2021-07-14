@@ -41,6 +41,20 @@
             </el-input>
           </el-tooltip>
         </el-form-item>
+        <el-form-item :label="this.$t('common.username')" :label-width="formLabelWidth">
+          <el-input
+            :placeholder="this.$t('view.component.data.source.placeholder.username')"
+            v-model="form.username">
+            <i slot="prefix" class="fa fa-recycle"></i>
+          </el-input>
+        </el-form-item>
+        <el-form-item :label="this.$t('common.password')" :label-width="formLabelWidth">
+          <el-input
+            :placeholder="this.$t('view.component.data.source.placeholder.password')"
+            v-model="form.password">
+            <i slot="prefix" class="fa fa-recycle"></i>
+          </el-input>
+        </el-form-item>
       </el-card>
       <el-card class="box-card" shadow="never">
         <div slot="header" class="clearfix" style="padding: -1px;">
@@ -88,7 +102,7 @@ export default {
         name: '',
         host: '',
         port: '',
-        userName: '',
+        username: '',
         password: '',
         delivery: false
       },
@@ -104,12 +118,12 @@ export default {
       const response = await saveDataSource(this.form)
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
+          title: this.$t('common.error'),
           message: response.message
         })
       } else {
         this.$notify.success({
-          title: 'Success',
+          title: this.$t('common.success'),
           message: response.message
         })
         this.closeDialog()
@@ -118,16 +132,16 @@ export default {
     },
     async hadnlerTest() {
       this.elementLoading.test = true
-      const response = await getConnection(this.form.host, this.form.port)
+      const response = await getConnection(this.form.host, this.form.port, this.form.username, this.form.password)
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
-          message: response.message
+          title: this.$t('common.error'),
+          message: this.$t('common.error')
         })
       } else {
         this.$notify.success({
-          title: 'Success',
-          message: response.message
+          title: this.$t('common.success'),
+          message: this.$t('common.success')
         })
       }
       this.elementLoading.test = false

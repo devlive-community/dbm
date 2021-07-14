@@ -69,7 +69,7 @@ export const constantRouterMap = [
         path: 'detail/:server/:database/:table',
         name: 'Detail',
         hidden: true,
-        component: () => import('@/views/data/detail'),
+        component: () => import('@/views/data/detail/index'),
         meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
       }
     ]

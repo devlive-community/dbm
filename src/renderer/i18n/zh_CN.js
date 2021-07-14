@@ -79,7 +79,9 @@ export default {
           placeholder: {
             alias_name: '请输入别名',
             host: '请输入远程主机',
-            port: '请输入远程主机的端口'
+            port: '请输入远程主机的端口',
+            username: '请输入远程主机的用户名',
+            password: '请输入远程主机的用户密码'
           },
           tooltip: {
             alias_name: '此字段仅用于标记当前属性的别名<br/>该属性易于记忆，没有特殊意义',

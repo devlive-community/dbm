@@ -55,7 +55,8 @@ export default {
     clear: 'Clear',
     notification: 'Notification',
     connection: 'Connection',
-    copy: 'Copy'
+    copy: 'Copy',
+    format: 'Format'
   },
   prompt: {
     component: {

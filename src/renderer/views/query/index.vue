@@ -54,7 +54,7 @@
       </el-button>
     </el-row>
     <el-row v-loading="executeLoading">
-      <textarea ref='mycode' class='codesql' v-model='code'></textarea>
+      <codemirror v-model="code" class='codesql' />
     </el-row>
     <el-row v-if="data.statistics" v-loading="executeLoading">
       <el-tag size="mini">
@@ -91,19 +91,8 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import { getQuery } from '@/services/Query'
 import { getDataSources } from '@/services/DataSource'
 
-import 'codemirror/theme/ambiance.css'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/hint/show-hint.css'
-
-const CodeMirror = require('codemirror/lib/codemirror')
-require('codemirror/addon/edit/matchbrackets')
-require('codemirror/addon/selection/active-line')
-require('codemirror/mode/sql/sql')
-require('codemirror/addon/hint/show-hint')
-require('codemirror/addon/hint/sql-hint')
-
 export default {
-  name: 'codeMirror',
+  name: 'Query',
   components: {
     TableDetail,
     QueryQuick,
@@ -137,17 +126,6 @@ export default {
   },
   methods: {
     _initialize() {
-      const mime = 'text/x-mariadb'
-      this.editor = CodeMirror.fromTextArea(this.$refs.mycode, {
-        mode: mime,
-        indentWithTabs: true,
-        smartIndent: true,
-        lineNumbers: true,
-        matchBrackets: true,
-        extraKeys: {
-          'Ctrl': 'autocompconste'
-        }
-      })
       this._initializeServer()
     },
     _initializeServer() {
@@ -157,7 +135,7 @@ export default {
       this.executeLoading = true
       this.disabled.cancel = false
       this.disabled.quickQuery = true
-      const response = await getQuery(this.selectValue, this.editor.getValue())
+      const response = await getQuery(this.selectValue, this.code)
       if (!response.status) {
         this.$notify.error({
           title: this.$t('common.success'),
@@ -179,7 +157,7 @@ export default {
       this.disabled.cancel = true
     },
     handlerGetQuickSql(value) {
-      this.editor.setValue(value)
+      this.code = value
     },
     handlerCancel() {
       this.disabled.cancel = true
@@ -190,7 +168,7 @@ export default {
       this.selectValue = value
     },
     handlerFormat() {
-      this.editor.setValue(this.sqlFormatter(this.editor.getValue()))
+      this.code = this.sqlFormatter(this.code)
     }
   }
 }

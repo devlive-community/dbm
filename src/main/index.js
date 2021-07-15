@@ -4,7 +4,11 @@ import { app, BrowserWindow, Menu, globalShortcut } from 'electron'
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
-if (process.env.NODE_ENV !== 'development') {
+
+const platform = process.platform
+const env = process.env.NODE_ENV
+
+if (env !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
@@ -31,7 +35,6 @@ function createWindow() {
     }
   })
 
-  const platform = process.platform
   // Support copy and paste on mac
   if (platform === 'darwin') {
     const template = [
@@ -78,9 +81,13 @@ function createWindow() {
       }
     ]
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-    app.dock.setIcon(path.join(__dirname, 'assets/images/', platform, '/logo.png'))
   } else {
     Menu.setApplicationMenu(null)
+  }
+
+  // Support developer mode application icon display
+  if (env === 'development') {
+    app.dock.setIcon(path.join(__dirname, 'assets/images/', platform, '/logo.png'))
   }
 
   mainWindow.loadURL(winURL)

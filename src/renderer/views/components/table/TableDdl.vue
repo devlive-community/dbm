@@ -1,6 +1,6 @@
 <template>
   <el-dialog :title="body.title"  :visible.sync="body.show" :width="width" @close="closeDialog">
-    <code-mirror :value="body.ddl" :config="{'readOnly': 'nocursor'}"></code-mirror>
+    <codemirror v-model="body.ddl" />
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="body.show = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
     </span>
@@ -8,12 +8,9 @@
 </template>
 
 <script>
-import CodeMirror from '@/components/CodeMirror'
-
 export default {
   name: 'TableDdl',
   components: {
-    CodeMirror
   },
   props: {
     loading: {
@@ -64,7 +61,7 @@ export default {
     },
     ddl: {
       handler() {
-        this.body.ddl = this.ddl
+        this.body.ddl = this.sqlFormatter(this.ddl)
       }
     }
   }

@@ -54,7 +54,8 @@ export default {
     history: '历史',
     clear: '清除',
     notification: '通知',
-    connection: '连接'
+    connection: '连接',
+    copy: '复制'
   },
   prompt: {
     component: {

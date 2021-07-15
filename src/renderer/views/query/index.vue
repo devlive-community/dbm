@@ -16,6 +16,11 @@
         @click="handlerExecute()">
         {{ this.$t('common.execute') }}
       </el-button>
+      <el-tooltip class="item" effect="dark" :content="this.$t('common.format')" placement="bottom">
+        <el-button plain type="primary" size="mini" @click="handlerFormat()">
+          <i class="fa fa-code"></i>
+        </el-button>
+      </el-tooltip>
       <el-tooltip class="item" effect="dark" content="Actual execution process will not be cancelled!" placement="bottom">
         <el-button
           type="danger"
@@ -183,6 +188,9 @@ export default {
     },
     handlerDataSource(value) {
       this.selectValue = value
+    },
+    handlerFormat() {
+      this.editor.setValue(this.sqlFormatter(this.editor.getValue()))
     }
   }
 }

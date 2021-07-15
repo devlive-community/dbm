@@ -55,7 +55,8 @@ export default {
     clear: '清除',
     notification: '通知',
     connection: '连接',
-    copy: '复制'
+    copy: '复制',
+    format: '格式化'
   },
   prompt: {
     component: {

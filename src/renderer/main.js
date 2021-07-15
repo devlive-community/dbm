@@ -60,6 +60,10 @@ Vue.prototype.onError = function() {
   })
 }
 
+// Support sqlFormatter
+import { format } from 'sql-formatter'
+Vue.prototype.sqlFormatter = format
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI, { locale })

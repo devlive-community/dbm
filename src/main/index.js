@@ -13,6 +13,8 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+const path = require('path')
+
 function createWindow() {
   /**
    * Initial window options
@@ -29,8 +31,9 @@ function createWindow() {
     }
   })
 
+  const platform = process.platform
   // Support copy and paste on mac
-  if (process.platform === 'darwin') {
+  if (platform === 'darwin') {
     const template = [
       {
         label: 'Application',
@@ -75,6 +78,7 @@ function createWindow() {
       }
     ]
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+    app.dock.setIcon(path.join(__dirname, 'assets/images/', platform, '/logo.png'))
   } else {
     Menu.setApplicationMenu(null)
   }

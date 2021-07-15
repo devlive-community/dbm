@@ -4,21 +4,26 @@
     :visible.sync="bodyLoading"
     :width="width"
     @close="closeDialog">
-    <el-row style="margin-top: -10px;">
-      <el-tooltip class="item" effect="dark" :content="stringFormat('{0}{1}{2}', [$t('common.clear'), $t('common.query'), $t('common.history')])" placement="top">
-        <el-button type="danger" icon="el-icon-delete" size="mini" @click="handlerClearHistory()"></el-button>
-      </el-tooltip>
-    </el-row>
     <el-table v-loading.body="tableBodyLoading" style="width: 100%" :data="data.columns">
       <el-table-column>
+        <template slot="header">
+          <el-tooltip class="item" effect="dark" :content="stringFormat('{0}{1}{2}', [$t('common.clear'), $t('common.query'), $t('common.history')])" placement="top">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handlerClearHistory()"></el-button>
+          </el-tooltip>
+        </template>
         <template slot-scope="scope">
           <el-card :class="'box-card ' + (scope.row.status ? 'success' : 'error')">
             <div slot="header" class="clearfix">
-              <i
-                :class="'fa fa-' + (scope.row.status ? 'check-circle' : 'exclamation-circle')"
-                :style="'color: ' + (scope.row.status ? '#67C23A' : '#F56C6C') + ';'">
-              </i>
-              <span>{{ scope.row.startTime }}</span>
+              <el-button type="text" disabled>
+                <i
+                  :class="'fa fa-' + (scope.row.status ? 'check-circle' : 'exclamation-circle')"
+                  :style="'color: ' + (scope.row.status ? '#67C23A' : '#F56C6C') + ';'">
+                </i>
+                <span>{{ scope.row.startTime }}</span>
+              </el-button>
+              <el-button type="text" style="float: right;" v-clipboard:copy="scope.row.query" v-clipboard:success="onCopy" v-clipboard:error="onError">
+                <i class="fa fa-copy"></i>
+              </el-button>
             </div>
             {{ scope.row.query }}
             <p v-if="!scope.row.status"> {{ scope.row.message }}</p>

@@ -54,7 +54,8 @@ export default {
     history: 'History',
     clear: 'Clear',
     notification: 'Notification',
-    connection: 'Connection'
+    connection: 'Connection',
+    copy: 'Copy'
   },
   prompt: {
     component: {

@@ -64,6 +64,23 @@ Vue.prototype.onError = function() {
 import { format } from 'sql-formatter'
 Vue.prototype.sqlFormatter = format
 
+// Support CodeMirror
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/mode/sql/sql'
+import 'codemirror/addon/edit/matchbrackets'
+import 'codemirror/addon/selection/active-line'
+import 'codemirror/addon/hint/show-hint'
+import 'codemirror/addon/hint/sql-hint'
+import VueCodemirror from 'vue-codemirror'
+Vue.use(VueCodemirror, {
+  options: {
+    styleActiveLine: true,
+    lineNumbers: true,
+    line: true,
+    mode: 'text/x-mariadb'
+  }
+})
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI, { locale })

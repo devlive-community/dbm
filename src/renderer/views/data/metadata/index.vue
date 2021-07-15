@@ -118,7 +118,6 @@
 </template>
 
 <script>
-import CodeMirror from '@/components/CodeMirror'
 import AddDatabase from '@/views/components/database/DatabaseAdd'
 import DeleteDatabase from '@/views/components/database/DatabaseDelete'
 import DeleteTable from '@/views/components/table/TableDelete'
@@ -131,7 +130,6 @@ import { stringFormat } from '@/utils/Utils'
 
 export default {
   components: {
-    CodeMirror,
     AddDatabase,
     DeleteTable,
     ServerStatus,

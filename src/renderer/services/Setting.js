@@ -20,5 +20,5 @@ export async function bufferSetting(formBody, key) {
  * @returns configuration
  */
 export async function getSetting(key) {
-  return JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [token, key])))
+  return await JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [token, key])))
 }

@@ -56,7 +56,13 @@ export default {
     notification: '通知',
     connection: '连接',
     copy: '复制',
-    format: '格式化'
+    format: '格式化',
+    editor: '编辑器',
+    theme: '主题',
+    activeLine: '高亮激活行',
+    yes: '是',
+    no: '否',
+    showLine: '显示行'
   },
   prompt: {
     component: {
@@ -115,6 +121,7 @@ export default {
     contrast_input: '输入的值和必要值不一致',
     are_you_delete: '确定要删除吗?',
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
-    service_available: '当前服务可用于查询或其他操作!'
+    service_available: '当前服务可用于查询或其他操作!',
+    refersh_config: '配置修改后需要手动重新载入'
   }
 }

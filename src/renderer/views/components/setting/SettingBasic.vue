@@ -1,23 +1,27 @@
 <template>
-  <el-form :model="form" label-width="120px" size="mini">
-    <el-form-item :label="this.$t('common.network') + this.$t('common.timeout')">
-       <el-tooltip placement="top">
-          <div slot="content">
-            <span v-html="this.$t('view.component.setting.basic.tooltip.network')"></span>
-          </div>
-          <el-input
-            :placeholder="this.$t('view.component.setting.basic.placeholder.network')"
-            v-model="form.network">
-            <i slot="prefix" class="fa fa-at"></i>
-          </el-input>
-        </el-tooltip>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-alert :title="this.$t('alter.refersh_config')" type="warning" :closable="false"></el-alert>
+    <br />
+    <el-form :model="form" label-width="120px" size="mini">
+      <el-form-item :label="this.$t('common.network') + this.$t('common.timeout')">
+        <el-tooltip placement="top">
+            <div slot="content">
+              <span v-html="this.$t('view.component.setting.basic.tooltip.network')"></span>
+            </div>
+            <el-input
+              :placeholder="this.$t('view.component.setting.basic.placeholder.network')"
+              v-model="form.network">
+              <i slot="prefix" class="fa fa-at"></i>
+            </el-input>
+          </el-tooltip>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
 import { bufferSetting, getSetting } from '@/services/Setting'
-import { getLengthGtZore } from '@/utils/Utils'
+import { isNotEmpty } from '@/utils/StringUtils'
 
 export default {
   name: 'SettingBasic',
@@ -35,9 +39,9 @@ export default {
     }
   },
   methods: {
-    _initialize() {
-      const setting = getSetting(this.key)
-      if (getLengthGtZore(setting)) {
+    async _initialize() {
+      const setting = await getSetting(this.key)
+      if (isNotEmpty(setting)) {
         this.form = setting
       }
     }

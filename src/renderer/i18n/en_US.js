@@ -56,7 +56,13 @@ export default {
     notification: 'Notification',
     connection: 'Connection',
     copy: 'Copy',
-    format: 'Format'
+    format: 'Format',
+    editor: 'Editor',
+    theme: 'Theme',
+    activeLine: 'Highlight Active Line',
+    yes: 'Yes',
+    no: 'No',
+    showLine: 'Show Line'
   },
   prompt: {
     component: {
@@ -115,6 +121,7 @@ export default {
     contrast_input: 'The value entered does not match the required value',
     are_you_delete: 'Are you sure you want to delete?',
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
-    service_available: 'The current service is available for query or other operations!'
+    service_available: 'The current service is available for query or other operations!',
+    refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   }
 }

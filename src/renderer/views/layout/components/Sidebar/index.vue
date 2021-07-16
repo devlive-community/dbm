@@ -59,6 +59,12 @@
         <el-menu-item :index="'#en_US'" @click.native="toggleLang('en_US')" :disabled="$i18n.locale == 'en_US'">English</el-menu-item>
         <el-menu-item :index="'#zh_CN'" @click.native="toggleLang('zh_CN')" :disabled="$i18n.locale == 'zh_CN'">中文</el-menu-item>
       </el-submenu>
+      <!-- other -->
+      <el-tooltip :content="this.$t('common.reload')">
+        <el-menu-item class="right danger" :index="'#reload'" @click.native="reloadPage">
+          <i class="fa fa-road" />
+        </el-menu-item>
+      </el-tooltip>
       <setting :loading="loading.setting" :width="'60%'" @close="loading.setting = false"></setting>
     </el-menu>
 </template>
@@ -118,3 +124,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+ .right {
+   float: right;
+ }
+</style>

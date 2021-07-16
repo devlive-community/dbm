@@ -62,7 +62,8 @@ export default {
     activeLine: 'Highlight Active Line',
     yes: 'Yes',
     no: 'No',
-    showLine: 'Show Line'
+    showLine: 'Show Line',
+    reload: 'Reload'
   },
   prompt: {
     component: {

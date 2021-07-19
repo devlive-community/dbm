@@ -40,7 +40,7 @@ The document is built using the Jekyll service. You need to install the dependen
 bundle install jekyll
 ```
 
-Installation project dependencies(You need to enter the doc directory to execute)
+Installation project dependencies(You need to enter the `docs` directory to execute)
 
 ```bash
 bundle install

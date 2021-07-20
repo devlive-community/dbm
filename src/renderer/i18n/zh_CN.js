@@ -63,7 +63,8 @@ export default {
     yes: '是',
     no: '否',
     showLine: '显示行',
-    reload: '重新加载'
+    reload: '重新加载',
+    result: '结果'
   },
   prompt: {
     component: {

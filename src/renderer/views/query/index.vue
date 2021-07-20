@@ -56,22 +56,31 @@
     <el-row v-loading="executeLoading">
       <codemirror v-model="code" class='codesql' />
     </el-row>
-    <el-row v-if="data.statistics" v-loading="executeLoading">
-      <el-tag size="mini">
-        <i class="fa fa-clock-o"></i> Elapsed Time {{ data.statistics.elapsed }} sec
-      </el-tag>
-      <el-tag type="success" size="mini">
-        <i class="fa fa-grip-lines"></i> Total Rows {{ data.rows }} rows
-      </el-tag>
-      <el-tag type="success" size="mini">
-        <i class="fa fa-adjust"></i> Total Read Rows {{ data.statistics.rows_read }} row
-      </el-tag>
-      <el-tag type="success" size="mini">
-        <i class="fa fa-perbyte"></i> Bytes Read {{ data.statistics.bytes_read }} bytes
-      </el-tag>
-    </el-row>
     <el-row>
-      <table-detail v-if="data.headers" :showIndex="true" :columns="data.columns" :headers="data.headers" :loading="executeLoading"></table-detail>
+      <el-tabs v-model="result.tabsValue" type="card" closable @tab-remove="handlerRemoveTab">
+        <el-tab-pane
+          v-for="(item, index) in result.tabs"
+          :key="index"
+          :label="item.lable"
+          :name="item.name"
+        >
+          <div v-if="data[index].statistics" v-loading="executeLoading">
+            <el-tag size="mini">
+              <i class="fa fa-clock-o"></i> Elapsed Time {{ data[index].statistics.elapsed }} sec
+            </el-tag>
+            <el-tag type="success" size="mini">
+              <i class="fa fa-grip-lines"></i> Total Rows {{ data[index].rows }} rows
+            </el-tag>
+            <el-tag type="success" size="mini">
+              <i class="fa fa-adjust"></i> Total Read Rows {{ data[index].statistics.rows_read }} row
+            </el-tag>
+            <el-tag type="success" size="mini">
+              <i class="fa fa-perbyte"></i> Bytes Read {{ data[index].statistics.bytes_read }} bytes
+            </el-tag>
+          </div>
+          <table-detail :key="index" v-if="data[index].headers" :showIndex="true" :columns="data[index].columns" :headers="data[index].headers" :loading="executeLoading" />
+        </el-tab-pane>
+      </el-tabs>
     </el-row>
     <query-quick :loading="loading.quickQuery" :width="'70%'" @close="loading.quickQuery = false" @getQuickSql="handlerGetQuickSql"></query-quick>
     <query-history :loading="disabled.history" :width="'80%'" @close="disabled.history = false"></query-history>
@@ -90,6 +99,8 @@ import DataSource from '@/views/components/data/datasource/DataSource'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getQuery } from '@/services/Query'
 import { getDataSources } from '@/services/DataSource'
+import { stringFormat } from '@/utils/Utils'
+import { deleteByIndex } from '@/utils/ArrayUtils'
 
 export default {
   name: 'Query',
@@ -104,7 +115,7 @@ export default {
     return {
       editor: null,
       code: '',
-      data: {},
+      data: [],
       executeLoading: false,
       inputValue: '',
       selectValue: null,
@@ -118,6 +129,12 @@ export default {
         quickQuery: false,
         history: false,
         newDataSource: false
+      },
+      result: {
+        tabs: [],
+        tabsValue: null,
+        tabsIndex: 0,
+        removeIndex: 0
       }
     }
   },
@@ -149,7 +166,8 @@ export default {
             message: 'Operation successful!'
           })
         } else {
-          this.data = response
+          this.data.push(response)
+          this.handlerAddTab()
         }
       }
       this.executeLoading = false
@@ -169,6 +187,35 @@ export default {
     },
     handlerFormat() {
       this.code = this.sqlFormatter(this.code)
+    },
+    handlerAddTab() {
+      ++this.result.tabsIndex
+      const newTabName = stringFormat('{0} {1}', [this.$t('common.result'), this.result.tabsIndex])
+      this.result.tabs.push({
+        name: newTabName,
+        lable: newTabName
+      })
+      this.result.tabsValue = newTabName
+    },
+    handlerRemoveTab(targetName) {
+      const tabs = this.result.tabs
+      let activeName = this.result.tabsValue
+      if (activeName === targetName) {
+        tabs.forEach((tab, index) => {
+          if (tab.name === targetName) {
+            const nextTab = tabs[index + 1] || tabs[index - 1]
+            if (nextTab) {
+              activeName = nextTab.name
+              this.removeIndex = index
+            }
+          }
+        })
+      }
+      --this.result.tabsIndex
+      this.result.tabsValue = activeName
+      this.result.tabs = tabs.filter(tab => tab.name !== targetName)
+      // Remove query result cache
+      this.data = deleteByIndex(this.data, this.removeIndex)
     }
   }
 }

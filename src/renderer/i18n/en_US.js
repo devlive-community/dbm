@@ -63,7 +63,8 @@ export default {
     yes: 'Yes',
     no: 'No',
     showLine: 'Show Line',
-    reload: 'Reload'
+    reload: 'Reload',
+    result: 'Result'
   },
   prompt: {
     component: {

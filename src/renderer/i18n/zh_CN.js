@@ -64,7 +64,8 @@ export default {
     no: '否',
     showLine: '显示行',
     reload: '重新加载',
-    result: '结果'
+    result: '结果',
+    select: '选择'
   },
   prompt: {
     component: {

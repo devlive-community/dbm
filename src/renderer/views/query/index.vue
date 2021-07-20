@@ -16,6 +16,15 @@
         @click="handlerExecute()">
         {{ this.$t('common.execute') }}
       </el-button>
+      <el-button v-if="getLengthGtZore(selectServers)"
+        type="primary"
+        icon="el-icon-edit"
+        size="mini"
+        :disabled="!selectValue"
+        :loading="executeLoading"
+        @click="handlerSelectExecute()">
+        {{ this.$t('common.select') + this.$t('common.execute') }}
+      </el-button>
       <el-tooltip class="item" effect="dark" :content="this.$t('common.format')" placement="bottom">
         <el-button plain type="primary" size="mini" @click="handlerFormat()">
           <i class="fa fa-code"></i>
@@ -54,7 +63,7 @@
       </el-button>
     </el-row>
     <el-row v-loading="executeLoading">
-      <codemirror v-model="code" class='codesql' />
+      <codemirror ref="editor" v-model="code" class='codesql' />
     </el-row>
     <el-row>
       <el-tabs v-model="result.tabsValue" type="card" closable @tab-remove="handlerRemoveTab">
@@ -99,7 +108,7 @@ import DataSource from '@/views/components/data/datasource/DataSource'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getQuery } from '@/services/Query'
 import { getDataSources } from '@/services/DataSource'
-import { stringFormat } from '@/utils/Utils'
+import { stringFormat, getLength } from '@/utils/Utils'
 import { deleteByIndex } from '@/utils/ArrayUtils'
 
 export default {
@@ -148,11 +157,14 @@ export default {
     _initializeServer() {
       this.selectServers = getDataSources(null).columns
     },
-    async handlerExecute() {
+    async handlerExecute(sql) {
       this.executeLoading = true
       this.disabled.cancel = false
       this.disabled.quickQuery = true
-      const response = await getQuery(this.selectValue, this.code)
+      if (getLength(sql) <= 0) {
+        sql = this.code
+      }
+      const response = await getQuery(this.selectValue, sql)
       if (!response.status) {
         this.$notify.error({
           title: this.$t('common.success'),
@@ -216,6 +228,9 @@ export default {
       this.result.tabs = tabs.filter(tab => tab.name !== targetName)
       // Remove query result cache
       this.data = deleteByIndex(this.data, this.removeIndex)
+    },
+    handlerSelectExecute() {
+      this.handlerExecute(this.$refs.editor.codemirror.getSelection())
     }
   }
 }

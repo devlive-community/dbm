@@ -64,7 +64,8 @@ export default {
     no: 'No',
     showLine: 'Show Line',
     reload: 'Reload',
-    result: 'Result'
+    result: 'Result',
+    select: 'Select'
   },
   prompt: {
     component: {

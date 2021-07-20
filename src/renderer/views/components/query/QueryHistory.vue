@@ -25,7 +25,7 @@
                 <i class="fa fa-copy"></i>
               </el-button>
             </div>
-            {{ scope.row.query }}
+            <codemirror v-model="scope.row.query"></codemirror>
             <p v-if="!scope.row.status"> {{ scope.row.message }}</p>
           </el-card>
         </template>
@@ -109,6 +109,10 @@ export default {
   }
   /deep/ .el-card__body {
     padding: 5px 15px;
+  }
+  /deep/ .CodeMirror {
+    border: 1px solid #eee;
+    height: 100px;
   }
   .success {
     background-color: #557844;

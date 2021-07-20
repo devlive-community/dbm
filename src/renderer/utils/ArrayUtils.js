@@ -23,3 +23,11 @@ export function buildArray(array, max, deleteLogic, data) {
   }
   return newArray
 }
+
+export function deleteByIndex(arr, index) {
+  for (var i = index, len = arr.length - 1; i < len; i++) {
+    arr[i] = arr[i + 1]
+  }
+  arr.length = len
+  return arr
+}

@@ -4,12 +4,20 @@
     :visible.sync="bodyLoading"
     :width="width"
     @close="closeDialog">
-    <el-table v-loading.body="tableBodyLoading" style="width: 100%" :data="data.columns">
+    <el-table v-loading.body="tableBodyLoading" style="width: 100%" :data="data.columns.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
       <el-table-column>
         <template slot="header">
           <el-tooltip class="item" effect="dark" :content="stringFormat('{0}{1}{2}', [$t('common.clear'), $t('common.query'), $t('common.history')])" placement="top">
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="handlerClearHistory()"></el-button>
           </el-tooltip>
+          <el-pagination
+            v-if="data.columns.length > 0"
+            layout="total, sizes, prev, pager, next"
+            :total="data.columns.length"
+            :page-sizes="[10, 20, 30, 50]"
+            @current-change="handlerChangePage"
+            @size-change="handleSizeChange"
+            background />
         </template>
         <template slot-scope="scope">
           <el-card :class="'box-card ' + (scope.row.status ? 'success' : 'error')">
@@ -64,7 +72,9 @@ export default {
     return {
       bodyLoading: false,
       tableBodyLoading: false,
-      data: []
+      data: [],
+      pageSize: 10,
+      currentPage: 1
     }
   },
   methods: {
@@ -79,6 +89,12 @@ export default {
         message: stringFormat('{0} {1} {2} {3}!', [this.$t('common.clear'), this.$t('common.query'), this.$t('common.history'), this.$t('common.success')])
       })
       this._initialize()
+    },
+    handlerChangePage(currentPage) {
+      this.currentPage = currentPage
+    },
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize
     },
     closeDialog() {
       this.$emit('close')

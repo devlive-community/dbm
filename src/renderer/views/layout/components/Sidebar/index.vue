@@ -7,6 +7,9 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF"
     >
+      <el-menu-item index="/" style="float: left;">
+        <el-avatar :src="logo"></el-avatar>
+      </el-menu-item>
       <template v-for="item in routes" v-if="!item.hidden&&item.children">
         <el-menu-item
           v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
@@ -70,6 +73,7 @@
 </template>
 
 <script>
+import logo from '@/assets/images/logo.png'
 import { mapGetters } from 'vuex'
 import ScrollBar from '@/components/ScrollBar'
 import Setting from '@/views/components/setting/Setting'
@@ -89,6 +93,7 @@ export default {
   },
   data() {
     return {
+      logo,
       loading: {
         setting: false
       }

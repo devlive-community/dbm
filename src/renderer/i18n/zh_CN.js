@@ -65,7 +65,8 @@ export default {
     showLine: '显示行',
     reload: '重新加载',
     result: '结果',
-    select: '选择'
+    select: '选择',
+    protocol: '协议'
   },
   prompt: {
     component: {

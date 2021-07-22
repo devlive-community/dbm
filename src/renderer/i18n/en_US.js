@@ -65,7 +65,8 @@ export default {
     showLine: 'Show Line',
     reload: 'Reload',
     result: 'Result',
-    select: 'Select'
+    select: 'Select',
+    protocol: 'Protocol'
   },
   prompt: {
     component: {

@@ -17,6 +17,10 @@
             </el-input>
           </el-tooltip>
         </el-form-item>
+        <el-form-item :label="this.$t('common.protocol')" :label-width="formLabelWidth">
+          <el-radio v-model="form.protocol" label="http">HTTP</el-radio>
+          <el-radio v-model="form.protocol" label="https" disabled>HTTPS</el-radio>
+        </el-form-item>
         <el-form-item :label="this.$t('common.host')" :label-width="formLabelWidth">
           <el-tooltip placement="top">
             <div slot="content">
@@ -104,7 +108,8 @@ export default {
         port: '',
         username: '',
         password: '',
-        delivery: false
+        delivery: false,
+        protocol: 'http'
       },
       formLabelWidth: '100px',
       elementLoading: {

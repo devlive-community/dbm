@@ -5,10 +5,50 @@
     <br>
     <h3>Release Timeline</h3>
     <el-timeline>
-      <el-timeline-item timestamp="2021-07-06" placement="top" :color="'#F56C6C'" :size="'large'">
+      <el-timeline-item timestamp="2021-07-23" placement="top" :color="'#F56C6C'" :size="'large'">
         <el-card>
           <div slot="header">
-            <span class="em">1.2.0-SNAPSHOT <el-tag type="danger" size="mini">latest</el-tag></span>
+            <span class="em">1.3.0-SNAPSHOT <el-tag type="danger" size="mini">latest</el-tag></span>
+          </div>
+          <div style="margin-top: 2px;">
+            <code>DBM Version for 1.3.0-SNAPSHOT is released!</code>
+            <el-divider content-position="left">UI</el-divider>
+            <p>Add logo to menu</p>
+            <p>Replace the code editor with vue-codemirror</p>
+            <p>Add release timeline to index</p>
+            <p>Upgrade the default versions of Vue (2.5.10 -> 2.15.3 +) and electron…</p>
+            <p>Optimize the presentation of process monitoring chart</p>
+            <el-divider content-position="left">Enhancement</el-divider>
+            <p>Support the construction of data source selection protocol</p>
+            <p>Optimization software icon (Round)</p>
+            <p>Support query history Pagination</p>
+            <p>Supports text query selection Issues-13</p>
+            <p>Support multiple query results display</p>
+            <p>Add how to contribute documentation</p>
+            <p>Add software website</p>
+            <p>Add top menu overload application shortcut function</p>
+            <p>Support general configuration of global editor</p>
+            <p>Support developer mode application icon display</p>
+            <p>Supoort sql format</p>
+            <p>Query history supports copying SQL</p>
+            <p>Replace debug mode prompt</p>
+            <p>Support users to authorize users to access Clickhouse</p>
+            <p>Add connection monitor</p>
+            <p>Add one click refresh data source</p>
+            <p>Support query progress display DDL</p>
+            <p>Support stop running query</p>
+            <el-divider content-position="left">Bug</el-divider>
+            <p>Fix query history data not refreshed</p>
+            <p>Fixed the problem of rendering without query history</p>
+            <p>Fix unselected service executable query</p>
+            <p>Fix query history order error</p>
+          </div>
+        </el-card>
+      </el-timeline-item>
+      <el-timeline-item timestamp="2021-07-06" placement="top" :color="'#0bbd87'" :size="'large'">
+        <el-card>
+          <div slot="header">
+            <span class="em">1.2.0-SNAPSHOT</span>
           </div>
           <div style="margin-top: 2px;">
             <code>DBM Version for 1.2.0-SNAPSHOT is released!</code>

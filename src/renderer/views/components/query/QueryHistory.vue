@@ -4,7 +4,7 @@
     :visible.sync="bodyLoading"
     :width="width"
     @close="closeDialog">
-    <el-table v-loading.body="tableBodyLoading" style="width: 100%" :data="data.columns.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+    <el-table v-loading.body="tableBodyLoading" v-if="data.columns" style="width: 100%" :data="data.columns.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
       <el-table-column>
         <template slot="header">
           <el-tooltip class="item" effect="dark" :content="stringFormat('{0}{1}{2}', [$t('common.clear'), $t('common.query'), $t('common.history')])" placement="top">

@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    v-if="bodyLoading"
     :title="stringFormat('{0}{1}', [this.$t('common.query'), this.$t('common.history')])" 
     :visible.sync="bodyLoading"
     :width="width"

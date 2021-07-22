@@ -71,7 +71,8 @@
           fixed="right"
           label="Action">
           <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="Table DDL" placement="top">
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.ddl') }}</div>
               <el-button type="text" 
                 size="small" 
                 :loading="buttonLoading"
@@ -112,37 +113,29 @@
       :database="selectDatabaseValue"
       @close="handlerCloseDeleteDatabase">
     </delete-database>
-    <!-- DDL -->
-    <el-dialog
-      :title="tableDDLTitle"
-      :visible.sync="tableDDLDialogVisible">
-      <code-mirror :value="tableDDL" :config="{'readOnly': 'nocursor'}"></code-mirror>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="tableDDLDialogVisible = false" size="mini">Close</el-button>
-      </span>
-    </el-dialog>
+    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
   </div>
 </template>
 
 <script>
-import CodeMirror from '@/components/CodeMirror'
-import AddDatabase from '@/views/components/AddDatabase'
-import DeleteTable from '@/views/components/DeleteTable'
+import AddDatabase from '@/views/components/database/DatabaseAdd'
+import DeleteDatabase from '@/views/components/database/DatabaseDelete'
+import DeleteTable from '@/views/components/table/TableDelete'
 import ServerStatus from '@/views/components/ServerStatus'
-import DeleteDatabase from '@/views/components/DeleteDatabase'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
+import TableDdl from '@/views/components/table/TableDdl'
 
-import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
+import { getQuery } from '@/services/Metadata'
+import { stringFormat } from '@/utils/Utils'
 
 export default {
   components: {
-    CodeMirror,
     AddDatabase,
     DeleteTable,
     ServerStatus,
     DeleteDatabase,
-    DataSourceSelect
+    DataSourceSelect,
+    TableDdl
   },
   data() {
     return {
@@ -159,9 +152,11 @@ export default {
       buttonLoading: false,
       pagesize: 10,
       currentPage: 1,
-      tableDDLDialogVisible: false,
-      tableDDLTitle: '',
-      tableDDL: '',
+      ddl: {
+        visible: false,
+        title: '',
+        context: null
+      },
       tableDetailDialogVisible: false,
       disabled: {
         showButton: false
@@ -185,80 +180,53 @@ export default {
     _initializeServer() {
       this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
     },
-    handlerServer(value) {
+    async handlerServer(value) {
       this.selectServerValue = value
-      const dataSource = this.selectServers.filter(item => item.name === this.selectServerValue)
-      if (dataSource.length < 1) {
-        this.$notify({
-          title: 'Notification',
-          type: 'error',
-          message: 'Please select data source!'
-        })
+      const response = await getQuery(this.selectServerValue, 'SHOW DATABASES')
+      if (response.status) {
+        this.selectDatabases = response.columns
+        this.disabled.showButton = true
       } else {
-        this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
-        runExecute(this.inputValue, 'SHOW DATABASES').then(response => {
-          if (response.status === 200) {
-            this.selectDatabases = response.data.data
-            this.disabled.showButton = true
-          }
-        }).catch(response => {
-          this.$notify.error({
-            title: 'Error',
-            message: response.data
-          })
+        this.$notify.error({
+          title: this.$t('common.error'),
+          message: response.message
         })
       }
     },
-    handlerDatabase() {
+    async handlerDatabase() {
       this.loading.tableBody = true
-      const dataSource = getDataSource(this.selectServerValue)
-      this.inputValue = stringFormat('http://{0}:{1}', [dataSource[0].host, dataSource[0].port])
-      const sql = stringFormat('SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes FROM system.tables WHERE database = \'{0}\'', [this.selectDatabaseValue])
-      runExecute(this.inputValue, sql).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-          this.loading.tableBody = false
-        }
-      }).catch(response => {
+      const sql = stringFormat('SELECT ' +
+        'uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes ' +
+        'FROM system.tables ' +
+        'WHERE database = \'{0}\'', [this.selectDatabaseValue])
+      const response = await getQuery(this.selectServerValue, sql)
+      if (response.status) {
+        this.headers = response.headers
+        this.columns = response.columns
+        this.loading.tableBody = false
+      } else {
         this.$notify.error({
-          title: 'Error',
-          message: response.data
+          title: this.$t('common.error'),
+          message: response.message
         })
-      })
-    },
-    handlerTable() {
-      const dataSource = getDataSource(this.selectServerValue)
-      this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
-      const sql = stringFormat('SELECT * FROM system.columns WHERE database = \'{0}\' and table = \'{1}\'', [this.selectDatabaseValue, this.selectTableValue])
-      runExecute(this.inputValue, sql).then(response => {
-        if (response.status === 200) {
-          this.headers = response.data.meta
-          this.columns = response.data.data
-        }
-      }).catch(response => {
-        this.$notify.error({
-          title: 'Error',
-          message: response.data
-        })
-      })
+      }
     },
     handlerChangePage(currentPage) {
       this.currentPage = currentPage
     },
-    handlerShowDDL(row) {
+    async handlerShowDDL(row) {
       this.buttonLoading = true
-      const dataSource = getDataSource(this.selectServerValue)
-      this.inputValue = getServerURL(dataSource[0].host, dataSource[0].port, null)
-      const sql = stringFormat('SELECT create_table_query FROM system.tables WHERE database = \'{0}\' and name = \'{1}\'', [this.selectDatabaseValue, row.name])
-      runExecute(this.inputValue, sql).then(response => {
-        if (response.status === 200) {
-          this.tableDDL = response.data.data[0].create_table_query
-          this.tableDDLTitle = row.name + ' DDL'
-          this.tableDDLDialogVisible = true
-          this.buttonLoading = false
-        }
-      })
+      const sql = stringFormat('SELECT ' +
+        'create_table_query ' +
+        'FROM system.tables ' +
+        'WHERE database = \'{0}\' AND name = \'{1}\'', [this.selectDatabaseValue, row.name])
+      const response = await getQuery(this.selectServerValue, sql)
+      if (response.status) {
+        this.ddl.context = response.columns[0].create_table_query
+        this.ddl.title = row.name + ' ' + this.$t('common.ddl')
+        this.ddl.visible = true
+        this.buttonLoading = false
+      }
     },
     handlerToDetail(row) {
       const path = stringFormat('/data/detail/{0}/{1}/{2}', [this.selectServerValue, this.selectDatabaseValue, row.name])

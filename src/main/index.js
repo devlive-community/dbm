@@ -1,10 +1,14 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, globalShortcut } from 'electron'
 
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
-if (process.env.NODE_ENV !== 'development') {
+
+const platform = process.platform
+const env = process.env.NODE_ENV
+
+if (env !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
@@ -12,6 +16,8 @@ let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
+
+const path = require('path')
 
 function createWindow() {
   /**
@@ -21,11 +27,16 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000,
-    webPreferences: { webSecurity: false }
+    webPreferences: {
+      webSecurity: false,
+      nodeIntegration: true,
+      // uncaught referenceerror module is not defined see https://stackoverflow.com/questions/66506331/electron-nodeintegration-not-working-also-general-weird-electron-behavior
+      contextIsolation: false
+    }
   })
 
   // Support copy and paste on mac
-  if (process.platform === 'darwin') {
+  if (platform === 'darwin') {
     const template = [
       {
         label: 'Application',
@@ -74,6 +85,11 @@ function createWindow() {
     Menu.setApplicationMenu(null)
   }
 
+  // Support developer mode application icon display
+  if (env === 'development') {
+    app.dock.setIcon(path.join(__dirname, 'assets/images/', platform, '/logo.png'))
+  }
+
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
@@ -96,7 +112,16 @@ app.setAboutPanelOptions({
   website: config.github
 })
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  if (mainWindow == null) {
+    createWindow()
+  }
+  // Turn on debug mode
+  globalShortcut.register('CommandOrControl+Shift+L', () => {
+    const focusWin = BrowserWindow.getFocusedWindow()
+    focusWin && focusWin.toggleDevTools()
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

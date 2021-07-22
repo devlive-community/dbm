@@ -7,6 +7,9 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF"
     >
+      <el-menu-item index="/" style="float: left;">
+        <el-avatar :src="logo"></el-avatar>
+      </el-menu-item>
       <template v-for="item in routes" v-if="!item.hidden&&item.children">
         <el-menu-item
           v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
@@ -59,11 +62,18 @@
         <el-menu-item :index="'#en_US'" @click.native="toggleLang('en_US')" :disabled="$i18n.locale == 'en_US'">English</el-menu-item>
         <el-menu-item :index="'#zh_CN'" @click.native="toggleLang('zh_CN')" :disabled="$i18n.locale == 'zh_CN'">中文</el-menu-item>
       </el-submenu>
+      <!-- other -->
+      <el-tooltip :content="this.$t('common.reload')">
+        <el-menu-item class="right danger" :index="'#reload'" @click.native="reloadPage">
+          <i class="fa fa-road" />
+        </el-menu-item>
+      </el-tooltip>
       <setting :loading="loading.setting" :width="'60%'" @close="loading.setting = false"></setting>
     </el-menu>
 </template>
 
 <script>
+import logo from '@/assets/images/logo.png'
 import { mapGetters } from 'vuex'
 import ScrollBar from '@/components/ScrollBar'
 import Setting from '@/views/components/setting/Setting'
@@ -83,6 +93,7 @@ export default {
   },
   data() {
     return {
+      logo,
       loading: {
         setting: false
       }
@@ -118,3 +129,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+ .right {
+   float: right;
+ }
+</style>

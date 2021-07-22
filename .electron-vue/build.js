@@ -45,7 +45,7 @@ function build () {
   m.on('success', () => {
     process.stdout.write('\x1B[2J\x1B[0f')
     console.log(`\n\n${results}`)
-    console.log(`${okayLog}take it away ${chalk.yellow('`electron-builder`')}\n`)
+    console.log(`${okayLog}take it away ${chalk.yellow('`dbm-builder`')}\n`)
     process.exit()
   })
 
@@ -115,8 +115,8 @@ function greeting () {
   const cols = process.stdout.columns
   let text = ''
 
-  if (cols > 85) text = 'lets-build'
-  else if (cols > 60) text = 'lets-|build'
+  if (cols > 85) text = 'dbm-build'
+  else if (cols > 60) text = 'dbm-|build'
   else text = false
 
   if (text && !isCI) {
@@ -125,6 +125,6 @@ function greeting () {
       font: 'simple3d',
       space: false
     })
-  } else console.log(chalk.yellow.bold('\n  lets-build'))
+  } else console.log(chalk.yellow.bold('\n  dbm-build'))
   console.log()
 }

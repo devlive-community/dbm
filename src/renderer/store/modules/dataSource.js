@@ -4,9 +4,10 @@ export default class DataSource {
   alias = 'localhost';
   host = 'localhost';
   port = 8123;
-  userName = 'default';
-  password = '123456';
+  username = 'default';
+  password = null;
   status = false;
   message = 'Please check whether the version of Clickhouse supports it!';
   delivery = false;
+  protocol = 'http';
 }

@@ -34,11 +34,39 @@ export default {
     memoryUsage: '占用内存',
     bytesRead: '读取字节数',
     bytesWritten: '写入字节数',
-    hash: 'Hase值',
+    hash: 'Hash值',
     threshold: '阈值',
     auto: '自动',
     refresh: '刷新',
-    count: '总数'
+    count: '总数',
+    action: '操作',
+    ddl: 'DDL',
+    kill: '结束',
+    no_callback: '不可回滚',
+    necessary: '必要',
+    success: '成功',
+    error: '失败',
+    add: '添加',
+    datasource: '数据源',
+    status: '状态',
+    delete: '删除',
+    query: '查询',
+    history: '历史',
+    clear: '清除',
+    notification: '通知',
+    connection: '连接',
+    copy: '复制',
+    format: '格式化',
+    editor: '编辑器',
+    theme: '主题',
+    activeLine: '高亮激活行',
+    yes: '是',
+    no: '否',
+    showLine: '显示行',
+    reload: '重新加载',
+    result: '结果',
+    select: '选择',
+    protocol: '协议'
   },
   prompt: {
     component: {
@@ -63,7 +91,9 @@ export default {
           placeholder: {
             alias_name: '请输入别名',
             host: '请输入远程主机',
-            port: '请输入远程主机的端口'
+            port: '请输入远程主机的端口',
+            username: '请输入远程主机的用户名',
+            password: '请输入远程主机的用户密码'
           },
           tooltip: {
             alias_name: '此字段仅用于标记当前属性的别名<br/>该属性易于记忆，没有特殊意义',
@@ -86,5 +116,16 @@ export default {
         }
       }
     }
+  },
+  alter: {
+    operation: '我们不建议您执行此操作',
+    operation_submit: '如果您要继续后续操作，请在可输入的输入框中输入必要的信息，点击OK或者确认按钮！',
+    result: '此操作产生以下结果:',
+    stop_on_cluster: '这将会停止在集群中的操作',
+    contrast_input: '输入的值和必要值不一致',
+    are_you_delete: '确定要删除吗?',
+    service_not_available: '当前服务不可用。请检查配置或将其删除!',
+    service_available: '当前服务可用于查询或其他操作!',
+    refersh_config: '配置修改后需要手动重新载入!'
   }
 }

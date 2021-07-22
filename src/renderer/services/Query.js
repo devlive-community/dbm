@@ -1,7 +1,9 @@
 import { runExecute } from '@/api/query'
 import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
+import { getAuthenticationResponse } from '@/services/Common'
 import QueryHistory from '@/store/modules/QueryHistory'
 import Response from '@/store/modules/Response'
+import Authentication from '@/store/modules/Authentication'
 import i18n from '@/i18n'
 
 /**
@@ -12,9 +14,6 @@ import i18n from '@/i18n'
  * @returns common response
  */
 export async function getDatabasesOrTables(server, type, database) {
-  const dataSource = getDataSource(server)
-  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
-  const result = {}
   let querySql = null
   switch (type) {
     case 'database':
@@ -24,16 +23,9 @@ export async function getDatabasesOrTables(server, type, database) {
       querySql = stringFormat('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [database])
       break
   }
-  await runExecute(remoteServer, querySql).then(response => {
-    if (response.status === 200) {
-      result.data = response.data.data
-      result.status = true
-    }
-  }).catch(response => {
-    result.message = response.data
-    result.status = false
-  })
-  return result
+  const configuration = new Authentication()
+  configuration.server = server
+  return await getAuthenticationResponse(configuration, querySql)
 }
 
 /**
@@ -69,13 +61,12 @@ export function getQuickSql(quick, database, table) {
  * @returns query response
  */
 export async function getQuery(server, query) {
-  const dataSource = getDataSource(server)
-  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
-  const result = {}
+  let result = {}
   const queryHistory = new QueryHistory()
   queryHistory.server = server
   queryHistory.query = query
   queryHistory.startTime = Date.parse(new Date())
+  const dataSource = getDataSource(server)
   if (dataSource[0].delivery && query.toLowerCase().startsWith('drop') > 0) {
     const message = i18n.t('prompt.component.warning_drop')
     result.message = message
@@ -83,25 +74,16 @@ export async function getQuery(server, query) {
     queryHistory.status = false
     queryHistory.message = message
   } else {
-    await runExecute(remoteServer, query).then(response => {
-      if (response.status === 200) {
-        if (response.data) {
-          result.headers = response.data.meta
-          result.columns = response.data.data
-          result.rows = response.data.rows
-          result.statistics = response.data.statistics
-        } else {
-          result.message = 'Operation successful!'
-        }
-        result.status = true
-        queryHistory.status = true
-      }
-    }).catch(response => {
-      result.message = response.data
-      result.status = false
+    const configuration = new Authentication()
+    configuration.server = server
+    const response = await getAuthenticationResponse(configuration, query)
+    if (response.status) {
+      queryHistory.status = true
+    } else {
       queryHistory.status = false
-      queryHistory.message = response.data
-    })
+      queryHistory.message = response.message
+    }
+    result = response
   }
   queryHistory.endTime = Date.parse(new Date())
   queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime
@@ -123,7 +105,7 @@ export function saveQuery(queryHistory) {
   }
   if (index < 100) {
     queryHistory.id = index
-    histroy.push(queryHistory)
+    histroy.unshift(queryHistory)
     localStorage.setItem('QueryHistory', JSON.stringify(histroy))
   }
   return queryHistory
@@ -157,4 +139,33 @@ export function getQueryHistory() {
  */
 export function clearQueryHistory() {
   localStorage.removeItem('QueryHistory')
+}
+
+/**
+ * Kill Query
+ * @param {*} server remote server
+ * @param {*} source source id
+ * @param {*} target target id
+ * @returns kill response
+ */
+export async function killQuery(server, source, target) {
+  const dataSource = getDataSource(server)
+  const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
+  const result = new Response()
+  if (source !== target) {
+    result.message = i18n.t('alter.contrast_input')
+    result.status = false
+  } else {
+    const sql = stringFormat('KILL QUERY WHERE query_id = \'{0}\'', [source])
+    await runExecute(remoteServer, sql).then(response => {
+      if (response.status === 200) {
+        result.message = stringFormat('{0} {1} {2}', [i18n.t('common.kill'), source, i18n.t('common.success')])
+        result.status = true
+      }
+    }).catch(response => {
+      result.message = response.data
+      result.status = false
+    })
+  }
+  return result
 }

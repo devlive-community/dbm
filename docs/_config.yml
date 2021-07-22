@@ -1,0 +1,53 @@
+title: DBM(Incubator)
+email: shicheng@ttxit.com
+description: >
+  DBM(Incubator) Websites.
+lang: en-US
+
+baseurl: "/"
+url: https://dbm.incubator.edurt.io
+git_address: https://github.com/EdurtIO/incubator-dbm.git
+git_edit_address: https://github.com/EdurtIO/incubator-dbm/docs
+
+bootwatch: paper
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .idea/
+  - .gitignore
+  - README.md
+timezone: Asia/Shanghai
+defaults:
+- scope:
+    path: _posts
+    type: posts
+  values:
+    layout: post
+    sectionid: blog
+
+- scope:
+    path: _docs
+    type: docs
+  values:
+    layout: docs
+    sectionid: docs
+    seo:
+      type: "WebPage"
+
+collections:
+  docs:
+    permalink: /:collection/:path/
+    output: true
+  posts:
+    permalink: /blog/:year/:month/:day/:title/
+    output: true

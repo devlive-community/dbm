@@ -34,11 +34,39 @@ export default {
     memoryUsage: 'Memory Usage',
     bytesRead: 'Bytes Read',
     bytesWritten: 'Bytes Written',
-    hash: 'Hase',
+    hash: 'Hash',
     threshold: 'Threshold',
     auto: 'Auto',
     refresh: 'Refresh',
-    count: 'Count'
+    count: 'Count',
+    action: 'Action',
+    ddl: 'DDL',
+    kill: 'Kill',
+    no_callback: 'No rollback',
+    necessary: 'Necessary',
+    success: 'Success',
+    error: 'Error',
+    add: 'Add',
+    datasource: 'DataSource',
+    status: 'Status',
+    delete: 'Delete',
+    query: 'Query',
+    history: 'History',
+    clear: 'Clear',
+    notification: 'Notification',
+    connection: 'Connection',
+    copy: 'Copy',
+    format: 'Format',
+    editor: 'Editor',
+    theme: 'Theme',
+    activeLine: 'Highlight Active Line',
+    yes: 'Yes',
+    no: 'No',
+    showLine: 'Show Line',
+    reload: 'Reload',
+    result: 'Result',
+    select: 'Select',
+    protocol: 'Protocol'
   },
   prompt: {
     component: {
@@ -63,7 +91,9 @@ export default {
           placeholder: {
             alias_name: 'Please input alias name',
             host: 'Please input remote host',
-            port: 'Please enter the port of the remote host'
+            port: 'Please enter the port of the remote host',
+            username: 'Please enter the username',
+            password: 'Please enter the password'
           },
           tooltip: {
             alias_name: 'This field is only used to mark an alias of the current attribute <br/> which is easy to remember and has no special meaning',
@@ -86,5 +116,16 @@ export default {
         }
       }
     }
+  },
+  alter: {
+    operation: 'We do not recommend that you do this',
+    operation_submit: 'If you want to continue the follow-up operation, please input the necessary information in the input box and click OK or confirm!',
+    result: 'This operation produces the following:',
+    stop_on_cluster: 'This will stop the operation in the cluster',
+    contrast_input: 'The value entered does not match the required value',
+    are_you_delete: 'Are you sure you want to delete?',
+    service_not_available: 'The current service is not available. Please check the configuration or remove it!',
+    service_available: 'The current service is available for query or other operations!',
+    refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   }
 }

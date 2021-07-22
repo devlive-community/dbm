@@ -18,7 +18,7 @@
           <el-switch v-model="form.auto" :disabled="disabled" @change="handlerAuto"></el-switch>
         </el-form-item>
         <el-form-item :label="this.$t('common.threshold')" style="float: right;">
-          <el-input-number v-model="form.threshold" :disabled="disabled" :min="1" :max="10"></el-input-number>
+          <el-input-number v-model="form.threshold" :disabled="form.auto" :min="1" :max="10"></el-input-number>
         </el-form-item>
       </el-form>
     </el-row>
@@ -33,19 +33,40 @@
       <el-table-column prop="bytesWritten" :label="this.$t('common.bytesWritten')"></el-table-column>
       <el-table-column prop="hash" :label="this.$t('common.hash')"></el-table-column>
       <el-table-column prop="host" :label="this.$t('common.host')"></el-table-column>
+      <el-table-column fixed="right" :label="this.$t('common.action')">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.ddl') }}</div>
+              <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" placement="top">
+              <div slot="content">{{ $t('common.kill') }}</div>
+              <el-button type="text" size="small" @click="handlerKill(scope.row)">
+                <i class="fa fa-stop danger"></i>
+              </el-button>
+            </el-tooltip>
+          </template>
+      </el-table-column>
     </el-table>
+    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
+    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :server="selectServerValue" @close="kill.visible = false"></query-kill>
   </div>
 </template>
 
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
+import TableDdl from '@/views/components/table/TableDdl'
+import QueryKill from '@/views/components/query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
 import { getProcesses } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
+import { stringFormat } from '@/utils/Utils'
 
 export default {
   components: {
-    DataSourceSelect
+    DataSourceSelect,
+    TableDdl,
+    QueryKill
   },
   data() {
     return {
@@ -66,10 +87,26 @@ export default {
         credits: {
           enabled: false
         },
-        series: [{
-          name: this.$t('common.count'),
-          data: []
-        }]
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          }
+        },
+        series: []
+      },
+      seriesMap: null,
+      ddl: {
+        visible: false,
+        title: '',
+        context: null
+      },
+      kill: {
+        visible: false,
+        title: null,
+        id: null
       }
     }
   },
@@ -78,6 +115,7 @@ export default {
   },
   methods: {
     _initialize() {
+      this.seriesMap = new Map()
       this.selectServers = getDataSources(null).columns
     },
     async handlerServer(value) {
@@ -92,7 +130,15 @@ export default {
         this.tableDatas = response.columns
       }
       this.disabled = false
-      this.chartOptions.series[0].data = buildArray(this.dataCount, 20, true, this.tableDatas.length)
+      const serie = {
+        name: stringFormat('{0}-({1})', [this.selectServerValue, this.$t('common.count')]),
+        data: buildArray(this.dataCount, 20, true, this.tableDatas.length)
+      }
+      if (this.seriesMap.has(this.selectServerValue)) {
+        this.seriesMap.delete(this.selectServerValue)
+      }
+      this.seriesMap.set(this.selectServerValue, serie)
+      this.chartOptions.series = Array.from(this.seriesMap.values())
     },
     handlerAuto() {
       if (this.form.auto) {
@@ -103,6 +149,16 @@ export default {
       } else {
         clearInterval(this.timer)
       }
+    },
+    handlerShowDDL(row) {
+      this.ddl.visible = true
+      this.ddl.title = row.id
+      this.ddl.context = row.query
+    },
+    handlerKill(row) {
+      this.kill.title = this.$t('common.kill') + ' ' + row.id
+      this.kill.visible = true
+      this.kill.id = row.id
     }
   },
   beforeDestroy() {

@@ -26,6 +26,7 @@ export async function saveDataSource(formBody) {
     dataSource.username = getValue(formBody.username, dataSource.username)
     dataSource.password = getValue(formBody.password, dataSource.password)
     dataSource.delivery = getValue(formBody.delivery, dataSource.delivery)
+    dataSource.protocol = getValue(formBody.protocol, dataSource.protocol)
     dataSources.push(dataSource)
     localStorage.setItem(token, JSON.stringify(dataSources))
     response.status = true

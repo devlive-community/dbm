@@ -114,10 +114,11 @@ export function formatAuthentication(host, port, username, password, server) {
 export function formatRemoteUrl(configuration) {
   let remoteUrl = null
   const hasAuthentication = (isNotEmpty(configuration.username) && isNotEmpty(configuration.password))
+  const protocol = getValue(configuration.protocol, 'http')
   if (hasAuthentication) {
-    remoteUrl = stringFormat('http://{0}:{1}/?user={2}&password={3}', [configuration.host, configuration.port, configuration.username, configuration.password])
+    remoteUrl = stringFormat('{0}://{1}:{2}/?user={3}&password={4}', [protocol, configuration.host, configuration.port, configuration.username, configuration.password])
   } else {
-    remoteUrl = stringFormat('http://{0}:{1}', [configuration.host, configuration.port])
+    remoteUrl = stringFormat('{0}://{1}:{2}', [protocol, configuration.host, configuration.port])
   }
   return remoteUrl
 }

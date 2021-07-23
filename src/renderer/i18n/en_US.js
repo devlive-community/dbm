@@ -66,7 +66,10 @@ export default {
     reload: 'Reload',
     result: 'Result',
     select: 'Select',
-    protocol: 'Protocol'
+    protocol: 'Protocol',
+    mutations: 'Mutations',
+    id: 'ID',
+    createTime: 'Create Time'
   },
   prompt: {
     component: {

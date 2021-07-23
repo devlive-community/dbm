@@ -66,7 +66,10 @@ export default {
     reload: '重新加载',
     result: '结果',
     select: '选择',
-    protocol: '协议'
+    protocol: '协议',
+    mutations: 'Mutations',
+    id: 'ID',
+    createTime: '创建时间'
   },
   prompt: {
     component: {

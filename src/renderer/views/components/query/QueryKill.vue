@@ -41,6 +41,10 @@ export default {
     id: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'processor'
     }
   },
   created() {
@@ -51,14 +55,15 @@ export default {
         show: false,
         title: null,
         server: null,
-        id: null
+        id: null,
+        type: null
       },
       value: null
     }
   },
   methods: {
     async handlerKill() {
-      const response = await killQuery(this.body.server, this.body.id, this.value)
+      const response = await killQuery(this.body.server, this.body.id, this.value, this.type)
       if (!response.status) {
         this.$notify.error({
           title: this.$t('common.error'),
@@ -97,6 +102,11 @@ export default {
     id: {
       handler() {
         this.body.id = this.id
+      }
+    },
+    type: {
+      handler() {
+        this.body.type = this.type
       }
     }
   }

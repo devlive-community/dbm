@@ -91,9 +91,16 @@ export const constantRouterMap = [
       {
         path: 'connection',
         name: 'Connection',
-        new: true,
+        new: false,
         component: () => import('@/views/monitor/connection'),
         meta: { title: i18n.t('common.connection'), icon: 'compress' }
+      },
+      {
+        path: 'mutations',
+        name: 'Mutations',
+        new: true,
+        component: () => import('@/views/monitor/mutations'),
+        meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
       }
     ]
   },

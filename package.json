@@ -1,6 +1,6 @@
 {
-  "name": "DBM(Incubator)",
-  "version": "1.3.0-SNAPSHOT",
+  "name": "dbm",
+  "version": "1.4.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "Dababase Manager Tools",
   "credits": "EdurtIO",
@@ -8,7 +8,7 @@
   "license": "Apache",
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder",
+    "build": "node .electron-vue/build.js && electron-builder --publish never",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
@@ -21,7 +21,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "DBM(Incubator)",
+    "productName": "dbm",
     "appId": "io.edurt.incubator.dbm",
     "directories": {
       "output": "build"

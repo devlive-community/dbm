@@ -69,7 +69,8 @@ export default {
     protocol: '协议',
     mutations: 'Mutations',
     id: 'ID',
-    createTime: '创建时间'
+    createTime: '创建时间',
+    infomation: '信息'
   },
   prompt: {
     component: {

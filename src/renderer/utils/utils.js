@@ -61,6 +61,15 @@ export function getFaIcon(source) {
     case 'SystemEnabledRoles':
       icon = 'fa fa-flag'
       break
+    case 'Server':
+      icon = 'fa fa-server'
+      break
+    case 'DataBase':
+      icon = 'fa fa-database'
+      break
+    case 'Table':
+      icon = 'fa fa-table'
+      break
   }
   return icon
 }

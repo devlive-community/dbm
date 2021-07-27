@@ -25,6 +25,10 @@ Vue.prototype.getLengthEqZore = getLengthEqZore
 Vue.prototype.getFaIcon = getFaIcon
 Vue.prototype.stringFormat = stringFormat
 
+import { isEmpty, isNotEmpty } from './utils/StringUtils'
+Vue.prototype.isEmpty = isEmpty
+Vue.prototype.isNotEmpty = isNotEmpty
+
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 

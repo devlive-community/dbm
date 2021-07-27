@@ -69,7 +69,8 @@ export default {
     protocol: 'Protocol',
     mutations: 'Mutations',
     id: 'ID',
-    createTime: 'Create Time'
+    createTime: 'Create Time',
+    infomation: 'Infomation'
   },
   prompt: {
     component: {

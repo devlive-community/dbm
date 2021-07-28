@@ -34,7 +34,8 @@
             </el-tooltip>
           </div>
           <div class="text item">
-            <el-empty />
+            <el-empty v-if="isEmpty(treeValue.server) || treeValue.type !== 'Server'" />
+            <monitor-disk v-else :items="items" />
           </div>
         </el-card>
       </el-col>
@@ -58,9 +59,12 @@ import DataTree from '@/views/components/data/DataTree'
 import ServerStatus from '@/views/components/ServerStatus'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
+import MonitorDisk from '@/views/components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { stringFormat } from '@/utils/Utils'
+import { getDisks } from '@/services/Disk'
+import { SERVER } from '@/utils/Support'
 
 export default {
   components: {
@@ -70,7 +74,8 @@ export default {
     DeleteDatabase,
     DataSourceSelect,
     TableDdl,
-    DataTree
+    DataTree,
+    MonitorDisk
   },
   data() {
     return {
@@ -88,7 +93,8 @@ export default {
         addDatabase: false,
         deleteTable: false,
         deleteDatabase: false
-      }
+      },
+      items: []
     }
   },
   mounted() {
@@ -98,8 +104,14 @@ export default {
     _initialize() {
       this.treeItems = JSON.parse(localStorage.getItem('DataSources'))
     },
-    handlerGetTreeData(value) {
+    async handlerGetTreeData(value) {
       this.treeValue = value
+      if (value.type === SERVER) {
+        const response = await getDisks(value.server)
+        if (response.status) {
+          this.items = response.columns
+        }
+      }
     },
     async handlerShowDDL(server, database, table) {
       this.buttonLoading = true

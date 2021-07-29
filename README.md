@@ -25,15 +25,19 @@
 
 ## :gear: Installation
 
-macOS  
+macOS
+
 - Download zip from [here](/releases/download/1.3.0-SNAPSHOT/DBM-Incubator-mac.zip).
 - Unzip the archive, and install to macOS Applications.
 
 Other platforms
+
 - Unsupported temporarily. You can install the DBM by [building from source](#hammer_and_wrench-build-from-source).
 
-Install other versions?  
+Install other versions?
+
 - Go ahead to [Github Release](/releases) for all releases.
+
 ## :hammer_and_wrench: Build from source
 
 1. Install dependencies
@@ -47,4 +51,5 @@ yarn install
 ```bash
 yarn run build
 ```
+
 3. Install from built zip: `./build/incubator-dbm-<VERSION>-<OS>.zip`

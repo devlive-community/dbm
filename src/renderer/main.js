@@ -29,6 +29,11 @@ import { isEmpty, isNotEmpty } from './utils/StringUtils'
 Vue.prototype.isEmpty = isEmpty
 Vue.prototype.isNotEmpty = isNotEmpty
 
+import { SERVER, DATABASE, TABLE } from './utils/Support'
+Vue.prototype.SERVER = SERVER
+Vue.prototype.DATABASE = DATABASE
+Vue.prototype.TABLE = TABLE
+
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 

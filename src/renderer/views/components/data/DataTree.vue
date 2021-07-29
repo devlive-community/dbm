@@ -57,8 +57,8 @@ export default {
           }
           case 2: { // Table
             const sql = stringFormat(`
-            SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes 
-            FROM system.tables 
+            SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes
+            FROM system.tables
             WHERE database = \'{0}\'
             `, [node.data.name])
             const response = await getQuery(this.context.server, sql)
@@ -97,7 +97,7 @@ export default {
     items: {
       deep: true,
       handler() {
-        this.datas = builderTree(this.items, 'Server')
+        this.datas = builderTree(this.items, SERVER)
       }
     },
     context: {

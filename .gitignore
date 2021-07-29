@@ -11,3 +11,5 @@ thumbs.db
 !.gitkeep
 *.log
 yarn.lock
+
+.idea/

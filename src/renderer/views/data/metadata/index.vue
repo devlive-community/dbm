@@ -47,7 +47,7 @@
             </el-tooltip>
           </div>
           <div class="text item">
-            <el-empty v-if="isEmpty(treeValue.server) || treeValue.type !== SERVER"/>
+            <el-empty v-if="isEmpty(treeValue.server) || isEmpty(treeValue.type)"/>
             <monitor-disk v-else :items="items"/>
           </div>
         </el-card>
@@ -78,8 +78,8 @@ import MonitorDisk from '@/views/components/monitor/disk'
 import { getQuery } from '@/services/Metadata'
 import { stringFormat } from '@/utils/Utils'
 import { isNotEmpty } from '@/utils/StringUtils'
-import { getDisks, getDisksByDb } from '@/services/Disk'
-import { SERVER, DATABASE } from '@/utils/Support'
+import { getDiskUsedAndRatio } from '@/services/Disk'
+import { SERVER } from '@/utils/Support'
 
 export default {
   components: {
@@ -126,18 +126,7 @@ export default {
       if (isNotEmpty(type)) {
         iType = type
       }
-      let response
-      switch (iType) {
-        case SERVER:
-          response = await getDisks(value.server)
-          break
-        case DATABASE:
-          response = await getDisksByDb(value.server)
-          if (response.status) {
-            this.items = response.columns
-          }
-          break
-      }
+      const response = await getDiskUsedAndRatio(value.server, iType, value.database)
       if (response && response.status) {
         this.items = response.columns
       }

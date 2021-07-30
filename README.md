@@ -20,8 +20,9 @@
 - Support table management (metadata, delete, preview)
 - Support database management (delete, create)
 - Support custom query
-- Support mulitple data sources management(connection test, monitoring)
+- Support multiple data sources management(connection test, monitoring)
 - Support customized appearance
+- Support monitor (processor, connection, query)
 
 ## :gear: Installation
 
@@ -43,6 +44,8 @@ Install other versions?
 1. Install dependencies
 
 ```bash
+npm install -g node-sass
+
 yarn install
 ```
 
@@ -52,4 +55,16 @@ yarn install
 yarn run build
 ```
 
-3. Install from built zip: `./build/incubator-dbm-<VERSION>-<OS>.zip`
+3. Install from built zip: `./build/dbm-<VERSION>-<OS>.zip`
+
+4. Run dev mode
+
+```bash
+yarn run dev
+```
+
+or
+
+```bash
+npm start
+```

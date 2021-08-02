@@ -1,17 +1,18 @@
-import Response from '@/store/modules/Response'
 import { getQuery } from '@/services/Metadata'
 import { SERVER, DATABASE } from '@/utils/Support'
 import { isNotEmpty, isEmpty } from '@/utils/StringUtils'
 import { stringFormat } from '@/utils/utils'
 
 export async function getDiskUsedAndRatio(server, type, database, table) {
-  let response = new Response()
+  let response
   if (type === SERVER) {
     response = await getUsedDisk(server)
   } else if (type === DATABASE && isEmpty(database)) {
     response = await getDbUsedDisk(server)
   } else if (type === DATABASE && isNotEmpty(database)) {
     response = await getTableUsedDisk(server, database)
+  } else {
+    response = await getColumnUsedDisk(server, database, table, 20)
   }
   return response
 }
@@ -126,5 +127,42 @@ FROM t0, t1
 ORDER BY t1.tableUsedBytes DESC
     `, [database])
   }
+  return await getQuery(server, sql)
+}
+
+export async function getColumnUsedDisk(server, database, table, limit) {
+  if (isEmpty(limit)) {
+    limit = 20
+  }
+  const sql = stringFormat(`
+WITH t0 AS (
+  SELECT
+    total_space AS totalBytes,
+    total_space - free_space AS usedBytes
+  FROM system.disks
+),
+t1 AS (
+  SELECT
+    database AS db,
+    column AS name,
+    SUM(column_data_compressed_bytes) AS columnCompressedUsedBytes,
+    SUM(column_data_uncompressed_bytes) AS columnUncompressedUsedBytes, 
+    formatReadableSize(SUM(column_data_compressed_bytes)) AS value
+  FROM
+    system.parts_columns
+  WHERE database = '{0}' AND table = '{1}'
+  GROUP BY db, name
+)
+SELECT
+  format('{}-{}', t1.db, t1.name) AS name,
+  formatReadableSize(t0.totalBytes) AS totalSize,
+  formatReadableSize(t0.usedBytes) AS usedSize,
+  formatReadableSize(t1.columnCompressedUsedBytes) AS columnCompressedUsedSize,
+  formatReadableSize(t1.columnCompressedUsedBytes) AS columnUncompressedUsedSize,
+  round(t1.columnCompressedUsedBytes / t0.totalBytes * 100, 5) AS value
+FROM t0, t1
+ORDER BY t1.columnCompressedUsedBytes DESC
+LIMIT {2}
+  `, [database, table, limit])
   return await getQuery(server, sql)
 }

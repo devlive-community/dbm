@@ -70,7 +70,8 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: '创建时间',
-    infomation: '信息'
+    infomation: '信息',
+    edit: '修改'
   },
   prompt: {
     component: {

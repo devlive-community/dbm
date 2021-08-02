@@ -70,7 +70,8 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: 'Create Time',
-    infomation: 'Infomation'
+    infomation: 'Infomation',
+    edit: 'Edit'
   },
   prompt: {
     component: {

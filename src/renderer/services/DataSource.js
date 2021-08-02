@@ -30,7 +30,7 @@ export async function saveDataSource(formBody) {
     dataSources.push(dataSource)
     localStorage.setItem(token, JSON.stringify(dataSources))
     response.status = true
-    response.message = stringFormat('DataSouece <{0}> Save Success!', [formBody.name])
+    response.message = stringFormat('DataSource <{0}> Save Success!', [formBody.name])
   }
   return response
 }
@@ -41,11 +41,15 @@ export async function saveDataSource(formBody) {
  * @param {*} dataSource data source info
  */
 export function updateDataSource(unique, dataSource) {
+  const response = new Response()
+  response.status = true
   if (getLengthGtZore(unique)) {
     const dataSources = JSON.parse(localStorage.getItem(token)).filter(item => item.name !== unique)
     dataSources.push(dataSource)
     localStorage.setItem(token, JSON.stringify(dataSources))
+    response.message = stringFormat('DataSource <{0}> Update Success!', [unique])
   }
+  return response
 }
 
 /**

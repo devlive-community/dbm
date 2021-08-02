@@ -1,17 +1,17 @@
+import Response from '@/store/modules/Response'
 import { getQuery } from '@/services/Metadata'
 import { SERVER, DATABASE } from '@/utils/Support'
-import { isNotEmpty } from '@/utils/StringUtils'
+import { isNotEmpty, isEmpty } from '@/utils/StringUtils'
 import { stringFormat } from '@/utils/utils'
 
-export async function getDiskUsedAndRatio(server, type, database) {
-  let response
-  switch (type) {
-    case SERVER:
-      response = await getUsedDisk(server)
-      break
-    case DATABASE:
-      response = await getTableUsedDisk(server, database)
-      break
+export async function getDiskUsedAndRatio(server, type, database, table) {
+  let response = new Response()
+  if (type === SERVER) {
+    response = await getUsedDisk(server)
+  } else if (type === DATABASE && isEmpty(database)) {
+    response = await getDbUsedDisk(server)
+  } else if (type === DATABASE && isNotEmpty(database)) {
+    response = await getTableUsedDisk(server, database)
   }
   return response
 }

@@ -82,9 +82,12 @@ export default {
       switch (node.type) {
         case SERVER:
           this.context.server = node.name
+          this.context.database = null
+          this.context.table = null
           break
         case DATABASE:
           this.context.database = node.name
+          this.context.table = null
           break
         case TABLE:
           this.context.table = node.name
@@ -111,12 +114,12 @@ export default {
 </script>
 
 <style scoped>
-  .custom-tree-node {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px;
-  }
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
 </style>

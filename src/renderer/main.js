@@ -60,6 +60,9 @@ Vue.use(HighchartsVue)
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
+import VueContextMenu from 'vue-context-menu'
+Vue.use(VueContextMenu)
+
 Vue.prototype.onCopy = function() {
   Message.success({
     message: stringFormat('{0} {1}', [i18n.t('common.copy'), i18n.t('common.success')])

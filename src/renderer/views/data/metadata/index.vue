@@ -126,9 +126,11 @@ export default {
       if (isNotEmpty(type)) {
         iType = type
       }
-      const response = await getDiskUsedAndRatio(value.server, iType, value.database)
+      const response = await getDiskUsedAndRatio(value.server, iType, value.database, value.table)
       if (response && response.status) {
         this.items = response.columns
+      } else {
+        this.items = []
       }
     },
     async handlerShowDDL(server, database, table) {

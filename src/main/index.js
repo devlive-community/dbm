@@ -35,6 +35,9 @@ function createWindow() {
     }
   })
 
+  // Maximize window
+  mainWindow.maximize()
+
   // Support copy and paste on mac
   if (platform === 'darwin') {
     const template = [

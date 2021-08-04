@@ -104,6 +104,20 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/tools',
+    component: Layout,
+    name: i18n.t('common.tools'),
+    meta: { title: i18n.t('common.tools'), icon: 'tools' },
+    children: [
+      {
+        path: 'track',
+        name: 'Track',
+        component: () => import('@/views/tools/track'),
+        meta: { title: i18n.t('common.track'), icon: 'wrench' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

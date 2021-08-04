@@ -71,7 +71,9 @@ export default {
     id: 'ID',
     createTime: 'Create Time',
     infomation: 'Infomation',
-    edit: 'Edit'
+    edit: 'Edit',
+    tools: 'Tools',
+    track: 'Track'
   },
   prompt: {
     component: {

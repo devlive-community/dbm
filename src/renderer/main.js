@@ -11,19 +11,14 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import solid from '@fortawesome/fontawesome-free-solid'
-import regular from '@fortawesome/fontawesome-free-regular'
-import brands from '@fortawesome/fontawesome-free-brands'
-
-import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat } from './utils/Utils'
+import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat, getTrackColor } from './utils/Utils'
 Vue.prototype.getLength = getLength
 Vue.prototype.getLengthGtZore = getLengthGtZore
 Vue.prototype.getLengthLtZore = getLengthLtZore
 Vue.prototype.getLengthEqZore = getLengthEqZore
 Vue.prototype.getFaIcon = getFaIcon
 Vue.prototype.stringFormat = stringFormat
+Vue.prototype.getTrackColor = getTrackColor
 
 import { isEmpty, isNotEmpty } from './utils/StringUtils'
 Vue.prototype.isEmpty = isEmpty
@@ -40,10 +35,13 @@ Vue.prototype.EDIT = EDIT
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 
-fontawesome.library.add(solid)
-fontawesome.library.add(regular)
-fontawesome.library.add(brands)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import fontawesome from '@fortawesome/fontawesome'
+import free from '@fortawesome/fontawesome-free'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+fontawesome.library.add(free)
+fontawesome.library.add(fas)
+fontawesome.library.add(fab)
 
 // Support message
 import { Message } from 'element-ui'

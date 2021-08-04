@@ -131,3 +131,20 @@ export function formatRemoteUrl(configuration) {
   }
   return remoteUrl
 }
+
+export function getTrackColor(type) {
+  let color
+  switch (type) {
+    case 'QueryFinish':
+      color = '#67C23A'
+      break
+    case 'ExceptionBeforeStart':
+    case 'ExceptionWhileProcessing':
+      color = '#F56C6C'
+      break
+    default:
+      color = '#409EFF'
+      break
+  }
+  return color
+}

@@ -71,7 +71,9 @@ export default {
     id: 'ID',
     createTime: '创建时间',
     infomation: '信息',
-    edit: '修改'
+    edit: '修改',
+    tools: '工具',
+    track: 'Track'
   },
   prompt: {
     component: {

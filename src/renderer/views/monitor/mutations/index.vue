@@ -4,14 +4,16 @@
       <el-form :inline="true" :model="form" size="mini">
         <el-form-item :label="this.$t('common.server')">
           <data-source-select
-            v-if="getLengthGtZore(selectServers)"
-            :items="selectServers"
-            @getValue="handlerServer"
-            :placeholder="'ClickHouse Server'">
+              v-if="getLengthGtZore(selectServers)"
+              :items="selectServers"
+              @getValue="handlerServer"
+              :placeholder="'ClickHouse Server'">
           </data-source-select>
           <span v-if="form.auto">
             <i class="fa fa-spin fa-spinner"></i>
-            {{ this.$t('common.refresh') + this.$t('common.time') }} <el-tag size="mini"> {{ this.refreshTime }}</el-tag>
+            {{ this.$t('common.refresh') + this.$t('common.time') }} <el-tag size="mini"> {{
+              this.refreshTime
+            }}</el-tag>
           </span>
         </el-form-item>
         <el-form-item :label="this.$t('common.auto')" style="float: right;">
@@ -24,27 +26,27 @@
     </el-row>
     <highcharts :options="chartOptions"></highcharts>
     <el-table v-if="getLengthGtZore(tableDatas)" :data="tableDatas" style="width: 100%">
-      <el-table-column prop="database" :label="this.$t('common.database')"></el-table-column>
-      <el-table-column prop="table" :label="this.$t('common.table')"></el-table-column>
-      <el-table-column prop="id" :label="this.$t('common.id')"></el-table-column>
-      <el-table-column prop="createTime" :label="this.$t('common.createTime')"></el-table-column>
+      <template v-for="(item,index) in tableHeaders">
+        <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
+      </template>
       <el-table-column fixed="right" :label="this.$t('common.action')">
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" placement="top">
-              <div slot="content">{{ $t('common.query') }}</div>
-              <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" placement="top">
-              <div slot="content">{{ $t('common.kill') }}</div>
-              <el-button type="text" size="small" @click="handlerKill(scope.row)">
-                <i class="fa fa-stop danger"></i>
-              </el-button>
-            </el-tooltip>
-          </template>
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" placement="top">
+            <div slot="content">{{ $t('common.query') }}</div>
+            <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" placement="top">
+            <div slot="content">{{ $t('common.kill') }}</div>
+            <el-button type="text" size="small" @click="handlerKill(scope.row)">
+              <i class="fa fa-stop danger"></i>
+            </el-button>
+          </el-tooltip>
+        </template>
       </el-table-column>
     </el-table>
     <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
-    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :type="'mutation'" :server="selectServerValue" @close="kill.visible = false"></query-kill>
+    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :type="'mutation'" :server="selectServerValue"
+                @close="kill.visible = false"></query-kill>
   </div>
 </template>
 
@@ -53,9 +55,10 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import TableDdl from '@/views/components/table/TableDdl'
 import QueryKill from '@/views/components/query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
-import { getProcesses } from '@/services/Monitor'
+import { getMonitor } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
 import { stringFormat } from '@/utils/Utils'
+import { MUTATIONS } from '@/utils/Support'
 
 export default {
   components: {
@@ -66,6 +69,7 @@ export default {
   data() {
     return {
       tableDatas: [],
+      tableHeaders: [],
       selectServerValue: null,
       timer: 0,
       refreshTime: 0,
@@ -115,14 +119,15 @@ export default {
     },
     async handlerServer(value) {
       this.selectServerValue = value
-      const response = await getProcesses(this.selectServerValue, 'mutation')
+      const response = await getMonitor(this.selectServerValue, MUTATIONS)
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
+          title: this.$t('common.error'),
           message: response.message
         })
       } else {
         this.tableDatas = response.columns
+        this.tableHeaders = response.headers
       }
       this.disabled = false
       const serie = {

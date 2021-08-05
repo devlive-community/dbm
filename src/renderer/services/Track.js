@@ -30,3 +30,29 @@ ORDER BY
   `, [id])
   return await getQuery(server, sql)
 }
+
+export async function getTrackThread(server, id) {
+  const sql = stringFormat(`
+SELECT
+  query_id AS id,
+  event_date AS startTime,
+  query_start_time AS queryStartTime,
+  query_duration_ms AS "dutation(ms)",
+  read_rows AS readRows,
+  read_bytes AS readBytes,
+  written_rows AS writtenRows,
+  written_bytes AS writtenBytes,
+  peak_memory_usage AS peakMemory,
+  thread_name AS threadName,
+  thread_id AS threadId,
+  user AS user,
+  address AS address
+FROM
+  system.query_thread_log
+WHERE
+  query_id = '{0}'
+ORDER BY
+  thread_id DESC
+  `, [id])
+  return await getQuery(server, sql)
+}

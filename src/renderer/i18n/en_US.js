@@ -73,7 +73,8 @@ export default {
     infomation: 'Infomation',
     edit: 'Edit',
     tools: 'Tools',
-    track: 'Track'
+    track: 'Track',
+    thread: 'Thread'
   },
   prompt: {
     component: {

@@ -73,7 +73,8 @@ export default {
     infomation: '信息',
     edit: '修改',
     tools: '工具',
-    track: 'Track'
+    track: 'Track',
+    thread: '线程'
   },
   prompt: {
     component: {

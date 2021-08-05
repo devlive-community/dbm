@@ -80,3 +80,19 @@ FROM
   `
   return await getQuery(server, sql)
 }
+
+export function getQueryCount(server) {
+  const sql = `
+SELECT
+  cast(COUNT(DISTINCT query_id) AS INT) AS value,
+  event_date AS categories
+FROM
+  system.query_log
+GROUP BY
+  event_date
+ORDER BY
+  event_date DESC
+LIMIT 100
+  `
+  return getQuery(server, sql)
+}

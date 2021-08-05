@@ -16,7 +16,7 @@
                     :placeholder="stringFormat('{0} {1}', [this.$t('common.track'), this.$t('common.id')])"/>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :disabled="isEmpty(selectServerValue)" @click="handlerQuery()">
+          <el-button type="primary" :disabled="isEmpty(selectServerValue) || isEmpty(form.track)" @click="handlerQuery()">
             {{ this.$t('common.query') }}
           </el-button>
         </el-form-item>

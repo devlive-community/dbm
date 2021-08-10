@@ -11,9 +11,16 @@
           </data-source-select>
         </el-form-item>
         <el-form-item :label="this.$t('common.track')">
-          <el-input v-model="form.track"
-                    :disabled="isEmpty(selectServerValue)"
-                    :placeholder="stringFormat('{0} {1}', [this.$t('common.track'), this.$t('common.id')])"/>
+          <el-autocomplete v-model="form.track"
+                           popper-class="my-autocomplete"
+                           :disabled="isEmpty(selectServerValue)"
+                           :fetch-suggestions="handlerGetTrackTop"
+                           :placeholder="stringFormat('{0} {1}', [this.$t('common.track'), this.$t('common.id')])">
+            <template slot-scope="{ item }">
+              <div class="name">{{ item.value }}</div>
+              <span class="addr">{{ item.queryStartTime }}</span>
+            </template>
+          </el-autocomplete>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :disabled="isEmpty(selectServerValue) || isEmpty(form.track)"
@@ -64,7 +71,7 @@
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getDataSources } from '@/services/DataSource'
-import { getTrackInfo, getTrackThread } from '@/services/Track'
+import { getTrackInfo, getTrackThread, getTrackTop } from '@/services/Track'
 import TableDetail from '@/components/Table'
 
 export default {
@@ -108,6 +115,13 @@ export default {
         this.trackThread.headers = response.headers
         this.trackThread.columns = response.columns
       })
+    },
+    handlerGetTrackTop(query, callback) {
+      getTrackTop(this.selectServerValue, 100).then(response => {
+        if (response.status) {
+          callback(response.columns)
+        }
+      })
     }
   }
 }
@@ -125,5 +139,27 @@ export default {
 
 /deep/ .el-card__body {
   padding: 5px 15px;
+}
+
+.my-autocomplete {
+  li {
+    line-height: normal;
+    padding: 7px;
+
+    .name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .addr {
+      font-size: 12px;
+      margin-top: -5px;
+      color: #b4b4b4;
+    }
+
+    .highlighted .addr {
+      color: #ddd;
+    }
+  }
 }
 </style>

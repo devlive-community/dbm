@@ -77,6 +77,7 @@ SELECT
   now() - create_time AS "elapsedTime(ms)"
 FROM
   system.mutations
+WHERE is_done = 0
   `
   return await getQuery(server, sql)
 }

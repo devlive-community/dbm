@@ -1,5 +1,6 @@
 import { getQuery } from '@/services/Metadata'
 import { stringFormat } from '@/utils/Utils'
+import { isEmpty } from '@/utils/StringUtils'
 
 export async function getTrackInfo(server, id) {
   const sql = stringFormat(`
@@ -55,4 +56,22 @@ ORDER BY
   thread_id DESC
   `, [id])
   return await getQuery(server, sql)
+}
+
+export function getTrackTop(server, top) {
+  if (isEmpty(top)) {
+    top = 100
+  }
+  const sql = stringFormat(`
+SELECT
+  query_id AS value,
+  query_start_time AS queryStartTime
+FROM
+  system.query_log
+ORDER BY
+  query_start_time DESC
+LIMIT
+  {0}
+  `, [top])
+  return getQuery(server, sql)
 }

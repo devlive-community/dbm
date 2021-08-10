@@ -47,6 +47,7 @@
               <div slot="header">
                 <span :style="'color: ' + getTrackColor(track.type) + ';'">{{ track.type }}</span>
                 <span class="em">({{ track.queryStartTime }})</span>
+                <el-button class="frp-5" type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(track)"></el-button>
               </div>
               <div style="margin-top: 2px;">
                 <p v-for="(v, i) in Object.entries(track)" v-if="v[0] !== 'ddl'" :key="i" :value="v[1]" class="item">
@@ -65,6 +66,7 @@
         <el-button size="mini" @click="trackThread.show = false">{{ this.$t('common.cancel') }}</el-button>
       </div>
     </el-dialog>
+    <table-ddl :loading="trackContext.show" :title="trackContext.title" :ddl="trackContext.context" @close="trackContext.show = false"/>
   </div>
 </template>
 
@@ -73,11 +75,13 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import { getDataSources } from '@/services/DataSource'
 import { getTrackInfo, getTrackThread, getTrackTop } from '@/services/Track'
 import TableDetail from '@/components/Table'
+import TableDdl from '@/views/components/table/TableDdl'
 
 export default {
   components: {
     TableDetail,
-    DataSourceSelect
+    DataSourceSelect,
+    TableDdl
   },
   data() {
     return {
@@ -90,6 +94,11 @@ export default {
         show: false,
         headers: [],
         columns: []
+      },
+      trackContext: {
+        show: false,
+        title: null,
+        context: null
       }
     }
   },
@@ -122,6 +131,11 @@ export default {
           callback(response.columns)
         }
       })
+    },
+    handlerShowDDL(row) {
+      this.trackContext.show = true
+      this.trackContext.title = row.id
+      this.trackContext.context = row.ddl
     }
   }
 }

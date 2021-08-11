@@ -74,7 +74,16 @@ export default {
     edit: 'Edit',
     tools: 'Tools',
     track: 'Track',
-    thread: 'Thread'
+    thread: 'Thread',
+    type: 'Type',
+    next: 'Next',
+    preview: 'Preview',
+    configuration: 'Configuration',
+    previous: 'Previous',
+    log: 'Log',
+    column: 'Column',
+    property: 'Property',
+    comment: 'Comment'
   },
   prompt: {
     component: {
@@ -135,5 +144,8 @@ export default {
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
     service_available: 'The current service is available for query or other operations!',
     refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
+  },
+  tooltip: {
+    is_empty: 'Is not empty'
   }
 }

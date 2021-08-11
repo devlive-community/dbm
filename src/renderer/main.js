@@ -32,6 +32,12 @@ Vue.prototype.COLUMN = COLUMN
 Vue.prototype.ADD = ADD
 Vue.prototype.EDIT = EDIT
 
+const TableEngine = require('./utils/TableEngineUtils')
+Vue.prototype.TableEngine = TableEngine
+
+const ColumnTypeUtils = require('./utils/ColumnTypeUtils')
+Vue.prototype.ColumnTypeUtils = ColumnTypeUtils
+
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 

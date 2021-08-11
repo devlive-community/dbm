@@ -27,3 +27,7 @@ export async function getTablePreview(server, database, table) {
     'LIMIT 10', [database, table])
   return await getQuery(server, sql)
 }
+
+export function createTable(server, sql) {
+  return getQuery(server, sql)
+}

@@ -25,6 +25,12 @@
                        :inactive-text="this.$t('common.server')"
                        active-value="DataBase" inactive-value="Server" @change="handlerSwitchType"/>
             <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
+                        :content="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
+                        placement="top">
+              <el-button class="frp-5" type="primary" size="mini" icon="el-icon-plus"
+                         @click="loading.createTable = true"/>
+            </el-tooltip>
+            <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
                         :content="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
                         placement="top">
               <el-button class="frp-5" type="danger" size="mini" icon="el-icon-delete"
@@ -62,6 +68,8 @@
     <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"/>
     <delete-table :loading="loading.deleteTable" :server="treeValue.server" :database="treeValue.database"
                   :table="treeValue.table" @close="loading.deleteTable = false"/>
+    <create-table :loading="loading.createTable" :server="treeValue.server" :database="treeValue.database"
+                  @close="loading.createTable = false"/>
   </div>
 </template>
 
@@ -80,9 +88,11 @@ import { stringFormat } from '@/utils/Utils'
 import { isNotEmpty } from '@/utils/StringUtils'
 import { getDiskUsedAndRatio } from '@/services/Disk'
 import { SERVER } from '@/utils/Support'
+import CreateTable from '@/views/components/table/TableCreate'
 
 export default {
   components: {
+    CreateTable,
     AddDatabase,
     DeleteTable,
     ServerStatus,
@@ -107,7 +117,8 @@ export default {
         serverStatus: false,
         addDatabase: false,
         deleteTable: false,
-        deleteDatabase: false
+        deleteDatabase: false,
+        createTable: false
       },
       items: [],
       switchType: SERVER

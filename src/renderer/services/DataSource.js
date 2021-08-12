@@ -52,6 +52,14 @@ export function updateDataSource(unique, dataSource) {
   return response
 }
 
+export function getDataSource(unique) {
+  let datasource
+  if (getLengthGtZore(unique)) {
+    datasource = JSON.parse(localStorage.getItem(token)).filter(item => item.name === unique)
+  }
+  return datasource
+}
+
 /**
  * Get source from localStroage
  * @param {*} name target name

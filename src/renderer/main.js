@@ -92,6 +92,8 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+Vue.prototype.commonLabelWidth120 = '120px'
+
 new Vue({
   components: { App },
   router,

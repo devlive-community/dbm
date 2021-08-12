@@ -36,6 +36,7 @@ export const constantRouterMap = [
     path: '/query',
     component: Layout,
     name: 'Query',
+    redirect: '/query/table',
     meta: { title: i18n.t('router.query'), icon: 'example' },
     children: [
       {
@@ -108,6 +109,7 @@ export const constantRouterMap = [
     path: '/tools',
     component: Layout,
     name: i18n.t('common.tools'),
+    redirect: '/tools/track',
     meta: { title: i18n.t('common.tools'), icon: 'tools' },
     children: [
       {
@@ -115,6 +117,12 @@ export const constantRouterMap = [
         name: 'Track',
         component: () => import('@/views/tools/track'),
         meta: { title: i18n.t('common.track'), icon: 'wrench' }
+      },
+      {
+        path: 'migrate',
+        name: 'Migrate',
+        component: () => import('@/views/tools/migrate'),
+        meta: { title: i18n.t('common.migrate'), icon: 'exchange-alt' }
       }
     ]
   },

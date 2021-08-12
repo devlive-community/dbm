@@ -83,7 +83,11 @@ export default {
     log: '日志',
     column: '列',
     property: '属性',
-    comment: '描述'
+    comment: '描述',
+    migrate: '迁移',
+    source: '源',
+    target: '目标',
+    clickhouse: 'ClickHouse'
   },
   prompt: {
     component: {

@@ -8,11 +8,26 @@
       <el-step :title="stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.configuration')])"/>
       <el-step :title="stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
     </el-steps>
-    <el-row v-if="body.step === 1" :gutter="20">
+    <el-row v-if="body.step === 1" v-for="engineType in TableEngine.ENGINES" :gutter="20">
       <div>
-        <el-divider content-position="left">{{ this.$t('common.log') }}</el-divider>
-        <el-col :span="6" align="middle">
-          <el-radio v-model="form.type" :label="this.TableEngine.LOG_LOG" border>{{ TableEngine.LOG_LOG }}</el-radio>
+        <el-divider content-position="left">
+          {{ engineType.name }}
+          <el-tooltip placement="top">
+            <div slot="content">{{ engineType.description }}</div>
+            <el-button size="mini" circle type="text">
+              <i class="fa fa-question-circle"></i>
+            </el-button>
+          </el-tooltip>
+        </el-divider>
+        <el-col v-for="engine in engineType.engines" :span="6" align="middle">
+          <el-radio v-model="form.type" :label="engine.name" border style="margin-top: 15px;">{{ engine.name }}
+          </el-radio>
+          <el-tooltip placement="top">
+            <div slot="content">{{ engineType.description }}</div>
+            <el-button size="mini" type="text" style="margin-left: -25px;">
+              <i class="fa fa-question-circle"></i>
+            </el-button>
+          </el-tooltip>
         </el-col>
       </div>
     </el-row>
@@ -101,7 +116,7 @@ export default {
         create: false
       },
       form: {
-        type: this.TableEngine.LOG_LOG,
+        type: 'Log',
         database: null,
         table: null
       },

@@ -79,7 +79,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/monitor/processor',
     name: 'Monitor',
-    new: true,
+    new: false,
     meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
     children: [
       {
@@ -98,7 +98,7 @@ export const constantRouterMap = [
       {
         path: 'mutations',
         name: 'Mutations',
-        new: true,
+        new: false,
         component: () => import('@/views/monitor/mutations'),
         meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
       }

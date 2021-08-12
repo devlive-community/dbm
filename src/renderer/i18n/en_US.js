@@ -83,7 +83,11 @@ export default {
     log: 'Log',
     column: 'Column',
     property: 'Property',
-    comment: 'Comment'
+    comment: 'Comment',
+    migrate: 'Migrate',
+    source: 'Source',
+    target: 'Target',
+    clickhouse: 'ClickHouse'
   },
   prompt: {
     component: {

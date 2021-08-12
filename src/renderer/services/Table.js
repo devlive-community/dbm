@@ -31,3 +31,15 @@ export async function getTablePreview(server, database, table) {
 export function createTable(server, sql) {
   return getQuery(server, sql)
 }
+
+export function checkTableExists(server, database, table) {
+  const sql = stringFormat(`
+SELECT
+  name
+FROM
+  system.tables
+WHERE
+  database = '{0}' AND name = '{1}'
+  `, [database, table])
+  return getQuery(server, sql)
+}

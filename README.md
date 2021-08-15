@@ -3,7 +3,7 @@
     <a href="https://github.com/EdurtIO/incubator-dbm">
       <img src="static/images/logo.svg" alt="Logo" width="120px" height="120px">
     </a>
-    <h2 align="center">DBM(Incubator)</h3>
+    <h2 align="center">DBM</h3>
     <p align="center">
     An awesome database management tool specified for <a href='https://clickhouse.tech'>ClickHouse</a>. For more information: <a href='https://dbm.incubator.edurt.io'>https://dbm.incubator.edurt.io</a>.
     <br />

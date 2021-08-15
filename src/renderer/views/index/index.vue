@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    Welcome to DBM(Incubator)
+    Welcome to DBM
     <el-tag type="danger">{{ 'Version for ' + VERSION }}</el-tag>
     <el-empty v-if="isEmpty(charts)"/>
     <el-row v-else :gutter="20">

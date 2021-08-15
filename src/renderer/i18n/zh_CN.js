@@ -66,7 +66,28 @@ export default {
     reload: '重新加载',
     result: '结果',
     select: '选择',
-    protocol: '协议'
+    protocol: '协议',
+    mutations: 'Mutations',
+    id: 'ID',
+    createTime: '创建时间',
+    infomation: '信息',
+    edit: '修改',
+    tools: '工具',
+    track: 'Track',
+    thread: '线程',
+    type: '类型',
+    next: '下一步',
+    preview: '预览',
+    configuration: '配置',
+    previous: '上一步',
+    log: '日志',
+    column: '列',
+    property: '属性',
+    comment: '描述',
+    migrate: '迁移',
+    source: '源',
+    target: '目标',
+    clickhouse: 'ClickHouse'
   },
   prompt: {
     component: {
@@ -127,5 +148,8 @@ export default {
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
     service_available: '当前服务可用于查询或其他操作!',
     refersh_config: '配置修改后需要手动重新载入!'
+  },
+  tooltip: {
+    is_empty: '是否非空'
   }
 }

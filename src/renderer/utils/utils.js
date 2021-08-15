@@ -61,6 +61,15 @@ export function getFaIcon(source) {
     case 'SystemEnabledRoles':
       icon = 'fa fa-flag'
       break
+    case 'Server':
+      icon = 'fa fa-server'
+      break
+    case 'DataBase':
+      icon = 'fa fa-database'
+      break
+    case 'Table':
+      icon = 'fa fa-table'
+      break
   }
   return icon
 }
@@ -121,4 +130,21 @@ export function formatRemoteUrl(configuration) {
     remoteUrl = stringFormat('{0}://{1}:{2}', [protocol, configuration.host, configuration.port])
   }
   return remoteUrl
+}
+
+export function getTrackColor(type) {
+  let color
+  switch (type) {
+    case 'QueryFinish':
+      color = '#67C23A'
+      break
+    case 'ExceptionBeforeStart':
+    case 'ExceptionWhileProcessing':
+      color = '#F56C6C'
+      break
+    default:
+      color = '#409EFF'
+      break
+  }
+  return color
 }

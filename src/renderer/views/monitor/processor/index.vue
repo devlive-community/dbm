@@ -4,14 +4,16 @@
       <el-form :inline="true" :model="form" size="mini">
         <el-form-item :label="this.$t('common.server')">
           <data-source-select
-            v-if="getLengthGtZore(selectServers)"
-            :items="selectServers"
-            @getValue="handlerServer"
-            :placeholder="'ClickHouse Server'">
+              v-if="getLengthGtZore(selectServers)"
+              :items="selectServers"
+              @getValue="handlerServer"
+              :placeholder="'ClickHouse Server'">
           </data-source-select>
           <span v-if="form.auto">
             <i class="fa fa-spin fa-spinner"></i>
-            {{ this.$t('common.refresh') + this.$t('common.time') }} <el-tag size="mini"> {{ this.refreshTime }}</el-tag>
+            {{ this.$t('common.refresh') + this.$t('common.time') }} <el-tag size="mini"> {{
+              this.refreshTime
+            }}</el-tag>
           </span>
         </el-form-item>
         <el-form-item :label="this.$t('common.auto')" style="float: right;">
@@ -34,22 +36,23 @@
       <el-table-column prop="hash" :label="this.$t('common.hash')"></el-table-column>
       <el-table-column prop="host" :label="this.$t('common.host')"></el-table-column>
       <el-table-column fixed="right" :label="this.$t('common.action')">
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" placement="top">
-              <div slot="content">{{ $t('common.ddl') }}</div>
-              <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" placement="top">
-              <div slot="content">{{ $t('common.kill') }}</div>
-              <el-button type="text" size="small" @click="handlerKill(scope.row)">
-                <i class="fa fa-stop danger"></i>
-              </el-button>
-            </el-tooltip>
-          </template>
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" placement="top">
+            <div slot="content">{{ $t('common.ddl') }}</div>
+            <el-button type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(scope.row)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" placement="top">
+            <div slot="content">{{ $t('common.kill') }}</div>
+            <el-button type="text" size="small" @click="handlerKill(scope.row)">
+              <i class="fa fa-stop danger"></i>
+            </el-button>
+          </el-tooltip>
+        </template>
       </el-table-column>
     </el-table>
     <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
-    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :server="selectServerValue" @close="kill.visible = false"></query-kill>
+    <query-kill :loading="kill.visible" :title="kill.title" :id="kill.id" :server="selectServerValue"
+                @close="kill.visible = false"></query-kill>
   </div>
 </template>
 
@@ -58,9 +61,10 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import TableDdl from '@/views/components/table/TableDdl'
 import QueryKill from '@/views/components/query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
-import { getProcesses } from '@/services/Monitor'
+import { getMonitor } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
 import { stringFormat } from '@/utils/Utils'
+import { PROCESSES } from '@/utils/Support'
 
 export default {
   components: {
@@ -120,10 +124,10 @@ export default {
     },
     async handlerServer(value) {
       this.selectServerValue = value
-      const response = await getProcesses(this.selectServerValue)
+      const response = await getMonitor(this.selectServerValue, PROCESSES)
       if (!response.status) {
         this.$notify.error({
-          title: 'Error',
+          title: this.$t('common.error'),
           message: response.message
         })
       } else {

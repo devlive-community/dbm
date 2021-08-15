@@ -11,27 +11,43 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import solid from '@fortawesome/fontawesome-free-solid'
-import regular from '@fortawesome/fontawesome-free-regular'
-import brands from '@fortawesome/fontawesome-free-brands'
-
-import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat } from './utils/Utils'
+import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat, getTrackColor } from './utils/Utils'
 Vue.prototype.getLength = getLength
 Vue.prototype.getLengthGtZore = getLengthGtZore
 Vue.prototype.getLengthLtZore = getLengthLtZore
 Vue.prototype.getLengthEqZore = getLengthEqZore
 Vue.prototype.getFaIcon = getFaIcon
 Vue.prototype.stringFormat = stringFormat
+Vue.prototype.getTrackColor = getTrackColor
+
+import { isEmpty, isNotEmpty } from './utils/StringUtils'
+Vue.prototype.isEmpty = isEmpty
+Vue.prototype.isNotEmpty = isNotEmpty
+
+import { SERVER, DATABASE, TABLE, COLUMN, EDIT, ADD } from './utils/Support'
+Vue.prototype.SERVER = SERVER
+Vue.prototype.DATABASE = DATABASE
+Vue.prototype.TABLE = TABLE
+Vue.prototype.COLUMN = COLUMN
+Vue.prototype.ADD = ADD
+Vue.prototype.EDIT = EDIT
+
+const TableEngine = require('./utils/TableEngineUtils')
+Vue.prototype.TableEngine = TableEngine
+
+const ColumnTypeUtils = require('./utils/ColumnTypeUtils')
+Vue.prototype.ColumnTypeUtils = ColumnTypeUtils
 
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 
-fontawesome.library.add(solid)
-fontawesome.library.add(regular)
-fontawesome.library.add(brands)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+import fontawesome from '@fortawesome/fontawesome'
+import free from '@fortawesome/fontawesome-free'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+fontawesome.library.add(free)
+fontawesome.library.add(fas)
+fontawesome.library.add(fab)
 
 // Support message
 import { Message } from 'element-ui'
@@ -47,6 +63,9 @@ Vue.use(HighchartsVue)
 // Support clipboard
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
+
+import VueContextMenu from 'vue-context-menu'
+Vue.use(VueContextMenu)
 
 Vue.prototype.onCopy = function() {
   Message.success({
@@ -72,6 +91,8 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
+
+Vue.prototype.commonLabelWidth120 = '120px'
 
 new Vue({
   components: { App },

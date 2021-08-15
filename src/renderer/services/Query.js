@@ -148,7 +148,7 @@ export function clearQueryHistory() {
  * @param {*} target target id
  * @returns kill response
  */
-export async function killQuery(server, source, target) {
+export async function killQuery(server, source, target, type) {
   const dataSource = getDataSource(server)
   const remoteServer = getServerURL(dataSource[0].host, dataSource[0].port, null)
   const result = new Response()
@@ -156,7 +156,14 @@ export async function killQuery(server, source, target) {
     result.message = i18n.t('alter.contrast_input')
     result.status = false
   } else {
-    const sql = stringFormat('KILL QUERY WHERE query_id = \'{0}\'', [source])
+    let sql = null
+    switch (type) {
+      case 'mutation':
+        sql = stringFormat('KILL MUTATION WHERE mutation_id = \'{0}\'', [source])
+        break
+      default:
+        sql = stringFormat('KILL QUERY WHERE query_id = \'{0}\'', [source])
+    }
     await runExecute(remoteServer, sql).then(response => {
       if (response.status === 200) {
         result.message = stringFormat('{0} {1} {2}', [i18n.t('common.kill'), source, i18n.t('common.success')])

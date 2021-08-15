@@ -1,119 +1,75 @@
 <template>
   <div class="app-container">
-    <el-row>
-      <!-- Server -->
-      <i class="fa fa-server"></i>
-      <data-source-select
-        v-if="getLengthGtZore(selectServers)"
-        :items="selectServers"
-        @getValue="handlerServer"
-        :placeholder="'ClickHouse Server'">
-      </data-source-select>
-      <!-- Database -->
-      <span v-if="selectDatabases && selectDatabases.length > 0">
-        <i class="fa fa-database"></i>
-        <el-select
-          v-model="selectDatabaseValue"
-          size="mini"
-          filterable
-          @change="handlerDatabase()"
-          placeholder="ClickHouse Database">
-          <el-option
-            v-for="item in selectDatabases"
-            :key="item.name"
-            :label="item.name"
-            :value="item.name">
-          </el-option>
-        </el-select>
-      </span>
-      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Add DataBase" placement="top">
-        <el-button
-          type="primary"
-          size="mini"
-          icon="el-icon-plus"
-          @click="loading.addDatabase = true">
-        </el-button>
-      </el-tooltip>
-      <el-tooltip v-if="disabled.showButton && selectDatabaseValue" class="item" effect="dark" content="Delete Database" placement="top">
-        <el-button
-          type="danger"
-          size="mini"
-          icon="el-icon-delete"
-          @click="loading.deleteDatabase = true">
-        </el-button>
-      </el-tooltip>
-      <el-tooltip v-if="disabled.showButton" class="item" effect="dark" content="Infomation" placement="top">
-        <el-button
-          type="success"
-          size="mini"
-          icon="el-icon-info"
-          @click="loading.serverStatus = true">
-        </el-button>
-      </el-tooltip>
-    </el-row>
-    <el-row>
-      <el-pagination
-        v-if="columns.length > 0"
-        layout="total, prev, pager, next"
-        @current-change="handlerChangePage"
-        :total="columns.length"
-        background>
-      </el-pagination>
-      <el-table v-loading.body="loading.tableBody"
-        style="width: 100%"
-        border
-        :data="columns.slice((currentPage - 1) * pagesize, currentPage * pagesize)">
-        <template v-for="(item,index) in headers">
-          <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
-        </template>
-        <el-table-column
-          v-if="columns.length > 0"
-          fixed="right"
-          label="Action">
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" placement="top">
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <data-tree :items="treeItems" @change="handlerGetTreeData($event)"/>
+      </el-col>
+      <el-col :span="18">
+        <el-empty v-if="isEmpty(treeValue.title)"/>
+        <el-card v-else class="box-card">
+          <div slot="header" class="clearfix">
+            <span><i :class="getFaIcon(treeValue.type)"></i> {{ treeValue.title }}</span>
+            <el-tooltip v-if="treeValue.type === SERVER" class="item" effect="dark"
+                        :content="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.database')])"
+                        placement="top">
+              <el-button class="frp-5" type="primary" size="mini" icon="el-icon-plus"
+                         @click="loading.addDatabase = true"/>
+            </el-tooltip>
+            <el-tooltip v-if="treeValue.type === SERVER" class="item" effect="dark"
+                        :content="this.$t('common.infomation')" placement="top">
+              <el-button class="frp-5" type="success" size="mini" icon="el-icon-info"
+                         @click="loading.serverStatus = true"/>
+            </el-tooltip>
+            <el-switch v-if="treeValue.type === SERVER" class="frp-5" v-model="switchType"
+                       :active-text="this.$t('common.database')"
+                       :inactive-text="this.$t('common.server')"
+                       active-value="DataBase" inactive-value="Server" @change="handlerSwitchType"/>
+            <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
+                        :content="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
+                        placement="top">
+              <el-button class="frp-5" type="primary" size="mini" icon="el-icon-plus"
+                         @click="loading.createTable = true"/>
+            </el-tooltip>
+            <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
+                        :content="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
+                        placement="top">
+              <el-button class="frp-5" type="danger" size="mini" icon="el-icon-delete"
+                         @click="loading.deleteDatabase = true"/>
+            </el-tooltip>
+            <el-tooltip v-if="treeValue.type === TABLE" class="item" effect="dark" placement="top">
               <div slot="content">{{ $t('common.ddl') }}</div>
-              <el-button type="text" 
-                size="small" 
-                :loading="buttonLoading"
-                icon="el-icon-search"
-                @click="handlerShowDDL(scope.row)"></el-button>
+              <el-button class="frp-5" type="text" size="small" :loading="buttonLoading" icon="el-icon-search"
+                         @click="handlerShowDDL(treeValue.server, treeValue.database, treeValue.table)"></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Table Detail" placement="top">
-              <el-button type="text" 
-                size="small" 
-                :loading="buttonLoading"
-                icon="el-icon-more"
-                @click="handlerToDetail(scope.row)"></el-button>
+            <el-tooltip v-if="treeValue.type === TABLE && treeValue.table !== 'system'" class="item" effect="dark"
+                        placement="top"
+                        :content="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])">
+              <el-button class="frp-5" type="text" size="small" icon="el-icon-delete"
+                         @click="loading.deleteTable = true"/>
             </el-tooltip>
-            <el-tooltip v-if="selectDatabaseValue !== 'system'" class="item" effect="dark" content="Delete Table" placement="top">
-              <el-button type="text" 
-                size="small" 
-                :loading="buttonLoading"
-                icon="el-icon-delete"
-                @click="handlerDeleteTable(scope.row)"></el-button>
+            <el-tooltip v-if="treeValue.type === TABLE" class="item" effect="dark" content="Table Detail"
+                        placement="top">
+              <el-button class="frp-5" type="text" size="small" icon="el-icon-more" @click="handlerToDetail()"/>
             </el-tooltip>
-          </template>
-      </el-table-column>
-      </el-table>
+          </div>
+          <div class="text item">
+            <el-empty v-if="isEmpty(treeValue.server) || isEmpty(treeValue.type)"/>
+            <monitor-disk v-else :items="items"/>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
-    <!-- Add Database -->
-    <add-database :loading="loading.addDatabase" :server="selectServerValue" @close="loading.addDatabase = false"></add-database>
-    <server-status :loading="loading.serverStatus" :server="selectServerValue" @close="loading.serverStatus = false"></server-status>
-    <delete-table
-      :loading="loading.deleteTable"
-      :server="selectServerValue"
-      :database="selectDatabaseValue"
-      :table="selectTableValue"
-      @close="handlerCloseDeleteTable">
-    </delete-table>
-    <delete-database
-      :loading="loading.deleteDatabase"
-      :server="selectServerValue"
-      :database="selectDatabaseValue"
-      @close="handlerCloseDeleteDatabase">
-    </delete-database>
-    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"></table-ddl>
+    <el-row>
+    </el-row>
+    <add-database :loading="loading.addDatabase" :server="treeValue.server" @close="loading.addDatabase = false"/>
+    <server-status :loading="loading.serverStatus" :server="treeValue.server" @close="loading.serverStatus = false"/>
+    <delete-database :loading="loading.deleteDatabase" :server="treeValue.server" :database="treeValue.database"
+                     @close="loading.deleteDatabase = false"/>
+    <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"/>
+    <delete-table :loading="loading.deleteTable" :server="treeValue.server" :database="treeValue.database"
+                  :table="treeValue.table" @close="loading.deleteTable = false"/>
+    <create-table :loading="loading.createTable" :server="treeValue.server" :database="treeValue.database"
+                  @close="loading.createTable = false"/>
   </div>
 </template>
 
@@ -121,53 +77,51 @@
 import AddDatabase from '@/views/components/database/DatabaseAdd'
 import DeleteDatabase from '@/views/components/database/DatabaseDelete'
 import DeleteTable from '@/views/components/table/TableDelete'
+import DataTree from '@/views/components/data/DataTree'
 import ServerStatus from '@/views/components/ServerStatus'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
+import MonitorDisk from '@/views/components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { stringFormat } from '@/utils/Utils'
+import { isNotEmpty } from '@/utils/StringUtils'
+import { getDiskUsedAndRatio } from '@/services/Disk'
+import { SERVER } from '@/utils/Support'
+import CreateTable from '@/views/components/table/TableCreate'
 
 export default {
   components: {
+    CreateTable,
     AddDatabase,
     DeleteTable,
     ServerStatus,
     DeleteDatabase,
     DataSourceSelect,
-    TableDdl
+    TableDdl,
+    DataTree,
+    MonitorDisk
   },
   data() {
     return {
-      selectServers: [],
-      selectServerValue: null,
-      selectDatabases: [],
-      selectDatabaseValue: null,
-      selectTables: [],
-      selectTableValue: null,
-      headers: [],
-      columns: [],
-      rows: null,
-      statistics: {},
+      treeItems: [],
+      treeValue: {},
       buttonLoading: false,
-      pagesize: 10,
-      currentPage: 1,
       ddl: {
         visible: false,
         title: '',
         context: null
-      },
-      tableDetailDialogVisible: false,
-      disabled: {
-        showButton: false
       },
       loading: {
         tableBody: false,
         serverStatus: false,
         addDatabase: false,
         deleteTable: false,
-        deleteDatabase: false
-      }
+        deleteDatabase: false,
+        createTable: false
+      },
+      items: [],
+      switchType: SERVER
     }
   },
   mounted() {
@@ -175,81 +129,44 @@ export default {
   },
   methods: {
     _initialize() {
-      this._initializeServer()
+      this.treeItems = JSON.parse(localStorage.getItem('DataSources'))
     },
-    _initializeServer() {
-      this.selectServers = JSON.parse(localStorage.getItem('DataSources'))
-    },
-    async handlerServer(value) {
-      this.selectServerValue = value
-      const response = await getQuery(this.selectServerValue, 'SHOW DATABASES')
-      if (response.status) {
-        this.selectDatabases = response.columns
-        this.disabled.showButton = true
+    async handlerGetTreeData(value, type) {
+      this.treeValue = value
+      let iType = value.type
+      if (isNotEmpty(type)) {
+        iType = type
+      }
+      const response = await getDiskUsedAndRatio(value.server, iType, value.database, value.table)
+      if (response && response.status) {
+        this.items = response.columns
       } else {
-        this.$notify.error({
-          title: this.$t('common.error'),
-          message: response.message
-        })
+        this.items = []
       }
     },
-    async handlerDatabase() {
-      this.loading.tableBody = true
-      const sql = stringFormat('SELECT ' +
-        'uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes ' +
-        'FROM system.tables ' +
-        'WHERE database = \'{0}\'', [this.selectDatabaseValue])
-      const response = await getQuery(this.selectServerValue, sql)
-      if (response.status) {
-        this.headers = response.headers
-        this.columns = response.columns
-        this.loading.tableBody = false
-      } else {
-        this.$notify.error({
-          title: this.$t('common.error'),
-          message: response.message
-        })
-      }
-    },
-    handlerChangePage(currentPage) {
-      this.currentPage = currentPage
-    },
-    async handlerShowDDL(row) {
+    async handlerShowDDL(server, database, table) {
       this.buttonLoading = true
       const sql = stringFormat('SELECT ' +
-        'create_table_query ' +
-        'FROM system.tables ' +
-        'WHERE database = \'{0}\' AND name = \'{1}\'', [this.selectDatabaseValue, row.name])
-      const response = await getQuery(this.selectServerValue, sql)
+          'create_table_query ' +
+          'FROM system.tables ' +
+          'WHERE database = \'{0}\' AND name = \'{1}\'', [database, table])
+      const response = await getQuery(server, sql)
       if (response.status) {
         this.ddl.context = response.columns[0].create_table_query
-        this.ddl.title = row.name + ' ' + this.$t('common.ddl')
+        this.ddl.title = table + ' ' + this.$t('common.ddl')
         this.ddl.visible = true
         this.buttonLoading = false
       }
     },
-    handlerToDetail(row) {
-      const path = stringFormat('/data/detail/{0}/{1}/{2}', [this.selectServerValue, this.selectDatabaseValue, row.name])
+    handlerToDetail() {
+      const path = stringFormat('/data/detail/{0}/{1}/{2}', [this.treeValue.server, this.treeValue.database, this.treeValue.table])
       this.$router.push({
         path: path
       })
     },
-    handlerDeleteTable(row) {
-      this.loading.deleteTable = true
-      this.selectTableValue = row.name
-    },
-    handlerCloseDeleteTable() {
-      this.loading.deleteTable = false
-    },
-    handlerCloseDeleteDatabase() {
-      this.loading.deleteDatabase = false
+    handlerSwitchType() {
+      this.handlerGetTreeData(this.treeValue, this.switchType)
     }
   }
 }
 </script>
-
-<style scoped>
-  .el-row {
-    margin-top: 10px;
-  }
-</style>

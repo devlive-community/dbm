@@ -36,6 +36,7 @@ export const constantRouterMap = [
     path: '/query',
     component: Layout,
     name: 'Query',
+    redirect: '/query/table',
     meta: { title: i18n.t('router.query'), icon: 'example' },
     children: [
       {
@@ -79,7 +80,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/monitor/processor',
     name: 'Monitor',
-    new: true,
+    new: false,
     meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
     children: [
       {
@@ -91,9 +92,37 @@ export const constantRouterMap = [
       {
         path: 'connection',
         name: 'Connection',
-        new: true,
+        new: false,
         component: () => import('@/views/monitor/connection'),
         meta: { title: i18n.t('common.connection'), icon: 'compress' }
+      },
+      {
+        path: 'mutations',
+        name: 'Mutations',
+        new: false,
+        component: () => import('@/views/monitor/mutations'),
+        meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
+      }
+    ]
+  },
+  {
+    path: '/tools',
+    component: Layout,
+    name: i18n.t('common.tools'),
+    redirect: '/tools/track',
+    meta: { title: i18n.t('common.tools'), icon: 'tools' },
+    children: [
+      {
+        path: 'track',
+        name: 'Track',
+        component: () => import('@/views/tools/track'),
+        meta: { title: i18n.t('common.track'), icon: 'wrench' }
+      },
+      {
+        path: 'migrate',
+        name: 'Migrate',
+        component: () => import('@/views/tools/migrate'),
+        meta: { title: i18n.t('common.migrate'), icon: 'exchange-alt' }
       }
     ]
   },

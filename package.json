@@ -62,7 +62,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "axios": "0.17.1",
     "echarts": "^5.1.2",
-    "element-ui": "^2.15.3",
+    "element-ui": "^2.15.5",
     "es6-promise": "4.2.8",
     "highcharts": "^9.1.2",
     "highcharts-vue": "^1.4.0",

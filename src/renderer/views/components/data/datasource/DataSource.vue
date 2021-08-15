@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="elementLoading.body" :width="width" @close="closeDialog">
+  <el-dialog :title="element.title" :visible.sync="elementLoading.body" :width="width" @close="closeDialog">
     <el-form :model="form" size="mini">
       <el-card class="box-card" shadow="never" style="margin-top: -10px;">
         <div slot="header" class="clearfix" style="padding: -1px;">
@@ -11,8 +11,8 @@
               <span v-html="this.$t('view.component.data.source.tooltip.alias_name')"></span>
             </div>
             <el-input
-              :placeholder="this.$t('view.component.data.source.placeholder.alias_name')"
-              v-model="form.name">
+                :placeholder="this.$t('view.component.data.source.placeholder.alias_name')"
+                v-model="form.name">
               <i slot="prefix" class="fa fa-tag"></i>
             </el-input>
           </el-tooltip>
@@ -27,8 +27,8 @@
               <span v-html="this.$t('view.component.data.source.tooltip.host')"></span>
             </div>
             <el-input
-              :placeholder="this.$t('view.component.data.source.placeholder.host')"
-              v-model="form.host">
+                :placeholder="this.$t('view.component.data.source.placeholder.host')"
+                v-model="form.host">
               <i slot="prefix" class="fa fa-server"></i>
             </el-input>
           </el-tooltip>
@@ -39,23 +39,23 @@
               <span v-html="this.$t('view.component.data.source.tooltip.port')"></span>
             </div>
             <el-input
-              :placeholder="this.$t('view.component.data.source.placeholder.port')"
-              v-model="form.port">
+                :placeholder="this.$t('view.component.data.source.placeholder.port')"
+                v-model="form.port">
               <i slot="prefix" class="fa fa-recycle"></i>
             </el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item :label="this.$t('common.username')" :label-width="formLabelWidth">
           <el-input
-            :placeholder="this.$t('view.component.data.source.placeholder.username')"
-            v-model="form.username">
+              :placeholder="this.$t('view.component.data.source.placeholder.username')"
+              v-model="form.username">
             <i slot="prefix" class="fa fa-recycle"></i>
           </el-input>
         </el-form-item>
         <el-form-item :label="this.$t('common.password')" :label-width="formLabelWidth">
           <el-input
-            :placeholder="this.$t('view.component.data.source.placeholder.password')"
-            v-model="form.password">
+              :placeholder="this.$t('view.component.data.source.placeholder.password')"
+              v-model="form.password">
             <i slot="prefix" class="fa fa-recycle"></i>
           </el-input>
         </el-form-item>
@@ -72,7 +72,9 @@
       </el-card>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button size="mini" :loading="elementLoading.test" type="success" @click="hadnlerTest()">{{ this.$t('common.test_connection') }}</el-button>
+      <el-button size="mini" :loading="elementLoading.test" type="success" @click="handlerTest()">
+        {{ this.$t('common.test_connection') }}
+      </el-button>
       <el-button size="mini" @click="elementLoading.body = false">{{ this.$t('common.cancel') }}</el-button>
       <el-button type="primary" size="mini" @click="handlerProcessor()">{{ this.$t('common.ok') }}</el-button>
     </div>
@@ -80,7 +82,9 @@
 </template>
 
 <script>
-import { saveDataSource, getConnection } from '@/services/DataSource'
+import { saveDataSource, updateDataSource, getConnection } from '@/services/DataSource'
+import { ADD } from '@/utils/Support'
+import { isNotEmpty } from '@/utils/StringUtils'
 
 export default {
   name: 'DataSource',
@@ -96,6 +100,18 @@ export default {
     width: {
       type: String,
       default: '50%'
+    },
+    data: {
+      type: Object,
+      default: null
+    },
+    type: {
+      type: String,
+      default: ADD
+    },
+    unique: {
+      type: String,
+      default: null
     }
   },
   created() {
@@ -112,6 +128,11 @@ export default {
         protocol: 'http'
       },
       formLabelWidth: '100px',
+      element: {
+        title: null,
+        type: null,
+        unique: null
+      },
       elementLoading: {
         body: false,
         test: false
@@ -120,7 +141,12 @@ export default {
   },
   methods: {
     async handlerProcessor() {
-      const response = await saveDataSource(this.form)
+      let response = null
+      if (this.element.type === ADD || !this.element.type) {
+        response = await saveDataSource(this.form)
+      } else {
+        response = await updateDataSource(this.element.unique, this.form)
+      }
       if (!response.status) {
         this.$notify.error({
           title: this.$t('common.error'),
@@ -135,7 +161,7 @@ export default {
         this.$emit('refresh')
       }
     },
-    async hadnlerTest() {
+    async handlerTest() {
       this.elementLoading.test = true
       const response = await getConnection(this.form.host, this.form.port, this.form.username, this.form.password)
       if (!response.status) {
@@ -166,14 +192,37 @@ export default {
       deep: true
     },
     title: {
-      deep: true
+      deep: true,
+      handler() {
+        this.element.title = this.title
+      }
+    },
+    data: {
+      deep: true,
+      handler() {
+        if (isNotEmpty(this.data)) {
+          this.form = this.data
+        }
+      }
+    },
+    type: {
+      deep: true,
+      handler() {
+        this.element.type = this.type
+      }
+    },
+    unique: {
+      deep: true,
+      handler() {
+        this.element.unique = this.unique
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-  /deep/ .el-card__header {
-    padding: 5px 15px;
-  }
+/deep/ .el-card__header {
+  padding: 5px 15px;
+}
 </style>

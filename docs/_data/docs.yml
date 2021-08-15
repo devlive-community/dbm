@@ -1,6 +1,7 @@
 - title: Getting Started
   docs:
   - home
+  - datasource
 - title: Development
   docs:
   - contribution

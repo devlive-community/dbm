@@ -49,10 +49,7 @@ export default {
       deleteTable: null,
       inputDeleteTable: null,
       remoteDatabase: null,
-      buttonLoading: false,
-      form: {
-        name: ''
-      }
+      buttonLoading: false
     }
   },
   methods: {

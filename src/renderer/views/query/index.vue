@@ -131,6 +131,7 @@ import { getDataSources } from '@/services/DataSource'
 import { stringFormat, getLength } from '@/utils/Utils'
 import { deleteByIndex } from '@/utils/ArrayUtils'
 import { isEmpty } from '@/utils/StringUtils'
+import { getFormatter } from '../../services/Setting'
 
 export default {
   name: 'Query',
@@ -227,7 +228,8 @@ export default {
     },
     handlerFormat() {
       const selectEditor = this.getSelectEditor()
-      selectEditor.value = this.sqlFormatter(selectEditor.value)
+      const formatter = getFormatter()
+      selectEditor.value = this.sqlFormatter(selectEditor.value, formatter)
     },
     handlerAddTab() {
       ++this.result.tabsIndex

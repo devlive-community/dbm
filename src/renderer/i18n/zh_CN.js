@@ -87,7 +87,9 @@ export default {
     migrate: '迁移',
     source: '源',
     target: '目标',
-    clickhouse: 'ClickHouse'
+    clickhouse: 'ClickHouse',
+    language: '语言',
+    uppercase: '大写'
   },
   prompt: {
     component: {

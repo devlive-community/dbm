@@ -87,7 +87,9 @@ export default {
     migrate: 'Migrate',
     source: 'Source',
     target: 'Target',
-    clickhouse: 'ClickHouse'
+    clickhouse: 'ClickHouse',
+    language: 'Language',
+    uppercase: 'Uppercase'
   },
   prompt: {
     component: {

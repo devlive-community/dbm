@@ -38,6 +38,9 @@ Vue.prototype.TableEngine = TableEngine
 const ColumnTypeUtils = require('./utils/ColumnTypeUtils')
 Vue.prototype.ColumnTypeUtils = ColumnTypeUtils
 
+const SqlUtils = require('./utils/SqlUtils')
+Vue.prototype.SqlUtils = SqlUtils
+
 import config from '../../package.json'
 Vue.prototype.VERSION = config.version
 

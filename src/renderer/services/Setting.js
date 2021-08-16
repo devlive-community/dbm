@@ -1,5 +1,7 @@
 import Support from '@/store/Support'
 import { stringFormat } from '@/utils/Utils'
+import { isEmpty } from '../utils/StringUtils'
+import { DEFAULT } from '../utils/SqlUtils'
 
 const token = Support.SETTING
 
@@ -21,4 +23,12 @@ export async function bufferSetting(formBody, key) {
  */
 export async function getSetting(key) {
   return await JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [token, key])))
+}
+
+export function getFormatter() {
+  let formatter = JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [token, 'Editor']))).formatter
+  if (isEmpty(formatter)) {
+    formatter = DEFAULT
+  }
+  return formatter
 }

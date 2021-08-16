@@ -12,6 +12,25 @@
 
 ---
 
+Basic:
+
+[![Build Status](https://travis-ci.com/EdurtIO/incubator-dbm.svg?branch=master)](https://www.travis-ci.com/github/EdurtIO/incubator-dbm)
+[![codebeat badge](https://codebeat.co/badges/a291d700-2d4b-435f-aa70-468bd1800d19)](https://codebeat.co/projects/github-com-edurtio-incubator-dbm-master)
+[![With Electron](https://img.shields.io/badge/with-electron-blue.svg)](https://electronjs.org/) 
+[![With Vue](https://img.shields.io/badge/with-vue-blue.svg)](http://vuejs.org/)
+
+GitHub:
+
+[![GitHub license](https://img.shields.io/github/license/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/issues)
+[![GitHub forks](https://img.shields.io/github/forks/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/network)
+[![GitHub stars](https://img.shields.io/github/stars/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/stargazers)
+
+Gitee:
+
+[![star](https://gitee.com/EdurtIO/incubator-dbm/badge/star.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/stargazers)
+[![fork](https://gitee.com/EdurtIO/incubator-dbm/badge/fork.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/members)
+
 ## :rocket: Features
 
 - Support query history (pagination, clear all, etc.)
@@ -23,12 +42,18 @@
 - Support multiple data sources management(connection test, monitoring)
 - Support customized appearance
 - Support monitor (processor, connection, query)
+- Support migrate data
+
+## :laughing: Download
+
+- [Windows](https://github.com/EdurtIO/incubator-dbm/releases/download/1.4.0/dbm-win.zip)
+- [Mac](https://github.com/EdurtIO/incubator-dbm/releases/download/1.4.0/dbm-mac.tar.gz)
 
 ## :gear: Installation
 
-macOS
+macOS and Windows
 
-- Download zip from [here](/releases/download/1.3.0-SNAPSHOT/DBM-Incubator-mac.zip).
+- Download zip from [here](https://github.com/EdurtIO/incubator-dbm/releases).
 - Unzip the archive, and install to macOS Applications.
 
 Other platforms
@@ -37,7 +62,7 @@ Other platforms
 
 Install other versions?
 
-- Go ahead to [Github Release](/releases) for all releases.
+- Go ahead to [Github Release](https://github.com/EdurtIO/incubator-dbm/releases) for all releases.
 
 ## :hammer_and_wrench: Build from source
 
@@ -55,7 +80,7 @@ yarn install
 yarn run build
 ```
 
-3. Install from built zip: `./build/dbm-<VERSION>-<OS>.zip`
+3. Install from built zip: `./build/dbm-<OS>.*`
 
 4. Run dev mode
 

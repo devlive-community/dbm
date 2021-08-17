@@ -1,8 +1,10 @@
-import { stringFormat, getValue, getLengthGtZore, formatAuthentication } from '@/utils/Utils'
+import { getValue, formatAuthentication } from '@/utils/Utils'
 import { getAuthenticationResponse } from '@/services/Common'
 import Support from '@/store/Support'
 import DataSource from '@/store/modules/DataSource'
 import Response from '@/store/modules/Response'
+
+const StringUtils = require('../utils/StringUtils')
 
 const token = Support.DATASOURCE
 
@@ -16,7 +18,7 @@ export async function saveDataSource(formBody) {
   const validateResponse = getDataSources(formBody.name)
   if (validateResponse.status && validateResponse.columns.length > 0) {
     response.status = false
-    response.message = stringFormat('DataSouece <{0}> Save Error, exists!', [formBody.name])
+    response.message = StringUtils.format('DataSource <{0}> Save Error, exists!', [formBody.name])
   } else {
     const dataSources = getDataSources(null).columns
     const dataSource = new DataSource()
@@ -30,7 +32,7 @@ export async function saveDataSource(formBody) {
     dataSources.push(dataSource)
     localStorage.setItem(token, JSON.stringify(dataSources))
     response.status = true
-    response.message = stringFormat('DataSource <{0}> Save Success!', [formBody.name])
+    response.message = StringUtils.format('DataSource <{0}> Save Success!', [formBody.name])
   }
   return response
 }
@@ -43,18 +45,18 @@ export async function saveDataSource(formBody) {
 export function updateDataSource(unique, dataSource) {
   const response = new Response()
   response.status = true
-  if (getLengthGtZore(unique)) {
+  if (StringUtils.getLengthGtZone(unique)) {
     const dataSources = JSON.parse(localStorage.getItem(token)).filter(item => item.name !== unique)
     dataSources.push(dataSource)
     localStorage.setItem(token, JSON.stringify(dataSources))
-    response.message = stringFormat('DataSource <{0}> Update Success!', [unique])
+    response.message = StringUtils.format('DataSource <{0}> Update Success!', [unique])
   }
   return response
 }
 
 export function getDataSource(unique) {
   let datasource
-  if (getLengthGtZore(unique)) {
+  if (StringUtils.getLengthGtZone(unique)) {
     datasource = JSON.parse(localStorage.getItem(token)).filter(item => item.name === unique)
   }
   return datasource

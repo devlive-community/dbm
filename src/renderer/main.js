@@ -11,20 +11,21 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import { getLength, getLengthGtZore, getLengthLtZore, getLengthEqZore, getFaIcon, stringFormat, getTrackColor } from './utils/Utils'
-Vue.prototype.getLength = getLength
-Vue.prototype.getLengthGtZore = getLengthGtZore
-Vue.prototype.getLengthLtZore = getLengthLtZore
-Vue.prototype.getLengthEqZore = getLengthEqZore
+const StringUtils = require('./utils/StringUtils')
+Vue.prototype.getLength = StringUtils.getLength
+Vue.prototype.getLengthGtZone = StringUtils.getLengthGtZone
+Vue.prototype.getLengthGtZone = StringUtils.getLengthGtZone
+Vue.prototype.getLengthGtZone = StringUtils.getLengthGtZone
+Vue.prototype.stringFormat = StringUtils.format
+Vue.prototype.isEmpty = StringUtils.isEmpty
+Vue.prototype.isNotEmpty = StringUtils.isNotEmpty
+
+import { getFaIcon, getTrackColor } from './utils/utils'
 Vue.prototype.getFaIcon = getFaIcon
-Vue.prototype.stringFormat = stringFormat
 Vue.prototype.getTrackColor = getTrackColor
 
-import { isEmpty, isNotEmpty } from './utils/StringUtils'
-Vue.prototype.isEmpty = isEmpty
-Vue.prototype.isNotEmpty = isNotEmpty
-
 import { SERVER, DATABASE, TABLE, COLUMN, EDIT, ADD } from './utils/Support'
+
 Vue.prototype.SERVER = SERVER
 Vue.prototype.DATABASE = DATABASE
 Vue.prototype.TABLE = TABLE
@@ -42,18 +43,21 @@ const SqlUtils = require('./utils/SqlUtils')
 Vue.prototype.SqlUtils = SqlUtils
 
 import config from '../../package.json'
+
 Vue.prototype.VERSION = config.version
 
 import fontawesome from '@fortawesome/fontawesome'
 import free from '@fortawesome/fontawesome-free'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+
 fontawesome.library.add(free)
 fontawesome.library.add(fas)
 fontawesome.library.add(fab)
 
 // Support message
 import { Message } from 'element-ui'
+
 Vue.prototype.$message = Message
 
 // Support i18n
@@ -61,29 +65,33 @@ import { i18n } from './i18n'
 
 // Support highcharts
 import HighchartsVue from 'highcharts-vue'
+
 Vue.use(HighchartsVue)
 
 // Support clipboard
 import VueClipboard from 'vue-clipboard2'
+
 Vue.use(VueClipboard)
 
 import VueContextMenu from 'vue-context-menu'
+
 Vue.use(VueContextMenu)
 
 Vue.prototype.onCopy = function() {
   Message.success({
-    message: stringFormat('{0} {1}', [i18n.t('common.copy'), i18n.t('common.success')])
+    message: StringUtils.format('{0} {1}', [i18n.t('common.copy'), i18n.t('common.success')])
   })
 }
 
 Vue.prototype.onError = function() {
   Message.error({
-    message: stringFormat('{0} {1}', [i18n.t('common.copy'), i18n.t('common.error')])
+    message: StringUtils.format('{0} {1}', [i18n.t('common.copy'), i18n.t('common.error')])
   })
 }
 
 // Support sqlFormatter
 import { format } from 'sql-formatter'
+
 Vue.prototype.sqlFormatter = format
 
 // Support CodeMirror

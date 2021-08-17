@@ -1,24 +1,36 @@
 <template>
   <el-dialog
-    :title="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])" 
-    :visible.sync="bodyLoading"
-    @close="closeDialog">
-    <em>We don't recommend that you delete the data table <el-tag type="info" size="mini">{{deleteTable}}</el-tag>? This operation produces the following?</em>
+      :title="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])"
+      :visible.sync="bodyLoading"
+      @close="closeDialog">
+    <em>We don't recommend that you delete the data table
+      <el-tag type="info" size="mini">{{ deleteTable }}</el-tag>
+      ? This operation produces the following?</em>
     <ol>
-      <li><el-tag type="danger" size="mini">No rollback</el-tag> The metadata will be removed from the Clickhouse metadata</li>
-      <li><el-tag type="danger" size="mini">No rollback</el-tag> All data files generated in this table will be removed from the relevant Clickhouse server file system</li>
-      <li>If you want to confirm the deletion, enter the table name in the <el-input v-model="inputDeleteTable" size="mini"></el-input> and click the delete button below</li>
+      <li>
+        <el-tag type="danger" size="mini">No rollback</el-tag>
+        The metadata will be removed from the Clickhouse metadata
+      </li>
+      <li>
+        <el-tag type="danger" size="mini">No rollback</el-tag>
+        All data files generated in this table will be removed from the relevant Clickhouse server file system
+      </li>
+      <li>If you want to confirm the deletion, enter the table name in the
+        <el-input v-model="inputDeleteTable" size="mini"></el-input>
+        and click the delete button below
+      </li>
     </ol>
     <div slot="footer" class="dialog-footer">
       <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
-      <el-button type="danger" size="mini" @click="handlerDeleteTable" :loading="buttonLoading"> {{ this.$t('common.delete') }}</el-button>
+      <el-button type="danger" size="mini" @click="handlerDeleteTable" :loading="buttonLoading">
+        {{ this.$t('common.delete') }}
+      </el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 import { deleteTable } from '@/services/Table'
-import { stringFormat } from '@/utils/Utils'
 
 export default {
   name: 'DeleteTable',
@@ -66,7 +78,7 @@ export default {
       if (this.deleteTable !== this.inputDeleteTable) {
         this.$notify.error({
           title: 'Error',
-          message: stringFormat('The table <{0}> to be deleted is inconsistent with the target table <{1}>', [this.inputDeleteTable, this.deleteTable])
+          message: this.stringFormat('The table <{0}> to be deleted is inconsistent with the target table <{1}>', [this.inputDeleteTable, this.deleteTable])
         })
         this.buttonLoading = false
         return

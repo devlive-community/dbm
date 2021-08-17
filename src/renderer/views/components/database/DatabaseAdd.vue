@@ -1,8 +1,8 @@
 <template>
   <el-dialog
-    :title="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.database')])" 
-    :visible.sync="bodyLoading"
-    @close="closeDialog">
+      :title="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.database')])"
+      :visible.sync="bodyLoading"
+      @close="closeDialog">
     <el-form :model="form" label-width="120px" size="mini">
       <el-form-item :label="this.$t('common.database')">
         <el-input v-model="form.name"></el-input>
@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import { stringFormat } from '@/utils/Utils'
 import { addDataBase } from '@/services/DataBase'
 
 export default {
@@ -55,7 +54,7 @@ export default {
       if (response.status) {
         this.$notify.success({
           title: this.$t('common.success'),
-          message: stringFormat('Create Database <{0}> On Server <{1}> successful!', [this.form.name, this.remoteServer])
+          message: this.stringFormat('Create Database <{0}> On Server <{1}> successful!', [this.form.name, this.remoteServer])
         })
         this.closeDialog()
       } else {

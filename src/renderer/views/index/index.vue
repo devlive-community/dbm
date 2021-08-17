@@ -16,7 +16,6 @@ import { mapGetters } from 'vuex'
 import LineCharts from '@/components/Charts/Line'
 import { getDataSources } from '@/services/DataSource'
 import { getQueryCount } from '@/services/Monitor'
-import { stringFormat } from '@/utils/utils'
 
 export default {
   name: 'dashboard',
@@ -42,7 +41,7 @@ export default {
       getDataSources(null).columns.forEach(v => {
         getQueryCount(v.name).then(response => {
           const chart = {
-            title: stringFormat('{0} {1} {2}', [v.name, this.$t('common.query'), this.$t('common.count')]),
+            title: this.stringFormat('{0} {1} {2}', [v.name, this.$t('common.query'), this.$t('common.count')]),
             items: response.columns
           }
           this.charts.push(chart)

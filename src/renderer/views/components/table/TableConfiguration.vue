@@ -7,7 +7,7 @@
       <el-col :span="16">
         <el-form ref="form" :model="form" :label-width="form.labelWidth" center size="mini">
           <el-divider content-position="left">{{ this.$t('common.basic') }}</el-divider>
-          <el-form-item :label="stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
+          <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
             <el-input v-model="form.name"/>
           </el-form-item>
           <el-divider content-position="left">{{ this.$t('common.column') }}</el-divider>
@@ -22,17 +22,17 @@
               </template>
               <el-col :span="6">
                 <el-input v-model="column.name"
-                          :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.name')])"/>
+                          :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.name')])"/>
               </el-col>
               <el-col :span="6">
                 <el-select v-model="column.type"
-                           :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.type')])">
+                           :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.type')])">
                   <el-option v-for="item in ColumnTypeUtils.TYPES" :key="item" :label="item" :value="item"/>
                 </el-select>
               </el-col>
               <el-col :span="6">
                 <el-input v-model="column.comment"
-                          :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.comment')])"/>
+                          :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.comment')])"/>
               </el-col>
               <!--              <el-col :span="6">-->
               <!--                <el-tooltip :content="$t('tooltip.is_empty')" placement="top">-->

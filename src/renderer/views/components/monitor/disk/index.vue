@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <el-empty v-if="isEmpty(elements)"/>
+    <el-empty v-if="this.isEmpty(elements)"/>
     <el-col v-else v-for="(item, index) in elements" :key="index" :span="6">
       <el-card class="box-card">
         <div slot="header" class="clearfix">

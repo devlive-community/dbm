@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-row>
       <data-source-select
-          v-if="getLengthGtZore(selectServers)"
+          v-if="this.getLengthGtZone(selectServers)"
           :items="selectServers"
           @getValue="handlerDataSource"
           :placeholder="'ClickHouse Server'">
       </data-source-select>
-      <el-button v-if="getLengthGtZore(selectServers)"
+      <el-button v-if="this.getLengthGtZone(selectServers)"
                  type="primary"
                  icon="el-icon-edit"
                  size="mini"
@@ -16,7 +16,7 @@
                  @click="handlerExecute()">
         {{ this.$t('common.execute') }}
       </el-button>
-      <el-button v-if="getLengthGtZore(selectServers)"
+      <el-button v-if="this.getLengthGtZone(selectServers)"
                  type="primary"
                  icon="el-icon-edit"
                  size="mini"
@@ -61,7 +61,7 @@
         </el-button>
       </el-tooltip>
       <el-button
-          v-if="getLengthGtZore(selectServers)"
+          v-if="this.getLengthGtZone(selectServers)"
           type="success"
           icon="el-icon-more"
           size="mini"
@@ -128,7 +128,6 @@ import DataSource from '@/views/components/data/datasource/DataSource'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getQuery } from '@/services/Query'
 import { getDataSources } from '@/services/DataSource'
-import { stringFormat, getLength } from '@/utils/Utils'
 import { deleteByIndex } from '@/utils/ArrayUtils'
 import { isEmpty } from '@/utils/StringUtils'
 import { getFormatter } from '../../services/Setting'
@@ -189,7 +188,7 @@ export default {
       this.executeLoading = true
       this.disabled.cancel = false
       this.disabled.quickQuery = true
-      if (getLength(sql) <= 0) {
+      if (this.getLength(sql) <= 0) {
         const selectEditor = this.getSelectEditor()
         sql = selectEditor.value
       }
@@ -233,7 +232,7 @@ export default {
     },
     handlerAddTab() {
       ++this.result.tabsIndex
-      const newTabName = stringFormat('{0} {1}', [this.$t('common.result'), this.result.tabsIndex])
+      const newTabName = this.stringFormat('{0} {1}', [this.$t('common.result'), this.result.tabsIndex])
       this.result.tabs.push({
         name: newTabName,
         lable: newTabName
@@ -272,7 +271,7 @@ export default {
     },
     handlerAddEditor() {
       ++this.editor.tabsIndex
-      const newTabName = stringFormat('{0} {1}', [this.$t('common.editor'), this.editor.tabsIndex])
+      const newTabName = this.stringFormat('{0} {1}', [this.$t('common.editor'), this.editor.tabsIndex])
       this.editor.tabs.push({
         name: newTabName,
         label: newTabName,

@@ -1,20 +1,5 @@
-import { isNotEmpty } from '@/utils/StringUtils'
+const StringUtils = require('./StringUtils')
 import Authentication from '@/store/modules/Authentication'
-
-/**
- * Format string
- * <p>stringFormat('format {0}', ['test']) return 'format test'</p>
- * @param {*} formatted format style
- * @param {*} args format parmater
- * @returns formatted string
- */
-export function stringFormat(formatted, args) {
-  for (let i = 0; i < args.length; i++) {
-    const regexp = new RegExp('\\{' + i + '\\}', 'gi')
-    formatted = formatted.replace(regexp, args[i])
-  }
-  return formatted
-}
 
 export function getDataSource(name) {
   const dataSource = JSON.parse(localStorage.getItem('DataSources'))
@@ -25,11 +10,11 @@ export function getDataSource(name) {
 export function getServerURL(host, port, url) {
   let serverUrl = null
   if (port !== null && url !== null) {
-    serverUrl = stringFormat('http://{0}:{1}/{2}', [host, port, url])
+    serverUrl = StringUtils.format('http://{0}:{1}/{2}', [host, port, url])
   } else if (port !== null) {
-    serverUrl = stringFormat('http://{0}:{1}', [host, port])
+    serverUrl = StringUtils.format('http://{0}:{1}', [host, port])
   } else {
-    serverUrl = stringFormat('http://{0}', [host])
+    serverUrl = StringUtils.format('http://{0}', [host])
   }
   return serverUrl
 }
@@ -81,40 +66,21 @@ export function getValue(source, defaultValue) {
   return defaultValue
 }
 
-export function getLength(source) {
-  if (source !== undefined && source !== null) {
-    return source.length
-  }
-  return 0
-}
-
-export function getLengthGtZore(source) {
-  return getLength(source) > 0
-}
-
-export function getLengthLtZore(source) {
-  return getLength(source) < 0
-}
-
-export function getLengthEqZore(source) {
-  return getLength(source) === 0
-}
-
 export function formatAuthentication(host, port, username, password, server) {
   const authentication = new Authentication()
-  if (isNotEmpty(host)) {
+  if (StringUtils.isNotEmpty(host)) {
     authentication.host = host
   }
-  if (isNotEmpty(port)) {
+  if (StringUtils.isNotEmpty(port)) {
     authentication.port = port
   }
-  if (isNotEmpty(username)) {
+  if (StringUtils.isNotEmpty(username)) {
     authentication.username = username
   }
-  if (isNotEmpty(password)) {
+  if (StringUtils.isNotEmpty(password)) {
     authentication.password = password
   }
-  if (isNotEmpty(server)) {
+  if (StringUtils.isNotEmpty(server)) {
     authentication.server = server
   }
   return authentication
@@ -122,12 +88,12 @@ export function formatAuthentication(host, port, username, password, server) {
 
 export function formatRemoteUrl(configuration) {
   let remoteUrl = null
-  const hasAuthentication = (isNotEmpty(configuration.username) && isNotEmpty(configuration.password))
+  const hasAuthentication = (StringUtils.isNotEmpty(configuration.username) && StringUtils.isNotEmpty(configuration.password))
   const protocol = getValue(configuration.protocol, 'http')
   if (hasAuthentication) {
-    remoteUrl = stringFormat('{0}://{1}:{2}/?user={3}&password={4}', [protocol, configuration.host, configuration.port, configuration.username, configuration.password])
+    remoteUrl = StringUtils.format('{0}://{1}:{2}/?user={3}&password={4}', [protocol, configuration.host, configuration.port, configuration.username, configuration.password])
   } else {
-    remoteUrl = stringFormat('{0}://{1}:{2}', [protocol, configuration.host, configuration.port])
+    remoteUrl = StringUtils.format('{0}://{1}:{2}', [protocol, configuration.host, configuration.port])
   }
   return remoteUrl
 }

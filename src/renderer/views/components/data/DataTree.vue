@@ -8,7 +8,6 @@
 
 <script>
 import { builderTree } from '@/utils/JsonUtils'
-import { stringFormat } from '@/utils/Utils'
 import { getQuery } from '@/services/Metadata'
 import { SERVER, DATABASE, TABLE } from '@/utils/Support'
 
@@ -56,7 +55,7 @@ export default {
             break
           }
           case 2: { // Table
-            const sql = stringFormat(`
+            const sql = this.stringFormat(`
             SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes
             FROM system.tables
             WHERE database = \'{0}\'

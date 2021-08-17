@@ -35,7 +35,6 @@
 
 <script>
 import { bufferSetting, getSetting } from '@/services/Setting'
-import { isNotEmpty } from '@/utils/StringUtils'
 import themes from '@/editor/theme'
 
 export default {
@@ -62,7 +61,7 @@ export default {
     async _initialize() {
       this.code = this.sqlFormatter(this.code, this.form.formatter)
       const setting = await getSetting(this.key)
-      if (isNotEmpty(setting)) {
+      if (this.isNotEmpty(setting)) {
         // If the new property is not available, do a configuration merge
         this.form = Object.assign(setting, this.form)
       }

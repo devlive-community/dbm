@@ -2,10 +2,11 @@ import axios from 'axios'
 import { Promise } from 'es6-promise'
 
 import Support from '@/store/Support'
-import { stringFormat } from '@/utils/Utils'
+
+const StringUtils = require('./StringUtils')
 
 let timeout = 10 * 1000
-const configuration = JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [Support.SETTING, 'Basic'])))
+const configuration = JSON.parse(localStorage.getItem(StringUtils.format('{0}_{1}', [Support.SETTING, 'Basic'])))
 
 if (configuration) {
   timeout = configuration.network * 1000

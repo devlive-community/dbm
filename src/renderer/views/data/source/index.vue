@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-tooltip class="item" effect="dark"
-                  :content="stringFormat('{0} {1} {2}', [this.$t('common.add'), this.$t('common.new'), this.$t('common.datasource')])"
+                  :content="this.stringFormat('{0} {1} {2}', [this.$t('common.add'), this.$t('common.new'), this.$t('common.datasource')])"
                   placement="bottom">
         <el-button type="primary" size="mini" @click="handlerDataSource(ADD)">
           <i class="fa fa-plus-circle"></i>
@@ -77,7 +77,6 @@
 import DataSource from '@/views/components/data/datasource/DataSource'
 import { getDataSources } from '@/services/DataSource'
 import { jobOfCheckHealth } from '@/job/JobDataSource'
-import { stringFormat } from '@/utils/Utils'
 import { ADD } from '@/utils/Support'
 
 export default {
@@ -115,7 +114,7 @@ export default {
       jobOfCheckHealth()
       this.$notify.success({
         title: this.$t('success'),
-        message: stringFormat('{0} {1}', [this.$t('common.refresh'), this.$t('common.success')])
+        message: this.stringFormat('{0} {1}', [this.$t('common.refresh'), this.$t('common.success')])
       })
       this._initialize()
     },
@@ -124,10 +123,10 @@ export default {
       this.datasource.type = type
       this.datasource.data = value
       if (type === ADD) {
-        this.datasource.title = stringFormat('{0} {1} {2}', [this.$t('common.add'), this.$t('common.new'), this.$t('common.datasource')])
+        this.datasource.title = this.stringFormat('{0} {1} {2}', [this.$t('common.add'), this.$t('common.new'), this.$t('common.datasource')])
       } else {
         this.datasource.unique = value.name
-        this.datasource.title = stringFormat('{0} {1}', [this.$t('common.edit'), this.$t('common.datasource')])
+        this.datasource.title = this.stringFormat('{0} {1}', [this.$t('common.edit'), this.$t('common.datasource')])
       }
     }
   }

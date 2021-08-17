@@ -1,9 +1,9 @@
 import { getQuery } from '@/services/Metadata'
-import { stringFormat } from '@/utils/Utils'
-import { isEmpty } from '@/utils/StringUtils'
+
+const StringUtils = require('../utils/StringUtils')
 
 export async function getTrackInfo(server, id) {
-  const sql = stringFormat(`
+  const sql = StringUtils.format(`
 SELECT
   query_id AS id,
   type AS type,
@@ -33,7 +33,7 @@ ORDER BY
 }
 
 export async function getTrackThread(server, id) {
-  const sql = stringFormat(`
+  const sql = StringUtils.format(`
 SELECT
   query_id AS id,
   event_date AS startTime,
@@ -59,10 +59,10 @@ ORDER BY
 }
 
 export function getTrackTop(server, top) {
-  if (isEmpty(top)) {
+  if (StringUtils.isEmpty(top)) {
     top = 100
   }
-  const sql = stringFormat(`
+  const sql = StringUtils.format(`
 SELECT
   query_id AS value,
   query_start_time AS queryStartTime

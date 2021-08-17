@@ -1,12 +1,12 @@
 <template>
   <el-dialog
       v-if="body.loading"
-      :title="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
+      :title="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
       :visible.sync="body.loading" @close="closeDialog" :width="'85%'">
     <el-steps :active="body.step" process-status="process" finish-status="success" simple>
-      <el-step :title="stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.type')])"/>
-      <el-step :title="stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.configuration')])"/>
-      <el-step :title="stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
+      <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.type')])"/>
+      <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.configuration')])"/>
+      <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
     </el-steps>
     <el-row v-if="body.step === 1" v-for="engineType in TableEngine.ENGINES" :gutter="20">
       <div>

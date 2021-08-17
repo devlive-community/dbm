@@ -1,10 +1,9 @@
-import { isNotEmpty } from './StringUtils'
-import { stringFormat } from './utils'
+const StringUtils = require('./StringUtils')
 
 export function buildDdl(element) {
   let response = null
-  if (isNotEmpty(element)) {
-    response = stringFormat(`
+  if (StringUtils.isNotEmpty(element)) {
+    response = StringUtils.format(`
 CREATE TABLE {0}.{1} (
     {2}
 ) ENGINE = {3}
@@ -28,12 +27,12 @@ function builderColumnsToString(columns) {
 
 function builderColumnToString(value, end) {
   let column
-  const dStr = stringFormat('{0} {1}', [value.name, value.type])
+  const dStr = StringUtils.format('{0} {1}', [value.name, value.type])
   const endStr = end ? ',\n' : ''
-  if (isNotEmpty(value.comment)) {
-    column = stringFormat('{0} {1} {2}', [dStr, value.comment, endStr])
+  if (StringUtils.isNotEmpty(value.comment)) {
+    column = StringUtils.format('{0} {1} {2}', [dStr, value.comment, endStr])
   } else {
-    column = stringFormat('{0} {1}', [dStr, endStr])
+    column = StringUtils.format('{0} {1}', [dStr, endStr])
   }
   return column
 }

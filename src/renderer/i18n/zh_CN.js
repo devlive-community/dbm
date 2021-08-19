@@ -153,5 +153,15 @@ export default {
   },
   tooltip: {
     is_empty: '是否非空'
+  },
+  table: {
+    engine: {
+      log: {
+        name: 'Log',
+        tiny: 'TinyLog',
+        stripe: 'StripeLog',
+        description: '具有最小功能的轻量级引擎。当您需要快速地编写许多小表(最多可达100万行)并在稍后整体读取它们时，它们是最有效的。'
+      }
+    }
   }
 }

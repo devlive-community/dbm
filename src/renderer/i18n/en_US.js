@@ -153,5 +153,15 @@ export default {
   },
   tooltip: {
     is_empty: 'Is not empty'
+  },
+  table: {
+    engine: {
+      log: {
+        name: 'Log',
+        tiny: 'TinyLog',
+        stripe: 'StripeLog',
+        description: 'Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.'
+      }
+    }
   }
 }

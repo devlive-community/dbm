@@ -18,5 +18,15 @@ export const ENGINES = [
         description: i18n.t('table.engine.log.description')
       }
     ]
+  },
+  {
+    name: i18n.t('table.engine.integration.name'),
+    description: i18n.t('table.engine.integration.description'),
+    engines: [
+      {
+        name: i18n.t('table.engine.integration.kafka.name'),
+        description: i18n.t('table.engine.integration.kafka.description')
+      }
+    ]
   }
 ]

@@ -7,6 +7,9 @@
       <el-col :span="16">
         <el-form ref="form" :model="form" :label-width="form.labelWidth" center size="mini">
           <el-divider content-position="left">{{ this.$t('common.basic') }}</el-divider>
+          <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.engine')])">
+            <el-tag size="mini">{{ form.engine }}</el-tag>
+          </el-form-item>
           <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
             <el-input v-model="form.name"/>
           </el-form-item>
@@ -22,17 +25,17 @@
               </template>
               <el-col :span="6">
                 <el-input v-model="column.name"
-                          :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.name')])"/>
+                          :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.name')])"/>
               </el-col>
               <el-col :span="6">
                 <el-select v-model="column.type"
-                           :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.type')])">
+                           :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.type')])">
                   <el-option v-for="item in ColumnTypeUtils.TYPES" :key="item" :label="item" :value="item"/>
                 </el-select>
               </el-col>
               <el-col :span="6">
                 <el-input v-model="column.comment"
-                          :placeholder="this.stringFormat('{0}{1}', [$t('common.column'), $t('common.comment')])"/>
+                          :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.comment')])"/>
               </el-col>
               <!--              <el-col :span="6">-->
               <!--                <el-tooltip :content="$t('tooltip.is_empty')" placement="top">-->
@@ -43,10 +46,12 @@
           </el-row>
           <el-form-item>
             <el-button @click="handlerAddColumn">
-              {{ stringFormat('{0}{1}', [this.$t('common.add'), this.$t('common.column')]) }}
+              {{ this.stringFormat('{0}{1}', [this.$t('common.add'), this.$t('common.column')]) }}
             </el-button>
           </el-form-item>
           <el-divider content-position="left">{{ this.$t('common.property') }}</el-divider>
+          <table-engine-kafka v-if="form.engine === 'Kafka'"
+                              @change="handlerTableEngineConfiguration($event)"></table-engine-kafka>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -57,25 +62,26 @@
 </template>
 
 <script>
+import TableEngineKafka from './engines/TableEngineKafka'
+
 export default {
   name: 'TableConfiguration',
-  components: {},
+  components: { TableEngineKafka },
   props: {
-    type: {
+    engine: {
       type: String,
       default: null
     }
   },
   created() {
+    this.form.engine = this.engine
   },
   data() {
     return {
-      table: {
-        type: null
-      },
       form: {
         labelWidth: '120px',
         name: null,
+        engine: null,
         columns: []
       }
     }
@@ -101,15 +107,12 @@ export default {
     },
     handlerChange() {
       this.$emit('getValue', this.form.columns)
+    },
+    handlerTableEngineConfiguration(event) {
+      this.form.property = event
     }
   },
   watch: {
-    type: {
-      deep: true,
-      handler() {
-        this.table.type = this.type
-      }
-    },
     form: {
       deep: true,
       handler() {

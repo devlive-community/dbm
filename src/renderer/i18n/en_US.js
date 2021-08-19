@@ -89,7 +89,12 @@ export default {
     target: 'Target',
     clickhouse: 'ClickHouse',
     language: 'Language',
-    uppercase: 'Uppercase'
+    uppercase: 'Uppercase',
+    engine: 'Engine',
+    kafka: 'Kafka',
+    broker: 'Broker',
+    topic: 'Topic',
+    group: 'Group'
   },
   prompt: {
     component: {
@@ -161,6 +166,14 @@ export default {
         tiny: 'TinyLog',
         stripe: 'StripeLog',
         description: 'Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.'
+      },
+      integration: {
+        name: 'Integration',
+        description: 'It is mainly used to import external data into ClickHouse, or to manipulate external data sources directly in ClickHouse.',
+        kafka: {
+          name: 'Kafka',
+          description: 'Import data from Kafka Topic directly into ClickHouse'
+        }
       }
     }
   }

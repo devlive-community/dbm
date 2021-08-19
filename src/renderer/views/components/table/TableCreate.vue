@@ -8,7 +8,7 @@
       <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.configuration')])"/>
       <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
     </el-steps>
-    <el-row v-if="body.step === 1" v-for="engineType in TableEngine.ENGINES" :gutter="20">
+    <el-row v-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
       <div>
         <el-divider content-position="left">
           {{ engineType.name }}
@@ -23,7 +23,7 @@
           <el-radio v-model="form.type" :label="engine.name" border style="margin-top: 15px;">{{ engine.name }}
           </el-radio>
           <el-tooltip placement="top">
-            <div slot="content">{{ engineType.description }}</div>
+            <div slot="content">{{ engine.description }}</div>
             <el-button size="mini" type="text" style="margin-left: -25px;">
               <i class="fa fa-question-circle"></i>
             </el-button>
@@ -32,7 +32,7 @@
       </div>
     </el-row>
     <el-row v-if="body.step === 2" :gutter="20">
-      <table-configuration :type="form.type" @change="handlerGetConfiguration($event)"/>
+      <table-configuration :engine="form.type" @change="handlerGetConfiguration($event)"/>
     </el-row>
     <el-row v-if="body.step === 3" :gutter="20">
       <el-row :gutter="20">
@@ -46,6 +46,10 @@
                 {{ stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')]) }}
               </template>
               <el-tag size="mini">{{ form.table.name }}</el-tag>
+            </el-form-item>
+            <el-form-item :label-width="form.table.labelWidth"
+                          :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.engine')])">
+              <el-tag size="mini">{{ form.table.engine }}</el-tag>
             </el-form-item>
             <el-form-item :label-width="form.table.labelWidth">
               <template slot="label">
@@ -80,8 +84,8 @@
 
 <script>
 import TableConfiguration from './TableConfiguration'
-import { buildDdl } from '@/utils/ConvertUtils'
 import { createTable } from '@/services/Table'
+import { buildDdl } from '../../../utils/ConvertUtils'
 
 export default {
   name: 'CreateTable',

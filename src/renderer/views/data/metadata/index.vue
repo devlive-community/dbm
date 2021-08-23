@@ -2,7 +2,8 @@
   <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="6">
-        <data-tree :items="treeItems" @change="handlerGetTreeData($event)"/>
+        <data-tree :items="treeItems" :nodeKey="'name'" @change="handlerGetTreeData($event)"
+                   @handlerClickTreeMenu="handlerClickTreeMenu($event)"/>
       </el-col>
       <el-col :span="18">
         <el-empty v-if="this.isEmpty(treeValue.title)"/>
@@ -85,7 +86,8 @@ import MonitorDisk from '@/views/components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
-import { SERVER } from '@/utils/Support'
+
+const Support = require('@/utils/Support')
 import CreateTable from '@/views/components/table/TableCreate'
 
 export default {
@@ -119,7 +121,7 @@ export default {
         createTable: false
       },
       items: [],
-      switchType: SERVER
+      switchType: Support.SERVER
     }
   },
   mounted() {
@@ -164,6 +166,14 @@ export default {
     },
     handlerSwitchType() {
       this.handlerGetTreeData(this.treeValue, this.switchType)
+    },
+    handlerClickTreeMenu(value) {
+      if (value.command === Support.ADD && value.type === Support.SERVER) {
+        this.loading.addDatabase = true
+      }
+      if (value.command === Support.INFO && value.type === Support.SERVER) {
+        this.loading.serverStatus = true
+      }
     }
   }
 }

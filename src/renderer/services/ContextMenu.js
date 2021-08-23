@@ -12,6 +12,11 @@ export function getContextMenu(type) {
     command: Support.ADD,
     icon: Support.ADD_ICON
   }
+  const deleted = {
+    name: i18n.t('common.delete'),
+    command: Support.DELETE,
+    icon: Support.DELETE_ICON
+  }
   switch (type) {
     case Support.SERVER:
       add.type = Support.SERVER
@@ -20,6 +25,20 @@ export function getContextMenu(type) {
         command: Support.INFO,
         icon: Support.INFO_ICON,
         type: Support.SERVER
+      })
+      break
+    case Support.DATABASE:
+      add.type = Support.DATABASE
+      deleted.type = Support.DATABASE
+      menus.push(add, deleted)
+      break
+    case Support.TABLE:
+      deleted.type = Support.TABLE
+      menus.push(deleted, {
+        name: i18n.t('common.ddl'),
+        command: Support.DDL,
+        icon: Support.DDL_ICON,
+        type: Support.TABLE
       })
       break
   }

@@ -174,6 +174,19 @@ export default {
       if (value.command === Support.INFO && value.type === Support.SERVER) {
         this.loading.serverStatus = true
       }
+      if (value.command === Support.ADD && value.type === Support.DATABASE) {
+        this.loading.createTable = true
+      }
+      if (value.command === Support.DELETE && value.type === Support.DATABASE) {
+        this.loading.deleteDatabase = true
+      }
+      if (value.command === Support.DELETE && value.type === Support.TABLE) {
+        this.loading.deleteTable = true
+      }
+      if (value.command === Support.DDL && value.type === Support.TABLE) {
+        this.ddl.visible = true
+        this.handlerShowDDL(this.treeValue.server, this.treeValue.database, this.treeValue.table)
+      }
     }
   }
 }

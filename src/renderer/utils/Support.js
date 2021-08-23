@@ -4,6 +4,13 @@ export const TABLE = 'Table'
 export const COLUMN = 'Column'
 
 export const ADD = 'ADD'
+export const ADD_ICON = 'plus'
+export const DELETE = 'DELETE'
+export const DELETE_ICON = 'trash'
+export const INFO = 'INFO'
+export const INFO_ICON = 'info'
+export const DDL = 'DDL'
+export const DDL_ICON = 'search'
 export const EDIT = 'EDIT'
 
 export const PROCESSES = 'PROCESSES'

@@ -54,15 +54,26 @@ export async function migrate(source, target) {
 }
 
 export function builderDDL(source, target, targetDatabase, targetTable, sSource) {
-  const sql = StringUtils.format(`
+  let sql
+  if (source.server === target.server) {
+    sql = StringUtils.format(`
+INSERT INTO {0}
+SELECT * FROM '{1}')
+  `, [
+      StringUtils.format('{0}.{1}', [targetDatabase, targetTable]),
+      StringUtils.format('{0}.{1}', [source.database.value, source.table.value])
+    ])
+  } else {
+    sql = StringUtils.format(`
 INSERT INTO {0}
 SELECT * FROM remote('{1}', {2}, {3}, '{4}', '{5}')
   `, [
-    StringUtils.format('{0}.{1}', [targetDatabase, targetTable]),
-    sSource.host,
-    source.database.value,
-    source.table.value,
-    sSource.username,
-    sSource.password])
+      StringUtils.format('{0}.{1}', [targetDatabase, targetTable]),
+      sSource.host,
+      source.database.value,
+      source.table.value,
+      sSource.username,
+      sSource.password])
+  }
   return sql
 }

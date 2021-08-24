@@ -7,9 +7,12 @@
           <span> {{ (index + 1) + ': ' + item.name }}</span>
         </div>
         <el-popover placement="top" trigger="hover">
-          <p v-for="(v, i) in Object.entries(item)" :key="i" :value="v[1]" class="item">
-            <em>{{ v[0] }}</em> : {{ v[1] }}
-          </p>
+          <el-descriptions :column="1" size="mini" :title="$t('common.infomation')" style="width: 300px;">
+            <el-descriptions-item v-for="(v, i) in Object.entries(item)" :key="i" :value="v[1]" :label="v[0]"
+                                  class="item">
+              {{ v[1] }}
+            </el-descriptions-item>
+          </el-descriptions>
           <el-progress slot="reference" type="dashboard" :percentage="item.value"/>
         </el-popover>
       </el-card>

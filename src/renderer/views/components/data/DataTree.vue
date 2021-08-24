@@ -22,8 +22,8 @@
 
 <script>
 import { builderTree } from '@/utils/JsonUtils'
-import { getQuery } from '@/services/Metadata'
-import { SERVER, DATABASE, TABLE } from '@/utils/Support'
+import { getDataByParam } from '@/services/Metadata'
+import { SERVER, DATABASE, TABLE, COLUMN } from '@/utils/Support'
 import { getContextMenu } from '../../../services/ContextMenu'
 
 export default {
@@ -79,39 +79,28 @@ export default {
     async handlerLoadNode(node, resolve) {
       // You have to set it to be greater than 0 because 0 by default is going to repeat the data once
       if (node.level > 0) {
-        switch (node.level) {
-          case 1: { // DataBase
-            this.context.server = node.data.name
-            const response = await getQuery(node.data.name, 'SHOW DATABASES')
-            if (response.status) {
-              resolve(builderTree(response.columns, DATABASE))
-            } else {
-              this.$notify.error({
-                title: this.$t('common.error'),
-                message: response.message
-              })
-            }
-            break
-          }
-          case 2: { // Table
-            const sql = this.stringFormat(`
-            SELECT uuid, name, engine, partition_key, sorting_key, total_rows, total_bytes
-            FROM system.tables
-            WHERE database = \'{0}\'
-            `, [node.data.name])
-            const response = await getQuery(this.context.server, sql)
-            if (response.status) {
-              resolve(builderTree(response.columns, TABLE))
-            } else {
-              this.$notify.error({
-                title: this.$t('common.error'),
-                message: response.message
-              })
-            }
-            break
-          }
-          default: // TODO: Support Columns
-            resolve([])
+        let queryType = DATABASE
+        const level = node.level
+        if (level === 1) {
+          this.context.server = node.data.name
+        } else if (level === 2) {
+          queryType = TABLE
+          this.context.database = node.data.name
+        } else if (level === 3) {
+          queryType = COLUMN
+          this.context.table = node.data.name
+        } else {
+          resolve([])
+          return
+        }
+        const response = await getDataByParam(this.context.server, queryType, this.context.database, this.context.table)
+        if (response.status) {
+          resolve(builderTree(response.columns, queryType))
+        } else {
+          this.$notify.error({
+            title: this.$t('common.error'),
+            message: response.message
+          })
         }
       }
     },

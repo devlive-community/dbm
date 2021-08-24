@@ -55,6 +55,9 @@ export function getFaIcon(source) {
     case 'Table':
       icon = 'fa fa-table'
       break
+    case 'Column':
+      icon = 'fa fa-columns'
+      break
   }
   return icon
 }

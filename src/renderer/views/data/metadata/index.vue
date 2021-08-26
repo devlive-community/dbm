@@ -71,6 +71,7 @@
                   :table="treeValue.table" @close="loading.deleteTable = false"/>
     <create-table :loading="loading.createTable" :server="treeValue.server" :database="treeValue.database"
                   @close="loading.createTable = false"/>
+    <table-preview :loading="loading.tablePreview" :configuration="treeValue" @close="loading.tablePreview = false"/>
   </div>
 </template>
 
@@ -78,7 +79,7 @@
 import AddDatabase from '@/views/components/database/DatabaseAdd'
 import DeleteDatabase from '@/views/components/database/DatabaseDelete'
 import DeleteTable from '@/views/components/table/TableDelete'
-import DataTree from '@/views/components/data/DataTree'
+import DataTree from '@/views/components/data/tree/DataTree'
 import ServerStatus from '@/views/components/ServerStatus'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
@@ -89,9 +90,11 @@ import { getDiskUsedAndRatio } from '@/services/Disk'
 
 const Support = require('@/utils/Support')
 import CreateTable from '@/views/components/table/TableCreate'
+import TablePreview from '../../components/table/preview/TablePreview'
 
 export default {
   components: {
+    TablePreview,
     CreateTable,
     AddDatabase,
     DeleteTable,
@@ -118,7 +121,8 @@ export default {
         addDatabase: false,
         deleteTable: false,
         deleteDatabase: false,
-        createTable: false
+        createTable: false,
+        tablePreview: false
       },
       items: [],
       switchType: Support.SERVER
@@ -186,6 +190,9 @@ export default {
       if (value.command === Support.DDL && value.type === Support.TABLE) {
         this.ddl.visible = true
         this.handlerShowDDL(this.treeValue.server, this.treeValue.database, this.treeValue.table)
+      }
+      if (value.command === Support.PREVIEW && value.type === Support.TABLE) {
+        this.loading.tablePreview = true
       }
     }
   }

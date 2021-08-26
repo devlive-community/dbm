@@ -39,6 +39,11 @@ export function getContextMenu(type) {
         command: Support.DDL,
         icon: Support.DDL_ICON,
         type: Support.TABLE
+      }, {
+        name: i18n.t('common.preview'),
+        command: Support.PREVIEW,
+        icon: Support.PREVIEW_ICON,
+        type: Support.TABLE
       })
       break
   }

@@ -24,7 +24,7 @@
 import { builderTree } from '@/utils/JsonUtils'
 import { getDataByParam } from '@/services/Metadata'
 import { SERVER, DATABASE, TABLE, COLUMN } from '@/utils/Support'
-import { getContextMenu } from '../../../services/ContextMenu'
+import { getContextMenu } from '../../../../services/ContextMenu'
 
 export default {
   name: 'DataTree',

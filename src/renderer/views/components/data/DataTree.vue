@@ -11,11 +11,11 @@
                 class="popover-inter"
                 id="contextMenu"
                 :style="`left: ${menu.position.x}px; top: ${menu.position.y}px;`">
-      <ul>
-        <li v-for="item in menu.data" :key="item.id" class="context-menu" @click="handlerClickMenu(item)">
+      <el-dropdown-item v-for="item in menu.data" :key="item.id">
+        <el-button size="mini" type="text" @click="handlerClickMenu(item)">
           <i :class="'fa fa-'+ item.icon"></i> {{ item.name }}
-        </li>
-      </ul>
+        </el-button>
+      </el-dropdown-item>
     </el-popover>
   </div>
 </template>
@@ -193,22 +193,6 @@ export default {
 
     li {
       list-style: none;
-    }
-  }
-
-  .context-menu {
-    letter-spacing: 1px;
-    color: #222;
-    cursor: pointer;
-    height: 30px;
-    line-height: 30px;
-    color: #000;
-    text-align: center;
-
-    &:hover {
-      border-radius: 2px;
-      background: #648fdb;
-      color: #fff;
     }
   }
 

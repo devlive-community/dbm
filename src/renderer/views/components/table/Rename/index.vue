@@ -7,12 +7,10 @@
           :label="this.stringFormat('{0}{1}{2}', [this.$t('common.table'), this.$t('common.source'), this.$t('common.name')])">
         <el-input :disabled="true" v-model="configuration.table"></el-input>
       </el-form-item>
-      <el-form-item
-          :label="this.stringFormat('{0}{1}{2}', [this.$t('common.table'), this.$t('common.source'), this.$t('common.name')])">
+      <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
         <el-input v-model="element.value"></el-input>
       </el-form-item>
-      <el-form-item
-          :label="this.stringFormat('{0}{1}{2}', [this.$t('common.table'), this.$t('common.source'), this.$t('common.name')])">
+      <el-form-item :label="this.$t('common.ddl')">
         <codemirror :disabled="true" v-model="element.code"></codemirror>
       </el-form-item>
     </el-form>

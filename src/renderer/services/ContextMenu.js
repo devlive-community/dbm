@@ -46,6 +46,14 @@ export function getContextMenu(type) {
         type: Support.TABLE
       })
       break
+    case Support.COLUMN:
+      menus.push({
+        name: StringUtils.format('{0}{1}', [i18n.t('common.column'), i18n.t('common.infomation')]),
+        command: Support.EDIT,
+        icon: Support.EDIT_ICON,
+        type: Support.COLUMN
+      })
+      break
   }
   return menus
 }

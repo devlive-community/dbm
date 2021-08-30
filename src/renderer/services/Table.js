@@ -44,3 +44,23 @@ WHERE
   `, [database, table])
   return getQuery(server, sql)
 }
+
+export function getTableColumnInfo(server, database, table, column) {
+  const sql = StringUtils.format(`
+SELECT
+  "database",
+  "table",
+  type,
+  name,
+  is_in_primary_key AS isPrimaryKey,
+  is_in_partition_key AS isPartitionKey,
+  is_in_sorting_key AS isSortingKey
+FROM
+  "system".columns
+WHERE
+  "database" = '{0}'
+  AND "table" = '{1}'
+  AND name = '{2}'
+  `, [database, table, column])
+  return getQuery(server, sql)
+}

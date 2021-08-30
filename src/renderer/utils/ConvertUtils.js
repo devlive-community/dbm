@@ -8,11 +8,15 @@ export function buildDdl(element) {
     response = StringUtils.format('CREATE TABLE {0}.{1} (\n', [element.database, element.table.name])
     response += StringUtils.format('{0}\n', [builderColumnsToString(element.table.columns)])
     const engineProperty = builderEngineProperty(element.table.engine, element.table.property)
-    if (StringUtils.isNotEmpty(engineProperty)) {
-      response += StringUtils.format(') ENGINE = {0}\n SETTINGS\n', [element.type])
-      response += engineProperty
+    if (element.table.engine !== 'HDFS') {
+      if (StringUtils.isNotEmpty(engineProperty)) {
+        response += StringUtils.format(') ENGINE = {0}\n SETTINGS\n', [element.type])
+        response += engineProperty
+      } else {
+        response += StringUtils.format(') ENGINE = {0}\n', [element.type])
+      }
     } else {
-      response += StringUtils.format(') ENGINE = {0}\n', [element.type])
+      response += StringUtils.format(') ENGINE = {0}\n{1}', [element.type, engineProperty])
     }
   }
   return response
@@ -49,6 +53,9 @@ function builderEngineProperty(engine, property) {
       case 'Kafka':
         engineProperty = builderEngineKafka(property)
         break
+      case 'HDFS':
+        engineProperty = builderEngineHdfs(property)
+        break
     }
   }
   return engineProperty
@@ -80,6 +87,28 @@ function builderEngineKafka(property) {
   }
   if (StringUtils.isNotEmpty(property.format)) {
     engineProperty += StringUtils.format(`{0}kafka_format = '{1}'`, [tab, property.format])
+  }
+  return engineProperty
+}
+
+/**
+ * Builder HDFS Engine parameter
+ * @param property parameter, example:
+ * <code>
+ *   {
+ *       "uri": "hdfs://hdfs1:9000/other_storage",
+ *       "format": "Parquet"
+ *   }
+ * </code>
+ * @returns {string} string
+ */
+function builderEngineHdfs(property) {
+  let engineProperty = ''
+  if (StringUtils.isNotEmpty(property.uri)) {
+    engineProperty += StringUtils.format(`({0}'{1}',\n`, [tab, property.uri])
+  }
+  if (StringUtils.isNotEmpty(property.format)) {
+    engineProperty += StringUtils.format(`{0}'{1}')\n`, [tab, property.format])
   }
   return engineProperty
 }

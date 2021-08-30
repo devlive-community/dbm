@@ -26,6 +26,11 @@ export const ENGINES = [
       {
         name: i18n.t('table.engine.integration.kafka.name'),
         description: i18n.t('table.engine.integration.kafka.description')
+      },
+
+      {
+        name: i18n.t('table.engine.integration.hdfs.name'),
+        description: i18n.t('table.engine.integration.hdfs.description')
       }
     ]
   }

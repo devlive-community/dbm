@@ -94,7 +94,9 @@ export default {
     kafka: 'Kafka',
     broker: 'Broker',
     topic: 'Topic',
-    group: 'Group'
+    group: 'Group',
+    hdfs: 'HDFS',
+    uri: 'URI'
   },
   prompt: {
     component: {
@@ -173,6 +175,10 @@ export default {
         kafka: {
           name: 'Kafka',
           description: 'Import data from Kafka Topic directly into ClickHouse'
+        },
+        hdfs: {
+          name: 'HDFS',
+          description: 'Import data from HDFS directly into ClickHouse'
         }
       }
     }

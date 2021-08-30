@@ -52,6 +52,8 @@
           <el-divider content-position="left">{{ this.$t('common.property') }}</el-divider>
           <table-engine-kafka v-if="form.engine === 'Kafka'"
                               @change="handlerTableEngineConfiguration($event)"></table-engine-kafka>
+          <table-engine-hdfs v-if="form.engine === 'HDFS'"
+                             @change="handlerTableEngineConfiguration($event)"></table-engine-hdfs>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -62,11 +64,15 @@
 </template>
 
 <script>
-import TableEngineKafka from './engines/TableEngineKafka'
+import TableEngineKafka from './engines/kafka/TableEngineKafka'
+import TableEngineHdfs from './engines/hdfs/TableEngineHdfs'
 
 export default {
   name: 'TableConfiguration',
-  components: { TableEngineKafka },
+  components: {
+    TableEngineKafka,
+    TableEngineHdfs
+  },
   props: {
     engine: {
       type: String,

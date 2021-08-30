@@ -94,7 +94,9 @@ export default {
     kafka: 'Kafka',
     broker: 'Broker',
     topic: '主题',
-    group: '组'
+    group: '组',
+    hdfs: 'HDFS',
+    uri: 'URI'
   },
   prompt: {
     component: {
@@ -173,6 +175,10 @@ export default {
         kafka: {
           name: 'Kafka',
           description: '将Kafka Topic中的数据直接导入到ClickHouse'
+        },
+        hdfs: {
+          name: 'HDFS',
+          description: '将HDFS中的数据直接导入到ClickHouse'
         }
       }
     }

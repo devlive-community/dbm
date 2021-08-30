@@ -31,6 +31,10 @@ Gitee:
 [![star](https://gitee.com/EdurtIO/incubator-dbm/badge/star.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/stargazers)
 [![fork](https://gitee.com/EdurtIO/incubator-dbm/badge/fork.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/members)
 
+## Thank you
+
+- [Jetbrains](https://www.jetbrains.com/)
+
 ## :rocket: Features
 
 - Support query history (pagination, clear all, etc.)

@@ -1,16 +1,18 @@
 <template>
   <div class="tree-container">
-    <el-tree class="_tree" ref="dataTree" lazy :data="treeItems" :load="handlerLoadNode" @node-click="handleNodeClick"
-             :node-key="nodeKey"
+    <el-tree ref="dataTree" :data="treeItems" :load="handlerLoadNode" :node-key="nodeKey" class="_tree" lazy
+             @node-click="handleNodeClick"
              @node-contextmenu="handlerRightClick">
-      <span class="custom-tree-node" slot-scope="{ data }">
-        <span><i :class="getFaIcon(data.type)"></i> {{ data.name }}</span>
+      <span slot-scope="{ data }" class="custom-tree-node">
+        <el-tooltip :content="data.name" class="item" effect="dark" placement="top">
+          <span><i :class="getFaIcon(data.type)"></i> {{ data.name }}</span>
+        </el-tooltip>
       </span>
     </el-tree>
-    <el-popover v-model="menu.show" v-if="menu.data.length > 0" placement="right" trigger="manual"
+    <el-popover v-if="menu.data.length > 0" id="contextMenu" v-model="menu.show" :style="`left: ${menu.position.x}px; top: ${menu.position.y}px;`"
                 class="popover-inter"
-                id="contextMenu"
-                :style="`left: ${menu.position.x}px; top: ${menu.position.y}px;`">
+                placement="right"
+                trigger="manual">
       <el-dropdown-item v-for="item in menu.data" :key="item.id">
         <el-button size="mini" type="text" @click="handlerClickMenu(item)">
           <i :class="'fa fa-'+ item.icon"></i> {{ item.name }}

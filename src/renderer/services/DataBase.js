@@ -1,5 +1,6 @@
 import { getQuery } from '@/services/Metadata'
-import { stringFormat } from '@/utils/Utils'
+
+const StringUtils = require('../utils/StringUtils')
 
 /**
  * Gets the total number of tables owned by the remote server database
@@ -7,7 +8,7 @@ import { stringFormat } from '@/utils/Utils'
  * @param {*} source database name
  */
 export async function getTableSize(server, value) {
-  const sql = stringFormat('SELECT ' +
+  const sql = StringUtils.format('SELECT ' +
     'count() AS iCount ' +
     'FROM system.tables ' +
     'WHERE database = \'{0}\'', [value])
@@ -15,7 +16,7 @@ export async function getTableSize(server, value) {
 }
 
 export async function addDataBase(server, value) {
-  const sql = stringFormat('CREATE DATABASE {0}', [value])
+  const sql = StringUtils.format('CREATE DATABASE {0}', [value])
   return await getQuery(server, sql)
 }
 
@@ -34,7 +35,7 @@ export async function deleteDatabase(server, value) {
     // TODO: delete all table?
     result.message = 'It is not supported to delete the database with tables in the library!'
   } else {
-    const sql = stringFormat('DROP DATABASE {0}', [value])
+    const sql = StringUtils.format('DROP DATABASE {0}', [value])
     result = await getQuery(server, sql)
   }
   return result

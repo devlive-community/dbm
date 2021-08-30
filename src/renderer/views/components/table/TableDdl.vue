@@ -1,6 +1,6 @@
 <template>
-  <el-dialog :title="body.title"  :visible.sync="body.show" :width="width" @close="closeDialog">
-    <codemirror v-model="body.ddl" />
+  <el-dialog :title="body.title" :visible.sync="body.show" :width="width" @close="closeDialog">
+    <codemirror v-model="body.ddl"/>
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="body.show = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
     </span>
@@ -8,10 +8,11 @@
 </template>
 
 <script>
+import { getFormatter } from '../../../services/Setting'
+
 export default {
   name: 'TableDdl',
-  components: {
-  },
+  components: {},
   props: {
     loading: {
       type: Boolean,
@@ -61,7 +62,8 @@ export default {
     },
     ddl: {
       handler() {
-        this.body.ddl = this.sqlFormatter(this.ddl)
+        const formatter = getFormatter()
+        this.body.ddl = this.sqlFormatter(this.ddl, formatter)
       }
     }
   }

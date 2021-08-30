@@ -1,4 +1,4 @@
-import { getLength } from '@/utils/Utils'
+const StringUtils = require('../utils/StringUtils')
 
 /**
  * Build new array
@@ -10,7 +10,7 @@ import { getLength } from '@/utils/Utils'
 export function buildArray(array, max, deleteLogic, data) {
   const newArray = array
   if (array instanceof Array) {
-    if (getLength(array) > max) {
+    if (StringUtils.getLength(array) > max) {
       if (deleteLogic) {
         newArray.shift()
       } else {

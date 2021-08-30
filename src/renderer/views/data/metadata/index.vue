@@ -74,6 +74,8 @@
     <table-preview :loading="loading.tablePreview" :configuration="treeValue" @close="loading.tablePreview = false"/>
     <table-column :loading="loading.tableColumn" :configuration="treeValue"
                   @close="loading.tableColumn = false"></table-column>
+    <table-rename :loading="loading.tableRename" :configuration="treeValue"
+                  @close="loading.tableRename = false"></table-rename>
   </div>
 </template>
 
@@ -93,10 +95,12 @@ import { getDiskUsedAndRatio } from '@/services/Disk'
 const Support = require('@/utils/Support')
 import CreateTable from '@/views/components/table/TableCreate'
 import TablePreview from '../../components/table/preview/TablePreview'
-import TableColumn from '../../components/table/column/TableColumn'
+import TableColumn from '../../components/table/Column/TableColumn'
+import TableRename from '../../components/table/Rename'
 
 export default {
   components: {
+    TableRename,
     TableColumn,
     TablePreview,
     CreateTable,
@@ -127,7 +131,8 @@ export default {
         deleteDatabase: false,
         createTable: false,
         tablePreview: false,
-        tableColumn: false
+        tableColumn: false,
+        tableRename: false
       },
       items: [],
       switchType: Support.SERVER
@@ -198,6 +203,9 @@ export default {
       }
       if (value.command === Support.PREVIEW && value.type === Support.TABLE) {
         this.loading.tablePreview = true
+      }
+      if (value.command === Support.EDIT && value.type === Support.TABLE) {
+        this.loading.tableRename = true
       }
       if (value.command === Support.EDIT && value.type === Support.COLUMN) {
         this.loading.tableColumn = true

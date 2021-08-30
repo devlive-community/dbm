@@ -44,6 +44,11 @@ export function getContextMenu(type) {
         command: Support.PREVIEW,
         icon: Support.PREVIEW_ICON,
         type: Support.TABLE
+      }, {
+        name: StringUtils.format('{0}{1}', [i18n.t('common.rename'), i18n.t('common.table')]),
+        command: Support.EDIT,
+        icon: Support.EDIT_ICON,
+        type: Support.TABLE
       })
       break
     case Support.COLUMN:

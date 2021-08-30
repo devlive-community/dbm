@@ -64,3 +64,7 @@ WHERE
   `, [database, table, column])
   return getQuery(server, sql)
 }
+
+export function renameTable(server, sql) {
+  return getQuery(server, sql)
+}

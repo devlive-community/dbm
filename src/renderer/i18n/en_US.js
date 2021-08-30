@@ -96,7 +96,8 @@ export default {
     topic: 'Topic',
     group: 'Group',
     hdfs: 'HDFS',
-    uri: 'URI'
+    uri: 'URI',
+    rename: 'Rename'
   },
   prompt: {
     component: {

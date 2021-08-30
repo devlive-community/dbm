@@ -10,11 +10,12 @@ import VueCodemirror from 'vue-codemirror'
 import theme from './theme'
 
 import Support from '@/store/Support'
-import { stringFormat } from '@/utils/Utils'
+
+const StringUtils = require('../utils/StringUtils')
 
 const token = Support.SETTING
 
-const setting = JSON.parse(localStorage.getItem(stringFormat('{0}_{1}', [token, 'Editor'])))
+const setting = JSON.parse(localStorage.getItem(StringUtils.format('{0}_{1}', [token, 'Editor'])))
 
 const defaultOptions = {
   styleActiveLine: true,

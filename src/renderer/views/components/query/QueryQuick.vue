@@ -8,15 +8,16 @@
           </div>
           <el-menu>
             <el-menu-item
-              v-for="(server, index) in servers" 
-              :key="index"
-              :index="server.name"
-              :disabled="!server.status"
-              @click="handlerShowData(server, 'database')">
-              <el-tooltip slot="title" v-if="!server.status" class="item" effect="dark" :content="server.message" placement="top">
-                <span> {{server.name}} </span>
+                v-for="(server, index) in servers"
+                :key="index"
+                :index="server.name"
+                :disabled="!server.status"
+                @click="handlerShowData(server, 'database')">
+              <el-tooltip slot="title" v-if="!server.status" class="item" effect="dark" :content="server.message"
+                          placement="top">
+                <span> {{ server.name }} </span>
               </el-tooltip>
-              <span v-else> {{server.name}} </span>
+              <span v-else> {{ server.name }} </span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -28,11 +29,11 @@
           </div>
           <el-menu>
             <el-menu-item
-              v-for="(database, index) in databases" 
-              :key="index"
-              :index="database.name"
-              @click="handlerShowData(database.name, 'table')">
-              <span slot="title"> {{database.name}} </span>
+                v-for="(database, index) in databases"
+                :key="index"
+                :index="database.name"
+                @click="handlerShowData(database.name, 'table')">
+              <span slot="title"> {{ database.name }} </span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -44,11 +45,12 @@
           </div>
           <el-menu>
             <el-menu-item
-              v-for="(table, index) in tables" 
-              :key="index"
-              :index="table.name"
-              @click="handlerShowData(table.name, null)">
-              <span slot="title"> <i :class="handlerGetIcon(table.engine)" aria-hidden="true"></i> {{table.name}} </span>
+                v-for="(table, index) in tables"
+                :key="index"
+                :index="table.name"
+                @click="handlerShowData(table.name, null)">
+              <span slot="title"> <i :class="handlerGetIcon(table.engine)"
+                                     aria-hidden="true"></i> {{ table.name }} </span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -56,7 +58,8 @@
     </el-row>
     <div slot="footer" class="dialog-footer">
       <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
-      <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql">  {{ this.$t('common.quick') }}
+      <el-dropdown v-if="remoteTable !== null" size="mini" split-button type="primary" @command="hadnlerGenerSql">
+        {{ this.$t('common.quick') }}
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="DESCRIBE">DESCRIBE ...</el-dropdown-item>
           <el-dropdown-item command="CREATE_TABLE">SHOW CREATE TABLE ...</el-dropdown-item>
@@ -156,28 +159,34 @@ export default {
 }
 </script>
 <style scoped>
-  /deep/ .el-card__header {
-    padding: 5px 15px;
-  }
-  /deep/ .el-card__body {
-      padding: 0px;
-  }
-  /deep/ .el-menu {
-    border-right: solid 0px #e6e6e6;
-  }
-  .el-menu-item {
-    padding: 0;
-    cursor: pointer;
-  }
-  /deep/ .el-menu-item, .el-submenu__title {
-    line-height: 25px;
-    height: 30px;
-    border-bottom: solid 1px #e6e6e6;
-  }
-  /deep/ .el-dialog__body {
-    padding: 10px 15px;
-  }
-  /deep/ .el-row {
-    margin-top: 0px;
-  }
+/deep/ .el-card__header {
+  padding: 5px 15px;
+}
+
+/deep/ .el-card__body {
+  padding: 0px;
+}
+
+/deep/ .el-menu {
+  border-right: solid 0px #e6e6e6;
+}
+
+.el-menu-item {
+  padding: 0;
+  cursor: pointer;
+}
+
+/deep/ .el-menu-item, .el-submenu__title {
+  line-height: 25px;
+  height: 30px;
+  border-bottom: solid 1px #e6e6e6;
+}
+
+/deep/ .el-dialog__body {
+  padding: 10px 15px;
+}
+
+/deep/ .el-row {
+  margin-top: 0px;
+}
 </style>

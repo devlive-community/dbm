@@ -2,15 +2,16 @@
   <div class="app-container">
     <el-row :gutter="20">
       <el-col :span="6">
-        <data-tree :items="treeItems" @change="handlerGetTreeData($event)"/>
+        <data-tree :items="treeItems" :nodeKey="'name'" @change="handlerGetTreeData($event)"
+                   @handlerClickTreeMenu="handlerClickTreeMenu($event)"/>
       </el-col>
       <el-col :span="18">
-        <el-empty v-if="isEmpty(treeValue.title)"/>
+        <el-empty v-if="this.isEmpty(treeValue.title)"/>
         <el-card v-else class="box-card">
           <div slot="header" class="clearfix">
-            <span><i :class="getFaIcon(treeValue.type)"></i> {{ treeValue.title }}</span>
+            <span><i :class="this.getFaIcon(treeValue.type)"></i> {{ treeValue.title }}</span>
             <el-tooltip v-if="treeValue.type === SERVER" class="item" effect="dark"
-                        :content="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.database')])"
+                        :content="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.database')])"
                         placement="top">
               <el-button class="frp-5" type="primary" size="mini" icon="el-icon-plus"
                          @click="loading.addDatabase = true"/>
@@ -25,13 +26,13 @@
                        :inactive-text="this.$t('common.server')"
                        active-value="DataBase" inactive-value="Server" @change="handlerSwitchType"/>
             <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
-                        :content="stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
+                        :content="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
                         placement="top">
               <el-button class="frp-5" type="primary" size="mini" icon="el-icon-plus"
                          @click="loading.createTable = true"/>
             </el-tooltip>
             <el-tooltip v-if="treeValue.type === DATABASE" class="item" effect="dark"
-                        :content="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
+                        :content="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
                         placement="top">
               <el-button class="frp-5" type="danger" size="mini" icon="el-icon-delete"
                          @click="loading.deleteDatabase = true"/>
@@ -43,7 +44,7 @@
             </el-tooltip>
             <el-tooltip v-if="treeValue.type === TABLE && treeValue.table !== 'system'" class="item" effect="dark"
                         placement="top"
-                        :content="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])">
+                        :content="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.table')])">
               <el-button class="frp-5" type="text" size="small" icon="el-icon-delete"
                          @click="loading.deleteTable = true"/>
             </el-tooltip>
@@ -53,7 +54,7 @@
             </el-tooltip>
           </div>
           <div class="text item">
-            <el-empty v-if="isEmpty(treeValue.server) || isEmpty(treeValue.type)"/>
+            <el-empty v-if="this.isEmpty(treeValue.server) || this.isEmpty(treeValue.type)"/>
             <monitor-disk v-else :items="items"/>
           </div>
         </el-card>
@@ -70,6 +71,11 @@
                   :table="treeValue.table" @close="loading.deleteTable = false"/>
     <create-table :loading="loading.createTable" :server="treeValue.server" :database="treeValue.database"
                   @close="loading.createTable = false"/>
+    <table-preview :loading="loading.tablePreview" :configuration="treeValue" @close="loading.tablePreview = false"/>
+    <table-column :loading="loading.tableColumn" :configuration="treeValue"
+                  @close="loading.tableColumn = false"></table-column>
+    <table-rename :loading="loading.tableRename" :configuration="treeValue"
+                  @close="loading.tableRename = false"></table-rename>
   </div>
 </template>
 
@@ -77,21 +83,26 @@
 import AddDatabase from '@/views/components/database/DatabaseAdd'
 import DeleteDatabase from '@/views/components/database/DatabaseDelete'
 import DeleteTable from '@/views/components/table/TableDelete'
-import DataTree from '@/views/components/data/DataTree'
+import DataTree from '@/views/components/data/tree/DataTree'
 import ServerStatus from '@/views/components/ServerStatus'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
 import MonitorDisk from '@/views/components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
-import { stringFormat } from '@/utils/Utils'
-import { isNotEmpty } from '@/utils/StringUtils'
 import { getDiskUsedAndRatio } from '@/services/Disk'
-import { SERVER } from '@/utils/Support'
+
+const Support = require('@/utils/Support')
 import CreateTable from '@/views/components/table/TableCreate'
+import TablePreview from '../../components/table/preview/TablePreview'
+import TableColumn from '../../components/table/Column/TableColumn'
+import TableRename from '../../components/table/Rename'
 
 export default {
   components: {
+    TableRename,
+    TableColumn,
+    TablePreview,
     CreateTable,
     AddDatabase,
     DeleteTable,
@@ -118,10 +129,13 @@ export default {
         addDatabase: false,
         deleteTable: false,
         deleteDatabase: false,
-        createTable: false
+        createTable: false,
+        tablePreview: false,
+        tableColumn: false,
+        tableRename: false
       },
       items: [],
-      switchType: SERVER
+      switchType: Support.SERVER
     }
   },
   mounted() {
@@ -134,7 +148,7 @@ export default {
     async handlerGetTreeData(value, type) {
       this.treeValue = value
       let iType = value.type
-      if (isNotEmpty(type)) {
+      if (this.isNotEmpty(type)) {
         iType = type
       }
       const response = await getDiskUsedAndRatio(value.server, iType, value.database, value.table)
@@ -146,7 +160,7 @@ export default {
     },
     async handlerShowDDL(server, database, table) {
       this.buttonLoading = true
-      const sql = stringFormat('SELECT ' +
+      const sql = this.stringFormat('SELECT ' +
           'create_table_query ' +
           'FROM system.tables ' +
           'WHERE database = \'{0}\' AND name = \'{1}\'', [database, table])
@@ -159,13 +173,43 @@ export default {
       }
     },
     handlerToDetail() {
-      const path = stringFormat('/data/detail/{0}/{1}/{2}', [this.treeValue.server, this.treeValue.database, this.treeValue.table])
+      const path = this.stringFormat('/data/detail/{0}/{1}/{2}', [this.treeValue.server, this.treeValue.database, this.treeValue.table])
       this.$router.push({
         path: path
       })
     },
     handlerSwitchType() {
       this.handlerGetTreeData(this.treeValue, this.switchType)
+    },
+    handlerClickTreeMenu(value) {
+      if (value.command === Support.ADD && value.type === Support.SERVER) {
+        this.loading.addDatabase = true
+      }
+      if (value.command === Support.INFO && value.type === Support.SERVER) {
+        this.loading.serverStatus = true
+      }
+      if (value.command === Support.ADD && value.type === Support.DATABASE) {
+        this.loading.createTable = true
+      }
+      if (value.command === Support.DELETE && value.type === Support.DATABASE) {
+        this.loading.deleteDatabase = true
+      }
+      if (value.command === Support.DELETE && value.type === Support.TABLE) {
+        this.loading.deleteTable = true
+      }
+      if (value.command === Support.DDL && value.type === Support.TABLE) {
+        this.ddl.visible = true
+        this.handlerShowDDL(this.treeValue.server, this.treeValue.database, this.treeValue.table)
+      }
+      if (value.command === Support.PREVIEW && value.type === Support.TABLE) {
+        this.loading.tablePreview = true
+      }
+      if (value.command === Support.EDIT && value.type === Support.TABLE) {
+        this.loading.tableRename = true
+      }
+      if (value.command === Support.EDIT && value.type === Support.COLUMN) {
+        this.loading.tableColumn = true
+      }
     }
   }
 }

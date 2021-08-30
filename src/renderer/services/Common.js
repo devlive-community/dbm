@@ -1,7 +1,8 @@
 import { runExecute } from '@/api/query'
 import { getServerURL, getDataSource, formatRemoteUrl } from '@/utils/Utils'
-import { isNotEmpty } from '@/utils/StringUtils'
 import Response from '@/store/modules/Response'
+
+const StringUtils = require('../utils/StringUtils')
 
 export async function getResponse(server, sql) {
   const dataSource = getDataSource(server)
@@ -21,7 +22,7 @@ export async function getResponse(server, sql) {
 
 export async function getAuthenticationResponse(authentication, sql) {
   let configuration = null
-  if (isNotEmpty(authentication.server)) {
+  if (StringUtils.isNotEmpty(authentication.server)) {
     const dataSource = getDataSource(authentication.server)
     configuration = dataSource[0]
   } else {

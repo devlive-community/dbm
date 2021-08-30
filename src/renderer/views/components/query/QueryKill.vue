@@ -1,11 +1,14 @@
 <template>
-  <el-dialog :title="body.title"  :visible.sync="body.show" :width="width" @close="closeDialog">
+  <el-dialog :title="body.title" :visible.sync="body.show" :width="width" @close="closeDialog">
     <em>{{ this.$t('alter.operation') }} {{ this.$t('alter.result') }}</em>
     <el-alert :title="this.$t('common.necessary')" type="error">
       <el-tag type="info" size="mini">{{ body.id }}</el-tag>
     </el-alert>
     <ol>
-      <li><el-tag type="danger" size="mini">{{ this.$t('common.no_callback') }}</el-tag> {{ this.$t('alter.stop_on_cluster') }}</li>
+      <li>
+        <el-tag type="danger" size="mini">{{ this.$t('common.no_callback') }}</el-tag>
+        {{ this.$t('alter.stop_on_cluster') }}
+      </li>
       <li>{{ this.$t('alter.operation_submit') }}</li>
       <el-input v-model="value" size="mini"></el-input>
     </ol>

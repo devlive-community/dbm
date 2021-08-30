@@ -1,15 +1,15 @@
 import { getQuery } from '@/services/Metadata'
 import { SERVER, DATABASE } from '@/utils/Support'
-import { isNotEmpty, isEmpty } from '@/utils/StringUtils'
-import { stringFormat } from '@/utils/utils'
+
+const StringUtils = require('../utils/StringUtils')
 
 export async function getDiskUsedAndRatio(server, type, database, table) {
   let response
   if (type === SERVER) {
     response = await getUsedDisk(server)
-  } else if (type === DATABASE && isEmpty(database)) {
+  } else if (type === DATABASE && StringUtils.isEmpty(database)) {
     response = await getDbUsedDisk(server)
-  } else if (type === DATABASE && isNotEmpty(database)) {
+  } else if (type === DATABASE && StringUtils.isNotEmpty(database)) {
     response = await getTableUsedDisk(server, database)
   } else {
     response = await getColumnUsedDisk(server, database, table, 20)
@@ -98,8 +98,8 @@ SELECT
 FROM t0, t1
 ORDER BY t1.tableUsedBytes DESC
   `
-  if (isNotEmpty(database)) {
-    sql = stringFormat(`
+  if (StringUtils.isNotEmpty(database)) {
+    sql = StringUtils.format(`
 WITH t0 AS (
   SELECT
     total_space AS totalBytes,
@@ -131,10 +131,10 @@ ORDER BY t1.tableUsedBytes DESC
 }
 
 export async function getColumnUsedDisk(server, database, table, limit) {
-  if (isEmpty(limit)) {
+  if (StringUtils.isEmpty(limit)) {
     limit = 20
   }
-  const sql = stringFormat(`
+  const sql = StringUtils.format(`
 WITH t0 AS (
   SELECT
     total_space AS totalBytes,

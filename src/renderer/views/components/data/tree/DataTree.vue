@@ -52,6 +52,7 @@ export default {
         server: null,
         database: null,
         table: null,
+        column: null,
         type: null
       },
       menu: {
@@ -121,6 +122,9 @@ export default {
           break
         case TABLE:
           this.context.table = node.name
+          break
+        case COLUMN:
+          this.context.column = node.name
           break
       }
       this.menu.data = getContextMenu(node.type)

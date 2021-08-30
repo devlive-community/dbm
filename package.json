@@ -1,8 +1,8 @@
 {
   "name": "dbm",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "author": "qianmoQ <shicheng@ttxit.com>",
-  "description": "Dababase Manager Tools",
+  "description": "ClickHouse DataBase Manager Tools",
   "credits": "EdurtIO",
   "github": "https://github.com/EdurtIO/incubator-dbm.git",
   "license": "Apache",

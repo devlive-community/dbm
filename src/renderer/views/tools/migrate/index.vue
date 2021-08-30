@@ -6,7 +6,7 @@
         <div class="grid-content">
           <el-form :inline="true" :model="form" size="mini">
             <el-form-item :label="this.$t('common.connection')" :label-width="this.commonLabelWidth120">
-              <data-source-select v-if="this.getLengthGtZore(server)" :items="server"
+              <data-source-select v-if="this.getLengthGtZone(server)" :items="server"
                                   @getValue="handlerServer($event, true)"
                                   :placeholder="this.stringFormat('{0}{1}', [this.$t('common.clickhouse'), this.$t('common.server')])">
               </data-source-select>
@@ -33,7 +33,7 @@
         <div class="grid-content">
           <el-form :inline="true" :model="form" size="mini">
             <el-form-item :label="this.$t('common.connection')" :label-width="this.commonLabelWidth120">
-              <data-source-select v-if="this.getLengthGtZore(server)" :items="server"
+              <data-source-select v-if="this.getLengthGtZone(server)" :items="server"
                                   @getValue="handlerServer($event, false)"
                                   :placeholder="this.stringFormat('{0}{1}', [this.$t('common.clickhouse'), this.$t('common.server')])">
               </data-source-select>

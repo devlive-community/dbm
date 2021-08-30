@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="form" size="mini">
         <el-form-item :label="this.$t('common.server')">
           <data-source-select
-              v-if="getLengthGtZore(selectServers)"
+              v-if="this.getLengthGtZone(selectServers)"
               :items="selectServers"
               @getValue="handlerServer"
               :placeholder="'ClickHouse Server'">
@@ -24,7 +24,7 @@
         </el-form-item>
       </el-form>
     </el-row>
-    <el-row v-if="getLengthGtZore(tableDatas)" :gutter="20">
+    <el-row v-if="this.getLengthGtZone(tableDatas)" :gutter="20">
       <div v-for="info in tableDatas" :key="info.metric">
         <el-col :span="6">
           <el-card class="box-card">

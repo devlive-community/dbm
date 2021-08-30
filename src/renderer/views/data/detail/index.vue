@@ -24,9 +24,9 @@
             </span>
             <el-tooltip class="item" effect="dark" content="Refresh" placement="top">
               <el-button style="float: right; padding: 3px 0"
-                type="text"
-                icon="el-icon-refresh"
-                @click="handlerRefresh()">
+                         type="text"
+                         icon="el-icon-refresh"
+                         @click="handlerRefresh()">
               </el-button>
             </el-tooltip>
           </div>
@@ -41,12 +41,13 @@
                     Name: {{ tableInfo.name }}
                     <p>Database: {{ tableInfo.database }}</p>
                     <p>
-                      Temporary: 
-                      <el-switch 
-                        :value="tableInfo.is_temporary"
-                        active-text="Yes"
-                        inactive-text="No">
-                        </el-switch></p>
+                      Temporary:
+                      <el-switch
+                          :value="tableInfo.is_temporary"
+                          active-text="Yes"
+                          inactive-text="No">
+                      </el-switch>
+                    </p>
                     <p>Engine: {{ tableInfo.engine }}</p>
                   </div>
                 </el-card>
@@ -69,10 +70,10 @@
                   <div slot="header" class="clearfix">
                     <span>Data Size</span>
                   </div>
-                    Total Rows {{ tableInfo.total_rows }}
-                    <p>Total Bytes {{ tableInfo.total_bytes }}</p>
-                    <p>Lifetime Rows {{ tableInfo.lifetime_rows }}</p>
-                    <p>Lifetime Bytes {{ tableInfo.lifetime_bytes }}</p>
+                  Total Rows {{ tableInfo.total_rows }}
+                  <p>Total Bytes {{ tableInfo.total_bytes }}</p>
+                  <p>Lifetime Rows {{ tableInfo.lifetime_rows }}</p>
+                  <p>Lifetime Bytes {{ tableInfo.lifetime_bytes }}</p>
                 </el-card>
               </el-col>
             </el-row>
@@ -83,9 +84,9 @@
     <el-tabs v-model="activeTab" @tab-click="handlerTabClick()">
       <el-tab-pane label="Columns" name="Columns">
         <el-table v-loading.body="loading"
-          style="width: 100%"
-          border
-          :data="columns">
+                  style="width: 100%"
+                  border
+                  :data="columns">
           <template v-for="(item,index) in headers">
             <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
           </template>
@@ -93,9 +94,9 @@
       </el-tab-pane>
       <el-tab-pane v-loading="tableLoading" label="Preview" name="Preview">
         <el-table v-loading="tableLoading"
-          style="width: 100%"
-          border
-          :data="columns">
+                  style="width: 100%"
+                  border
+                  :data="columns">
           <template v-for="(item,index) in headers">
             <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
           </template>

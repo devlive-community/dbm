@@ -1,10 +1,12 @@
 import { runExecute } from '@/api/query'
-import { stringFormat, getDataSource, getServerURL } from '@/utils/Utils'
+import { getDataSource, getServerURL } from '@/utils/Utils'
 import { getAuthenticationResponse } from '@/services/Common'
 import QueryHistory from '@/store/modules/QueryHistory'
 import Response from '@/store/modules/Response'
 import Authentication from '@/store/modules/Authentication'
 import i18n from '@/i18n'
+
+const StringUtils = require('../utils/StringUtils')
 
 /**
  * Get Database or table from remote server
@@ -20,7 +22,7 @@ export async function getDatabasesOrTables(server, type, database) {
       querySql = 'SHOW DATABASES'
       break
     case 'table':
-      querySql = stringFormat('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [database])
+      querySql = StringUtils.format('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [database])
       break
   }
   const configuration = new Authentication()
@@ -39,16 +41,16 @@ export function getQuickSql(quick, database, table) {
   let quickSql = ''
   switch (quick) {
     case 'DESCRIBE':
-      quickSql = stringFormat('DESCRIBE {0}.{1}', [database, table])
+      quickSql = StringUtils.format('DESCRIBE {0}.{1}', [database, table])
       break
     case 'LIMIT':
-      quickSql = stringFormat('SELECT * FROM {0}.{1} LIMIT 100', [database, table])
+      quickSql = StringUtils.format('SELECT * FROM {0}.{1} LIMIT 100', [database, table])
       break
     case 'CREATE_TABLE':
-      quickSql = stringFormat('SHOW CREATE TABLE {0}.{1}', [database, table])
+      quickSql = StringUtils.format('SHOW CREATE TABLE {0}.{1}', [database, table])
       break
     case 'SELECT_COUNT':
-      quickSql = stringFormat('SELECT COUNT(1) FROM {0}.{1}', [database, table])
+      quickSql = StringUtils.format('SELECT COUNT(1) FROM {0}.{1}', [database, table])
       break
   }
   return quickSql
@@ -159,14 +161,14 @@ export async function killQuery(server, source, target, type) {
     let sql = null
     switch (type) {
       case 'mutation':
-        sql = stringFormat('KILL MUTATION WHERE mutation_id = \'{0}\'', [source])
+        sql = StringUtils.format('KILL MUTATION WHERE mutation_id = \'{0}\'', [source])
         break
       default:
-        sql = stringFormat('KILL QUERY WHERE query_id = \'{0}\'', [source])
+        sql = StringUtils.format('KILL QUERY WHERE query_id = \'{0}\'', [source])
     }
     await runExecute(remoteServer, sql).then(response => {
       if (response.status === 200) {
-        result.message = stringFormat('{0} {1} {2}', [i18n.t('common.kill'), source, i18n.t('common.success')])
+        result.message = StringUtils.format('{0} {1} {2}', [i18n.t('common.kill'), source, i18n.t('common.success')])
         result.status = true
       }
     }).catch(response => {

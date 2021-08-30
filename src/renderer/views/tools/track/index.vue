@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="form" size="mini">
         <el-form-item :label="this.$t('common.server')">
           <data-source-select
-              v-if="getLengthGtZore(selectServers)"
+              v-if="this.getLengthGtZone(selectServers)"
               :items="selectServers"
               @getValue="handlerServer"
               :placeholder="'ClickHouse Server'">
@@ -13,9 +13,9 @@
         <el-form-item :label="this.$t('common.track')">
           <el-autocomplete v-model="form.track"
                            popper-class="my-autocomplete"
-                           :disabled="isEmpty(selectServerValue)"
+                           :disabled="this.isEmpty(selectServerValue)"
                            :fetch-suggestions="handlerGetTrackTop"
-                           :placeholder="stringFormat('{0} {1}', [this.$t('common.track'), this.$t('common.id')])">
+                           :placeholder="this.stringFormat('{0} {1}', [this.$t('common.track'), this.$t('common.id')])">
             <template slot-scope="{ item }">
               <div class="name">{{ item.value }}</div>
               <span class="addr">{{ item.queryStartTime }}</span>
@@ -47,7 +47,8 @@
               <div slot="header">
                 <span :style="'color: ' + getTrackColor(track.type) + ';'">{{ track.type }}</span>
                 <span class="em">({{ track.queryStartTime }})</span>
-                <el-button class="frp-5" type="text" size="small" icon="el-icon-search" @click="handlerShowDDL(track)"></el-button>
+                <el-button class="frp-5" type="text" size="small" icon="el-icon-search"
+                           @click="handlerShowDDL(track)"></el-button>
               </div>
               <div style="margin-top: 2px;">
                 <p v-for="(v, i) in Object.entries(track)" v-if="v[0] !== 'ddl'" :key="i" :value="v[1]" class="item">
@@ -66,7 +67,8 @@
         <el-button size="mini" @click="trackThread.show = false">{{ this.$t('common.cancel') }}</el-button>
       </div>
     </el-dialog>
-    <table-ddl :loading="trackContext.show" :title="trackContext.title" :ddl="trackContext.context" @close="trackContext.show = false"/>
+    <table-ddl :loading="trackContext.show" :title="trackContext.title" :ddl="trackContext.context"
+               @close="trackContext.show = false"/>
   </div>
 </template>
 

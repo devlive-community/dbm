@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="form" size="mini">
         <el-form-item :label="this.$t('common.server')">
           <data-source-select
-              v-if="getLengthGtZore(selectServers)"
+              v-if="this.getLengthGtZone(selectServers)"
               :items="selectServers"
               @getValue="handlerServer"
               :placeholder="'ClickHouse Server'">
@@ -25,7 +25,7 @@
       </el-form>
     </el-row>
     <highcharts :options="chartOptions"></highcharts>
-    <el-table v-if="getLengthGtZore(tableDatas)" :data="tableDatas" style="width: 100%">
+    <el-table v-if="this.getLengthGtZone(tableDatas)" :data="tableDatas" style="width: 100%">
       <template v-for="(item,index) in tableHeaders">
         <el-table-column :prop="item.name" :label="item.name" :key="index"></el-table-column>
       </template>
@@ -57,7 +57,6 @@ import QueryKill from '@/views/components/query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
 import { getMonitor } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'
-import { stringFormat } from '@/utils/Utils'
 import { MUTATIONS } from '@/utils/Support'
 
 export default {
@@ -131,7 +130,7 @@ export default {
       }
       this.disabled = false
       const serie = {
-        name: stringFormat('{0}-({1})', [this.selectServerValue, this.$t('common.count')]),
+        name: this.stringFormat('{0}-({1})', [this.selectServerValue, this.$t('common.count')]),
         data: buildArray(this.dataCount, 20, true, this.tableDatas.length)
       }
       if (this.seriesMap.has(this.selectServerValue)) {

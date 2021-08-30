@@ -1,19 +1,36 @@
+import i18n from '../i18n'
+
 export const ENGINES = [
   {
-    name: 'Log',
-    description: 'Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.',
+    name: i18n.t('table.engine.log.name'),
+    description: i18n.t('table.engine.log.description'),
     engines: [
       {
-        name: 'Log',
-        description: 'The engine belongs to the family of Log engines. See the common properties of Log engines and their differences in the Log Engine Family article.'
+        name: i18n.t('table.engine.log.name'),
+        description: i18n.t('table.engine.log.description')
       },
       {
-        name: 'TinyLog',
-        description: 'The engine belongs to the family of Log engines. See the common properties of Log engines and their differences in the Log Engine Family article.'
+        name: i18n.t('table.engine.log.tiny'),
+        description: i18n.t('table.engine.log.description')
       },
       {
-        name: 'StripeLog',
-        description: 'The engine belongs to the family of Log engines. See the common properties of Log engines and their differences in the Log Engine Family article.'
+        name: i18n.t('table.engine.log.stripe'),
+        description: i18n.t('table.engine.log.description')
+      }
+    ]
+  },
+  {
+    name: i18n.t('table.engine.integration.name'),
+    description: i18n.t('table.engine.integration.description'),
+    engines: [
+      {
+        name: i18n.t('table.engine.integration.kafka.name'),
+        description: i18n.t('table.engine.integration.kafka.description')
+      },
+
+      {
+        name: i18n.t('table.engine.integration.hdfs.name'),
+        description: i18n.t('table.engine.integration.hdfs.description')
       }
     ]
   }

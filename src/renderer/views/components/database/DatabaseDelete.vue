@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])" 
+    :title="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
     :visible.sync="bodyLoading"
     @close="closeDialog">
     <em>We don't recommend that you delete the database <el-tag type="info" size="mini">{{deleteValue}}</el-tag>? This operation produces the following?</em>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { stringFormat } from '@/utils/Utils'
 import { deleteDatabase } from '@/services/DataBase'
 
 export default {
@@ -56,7 +55,7 @@ export default {
       if (this.deleteValue !== this.inputDeleteValue) {
         this.$notify.error({
           title: 'Error',
-          message: stringFormat('The table <{0}> to be deleted is inconsistent with the target <{1}>', [this.inputDeleteValue, this.deleteValue])
+          message: this.stringFormat('The table <{0}> to be deleted is inconsistent with the target <{1}>', [this.inputDeleteValue, this.deleteValue])
         })
         this.buttonLoading = false
         return

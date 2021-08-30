@@ -87,7 +87,17 @@ export default {
     migrate: '迁移',
     source: '源',
     target: '目标',
-    clickhouse: 'ClickHouse'
+    clickhouse: 'ClickHouse',
+    language: '语言',
+    uppercase: '大写',
+    engine: '引擎',
+    kafka: 'Kafka',
+    broker: 'Broker',
+    topic: '主题',
+    group: '组',
+    hdfs: 'HDFS',
+    uri: 'URI',
+    rename: '重命名'
   },
   prompt: {
     component: {
@@ -151,5 +161,27 @@ export default {
   },
   tooltip: {
     is_empty: '是否非空'
+  },
+  table: {
+    engine: {
+      log: {
+        name: 'Log',
+        tiny: 'TinyLog',
+        stripe: 'StripeLog',
+        description: '具有最小功能的轻量级引擎。当您需要快速地编写许多小表(最多可达100万行)并在稍后整体读取它们时，它们是最有效的。'
+      },
+      integration: {
+        name: 'Integration',
+        description: '主要用于将外部数据导入到ClickHouse中，或者在ClickHouse中直接操作外部数据源',
+        kafka: {
+          name: 'Kafka',
+          description: '将Kafka Topic中的数据直接导入到ClickHouse'
+        },
+        hdfs: {
+          name: 'HDFS',
+          description: '将HDFS中的数据直接导入到ClickHouse'
+        }
+      }
+    }
   }
 }

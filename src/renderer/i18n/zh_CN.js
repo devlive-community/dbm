@@ -96,7 +96,8 @@ export default {
     topic: '主题',
     group: '组',
     hdfs: 'HDFS',
-    uri: 'URI'
+    uri: 'URI',
+    rename: '重命名'
   },
   prompt: {
     component: {

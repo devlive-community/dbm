@@ -70,7 +70,7 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: 'Create Time',
-    infomation: 'Infomation',
+    information: 'Information',
     edit: 'Edit',
     tools: 'Tools',
     track: 'Track',

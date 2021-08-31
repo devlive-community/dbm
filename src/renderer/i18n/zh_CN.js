@@ -70,7 +70,7 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: '创建时间',
-    infomation: '信息',
+    information: '信息',
     edit: '修改',
     tools: '工具',
     track: 'Track',

@@ -17,7 +17,7 @@
                          @click="loading.addDatabase = true"/>
             </el-tooltip>
             <el-tooltip v-if="treeValue.type === SERVER" class="item" effect="dark"
-                        :content="this.$t('common.infomation')" placement="top">
+                        :content="this.$t('common.information')" placement="top">
               <el-button class="frp-5" type="success" size="mini" icon="el-icon-info"
                          @click="loading.serverStatus = true"/>
             </el-tooltip>

@@ -20,7 +20,7 @@ Vue.prototype.stringFormat = StringUtils.format
 Vue.prototype.isEmpty = StringUtils.isEmpty
 Vue.prototype.isNotEmpty = StringUtils.isNotEmpty
 
-import { getFaIcon, getTrackColor } from './utils/utils'
+import { getFaIcon, getTrackColor } from './utils/Utils'
 Vue.prototype.getFaIcon = getFaIcon
 Vue.prototype.getTrackColor = getTrackColor
 

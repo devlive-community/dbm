@@ -160,7 +160,8 @@ export default {
     refersh_config: '配置修改后需要手动重新载入!'
   },
   tooltip: {
-    is_empty: '是否非空'
+    is_empty: '是否非空',
+    history_max: '查询历史超过系统最大限制将不再保存'
   },
   table: {
     engine: {

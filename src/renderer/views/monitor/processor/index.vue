@@ -59,7 +59,7 @@
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import TableDdl from '@/views/components/table/TableDdl'
-import QueryKill from '@/views/components/query/QueryKill'
+import QueryKill from '@/views/components/Query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
 import { getMonitor } from '@/services/Monitor'
 import { buildArray } from '@/utils/ArrayUtils'

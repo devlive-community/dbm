@@ -160,7 +160,8 @@ export default {
     refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   },
   tooltip: {
-    is_empty: 'Is not empty'
+    is_empty: 'Is not empty',
+    history_max: 'The query history will not be saved if it exceeds the upper limit'
   },
   table: {
     engine: {

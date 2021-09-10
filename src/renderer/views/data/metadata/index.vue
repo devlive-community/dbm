@@ -80,8 +80,6 @@
 </template>
 
 <script>
-import AddDatabase from '@/views/components/database/DatabaseAdd'
-import DeleteDatabase from '@/views/components/database/DatabaseDelete'
 import DeleteTable from '@/views/components/table/TableDelete'
 import DataTree from '@/views/components/data/tree/DataTree'
 import ServerStatus from '@/views/components/ServerStatus'
@@ -91,20 +89,22 @@ import MonitorDisk from '@/views/components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
-
-const Support = require('@/utils/Support')
 import CreateTable from '@/views/components/table/TableCreate'
 import TablePreview from '../../components/table/preview/TablePreview'
-import TableColumn from '../../components/table/Column/TableColumn'
+import TableColumn from '../../components/table/Column/Info'
 import TableRename from '../../components/table/Rename'
+import AddDatabase from '../../components/Database/Add'
+import DeleteDatabase from '../../components/Database/Delete'
+
+const Support = require('@/utils/Support')
 
 export default {
   components: {
+    AddDatabase,
     TableRename,
     TableColumn,
     TablePreview,
     CreateTable,
-    AddDatabase,
     DeleteTable,
     ServerStatus,
     DeleteDatabase,

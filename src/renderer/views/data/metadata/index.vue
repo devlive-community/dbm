@@ -76,6 +76,7 @@
                   @close="loading.tableColumn = false"></table-column>
     <table-rename :loading="loading.tableRename" :configuration="treeValue"
                   @close="loading.tableRename = false"></table-rename>
+    <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"></add-column>
   </div>
 </template>
 
@@ -95,11 +96,13 @@ import TableColumn from '../../components/table/Column/Info'
 import TableRename from '../../components/table/Rename'
 import AddDatabase from '../../components/Database/Add'
 import DeleteDatabase from '../../components/Database/Delete'
+import AddColumn from '../../components/table/Column/Add'
 
 const Support = require('@/utils/Support')
 
 export default {
   components: {
+    AddColumn,
     AddDatabase,
     TableRename,
     TableColumn,
@@ -132,7 +135,8 @@ export default {
         createTable: false,
         tablePreview: false,
         tableColumn: false,
-        tableRename: false
+        tableRename: false,
+        addColumn: false
       },
       items: [],
       switchType: Support.SERVER
@@ -206,6 +210,9 @@ export default {
       }
       if (value.command === Support.EDIT && value.type === Support.TABLE) {
         this.loading.tableRename = true
+      }
+      if (value.command === Support.ADD && value.type === Support.TABLE) {
+        this.loading.addColumn = true
       }
       if (value.command === Support.EDIT && value.type === Support.COLUMN) {
         this.loading.tableColumn = true

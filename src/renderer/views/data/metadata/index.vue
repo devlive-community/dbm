@@ -76,7 +76,8 @@
                   @close="loading.tableColumn = false"></table-column>
     <table-rename :loading="loading.tableRename" :configuration="treeValue"
                   @close="loading.tableRename = false"></table-rename>
-    <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"></add-column>
+    <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"/>
+    <delete-column :loading="loading.deleteColumn" :configure="treeValue" @close="loading.deleteColumn = false"/>
   </div>
 </template>
 
@@ -91,17 +92,19 @@ import MonitorDisk from '@/views/components/monitor/disk'
 import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
 import CreateTable from '@/views/components/table/TableCreate'
-import TablePreview from '../../components/table/preview/TablePreview'
-import TableColumn from '../../components/table/Column/Info'
-import TableRename from '../../components/table/Rename'
+import TablePreview from '../../components/Table/preview/TablePreview'
+import TableColumn from '../../components/Table/Column/Info'
+import TableRename from '../../components/Table/Rename'
 import AddDatabase from '../../components/Database/Add'
 import DeleteDatabase from '../../components/Database/Delete'
-import AddColumn from '../../components/table/Column/Add'
+import AddColumn from '../../components/Table/Column/Add'
+import DeleteColumn from '../../components/Table/Column/Delete'
 
-const Support = require('@/utils/Support')
+const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    DeleteColumn,
     AddColumn,
     AddDatabase,
     TableRename,
@@ -132,11 +135,11 @@ export default {
         addDatabase: false,
         deleteTable: false,
         deleteDatabase: false,
+        deleteColumn: false,
         createTable: false,
         tablePreview: false,
         tableColumn: false,
-        tableRename: false,
-        addColumn: false
+        tableRename: false
       },
       items: [],
       switchType: Support.SERVER
@@ -216,6 +219,9 @@ export default {
       }
       if (value.command === Support.EDIT && value.type === Support.COLUMN) {
         this.loading.tableColumn = true
+      }
+      if (value.command === Support.DELETE && value.type === Support.COLUMN) {
+        this.loading.deleteColumn = true
       }
     }
   }

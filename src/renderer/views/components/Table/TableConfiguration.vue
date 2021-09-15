@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import TableEngineKafka from './engines/kafka/TableEngineKafka'
-import TableEngineHdfs from './engines/hdfs/TableEngineHdfs'
+import TableEngineKafka from './Engines/Kafka'
+import TableEngineHdfs from './Engines/HDFS'
 
 export default {
   name: 'TableConfiguration',

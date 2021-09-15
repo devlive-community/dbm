@@ -57,7 +57,8 @@ export function getContextMenu(type) {
       })
       break
     case Support.COLUMN:
-      menus.push({
+      deleted.type = Support.COLUMN
+      menus.push(deleted, {
         name: StringUtils.format('{0}{1}', [i18n.t('common.column'), i18n.t('common.information')]),
         command: Support.EDIT,
         icon: Support.EDIT_ICON,

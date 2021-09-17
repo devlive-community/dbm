@@ -78,6 +78,7 @@
                   @close="loading.tableRename = false"></table-rename>
     <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"/>
     <delete-column :loading="loading.deleteColumn" :configure="treeValue" @close="loading.deleteColumn = false"/>
+    <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue" />
   </div>
 </template>
 
@@ -99,11 +100,13 @@ import AddDatabase from '../../components/Database/Add'
 import DeleteDatabase from '../../components/Database/Delete'
 import AddColumn from '../../components/Table/Column/Add'
 import DeleteColumn from '../../components/Table/Column/Delete'
+import ModifyColumn from '../../components/Table/Column/Modify'
 
 const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    ModifyColumn,
     DeleteColumn,
     AddColumn,
     AddDatabase,
@@ -139,7 +142,9 @@ export default {
         createTable: false,
         tablePreview: false,
         tableColumn: false,
-        tableRename: false
+        tableRename: false,
+        addColumn: false,
+        modifyColumn: false
       },
       items: [],
       switchType: Support.SERVER
@@ -217,11 +222,14 @@ export default {
       if (value.command === Support.ADD && value.type === Support.TABLE) {
         this.loading.addColumn = true
       }
-      if (value.command === Support.EDIT && value.type === Support.COLUMN) {
+      if (value.command === Support.INFO && value.type === Support.COLUMN) {
         this.loading.tableColumn = true
       }
       if (value.command === Support.DELETE && value.type === Support.COLUMN) {
         this.loading.deleteColumn = true
+      }
+      if (value.command === Support.EDIT && value.type === Support.COLUMN) {
+        this.loading.modifyColumn = true
       }
     }
   }

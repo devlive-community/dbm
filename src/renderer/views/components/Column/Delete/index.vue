@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { deleteColumn } from '../../../../../services/ColumnService'
+import { deleteColumn } from '../../../../services/ColumnService'
 
 export default {
   name: 'DeleteColumn',

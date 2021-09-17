@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-      :title="this.stringFormat('{0} {1}', [this.$t('common.rename'), this.$t('common.column')])"
+      :title="this.stringFormat('{0} {1}', [this.$t('common.edit'), this.$t('common.column')])"
       :visible.sync="visible"
       :width="'60%'"
       :before-close="closeDialog">
@@ -11,35 +11,47 @@
     <div v-else>
       <el-form :model="tableColumnForm" label-width="130px" size="mini">
         <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.database'), this.$t('common.name')])">
-          <el-tag size="mini">{{ tableColumnInfo.database }}</el-tag>
+          <el-tag size="mini">{{ tableColumnForm.database }}</el-tag>
         </el-form-item>
         <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
-          <el-tag size="mini">{{ tableColumnInfo.table }}</el-tag>
+          <el-tag size="mini">{{ tableColumnForm.table }}</el-tag>
         </el-form-item>
         <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.column'), this.$t('common.name')])">
-          <el-tag size="mini">{{ tableColumnInfo.name }}</el-tag>
+          <el-tag size="mini">{{ tableColumnForm.name }}</el-tag>
         </el-form-item>
-        <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.column'), this.$t('common.name')])">
-          <el-input :disabled="tableSupportAlter" v-model="tableColumnForm.name" @change="handlerValidate"/>
+        <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.column'), this.$t('common.type')])">
+          <el-select :disabled="tableSupportAlter" v-model="tableColumnForm.type"
+                     :placeholder="stringFormat('{0}{1}', [$t('common.column'), $t('common.type')])"
+                     @change="handlerValidate">
+            <el-option v-for="item in ColumnTypeUtils.TYPES" :key="item" :label="item" :value="item"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="this.$t('tooltip.is_empty')">
+          <el-switch :disabled="tableSupportAlter" v-model="tableColumnForm.empty" :active-text="$t('common.yes')"
+                     :inactive-text="$t('common.no')" @change="handlerValidate"/>
+        </el-form-item>
+        <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.column'), this.$t('common.comment')])">
+          <el-input :disabled="tableSupportAlter" type="textarea" v-model="tableColumnForm.comment"
+                    @change="handlerValidate"></el-input>
         </el-form-item>
       </el-form>
     </div>
     <div slot="footer" class="dialog-footer">
       <el-button :disabled="tableSupportAlter || !changeValidate" type="primary" size="mini" @click="handlerModify">
-        {{ this.$t('common.rename') }}
+        {{ this.$t('common.edit') }}
       </el-button>
     </div>
   </el-dialog>
 </template>
 <script>
-import { getTableColumnInfo, getTableInfo } from '../../../../../services/Table'
-import { renameColumn } from '../../../../../services/ColumnService'
+import { getTableColumnInfo, getTableInfo } from '../../../../services/Table'
+import { modifyColumn } from '../../../../services/ColumnService'
 
-const TableEngineUtils = require('../../../../../utils/TableEngineUtils')
-// const StringUtils = require('../../../../../utils/StringUtils')
+const TableEngineUtils = require('../../../../utils/TableEngineUtils')
+const StringUtils = require('../../../../utils/StringUtils')
 
 export default {
-  name: 'RenameColumn',
+  name: 'ModifyColumn',
   props: {
     visible: {
       type: Boolean,
@@ -61,7 +73,10 @@ export default {
       tableInfo: {},
       tableColumnInfo: {},
       tableColumnForm: {
-        name: null
+        name: null,
+        type: null,
+        empty: false,
+        comment: null
       }
     }
   },
@@ -84,14 +99,23 @@ export default {
       this.tableCheck = false
     },
     handlerValidate() {
-      if (this.tableColumnForm.name !== this.tableColumnInfo.name) {
+      if (this.tableColumnForm.comment !== this.tableColumnInfo.comment) {
+        this.changeValidate = true
+      } else if (StringUtils.format('"{0}"', [this.tableColumnForm.empty]) !==
+          StringUtils.format('"{0}"', [this.tableColumnInfo.empty])) {
+        this.changeValidate = true
+      } else if (this.tableColumnForm.name !== this.tableColumnInfo.name) {
+        this.changeValidate = true
+      } else if (this.tableColumnForm.type !== this.tableColumnInfo.type) {
+        this.changeValidate = true
+      } else if (this.tableColumnForm.comment !== this.tableColumnInfo.comment) {
         this.changeValidate = true
       } else {
         this.changeValidate = false
       }
     },
     handlerModify() {
-      renameColumn(this.configure, this.tableColumnForm.name).then(response => {
+      modifyColumn(this.configure, this.tableColumnForm).then(response => {
         if (response.status) {
           this.$notify.success({
             title: this.$t('common.success'),

@@ -13,7 +13,7 @@
   </el-dialog>
 </template>
 <script>
-import { getTableColumnInfo } from '../../../../../services/Table'
+import { getTableColumnInfo } from '../../../../services/Table'
 
 export default {
   name: 'TableColumn',

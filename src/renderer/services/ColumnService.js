@@ -26,3 +26,9 @@ export function renameColumn(configure, value) {
     [configure.database, configure.table, configure.column, value])
   return getQuery(configure.server, sql)
 }
+
+export function previewColumn(configure) {
+  const sql = StringUtils.format('SELECT {0} FROM {1}.{2} LIMIT 100',
+    [configure.column, configure.database, configure.table])
+  return getQuery(configure.server, sql)
+}

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { addColumns } from '../../../../../services/ColumnService'
+import { addColumns } from '../../../../services/ColumnService'
 
 export default {
   name: 'AddColumn',

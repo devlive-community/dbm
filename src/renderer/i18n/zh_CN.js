@@ -163,6 +163,9 @@ export default {
     is_empty: '是否非空',
     history_max: '查询历史超过系统最大限制将不再保存'
   },
+  formatter: {
+    column: '表引擎{0}不支持ALTER操作'
+  },
   table: {
     engine: {
       log: {

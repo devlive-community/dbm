@@ -163,6 +163,9 @@ export default {
     is_empty: 'Is not empty',
     history_max: 'The query history will not be saved if it exceeds the upper limit'
   },
+  formatter: {
+    column: 'The table engine {0} does not support the ALTER operation'
+  },
   table: {
     engine: {
       log: {

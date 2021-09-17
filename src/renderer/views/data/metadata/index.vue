@@ -78,7 +78,8 @@
                   @close="loading.tableRename = false"></table-rename>
     <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"/>
     <delete-column :loading="loading.deleteColumn" :configure="treeValue" @close="loading.deleteColumn = false"/>
-    <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue" />
+    <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue"/>
+    <rename-column v-if="loading.renameColumn" :visible.sync="loading.renameColumn" :configure="treeValue"/>
   </div>
 </template>
 
@@ -101,11 +102,13 @@ import DeleteDatabase from '../../components/Database/Delete'
 import AddColumn from '../../components/Table/Column/Add'
 import DeleteColumn from '../../components/Table/Column/Delete'
 import ModifyColumn from '../../components/Table/Column/Modify'
+import RenameColumn from '../../components/Table/Column/Rename'
 
 const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    RenameColumn,
     ModifyColumn,
     DeleteColumn,
     AddColumn,
@@ -144,7 +147,8 @@ export default {
         tableColumn: false,
         tableRename: false,
         addColumn: false,
-        modifyColumn: false
+        modifyColumn: false,
+        renameColumn: false
       },
       items: [],
       switchType: Support.SERVER
@@ -230,6 +234,9 @@ export default {
       }
       if (value.command === Support.EDIT && value.type === Support.COLUMN) {
         this.loading.modifyColumn = true
+      }
+      if (value.command === Support.RENAME && value.type === Support.COLUMN) {
+        this.loading.renameColumn = true
       }
     }
   }

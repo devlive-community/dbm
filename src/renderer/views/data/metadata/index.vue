@@ -80,6 +80,7 @@
     <delete-column :loading="loading.deleteColumn" :configure="treeValue" @close="loading.deleteColumn = false"/>
     <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue"/>
     <rename-column v-if="loading.renameColumn" :visible.sync="loading.renameColumn" :configure="treeValue"/>
+    <preview-column v-if="loading.previewColumn" :visible.sync="loading.previewColumn" :configure="treeValue"/>
   </div>
 </template>
 
@@ -95,19 +96,21 @@ import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
 import CreateTable from '@/views/components/table/TableCreate'
 import TablePreview from '../../components/Table/preview/TablePreview'
-import TableColumn from '../../components/Table/Column/Info'
+import TableColumn from '../../components/Column/Info'
 import TableRename from '../../components/Table/Rename'
 import AddDatabase from '../../components/Database/Add'
 import DeleteDatabase from '../../components/Database/Delete'
-import AddColumn from '../../components/Table/Column/Add'
-import DeleteColumn from '../../components/Table/Column/Delete'
-import ModifyColumn from '../../components/Table/Column/Modify'
-import RenameColumn from '../../components/Table/Column/Rename'
+import AddColumn from '../../components/Column/Add'
+import DeleteColumn from '../../components/Column/Delete'
+import ModifyColumn from '../../components/Column/Modify'
+import RenameColumn from '../../components/Column/Rename'
+import PreviewColumn from '../../components/Column/Preview'
 
 const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    PreviewColumn,
     RenameColumn,
     ModifyColumn,
     DeleteColumn,
@@ -148,7 +151,8 @@ export default {
         tableRename: false,
         addColumn: false,
         modifyColumn: false,
-        renameColumn: false
+        renameColumn: false,
+        previewColumn: false
       },
       items: [],
       switchType: Support.SERVER
@@ -237,6 +241,9 @@ export default {
       }
       if (value.command === Support.RENAME && value.type === Support.COLUMN) {
         this.loading.renameColumn = true
+      }
+      if (value.command === Support.PREVIEW && value.type === Support.COLUMN) {
+        this.loading.previewColumn = true
       }
     }
   }

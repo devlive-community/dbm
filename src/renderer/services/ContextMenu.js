@@ -69,6 +69,11 @@ export function getContextMenu(type) {
         icon: Support.EDIT_ICON,
         type: Support.COLUMN
       }, {
+        name: i18n.t('common.preview'),
+        command: Support.PREVIEW,
+        icon: Support.PREVIEW_ICON,
+        type: Support.COLUMN
+      }, {
         name: i18n.t('common.information'),
         command: Support.INFO,
         icon: Support.INFO_ICON,

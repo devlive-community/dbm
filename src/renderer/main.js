@@ -105,6 +105,8 @@ Vue.config.productionTip = false
 
 Vue.prototype.commonLabelWidth120 = '120px'
 
+ElementUI.Dialog.props.closeOnClickModal.default = false
+
 new Vue({
   components: { App },
   router,

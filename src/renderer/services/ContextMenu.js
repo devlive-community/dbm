@@ -59,12 +59,17 @@ export function getContextMenu(type) {
     case Support.COLUMN:
       deleted.type = Support.COLUMN
       menus.push(deleted, {
-        name: StringUtils.format('{0}{1}', [i18n.t('common.edit'), i18n.t('common.column')]),
+        name: i18n.t('common.edit'),
         command: Support.EDIT,
         icon: Support.EDIT_ICON,
         type: Support.COLUMN
       }, {
-        name: StringUtils.format('{0}{1}', [i18n.t('common.column'), i18n.t('common.information')]),
+        name: i18n.t('common.rename'),
+        command: Support.RENAME,
+        icon: Support.EDIT_ICON,
+        type: Support.COLUMN
+      }, {
+        name: i18n.t('common.information'),
         command: Support.INFO,
         icon: Support.INFO_ICON,
         type: Support.COLUMN

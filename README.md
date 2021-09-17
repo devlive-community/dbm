@@ -50,6 +50,7 @@ Gitee:
   - Delete column operation
   - Get column info operation
   - Modify column operation
+  - Rename column operation
 - Support database management (delete, create)
 - Support custom query
 - Support multiple data sources management(connection test, monitoring)

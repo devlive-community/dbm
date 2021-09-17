@@ -20,3 +20,9 @@ export function modifyColumn(configure, column) {
     [configure.database, configure.table, ColumnUtils.builderColumnToString(column)])
   return getQuery(configure.server, sql)
 }
+
+export function renameColumn(configure, value) {
+  const sql = StringUtils.format('ALTER TABLE {0}.{1} RENAME COLUMN {2} TO {3}',
+    [configure.database, configure.table, configure.column, value])
+  return getQuery(configure.server, sql)
+}

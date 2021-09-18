@@ -76,8 +76,8 @@
                   @close="loading.tableColumn = false"></table-column>
     <table-rename :loading="loading.tableRename" :configuration="treeValue"
                   @close="loading.tableRename = false"></table-rename>
-    <add-column :loading="loading.addColumn" :configure="treeValue" @close="loading.addColumn = false"/>
-    <delete-column :loading="loading.deleteColumn" :configure="treeValue" @close="loading.deleteColumn = false"/>
+    <add-column v-if="loading.addColumn" :visible.sync="loading.addColumn" :configure="treeValue"/>
+    <delete-column v-if="loading.deleteColumn" :visible.sync="loading.deleteColumn" :configure="treeValue"/>
     <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue"/>
     <rename-column v-if="loading.renameColumn" :visible.sync="loading.renameColumn" :configure="treeValue"/>
     <preview-column v-if="loading.previewColumn" :visible.sync="loading.previewColumn" :configure="treeValue"/>
@@ -85,17 +85,17 @@
 </template>
 
 <script>
-import DeleteTable from '@/views/components/table/TableDelete'
-import DataTree from '@/views/components/data/tree/DataTree'
-import ServerStatus from '@/views/components/ServerStatus'
-import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
-import TableDdl from '@/views/components/table/TableDdl'
-import MonitorDisk from '@/views/components/monitor/disk'
+import DeleteTable from '../../components/Table/Delete'
+import DataTree from '../../components/data/tree/DataTree'
+import ServerStatus from '../../components/ServerStatus'
+import DataSourceSelect from '../../components/data/datasource/DataSourceSelect'
+import MonitorDisk from '../../components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
-import CreateTable from '@/views/components/table/TableCreate'
-import TablePreview from '../../components/Table/preview/TablePreview'
+import CreateTable from '../../components/table/TableCreate'
+import TablePreview from '../../components/Table/Preview'
+import TableDdl from '../../components/Table/Ddl'
 import TableColumn from '../../components/Column/Info'
 import TableRename from '../../components/Table/Rename'
 import AddDatabase from '../../components/Database/Add'

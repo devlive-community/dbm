@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getFormatter } from '../../../services/Setting'
+import { getFormatter } from '../../../../services/Setting'
 
 export default {
   name: 'TableDdl',

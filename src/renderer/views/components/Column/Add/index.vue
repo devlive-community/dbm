@@ -1,9 +1,9 @@
 <template>
   <el-dialog
       :title="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.column')])"
-      :visible.sync="bodyLoading"
+      :visible.sync="visible"
       :width="'80%'"
-      @close="closeDialog">
+      :before-close="closeDialog">
     <el-row :gutter="20">
       <el-form :model="form" label-width="20px" size="mini">
         <el-form-item v-for="(column) in form.columns" :key="column.key">
@@ -35,7 +35,6 @@
       </el-form>
     </el-row>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
       <el-button type="primary" size="mini" @click="handlerGenerate">{{ this.$t('common.save') }}</el-button>
     </div>
   </el-dialog>
@@ -47,7 +46,7 @@ import { addColumns } from '../../../../services/ColumnService'
 export default {
   name: 'AddColumn',
   props: {
-    loading: {
+    visible: {
       type: Boolean,
       default: false
     },
@@ -61,7 +60,6 @@ export default {
   },
   data() {
     return {
-      bodyLoading: false,
       form: {
         columns: []
       }
@@ -80,6 +78,10 @@ export default {
     handlerGenerate() {
       addColumns(this.configure, this.form.columns[0]).then(response => {
         if (response.status) {
+          this.$notify.success({
+            title: this.$t('common.success'),
+            message: response.message
+          })
           this.closeDialog()
         } else {
           this.$notify.error({
@@ -90,15 +92,7 @@ export default {
       })
     },
     closeDialog() {
-      this.$emit('close')
-    }
-  },
-  watch: {
-    loading: {
-      deep: true,
-      handler() {
-        this.bodyLoading = this.loading
-      }
+      this.$emit('update:visible', false)
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <el-dialog
       :title="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.column')])"
-      :visible.sync="bodyLoading"
-      :width="'80%'"
-      @close="closeDialog">
+      :visible.sync="visible"
+      :width="'60%'"
+      :before-close="closeDialog">
     <em>We don't recommend that you delete the column
       <el-tag size="mini" type="info">{{ configure.column }}</el-tag>
       ? This operation produces the following?</em>
@@ -22,7 +22,6 @@
       </li>
     </ol>
     <div slot="footer" class="dialog-footer">
-      <el-button size="mini" @click="bodyLoading = false">{{ this.$t('common.cancel') }}</el-button>
       <el-button size="mini" type="danger" @click="handlerDelete">{{ this.$t('common.delete') }}</el-button>
     </div>
   </el-dialog>
@@ -34,7 +33,7 @@ import { deleteColumn } from '../../../../services/ColumnService'
 export default {
   name: 'DeleteColumn',
   props: {
-    loading: {
+    visible: {
       type: Boolean,
       default: false
     },
@@ -47,7 +46,6 @@ export default {
   },
   data() {
     return {
-      bodyLoading: false,
       inputDeleteValue: null
     }
   },
@@ -76,15 +74,7 @@ export default {
       this.closeDialog()
     },
     closeDialog() {
-      this.$emit('close')
-    }
-  },
-  watch: {
-    loading: {
-      deep: true,
-      handler() {
-        this.bodyLoading = this.loading
-      }
+      this.$emit('update:visible', false)
     }
   }
 }

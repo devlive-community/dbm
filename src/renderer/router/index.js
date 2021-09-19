@@ -109,19 +109,19 @@ export const constantRouterMap = [
     path: '/tools',
     component: Layout,
     name: i18n.t('common.tools'),
-    redirect: '/tools/track',
+    redirect: '/Tools/Track',
     meta: { title: i18n.t('common.tools'), icon: 'tools' },
     children: [
       {
         path: 'track',
         name: 'Track',
-        component: () => import('@/views/tools/track'),
+        component: () => import('@/views/Tools/Track'),
         meta: { title: i18n.t('common.track'), icon: 'wrench' }
       },
       {
         path: 'migrate',
         name: 'Migrate',
-        component: () => import('@/views/tools/migrate'),
+        component: () => import('@/views/Tools/Migrate'),
         meta: { title: i18n.t('common.migrate'), icon: 'exchange-alt' }
       }
     ]

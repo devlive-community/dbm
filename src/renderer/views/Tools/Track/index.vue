@@ -77,7 +77,7 @@ import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelec
 import { getDataSources } from '@/services/DataSource'
 import { getTrackInfo, getTrackThread, getTrackTop } from '@/services/Track'
 import TableDetail from '@/components/Table'
-import TableDdl from '@/views/components/table/TableDdl'
+import TableDdl from '../../components/Table/Ddl'
 
 export default {
   components: {

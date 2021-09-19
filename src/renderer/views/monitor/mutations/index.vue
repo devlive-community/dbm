@@ -52,7 +52,7 @@
 
 <script>
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
-import TableDdl from '@/views/components/table/TableDdl'
+import TableDdl from '../../components/Table/Ddl'
 import QueryKill from '@/views/components/Query/QueryKill'
 import { getDataSources } from '@/services/DataSource'
 import { getMonitor } from '@/services/Monitor'

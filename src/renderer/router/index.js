@@ -78,7 +78,7 @@ export const constantRouterMap = [
   {
     path: '/monitor',
     component: Layout,
-    redirect: '/monitor/processor',
+    redirect: '/Monitor/Processor',
     name: 'Monitor',
     new: false,
     meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
@@ -86,21 +86,21 @@ export const constantRouterMap = [
       {
         path: 'processor',
         name: 'Processor',
-        component: () => import('@/views/monitor/processor'),
+        component: () => import('@/views/Monitor/Processor'),
         meta: { title: i18n.t('common.processor'), icon: 'bullseye' }
       },
       {
         path: 'connection',
         name: 'Connection',
         new: false,
-        component: () => import('@/views/monitor/connection'),
+        component: () => import('@/views/Monitor/Connection'),
         meta: { title: i18n.t('common.connection'), icon: 'compress' }
       },
       {
         path: 'mutations',
         name: 'Mutations',
         new: false,
-        component: () => import('@/views/monitor/mutations'),
+        component: () => import('@/views/Monitor/Mutations'),
         meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
       }
     ]

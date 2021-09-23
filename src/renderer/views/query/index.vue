@@ -122,8 +122,8 @@
 
 <script>
 import TableDetail from '@/components/Table'
-import QueryQuick from '@/views/components/query/QueryQuick'
-import QueryHistory from '@/views/components/query/QueryHistory'
+import QueryQuick from '@/views/components/Query/QueryQuick'
+import QueryHistory from '../components/Query/History'
 import DataSource from '@/views/components/data/datasource/DataSource'
 import DataSourceSelect from '@/views/components/data/datasource/DataSourceSelect'
 import { getQuery } from '@/services/Query'

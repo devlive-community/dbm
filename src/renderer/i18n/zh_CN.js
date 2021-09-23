@@ -70,7 +70,7 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: '创建时间',
-    infomation: '信息',
+    information: '信息',
     edit: '修改',
     tools: '工具',
     track: 'Track',
@@ -160,7 +160,11 @@ export default {
     refersh_config: '配置修改后需要手动重新载入!'
   },
   tooltip: {
-    is_empty: '是否非空'
+    is_empty: '是否非空',
+    history_max: '查询历史超过系统最大限制将不再保存'
+  },
+  formatter: {
+    column: '表引擎{0}不支持ALTER操作'
   },
   table: {
     engine: {

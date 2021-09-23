@@ -70,7 +70,7 @@ export default {
     mutations: 'Mutations',
     id: 'ID',
     createTime: 'Create Time',
-    infomation: 'Infomation',
+    information: 'Information',
     edit: 'Edit',
     tools: 'Tools',
     track: 'Track',
@@ -160,7 +160,11 @@ export default {
     refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   },
   tooltip: {
-    is_empty: 'Is not empty'
+    is_empty: 'Is not empty',
+    history_max: 'The query history will not be saved if it exceeds the upper limit'
+  },
+  formatter: {
+    column: 'The table engine {0} does not support the ALTER operation'
   },
   table: {
     engine: {

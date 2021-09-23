@@ -21,7 +21,7 @@ export function getContextMenu(type) {
     case Support.SERVER:
       add.type = Support.SERVER
       menus.push(add, {
-        name: i18n.t('common.infomation'),
+        name: i18n.t('common.information'),
         command: Support.INFO,
         icon: Support.INFO_ICON,
         type: Support.SERVER
@@ -35,6 +35,11 @@ export function getContextMenu(type) {
     case Support.TABLE:
       deleted.type = Support.TABLE
       menus.push(deleted, {
+        name: StringUtils.format('{0}{1}', [i18n.t('common.add'), i18n.t('common.column')]),
+        command: Support.ADD,
+        icon: Support.ADD_ICON,
+        type: Support.TABLE
+      }, {
         name: i18n.t('common.ddl'),
         command: Support.DDL,
         icon: Support.DDL_ICON,
@@ -52,10 +57,26 @@ export function getContextMenu(type) {
       })
       break
     case Support.COLUMN:
-      menus.push({
-        name: StringUtils.format('{0}{1}', [i18n.t('common.column'), i18n.t('common.infomation')]),
+      deleted.type = Support.COLUMN
+      menus.push(deleted, {
+        name: i18n.t('common.edit'),
         command: Support.EDIT,
         icon: Support.EDIT_ICON,
+        type: Support.COLUMN
+      }, {
+        name: i18n.t('common.rename'),
+        command: Support.RENAME,
+        icon: Support.EDIT_ICON,
+        type: Support.COLUMN
+      }, {
+        name: i18n.t('common.preview'),
+        command: Support.PREVIEW,
+        icon: Support.PREVIEW_ICON,
+        type: Support.COLUMN
+      }, {
+        name: i18n.t('common.information'),
+        command: Support.INFO,
+        icon: Support.INFO_ICON,
         type: Support.COLUMN
       })
       break

@@ -105,7 +105,7 @@ export function saveQuery(queryHistory) {
   if (histroy.length > 0) {
     index = histroy.length + 1
   }
-  if (index < 100) {
+  if (index <= 100) {
     queryHistory.id = index
     histroy.unshift(queryHistory)
     localStorage.setItem('QueryHistory', JSON.stringify(histroy))

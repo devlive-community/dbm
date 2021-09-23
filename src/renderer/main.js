@@ -20,7 +20,7 @@ Vue.prototype.stringFormat = StringUtils.format
 Vue.prototype.isEmpty = StringUtils.isEmpty
 Vue.prototype.isNotEmpty = StringUtils.isNotEmpty
 
-import { getFaIcon, getTrackColor } from './utils/utils'
+import { getFaIcon, getTrackColor } from './utils/Utils'
 Vue.prototype.getFaIcon = getFaIcon
 Vue.prototype.getTrackColor = getTrackColor
 
@@ -104,6 +104,8 @@ Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 
 Vue.prototype.commonLabelWidth120 = '120px'
+
+ElementUI.Dialog.props.closeOnClickModal.default = false
 
 new Vue({
   components: { App },

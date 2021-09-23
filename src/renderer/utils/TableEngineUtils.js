@@ -35,3 +35,20 @@ export const ENGINES = [
     ]
   }
 ]
+
+/**
+ * Verify that the table engine supports the ALTER operation
+ * @param engine table engine
+ * @returns {boolean} supported
+ */
+export function checkSupportAlter(engine) {
+  switch (engine) {
+    case 'Kafka':
+    case 'TinyLog':
+    case 'StripeLog':
+    case 'Log':
+      return false
+    default:
+      return true
+  }
+}

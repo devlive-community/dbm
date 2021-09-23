@@ -40,7 +40,17 @@ Gitee:
 - Support query history (pagination, clear all, etc.)
 - Support selected sql clauses query
 - Support terminating query
-- Support table management (metadata, delete, preview)
+- Support table management
+  - Delete table operation
+  - Get ddl operation
+  - Get table preview data operation
+  - Rename table operation
+- Support column management
+  - Add column operation
+  - Delete column operation
+  - Get column info operation
+  - Modify column operation
+  - Rename column operation
 - Support database management (delete, create)
 - Support custom query
 - Support multiple data sources management(connection test, monitoring)

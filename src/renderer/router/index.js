@@ -50,27 +50,27 @@ export const constantRouterMap = [
   {
     path: '/data',
     component: Layout,
-    redirect: '/data/source',
+    redirect: '/Data/Source',
     name: 'DataSource',
     meta: { title: i18n.t('router.data.source'), icon: 'adjust' },
     children: [
       {
         path: 'source',
         name: 'DataSource',
-        component: () => import('@/views/data/source/index'),
+        component: () => import('@/views/Data/Source/index'),
         meta: { title: i18n.t('router.data.source'), icon: 'table' }
       },
       {
         path: 'metadata/:name',
         name: 'Metadata',
-        component: () => import('@/views/data/metadata/index'),
+        component: () => import('@/views/Data/Metadata/index'),
         meta: { title: i18n.t('router.data.metadata'), icon: 'archive' }
       },
       {
         path: 'detail/:server/:database/:table',
         name: 'Detail',
         hidden: true,
-        component: () => import('@/views/data/detail/index'),
+        component: () => import('@/views/Data/Detail/index'),
         meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
       }
     ]

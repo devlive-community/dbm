@@ -39,7 +39,7 @@ export async function migrate(source, target) {
   // step 4: create table on target server
   let tableCreate = false
   if (!tableExists) {
-    const gqr = await getQuery(source.server, tableDdl)
+    const gqr = await getQuery(target.server, tableDdl)
     if (gqr && gqr.status) {
       tableCreate = true
     }

@@ -50,11 +50,13 @@ export function getTableColumnInfo(server, database, table, column) {
 SELECT
   "database",
   "table",
-  type,
+  replace(replace(type, 'Nullable(', ''), ')', '') AS type,
   name,
   is_in_primary_key AS isPrimaryKey,
   is_in_partition_key AS isPartitionKey,
-  is_in_sorting_key AS isSortingKey
+  is_in_sorting_key AS isSortingKey,
+  "comment" AS "comment",
+  if (position(type, 'Nullable') > 0, 'true', 'false') AS empty
 FROM
   "system".columns
 WHERE

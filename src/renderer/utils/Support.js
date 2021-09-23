@@ -14,6 +14,7 @@ export const PREVIEW_ICON = 'eye'
 export const DDL = 'DDL'
 export const DDL_ICON = 'search'
 export const EDIT = 'EDIT'
+export const RENAME = 'RENAME'
 export const EDIT_ICON = 'edit'
 
 export const PROCESSES = 'PROCESSES'

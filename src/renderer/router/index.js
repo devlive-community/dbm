@@ -50,27 +50,27 @@ export const constantRouterMap = [
   {
     path: '/data',
     component: Layout,
-    redirect: '/data/source',
+    redirect: '/Data/Source',
     name: 'DataSource',
     meta: { title: i18n.t('router.data.source'), icon: 'adjust' },
     children: [
       {
         path: 'source',
         name: 'DataSource',
-        component: () => import('@/views/data/source/index'),
+        component: () => import('@/views/Data/Source/index'),
         meta: { title: i18n.t('router.data.source'), icon: 'table' }
       },
       {
         path: 'metadata/:name',
         name: 'Metadata',
-        component: () => import('@/views/data/metadata/index'),
+        component: () => import('@/views/Data/Metadata/index'),
         meta: { title: i18n.t('router.data.metadata'), icon: 'archive' }
       },
       {
         path: 'detail/:server/:database/:table',
         name: 'Detail',
         hidden: true,
-        component: () => import('@/views/data/detail/index'),
+        component: () => import('@/views/Data/Detail/index'),
         meta: { title: i18n.t('router.data.table.detail'), icon: 'password' }
       }
     ]
@@ -78,7 +78,7 @@ export const constantRouterMap = [
   {
     path: '/monitor',
     component: Layout,
-    redirect: '/monitor/processor',
+    redirect: '/Monitor/Processor',
     name: 'Monitor',
     new: false,
     meta: { title: i18n.t('common.monitor'), icon: 'desktop' },
@@ -86,21 +86,21 @@ export const constantRouterMap = [
       {
         path: 'processor',
         name: 'Processor',
-        component: () => import('@/views/monitor/processor'),
+        component: () => import('@/views/Monitor/Processor'),
         meta: { title: i18n.t('common.processor'), icon: 'bullseye' }
       },
       {
         path: 'connection',
         name: 'Connection',
         new: false,
-        component: () => import('@/views/monitor/connection'),
+        component: () => import('@/views/Monitor/Connection'),
         meta: { title: i18n.t('common.connection'), icon: 'compress' }
       },
       {
         path: 'mutations',
         name: 'Mutations',
         new: false,
-        component: () => import('@/views/monitor/mutations'),
+        component: () => import('@/views/Monitor/Mutations'),
         meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
       }
     ]
@@ -109,19 +109,19 @@ export const constantRouterMap = [
     path: '/tools',
     component: Layout,
     name: i18n.t('common.tools'),
-    redirect: '/tools/track',
+    redirect: '/Tools/Track',
     meta: { title: i18n.t('common.tools'), icon: 'tools' },
     children: [
       {
         path: 'track',
         name: 'Track',
-        component: () => import('@/views/tools/track'),
+        component: () => import('@/views/Tools/Track'),
         meta: { title: i18n.t('common.track'), icon: 'wrench' }
       },
       {
         path: 'migrate',
         name: 'Migrate',
-        component: () => import('@/views/tools/migrate'),
+        component: () => import('@/views/Tools/Migrate'),
         meta: { title: i18n.t('common.migrate'), icon: 'exchange-alt' }
       }
     ]

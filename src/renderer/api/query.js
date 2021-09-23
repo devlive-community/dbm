@@ -1,9 +1,9 @@
-import { post, get } from '@/utils/Query'
+const HttpUtils = require('../utils/HttpUtils')
 
 export function runExecute(host, sql) {
-  return post(host, sql + '\n FORMAT JSON')
+  return HttpUtils.post(host, sql + '\n FORMAT JSON')
 }
 
 export function checkHealth(host) {
-  return get(host)
+  return HttpUtils.get(host)
 }

@@ -5,7 +5,7 @@ export default class DataSource {
   host = 'localhost';
   port = 8123;
   username = 'default';
-  password = null;
+  password = '';
   status = false;
   message = 'Please check whether the version of Clickhouse supports it!';
   delivery = false;

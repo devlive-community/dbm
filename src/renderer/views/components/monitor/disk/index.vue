@@ -7,7 +7,7 @@
           <span> {{ (index + 1) + ': ' + item.name }}</span>
         </div>
         <el-popover placement="top" trigger="hover">
-          <el-descriptions :column="1" size="mini" :title="$t('common.infomation')" style="width: 300px;">
+          <el-descriptions :column="1" size="mini" :title="$t('common.information')" style="width: 300px;">
             <el-descriptions-item v-for="(v, i) in Object.entries(item)" :key="i" :value="v[1]" :label="v[0]"
                                   class="item">
               {{ v[1] }}

@@ -12,19 +12,44 @@
 
 ---
 
+Contributors:
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=EdurtIO/dbm)
+
 Basic:
 
+![](https://visitor-badge.glitch.me/badge?page_id=dbm)
+![version](https://img.shields.io/github/v/release/EdurtIO/dbm.svg)
+
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/EdurtIO/dbm/latest/total?style=flat-square)
+![GitHub all releases](https://img.shields.io/github/downloads/EdurtIO/dbm/total?style=flat-square)
+
+![GitHub branch checks state](https://img.shields.io/github/checks-status/EdurtIO/dbm/master?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/EdurtIO/dbm?style=flat-square)
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/EdurtIO/dbm?style=flat-square)
+![GitHub contributors](https://img.shields.io/github/contributors-anon/EdurtIO/dbm?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/EdurtIO/dbm?style=flat-square)
+
+Workflow:
+
 [![Build Status](https://travis-ci.com/EdurtIO/incubator-dbm.svg?branch=master)](https://www.travis-ci.com/github/EdurtIO/incubator-dbm)
+
+![example workflow](https://github.com/EdurtIO/dbm/actions/workflows/upload-to-release.yml/badge.svg)
+
+Development:
+
 [![codebeat badge](https://codebeat.co/badges/a291d700-2d4b-435f-aa70-468bd1800d19)](https://codebeat.co/projects/github-com-edurtio-incubator-dbm-master)
 [![With Electron](https://img.shields.io/badge/with-electron-blue.svg)](https://electronjs.org/) 
 [![With Vue](https://img.shields.io/badge/with-vue-blue.svg)](http://vuejs.org/)
+[![With Jetbrains](https://img.shields.io/badge/with-Jetbrains-blue.svg)](https://www.jetbrains.com/)
 
 GitHub:
 
+[![GitHub stars](https://img.shields.io/github/stars/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/stargazers)
 [![GitHub license](https://img.shields.io/github/license/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/issues)
 [![GitHub forks](https://img.shields.io/github/forks/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/network)
-[![GitHub stars](https://img.shields.io/github/stars/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/stargazers)
 
 Gitee:
 

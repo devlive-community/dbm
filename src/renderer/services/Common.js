@@ -1,6 +1,7 @@
 import { runExecute } from '@/api/query'
 import { getServerURL, getDataSource, formatRemoteUrl } from '@/utils/Utils'
 import Response from '@/store/modules/Response'
+import i18n from '../i18n'
 
 const StringUtils = require('../utils/StringUtils')
 
@@ -37,7 +38,7 @@ export async function getAuthenticationResponse(authentication, sql) {
         result.rows = response.data.rows
         result.statistics = response.data.statistics
       } else {
-        result.message = 'Operation successful!'
+        result.message = i18n.t('common.success')
       }
       result.status = true
     }

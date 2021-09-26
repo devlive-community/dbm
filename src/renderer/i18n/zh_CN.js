@@ -157,7 +157,7 @@ export default {
     are_you_delete: '确定要删除吗?',
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
     service_available: '当前服务可用于查询或其他操作!',
-    refersh_config: '配置修改后需要手动重新载入!'
+    refresh_config: '配置修改后需要手动重新载入!'
   },
   tooltip: {
     is_empty: '是否非空',

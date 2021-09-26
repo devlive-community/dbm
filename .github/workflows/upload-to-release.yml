@@ -1,4 +1,4 @@
-name: Publish New Release On Mac
+name: Publish New Release
 
 on:
   pull_request:
@@ -6,42 +6,70 @@ on:
       - 'master'
 
 jobs:
-  build-and-deploy:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: 1.7.0
+          release_name: 1.7.0
+          draft: false
+          prerelease: false
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+  build-mac:
     runs-on: macos-latest
+    needs: release
     steps:
 
-    # Step 1: download the source code (pull the code from CI / CD to your local)
-    - name: Checkout
-      uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
 
-    # Step 2: package and build
-    - name: Build
-      uses: actions/setup-node@master
-    - run: npm install yarn
-    - run: yarn install
-    - run: yarn run build
-    - run: tar -zcf dbm-mac.tar.gz ./build/mac/dbm.app
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm install yarn
+      - run: yarn install
+      - run: yarn run build
+      - run: tar -zcf dbm-mac.tar.gz ./build/mac/dbm.app
 
-    # Step 3: release
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      with:
-        tag_name: 1.6.0
-        release_name: 1.6.0
-        draft: false
-        prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./dbm-mac.tar.gz
+          asset_name: dbm-mac.tar.gz
+          asset_content_type: application/x-tg
 
-    # Step 4: upload the build result to release (upload the packaged tgz to release)
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dbm-mac.tar.gz
-        asset_name: dbm-mac.tar.gz
-        asset_content_type: application/x-tg
+  build-win:
+    runs-on: windows-latest
+    needs: release
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm install yarn
+      - run: yarn install
+      - run: yarn run build:win
+      - run: tar -cvf dbm-win.tar.gz ./build/dbm*.exe
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./dbm-win.tar.gz
+          asset_name: dbm-win.tar.gz
+          asset_content_type: application/x-tg

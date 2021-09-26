@@ -1,0 +1,20 @@
+{#-
+  This file was automatically generated - do not edit
+-#}
+{% extends "base.html" %}
+{% block extrahead %}
+  <link rel="stylesheet" href="{{ 'overrides/assets/stylesheets/main.82a6bf04.min.css' | url }}">
+{% endblock %}
+{% block announce %}
+  <a href="https://twitter.com/qianmoQ">
+    For updates follow <strong>@qianmoQ</strong> on
+    <span class="twemoji twitter">
+      {% include ".icons/fontawesome/brands/twitter.svg" %}
+    </span>
+    <strong>Twitter</strong>
+  </a>
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'overrides/assets/javascripts/bundle.5c8bd0f7.min.js' | url }}"></script>
+{% endblock %}

@@ -157,7 +157,7 @@ export default {
     are_you_delete: 'Are you sure you want to delete?',
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
     service_available: 'The current service is available for query or other operations!',
-    refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
+    refresh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   },
   tooltip: {
     is_empty: 'Is not empty',

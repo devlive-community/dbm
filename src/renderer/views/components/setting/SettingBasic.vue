@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-alert :title="this.$t('alter.refersh_config')" type="warning" :closable="false"></el-alert>
+    <el-alert :title="this.$t('alter.refresh_config')" type="warning" :closable="false"></el-alert>
     <br/>
     <el-form :model="form" label-width="120px" size="mini">
       <el-form-item :label="this.$t('common.network') + this.$t('common.timeout')">

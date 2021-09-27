@@ -164,7 +164,8 @@ export default {
     history_max: '查询历史超过系统最大限制将不再保存'
   },
   formatter: {
-    column: '表引擎{0}不支持ALTER操作'
+    column: '表引擎{0}不支持ALTER操作',
+    database_exists: '数据库{0}已存在'
   },
   table: {
     engine: {
@@ -185,6 +186,14 @@ export default {
           name: 'HDFS',
           description: '将HDFS中的数据直接导入到ClickHouse'
         }
+      }
+    }
+  },
+  database: {
+    engine: {
+      atomic: {
+        name: 'Atomic',
+        description: '它支持非阻塞DROP TABLE和RENAME TABLE查询以及原子EXCHANGE TABLES查询。Atomic是默认使用数据库引擎。'
       }
     }
   }

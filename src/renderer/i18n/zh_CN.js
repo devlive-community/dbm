@@ -191,6 +191,10 @@ export default {
   },
   database: {
     engine: {
+      default: {
+        name: 'Default',
+        description: '默认的数据库引擎'
+      },
       atomic: {
         name: 'Atomic',
         description: '它支持非阻塞DROP TABLE和RENAME TABLE查询以及原子EXCHANGE TABLES查询。Atomic是默认使用数据库引擎。'

@@ -62,7 +62,7 @@
     </el-row>
     <el-row>
     </el-row>
-    <add-database :loading="loading.addDatabase" :server="treeValue.server" @close="loading.addDatabase = false"/>
+    <add-database v-if="loading.addDatabase" :visible.sync="loading.addDatabase" :server="treeValue.server"/>
     <server-status :loading="loading.serverStatus" :server="treeValue.server" @close="loading.serverStatus = false"/>
     <delete-database :loading="loading.deleteDatabase" :server="treeValue.server" :database="treeValue.database"
                      @close="loading.deleteDatabase = false"/>

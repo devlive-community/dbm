@@ -1,12 +1,14 @@
+import i18n from '../i18n'
+
 const StringUtils = require('../utils/StringUtils')
 const Support = require('../utils/Support')
-import i18n from '../i18n'
+const ServerContextMenu = require('./ContextMenu/ServerContextMenu')
 
 export function getContextMenu(type) {
   if (StringUtils.isEmpty(type)) {
     type = Support.SERVER
   }
-  const menus = []
+  let menus = []
   const add = {
     name: i18n.t('common.add'),
     command: Support.ADD,
@@ -19,13 +21,7 @@ export function getContextMenu(type) {
   }
   switch (type) {
     case Support.SERVER:
-      add.type = Support.SERVER
-      menus.push(add, {
-        name: i18n.t('common.information'),
-        command: Support.INFO,
-        icon: Support.INFO_ICON,
-        type: Support.SERVER
-      })
+      menus = ServerContextMenu.getContextMenu(type)
       break
     case Support.DATABASE:
       add.type = Support.DATABASE

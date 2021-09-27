@@ -10,13 +10,13 @@ template: overrides/main.html
    issue that you are planning to work on that bug or feature so that it can
    be assigned to you.
 
-2. Follow the normal process of [forking](https://help.github.com/articles/fork-a-repo) the project, and setup a new
+2. Follow the normal process of [forking](https://help.github.com/articles/fork-a-repo) the project, and set up a new
    branch to work in.  It's important that each group of changes be done in
    separate branches in order to ensure that a pull request only includes the
    commits related to that bug or feature.
 
 3. Any significant changes should almost always be accompanied by tests.  The
-   project already has good test coverage, so look at some of the existing
+   project already has good test coverage, so look at some existing
    tests if you're unsure how to go about it.
 
 4. All contributions must be licensed Apache 2.0 and all files must have

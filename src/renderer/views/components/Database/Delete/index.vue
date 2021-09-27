@@ -1,23 +1,37 @@
 <template>
   <el-dialog
-    :title="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
-    :visible.sync="bodyLoading"
-    @close="closeDialog">
-    <em>We don't recommend that you delete the database <el-tag type="info" size="mini">{{deleteValue}}</el-tag>? This operation produces the following?</em>
+      :title="this.stringFormat('{0} {1}', [this.$t('common.delete'), this.$t('common.database')])"
+      :visible.sync="bodyLoading"
+      @close="closeDialog">
+    <em>We don't recommend that you delete the database
+      <el-tag type="info" size="mini">{{ deleteValue }}</el-tag>
+      ? This operation produces the following?</em>
     <ol>
-      <li><el-tag type="danger" size="mini">No rollback</el-tag> The metadata will be removed from the Clickhouse metadata</li>
-      <li><el-tag type="danger" size="mini">No rollback</el-tag> All data files generated in this table will be removed from the relevant Clickhouse server file system</li>
-      <li>If you want to confirm the deletion, enter the table name in the <el-input v-model="inputDeleteValue" size="mini"></el-input> and click the delete button below</li>
+      <li>
+        <el-tag type="danger" size="mini">No rollback</el-tag>
+        The metadata will be removed from the Clickhouse metadata
+      </li>
+      <li>
+        <el-tag type="danger" size="mini">No rollback</el-tag>
+        All data files generated in this table will be removed from the relevant Clickhouse server file system
+      </li>
+      <li>If you want to confirm the deletion, enter the table name in the
+        <el-input v-model="inputDeleteValue" size="mini"></el-input>
+        and click the delete button below
+      </li>
     </ol>
     <div slot="footer" class="dialog-footer">
       <el-button @click="bodyLoading = false" size="mini">{{ this.$t('common.cancel') }}</el-button>
-      <el-button type="danger" size="mini" @click="handlerDelete" :loading="buttonLoading">{{ this.$t('common.delete') }}</el-button>
+      <el-button type="danger" size="mini" @click="handlerDelete" :loading="buttonLoading">{{
+          this.$t('common.delete')
+        }}
+      </el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { deleteDatabase } from '@/services/DataBase'
+import { deleteDatabase } from '../../../../services/DatabaseService'
 
 export default {
   name: 'DeleteDatabase',

@@ -1,6 +1,7 @@
 import { getQuery } from '@/services/Metadata'
 
 const StringUtils = require('../utils/StringUtils')
+const DatabaseUtils = require('../utils/DatabaseUtils')
 
 /**
  * Gets the total number of tables owned by the remote server database
@@ -15,9 +16,9 @@ export async function getTableSize(server, value) {
   return await getQuery(server, sql)
 }
 
-export async function addDataBase(server, value) {
-  const sql = StringUtils.format('CREATE DATABASE {0}', [value])
-  return await getQuery(server, sql)
+export function addDataBase(server, value) {
+  const sql = DatabaseUtils.builderDatabaseDDL(value)
+  return getQuery(server, sql)
 }
 
 /**
@@ -41,3 +42,16 @@ export async function deleteDatabase(server, value) {
   return result
 }
 
+export function getDatabase(server, value) {
+  const sql = StringUtils.format(`
+SELECT
+  name,
+  "engine",
+  uuid
+FROM
+  "system"."databases"
+WHERE
+  name = '{0}'
+  `, [value])
+  return getQuery(server, sql)
+}

@@ -164,7 +164,8 @@ export default {
     history_max: 'The query history will not be saved if it exceeds the upper limit'
   },
   formatter: {
-    column: 'The table engine {0} does not support the ALTER operation'
+    column: 'The table engine {0} does not support the ALTER operation',
+    database_exists: 'Database {0} already exists'
   },
   table: {
     engine: {
@@ -185,6 +186,18 @@ export default {
           name: 'HDFS',
           description: 'Import data from HDFS directly into ClickHouse'
         }
+      }
+    }
+  },
+  database: {
+    engine: {
+      default: {
+        name: 'Default',
+        description: 'Default Database Engine'
+      },
+      atomic: {
+        name: 'Atomic',
+        description: 'It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.'
       }
     }
   }

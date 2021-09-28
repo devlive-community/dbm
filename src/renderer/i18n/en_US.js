@@ -97,7 +97,8 @@ export default {
     group: 'Group',
     hdfs: 'HDFS',
     uri: 'URI',
-    rename: 'Rename'
+    rename: 'Rename',
+    expiration: 'Expiration'
   },
   prompt: {
     component: {
@@ -198,6 +199,10 @@ export default {
       atomic: {
         name: 'Atomic',
         description: 'It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.'
+      },
+      lazy: {
+        name: 'Lazy',
+        description: 'Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.'
       }
     }
   }

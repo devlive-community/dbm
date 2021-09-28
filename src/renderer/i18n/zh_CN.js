@@ -97,7 +97,8 @@ export default {
     group: '组',
     hdfs: 'HDFS',
     uri: 'URI',
-    rename: '重命名'
+    rename: '重命名',
+    expiration: '过期'
   },
   prompt: {
     component: {
@@ -198,6 +199,10 @@ export default {
       atomic: {
         name: 'Atomic',
         description: '它支持非阻塞DROP TABLE和RENAME TABLE查询以及原子EXCHANGE TABLES查询。Atomic是默认使用数据库引擎。'
+      },
+      lazy: {
+        name: 'Lazy',
+        description: '仅在上次访问后expire_time_in_seconds秒将表保留在RAM中,只能与*Log表一起使用.'
       }
     }
   }

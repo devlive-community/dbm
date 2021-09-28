@@ -7,7 +7,7 @@
       <el-col :span="16">
         <el-form ref="form" :model="form" :label-width="form.labelWidth" center size="mini">
           <el-divider content-position="left">{{ this.$t('common.basic') }}</el-divider>
-          <el-alert v-if="!form.validate"
+          <el-alert v-if="!form.validateDatabase"
                     :title="this.stringFormat(this.$t('formatter.database_exists'), [form.name])"
                     :closable="false" type="error">
           </el-alert>
@@ -18,6 +18,8 @@
             <el-input v-loading="form.validateStatus" v-model="form.name" @change="handlerValidate"/>
           </el-form-item>
           <el-divider content-position="left">{{ this.$t('common.property') }}</el-divider>
+          <database-engine-lazy v-if="form.engine === 'Lazy'"
+                                @change="handlerDatabaseEngineConfiguration"></database-engine-lazy>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -29,13 +31,14 @@
 
 <script>
 import { getDatabase } from '../../../../services/DatabaseService'
+import DatabaseEngineLazy from '../Engine/Lazy'
 
 const StringUtils = require('../../../../utils/StringUtils')
 const NotifyUtils = require('../../../../utils/NotifyUtils')
 
 export default {
   name: 'DatabaseConfiguration',
-  components: {},
+  components: { DatabaseEngineLazy },
   props: {
     engine: {
       type: String,
@@ -57,13 +60,15 @@ export default {
         engine: null,
         property: null,
         validate: false,
+        validateDatabase: false,
         validateStatus: false
       }
     }
   },
   methods: {
-    handlerTableEngineConfiguration(event) {
+    handlerDatabaseEngineConfiguration(event) {
       this.form.property = event
+      this.handlerValidate()
     },
     handlerValidate() {
       if (StringUtils.isNotEmpty(this.form.name)) {
@@ -72,16 +77,25 @@ export default {
         getDatabase(this.server, this.form.name).then(response => {
           if (response.status) {
             if (response.columns.length === 0) {
-              this.form.validate = true
+              if (this.form.property.validate) {
+                this.form.validate = true
+              } else {
+                this.form.validate = false
+              }
+              this.form.validateDatabase = true
             } else {
               this.form.validate = false
+              this.form.validateDatabase = false
             }
           } else {
             NotifyUtils.success(this.$t('common.error'), response.message)
             this.form.validate = false
+            this.form.validateDatabase = true
           }
           this.form.validateStatus = false
         })
+      } else {
+        this.form.validate = false
       }
     }
   },

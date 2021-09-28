@@ -22,6 +22,9 @@ export function builderDatabaseDDL(value) {
     case 'Atomic':
       suffix = builderDatabaseAtomic(value)
       break
+    case 'Lazy':
+      suffix = builderDatabaseLazy(value)
+      break
     case 'Default':
     default:
       suffix = builderDatabaseDefault(value)
@@ -36,4 +39,8 @@ export function builderDatabaseDefault(value) {
 
 export function builderDatabaseAtomic(value) {
   return StringUtils.format('{0} = {1}', [WORD, value.engine])
+}
+
+export function builderDatabaseLazy(value) {
+  return StringUtils.format('{0} = {1}({2})', [WORD, value.engine, value.property.timeSeconds])
 }

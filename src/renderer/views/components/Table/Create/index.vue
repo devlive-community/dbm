@@ -1,11 +1,12 @@
 <template>
   <el-dialog
-      v-if="body.loading"
       :title="this.stringFormat('{0} {1}', [this.$t('common.add'), this.$t('common.table')])"
-      :visible.sync="body.loading" @close="closeDialog" :width="'85%'">
+      :visible.sync="visible"
+      :before-close="closeDialog"
+      :width="'85%'">
     <el-steps :active="body.step" process-status="process" finish-status="success" simple>
       <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.type')])"/>
-      <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.configuration')])"/>
+      <el-step :title="this.$t('common.configuration')"/>
       <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
     </el-steps>
     <el-row v-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
@@ -41,17 +42,17 @@
         </el-col>
         <el-col :span="16">
           <el-form size="mini">
-            <el-form-item :label-width="form.table.labelWidth">
+            <el-form-item :label-width="form.configuration.labelWidth">
               <template slot="label">
                 {{ stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')]) }}
               </template>
-              <el-tag size="mini">{{ form.table.name }}</el-tag>
+              <el-tag size="mini">{{ form.configuration.name }}</el-tag>
             </el-form-item>
-            <el-form-item :label-width="form.table.labelWidth"
+            <el-form-item :label-width="form.configuration.labelWidth"
                           :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.engine')])">
-              <el-tag size="mini">{{ form.table.engine }}</el-tag>
+              <el-tag size="mini">{{ form.configuration.engine }}</el-tag>
             </el-form-item>
-            <el-form-item :label-width="form.table.labelWidth">
+            <el-form-item :label-width="form.configuration.labelWidth">
               <template slot="label">
                 {{ stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.ddl')]) }}
               </template>
@@ -65,12 +66,11 @@
       </el-row>
     </el-row>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="closeDialog" size="mini">{{ this.$t('common.cancel') }}</el-button>
       <el-button v-if="body.previous" plain type="primary" size="mini" @click="handlerPrevious"> {{
           this.$t('common.previous')
         }}
       </el-button>
-      <el-button v-if="body.next" plain type="primary" size="mini" @click="handlerNext"> {{
+      <el-button v-if="body.next" :disabled="body.disabled" plain type="primary" size="mini" @click="handlerNext"> {{
           this.$t('common.next')
         }}
       </el-button>
@@ -83,9 +83,9 @@
 </template>
 
 <script>
-import TableConfiguration from './TableConfiguration'
+import TableConfiguration from '../Configuration'
 import { createTable } from '@/services/Table'
-import { buildDdl } from '../../../utils/ConvertUtils'
+import { buildDdl } from '../../../../utils/ConvertUtils'
 
 export default {
   name: 'CreateTable',
@@ -93,20 +93,17 @@ export default {
     TableConfiguration
   },
   props: {
-    loading: {
+    visible: {
       type: Boolean,
       default: false
     },
-    server: {
-      type: String,
-      default: ''
-    },
-    database: {
-      type: String,
-      default: ''
+    configure: {
+      type: Object,
+      default: {}
     }
   },
   created() {
+    this.form.configure = this.configure
   },
   data() {
     return {
@@ -116,15 +113,15 @@ export default {
         next: true,
         previous: false,
         complete: false,
+        disabled: false,
         ddl: '',
         create: false
       },
       form: {
         type: 'Log',
-        database: null,
-        table: null
-      },
-      remoteServer: null
+        configure: {},
+        configuration: {}
+      }
     }
   },
   methods: {
@@ -136,6 +133,11 @@ export default {
         this.body.complete = true
         this.body.ddl = buildDdl(this.form)
       }
+      if (this.form.configuration && !this.form.configuration.validate) {
+        this.body.disabled = true
+      } else {
+        this.body.disabled = false
+      }
     },
     handlerPrevious() {
       this.body.step--
@@ -145,14 +147,20 @@ export default {
       }
       if (this.body.step === 1) {
         this.body.previous = false
+        this.body.disabled = false
       }
     },
     handlerGetConfiguration(event) {
-      this.form.table = event
+      this.form.configuration = event
+      if (this.form.configuration && !this.form.configuration.validate) {
+        this.body.disabled = true
+      } else {
+        this.body.disabled = false
+      }
     },
     handlerComplete() {
       this.body.create = true
-      createTable(this.remoteServer, this.body.ddl).then(response => {
+      createTable(this.configure.server, this.body.ddl).then(response => {
         if (response.status) {
           this.$notify.success({
             title: this.$t('common.success'),
@@ -169,28 +177,9 @@ export default {
       })
     },
     closeDialog() {
-      this.$emit('close')
+      this.$emit('update:visible', false)
     }
   },
-  watch: {
-    loading: {
-      deep: true,
-      handler() {
-        this.body.loading = this.loading
-      }
-    },
-    server: {
-      deep: true,
-      handler() {
-        this.remoteServer = this.server
-      }
-    },
-    database: {
-      deep: true,
-      handler() {
-        this.form.database = this.database
-      }
-    }
-  }
+  watch: {}
 }
 </script>

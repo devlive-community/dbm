@@ -10,6 +10,8 @@
 </template>
 
 <script>
+const StringUtils = require('../../../../../utils/StringUtils')
+
 export default {
   name: 'TableEngineHdfs',
   components: {},
@@ -20,15 +22,26 @@ export default {
     return {
       hdfs: {
         uri: '',
-        format: 'Parquet' // Current Only support Parquet file
+        format: 'Parquet', // Current Only support Parquet file
+        validate: false
       }
     }
   },
-  methods: {},
+  methods: {
+    handlerValidate() {
+      const empty = Object.keys(this.hdfs).filter(item => StringUtils.isEmpty(this.hdfs[item]))
+      if (empty.length <= 0) {
+        this.hdfs.validate = true
+      } else {
+        this.hdfs.validate = false
+      }
+    }
+  },
   watch: {
     hdfs: {
       deep: true,
       handler() {
+        this.handlerValidate()
         this.$emit('change', this.hdfs)
       }
     }

@@ -11,7 +11,7 @@
             <el-tag size="mini">{{ form.engine }}</el-tag>
           </el-form-item>
           <el-form-item :label="this.stringFormat('{0}{1}', [this.$t('common.table'), this.$t('common.name')])">
-            <el-input v-model="form.name"/>
+            <el-input v-model="form.name" @change="handlerValidate"/>
           </el-form-item>
           <el-divider content-position="left">{{ this.$t('common.column') }}</el-divider>
           <el-row :gutter="20">
@@ -64,8 +64,10 @@
 </template>
 
 <script>
-import TableEngineKafka from './Engines/Kafka'
-import TableEngineHdfs from './Engines/HDFS'
+import TableEngineKafka from '../Engines/Kafka'
+import TableEngineHdfs from '../Engines/HDFS'
+
+const StringUtils = require('../../../../utils/StringUtils')
 
 export default {
   name: 'TableConfiguration',
@@ -88,7 +90,8 @@ export default {
         labelWidth: '120px',
         name: null,
         engine: null,
-        columns: []
+        columns: [],
+        validate: false
       }
     }
   },
@@ -108,20 +111,39 @@ export default {
         this.form.columns.splice(index, 1)
       }
     },
-    closeDialog() {
-      this.$emit('close')
-    },
     handlerChange() {
-      this.$emit('getValue', this.form.columns)
+      this.$emit('getValue', this.form)
     },
     handlerTableEngineConfiguration(event) {
       this.form.property = event
+      this.handlerValidate()
+    },
+    handlerValidate() {
+      if (StringUtils.isNotEmpty(this.form.name) && this.form.columns.length > 0) {
+        const empty = this.form.columns.filter(column => StringUtils.isEmpty(column.name))
+        if (empty.length <= 0) {
+          if (StringUtils.isNotEmpty(this.form.property)) {
+            if (this.form.property.validate) {
+              this.form.validate = true
+            } else {
+              this.form.validate = false
+            }
+          } else {
+            this.form.validate = true
+          }
+        } else {
+          this.form.validate = false
+        }
+      } else {
+        this.form.validate = false
+      }
     }
   },
   watch: {
     form: {
       deep: true,
       handler() {
+        this.handlerValidate()
         this.$emit('change', this.form)
       }
     }

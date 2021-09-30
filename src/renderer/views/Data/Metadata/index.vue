@@ -69,13 +69,12 @@
     <table-ddl :loading="ddl.visible" :title="ddl.title" :ddl="ddl.context" @close="ddl.visible = false"/>
     <delete-table :loading="loading.deleteTable" :server="treeValue.server" :database="treeValue.database"
                   :table="treeValue.table" @close="loading.deleteTable = false"/>
-    <create-table :loading="loading.createTable" :server="treeValue.server" :database="treeValue.database"
-                  @close="loading.createTable = false"/>
     <table-preview :loading="loading.tablePreview" :configuration="treeValue" @close="loading.tablePreview = false"/>
     <table-column :loading="loading.tableColumn" :configuration="treeValue"
                   @close="loading.tableColumn = false"></table-column>
     <table-rename :loading="loading.tableRename" :configuration="treeValue"
                   @close="loading.tableRename = false"></table-rename>
+    <create-table v-if="loading.createTable" :visible.sync="loading.createTable" :configure="treeValue"/>
     <add-column v-if="loading.addColumn" :visible.sync="loading.addColumn" :configure="treeValue"/>
     <delete-column v-if="loading.deleteColumn" :visible.sync="loading.deleteColumn" :configure="treeValue"/>
     <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue"/>
@@ -93,7 +92,7 @@ import MonitorDisk from '../../components/monitor/disk'
 
 import { getQuery } from '@/services/Metadata'
 import { getDiskUsedAndRatio } from '@/services/Disk'
-import CreateTable from '../../components/table/TableCreate'
+import CreateTable from '../../components/Table/Create'
 import TablePreview from '../../components/Table/Preview'
 import TableDdl from '../../components/Table/Ddl'
 import TableColumn from '../../components/Column/Info'

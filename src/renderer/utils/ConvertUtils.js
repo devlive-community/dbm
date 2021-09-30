@@ -5,10 +5,11 @@ const tab = '    '
 export function buildDdl(element) {
   let response = null
   if (StringUtils.isNotEmpty(element)) {
-    response = StringUtils.format('CREATE TABLE {0}.{1} (\n', [element.database, element.table.name])
-    response += StringUtils.format('{0}\n', [builderColumnsToString(element.table.columns)])
-    const engineProperty = builderEngineProperty(element.table.engine, element.table.property)
-    if (element.table.engine !== 'HDFS') {
+    response = StringUtils.format('CREATE TABLE {0}.{1} (\n',
+      [element.configure.database, element.configuration.name])
+    response += StringUtils.format('{0}\n', [builderColumnsToString(element.configuration.columns)])
+    const engineProperty = builderEngineProperty(element.configuration.engine, element.configuration.property)
+    if (element.configuration.engine !== 'HDFS') {
       if (StringUtils.isNotEmpty(engineProperty)) {
         response += StringUtils.format(') ENGINE = {0}\n SETTINGS\n', [element.type])
         response += engineProperty

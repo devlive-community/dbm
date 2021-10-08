@@ -16,6 +16,8 @@
 </template>
 
 <script>
+const StringUtils = require('../../../../../utils/StringUtils')
+
 export default {
   name: 'TableEngineKafka',
   components: {},
@@ -28,15 +30,26 @@ export default {
         broker: null,
         topic: null,
         group: null,
-        format: 'JSONEachRow'
+        format: 'JSONEachRow',
+        validate: false
       }
     }
   },
-  methods: {},
+  methods: {
+    handlerValidate() {
+      const empty = Object.keys(this.kafka).filter(item => StringUtils.isEmpty(this.kafka[item]))
+      if (empty.length <= 0) {
+        this.kafka.validate = true
+      } else {
+        this.kafka.validate = false
+      }
+    }
+  },
   watch: {
     kafka: {
       deep: true,
       handler() {
+        this.handlerValidate()
         this.$emit('change', this.kafka)
       }
     }

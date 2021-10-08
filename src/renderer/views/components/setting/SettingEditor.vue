@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-alert :title="this.$t('alter.refersh_config')" type="warning" :closable="false"></el-alert>
+    <el-alert :title="this.$t('alter.refresh_config')" type="warning" :closable="false"></el-alert>
     <el-form :model="form" label-width="150px" size="mini">
       <el-divider content-position="left">{{ this.$t('common.editor') }}</el-divider>
       <codemirror v-model="code" ref="previewEditor" :options="form"/>

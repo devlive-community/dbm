@@ -97,7 +97,8 @@ export default {
     group: 'Group',
     hdfs: 'HDFS',
     uri: 'URI',
-    rename: 'Rename'
+    rename: 'Rename',
+    expiration: 'Expiration'
   },
   prompt: {
     component: {
@@ -157,14 +158,15 @@ export default {
     are_you_delete: 'Are you sure you want to delete?',
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
     service_available: 'The current service is available for query or other operations!',
-    refersh_config: 'After the configuration is modified, it needs to be reloaded manually!'
+    refresh_config: 'After the configuration is modified, it needs to be reloaded manually!'
   },
   tooltip: {
     is_empty: 'Is not empty',
     history_max: 'The query history will not be saved if it exceeds the upper limit'
   },
   formatter: {
-    column: 'The table engine {0} does not support the ALTER operation'
+    column: 'The table engine {0} does not support the ALTER operation',
+    database_exists: 'Database {0} already exists'
   },
   table: {
     engine: {
@@ -185,6 +187,22 @@ export default {
           name: 'HDFS',
           description: 'Import data from HDFS directly into ClickHouse'
         }
+      }
+    }
+  },
+  database: {
+    engine: {
+      default: {
+        name: 'Default',
+        description: 'Default Database Engine'
+      },
+      atomic: {
+        name: 'Atomic',
+        description: 'It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.'
+      },
+      lazy: {
+        name: 'Lazy',
+        description: 'Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.'
       }
     }
   }

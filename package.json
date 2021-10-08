@@ -1,6 +1,6 @@
 {
   "name": "dbm",
-  "version": "1.7.0-SNAPSHOT",
+  "version": "1.7.0",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "ClickHouse DataBase Manager Tools",
   "credits": "EdurtIO",

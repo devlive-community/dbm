@@ -13,3 +13,5 @@ thumbs.db
 yarn.lock
 
 .idea/
+
+docs/site/

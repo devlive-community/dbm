@@ -167,7 +167,7 @@ export default {
       if (!response.status) {
         this.$notify.error({
           title: this.$t('common.error'),
-          message: this.$t('common.error')
+          message: response.message
         })
       } else {
         this.$notify.success({

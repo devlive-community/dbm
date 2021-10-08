@@ -97,7 +97,8 @@ export default {
     group: '组',
     hdfs: 'HDFS',
     uri: 'URI',
-    rename: '重命名'
+    rename: '重命名',
+    expiration: '过期'
   },
   prompt: {
     component: {
@@ -157,14 +158,15 @@ export default {
     are_you_delete: '确定要删除吗?',
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
     service_available: '当前服务可用于查询或其他操作!',
-    refersh_config: '配置修改后需要手动重新载入!'
+    refresh_config: '配置修改后需要手动重新载入!'
   },
   tooltip: {
     is_empty: '是否非空',
     history_max: '查询历史超过系统最大限制将不再保存'
   },
   formatter: {
-    column: '表引擎{0}不支持ALTER操作'
+    column: '表引擎{0}不支持ALTER操作',
+    database_exists: '数据库{0}已存在'
   },
   table: {
     engine: {
@@ -185,6 +187,22 @@ export default {
           name: 'HDFS',
           description: '将HDFS中的数据直接导入到ClickHouse'
         }
+      }
+    }
+  },
+  database: {
+    engine: {
+      default: {
+        name: 'Default',
+        description: '默认的数据库引擎'
+      },
+      atomic: {
+        name: 'Atomic',
+        description: '它支持非阻塞DROP TABLE和RENAME TABLE查询以及原子EXCHANGE TABLES查询。Atomic是默认使用数据库引擎。'
+      },
+      lazy: {
+        name: 'Lazy',
+        description: '仅在上次访问后expire_time_in_seconds秒将表保留在RAM中,只能与*Log表一起使用.'
       }
     }
   }

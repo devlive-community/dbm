@@ -98,7 +98,8 @@ export default {
     hdfs: 'HDFS',
     uri: 'URI',
     rename: '重命名',
-    expiration: '过期'
+    expiration: '过期',
+    mysql: 'MySQL'
   },
   prompt: {
     component: {
@@ -203,6 +204,10 @@ export default {
       lazy: {
         name: 'Lazy',
         description: '仅在上次访问后expire_time_in_seconds秒将表保留在RAM中,只能与*Log表一起使用.'
+      },
+      mysql: {
+        name: 'MySQL',
+        description: '允许连接到远程MySQL服务器上的数据库，并执行INSERT和SELECT查询，以在ClickHouse和MySQL之间交换数据。'
       }
     }
   }

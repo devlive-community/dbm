@@ -12,5 +12,9 @@ export const ENGINES = [
   {
     name: i18n.t('database.engine.lazy.name'),
     description: i18n.t('database.engine.lazy.description')
+  },
+  {
+    name: i18n.t('database.engine.mysql.name'),
+    description: i18n.t('database.engine.mysql.description')
   }
 ]

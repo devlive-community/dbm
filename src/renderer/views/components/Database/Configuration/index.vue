@@ -20,6 +20,8 @@
           <el-divider content-position="left">{{ this.$t('common.property') }}</el-divider>
           <database-engine-lazy v-if="form.engine === 'Lazy'"
                                 @change="handlerDatabaseEngineConfiguration"></database-engine-lazy>
+          <database-engine-mysql v-if="form.engine === 'MySQL'"
+                                 @change="handlerDatabaseEngineConfiguration"></database-engine-mysql>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -32,13 +34,14 @@
 <script>
 import { getDatabase } from '../../../../services/DatabaseService'
 import DatabaseEngineLazy from '../Engine/Lazy'
+import DatabaseEngineMysql from '../Engine/MySQL'
 
 const StringUtils = require('../../../../utils/StringUtils')
 const NotifyUtils = require('../../../../utils/NotifyUtils')
 
 export default {
   name: 'DatabaseConfiguration',
-  components: { DatabaseEngineLazy },
+  components: { DatabaseEngineMysql, DatabaseEngineLazy },
   props: {
     engine: {
       type: String,

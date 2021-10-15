@@ -5,11 +5,14 @@ import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/sql-hint'
+import 'codemirror/addon/comment/comment'
+import 'codemirror/keymap/sublime'
+
 import VueCodemirror from 'vue-codemirror'
 
 import theme from './theme'
 
-import Support from '@/store/Support'
+import Support from '../store/Support'
 
 const StringUtils = require('../utils/StringUtils')
 
@@ -21,7 +24,9 @@ const defaultOptions = {
   styleActiveLine: true,
   lineNumbers: true,
   line: true,
-  mode: 'text/x-mariadb'
+  lineComment: ['\/\/'],
+  keyMap: 'sublime',
+  mode: 'sql'
 }
 
 Object.assign(defaultOptions, setting)

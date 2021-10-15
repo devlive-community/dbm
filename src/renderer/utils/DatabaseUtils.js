@@ -25,6 +25,9 @@ export function builderDatabaseDDL(value) {
     case 'Lazy':
       suffix = builderDatabaseLazy(value)
       break
+    case 'MySQL':
+      suffix = builderDatabaseMySQL(value)
+      break
     case 'Default':
     default:
       suffix = builderDatabaseDefault(value)
@@ -43,4 +46,21 @@ export function builderDatabaseAtomic(value) {
 
 export function builderDatabaseLazy(value) {
   return StringUtils.format('{0} = {1}({2})', [WORD, value.engine, value.property.timeSeconds])
+}
+
+export function builderDatabaseMySQL(value) {
+  let response
+  if (StringUtils.isEmpty(value.property.database)) {
+    response = StringUtils.format('{0} = {1}({2}, {3}, {4})', [WORD, value.engine,
+      StringUtils.format('{0}:{1}', [value.property.host, value.property.port]),
+      value.property.username,
+      value.property.password])
+  } else {
+    response = StringUtils.format(`{0} = {1}('{2}', '{3}', '{4}', '{5}')`, [WORD, value.engine,
+      StringUtils.format('{0}:{1}', [value.property.host, value.property.port]),
+      value.property.database,
+      value.property.username,
+      value.property.password])
+  }
+  return response
 }

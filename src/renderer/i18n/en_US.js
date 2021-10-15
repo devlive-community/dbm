@@ -98,7 +98,8 @@ export default {
     hdfs: 'HDFS',
     uri: 'URI',
     rename: 'Rename',
-    expiration: 'Expiration'
+    expiration: 'Expiration',
+    mysql: 'MySQL'
   },
   prompt: {
     component: {
@@ -203,6 +204,10 @@ export default {
       lazy: {
         name: 'Lazy',
         description: 'Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.'
+      },
+      mysql: {
+        name: 'MySQL',
+        description: 'Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL.'
       }
     }
   }

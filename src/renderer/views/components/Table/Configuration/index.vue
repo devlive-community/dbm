@@ -56,6 +56,8 @@
                              @change="handlerTableEngineConfiguration($event)"></table-engine-hdfs>
           <table-engine-jdbc v-if="form.engine === this.$t('table.engine.integration.jdbc.name')"
                              @change="handlerTableEngineConfiguration($event)"></table-engine-jdbc>
+          <table-engine-sqlite v-if="form.engine === this.$t('table.engine.integration.sqlite.name')"
+                               @change="handlerTableEngineConfiguration($event)"></table-engine-sqlite>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -69,12 +71,14 @@
 import TableEngineKafka from '../Engines/Kafka'
 import TableEngineHdfs from '../Engines/HDFS'
 import TableEngineJdbc from '../Engines/JDBC'
+import TableEngineSqlite from '../Engines/SQLite'
 
 const StringUtils = require('../../../../utils/StringUtils')
 
 export default {
   name: 'TableConfiguration',
   components: {
+    TableEngineSqlite,
     TableEngineJdbc,
     TableEngineKafka,
     TableEngineHdfs

@@ -193,6 +193,10 @@ export default {
         jdbc: {
           name: 'JDBC',
           description: '允许ClickHouse通过JDBC连接到外部数据库。'
+        },
+        sqlite: {
+          name: 'SQLite',
+          description: '该引擎允许导入和导出数据到SQLite，并支持直接从ClickHouse查询SQLite表。'
         }
       }
     }

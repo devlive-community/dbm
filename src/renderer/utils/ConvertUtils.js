@@ -61,7 +61,9 @@ function builderEngineProperty(engine, property) {
         break
       case i18n.t('table.engine.integration.jdbc.name'):
         engineProperty = builderEngineJdbc(property)
-        console.log(engineProperty)
+        break
+      case i18n.t('table.engine.integration.sqlite.name'):
+        engineProperty = builderEngineSqlite(property)
         break
     }
   }
@@ -139,6 +141,28 @@ function builderEngineJdbc(property) {
   }
   if (StringUtils.isNotEmpty(property.database)) {
     engineProperty += StringUtils.format(`{0}'{1}',`, [tab, property.database])
+  }
+  if (StringUtils.isNotEmpty(property.table)) {
+    engineProperty += StringUtils.format(`{0}'{1}')`, [tab, property.table])
+  }
+  return engineProperty
+}
+
+/**
+ * Builder Sqlite Engine parameter
+ * @param property parameter, example:
+ * <code>
+ *   {
+ *       "uri": "sqlite.db",
+ *       "table": "table"
+ *   }
+ * </code>
+ * @returns {string} string
+ */
+function builderEngineSqlite(property) {
+  let engineProperty = ''
+  if (StringUtils.isNotEmpty(property.uri)) {
+    engineProperty += StringUtils.format(`('{0}',`, [property.uri])
   }
   if (StringUtils.isNotEmpty(property.table)) {
     engineProperty += StringUtils.format(`{0}'{1}')`, [tab, property.table])

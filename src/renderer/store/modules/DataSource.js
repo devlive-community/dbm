@@ -10,4 +10,5 @@ export default class DataSource {
   message = 'Please check whether the version of Clickhouse supports it!';
   delivery = false;
   protocol = 'http';
+  version = null;
 }

@@ -54,6 +54,8 @@
                               @change="handlerTableEngineConfiguration($event)"></table-engine-kafka>
           <table-engine-hdfs v-if="form.engine === 'HDFS'"
                              @change="handlerTableEngineConfiguration($event)"></table-engine-hdfs>
+          <table-engine-jdbc v-if="form.engine === this.$t('table.engine.integration.jdbc.name')"
+                             @change="handlerTableEngineConfiguration($event)"></table-engine-jdbc>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -66,12 +68,14 @@
 <script>
 import TableEngineKafka from '../Engines/Kafka'
 import TableEngineHdfs from '../Engines/HDFS'
+import TableEngineJdbc from '../Engines/JDBC'
 
 const StringUtils = require('../../../../utils/StringUtils')
 
 export default {
   name: 'TableConfiguration',
   components: {
+    TableEngineJdbc,
     TableEngineKafka,
     TableEngineHdfs
   },

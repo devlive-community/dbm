@@ -18,6 +18,7 @@
       <el-table-column prop="name" :label="this.$t('common.name')"></el-table-column>
       <el-table-column prop="host" :label="this.$t('common.host')"></el-table-column>
       <el-table-column prop="port" :label="this.$t('common.port')"></el-table-column>
+      <el-table-column prop="version" :label="this.$t('common.version')"></el-table-column>
       <el-table-column prop="status" :label="this.$t('common.status')">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" placement="top">
@@ -74,10 +75,10 @@
 </template>
 
 <script>
-import DataSource from '@/views/components/data/datasource/DataSource'
-import { getDataSources } from '@/services/DataSource'
-import { jobOfCheckHealth } from '@/job/JobDataSource'
-import { ADD } from '@/utils/Support'
+import DataSource from '../../../views/components/data/datasource/DataSource'
+import { getDataSources } from '../../../services/DataSource'
+import { jobOfCheckHealth } from '../../../Job/JobDataSource'
+import { ADD } from '../../../utils/Support'
 
 export default {
   components: {

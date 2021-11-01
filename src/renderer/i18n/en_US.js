@@ -100,7 +100,8 @@ export default {
     rename: 'Rename',
     expiration: 'Expiration',
     mysql: 'MySQL',
-    experimental: 'Experimental'
+    experimental: 'Experimental',
+    version: 'Version'
   },
   prompt: {
     component: {

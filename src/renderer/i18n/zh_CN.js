@@ -189,6 +189,10 @@ export default {
         hdfs: {
           name: 'HDFS',
           description: '将HDFS中的数据直接导入到ClickHouse'
+        },
+        jdbc: {
+          name: 'JDBC',
+          description: '允许ClickHouse通过JDBC连接到外部数据库。'
         }
       }
     }

@@ -84,7 +84,7 @@
 
 <script>
 import TableConfiguration from '../Configuration'
-import { createTable } from '@/services/Table'
+import { createTable } from '../../../../services/Table'
 import { buildDdl } from '../../../../utils/ConvertUtils'
 
 export default {

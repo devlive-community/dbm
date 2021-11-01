@@ -52,7 +52,7 @@ export default {
     _initialize() {
       this.selectServers = getDataSources(null).columns
     },
-    async handlerServer(value) {
+    handlerServer(value) {
       if (StringUtils.isNotEmpty(value)) {
         this.selectServer = value
       }
@@ -66,9 +66,6 @@ export default {
         this.loading = false
       })
     }
-  },
-  watch: {
-    chartOptions: {}
   }
 }
 </script>

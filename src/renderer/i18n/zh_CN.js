@@ -99,7 +99,8 @@ export default {
     uri: 'URI',
     rename: '重命名',
     expiration: '过期',
-    mysql: 'MySQL'
+    mysql: 'MySQL',
+    experimental: '实验'
   },
   prompt: {
     component: {
@@ -159,7 +160,8 @@ export default {
     are_you_delete: '确定要删除吗?',
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
     service_available: '当前服务可用于查询或其他操作!',
-    refresh_config: '配置修改后需要手动重新载入!'
+    refresh_config: '配置修改后需要手动重新载入!',
+    experimental: '这是一个试验性特性，不应该在生产中使用。'
   },
   tooltip: {
     is_empty: '是否非空',
@@ -208,6 +210,14 @@ export default {
       mysql: {
         name: 'MySQL',
         description: '允许连接到远程MySQL服务器上的数据库，并执行INSERT和SELECT查询，以在ClickHouse和MySQL之间交换数据。'
+      },
+      materialized: {
+        mysql: {
+          name: 'MaterializeMySQL',
+          description: '使用 MySQL 中存在的所有表以及这些表中的所有数据创建 ClickHouse 数据库。\n' +
+            '\n' +
+            'ClickHouse 服务器用作 MySQL 副本。它读取 binlog 并执行 DDL 和 DML 查询。'
+        }
       }
     }
   }

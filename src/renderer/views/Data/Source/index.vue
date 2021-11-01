@@ -36,7 +36,7 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" :label="this.$t('common.status')" width="100">
+      <el-table-column fixed="right" :label="this.$t('common.action')" width="100">
         <template slot-scope="scope">
           <el-popover placement="top">
             <p> {{ $t('alter.are_you_delete') }} </p>

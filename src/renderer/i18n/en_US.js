@@ -99,7 +99,9 @@ export default {
     uri: 'URI',
     rename: 'Rename',
     expiration: 'Expiration',
-    mysql: 'MySQL'
+    mysql: 'MySQL',
+    experimental: 'Experimental',
+    version: 'Version'
   },
   prompt: {
     component: {
@@ -159,7 +161,8 @@ export default {
     are_you_delete: 'Are you sure you want to delete?',
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
     service_available: 'The current service is available for query or other operations!',
-    refresh_config: 'After the configuration is modified, it needs to be reloaded manually!'
+    refresh_config: 'After the configuration is modified, it needs to be reloaded manually!',
+    experimental: 'This is an experimental feature that should not be used in production.'
   },
   tooltip: {
     is_empty: 'Is not empty',
@@ -187,6 +190,14 @@ export default {
         hdfs: {
           name: 'HDFS',
           description: 'Import data from HDFS directly into ClickHouse'
+        },
+        jdbc: {
+          name: 'JDBC',
+          description: 'Allows ClickHouse to connect to external databases via JDBC.'
+        },
+        sqlite: {
+          name: 'SQLite',
+          description: 'The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.'
         }
       }
     }
@@ -208,6 +219,14 @@ export default {
       mysql: {
         name: 'MySQL',
         description: 'Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL.'
+      },
+      materialized: {
+        mysql: {
+          name: 'MaterializeMySQL',
+          description: 'Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables.\n' +
+            '\n' +
+            'ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries.'
+        }
       }
     }
   }

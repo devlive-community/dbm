@@ -26,6 +26,7 @@ export function builderDatabaseDDL(value) {
       suffix = builderDatabaseLazy(value)
       break
     case 'MySQL':
+    case 'MaterializedMySQL':
       suffix = builderDatabaseMySQL(value)
       break
     case 'Default':

@@ -13,9 +13,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import LineCharts from '@/components/Charts/Line'
-import { getDataSources } from '@/services/DataSource'
-import { getQueryCount } from '@/services/Monitor'
+import LineCharts from '../../components/Charts/Line'
+import { getDataSources } from '../../services/DataSource'
+import { getQueryCount } from '../../services/Monitor'
 
 export default {
   name: 'dashboard',

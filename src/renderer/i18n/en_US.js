@@ -193,6 +193,10 @@ export default {
         jdbc: {
           name: 'JDBC',
           description: 'Allows ClickHouse to connect to external databases via JDBC.'
+        },
+        sqlite: {
+          name: 'SQLite',
+          description: 'The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.'
         }
       }
     }

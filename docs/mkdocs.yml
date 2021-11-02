@@ -12,7 +12,7 @@ copyright: Copyright &copy; 2021 EdurtIO
 
 theme:
   name: null
-  custom_dir: !ENV [THEME_DIR, "material"]
+  custom_dir: !ENV [ THEME_DIR, "material" ]
 
   static_templates:
     - 404.html
@@ -24,19 +24,19 @@ theme:
   features:
     - content.code.annotate
     - content.tabs.link
-#    - header.autohide
-#    - navigation.expand
+    #    - header.autohide
+    #    - navigation.expand
     - navigation.indexes
-#    - navigation.instant
+    #    - navigation.instant
     - navigation.sections
     - navigation.tabs
-#    - navigation.tabs.sticky
+    #    - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
-#    - toc.integrate
+  #    - toc.integrate
   palette:
     - scheme: default
       primary: indigo
@@ -105,8 +105,10 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting started:
-    - Datasource: reference/1.Get-Started-Datasource.md
-    - Query: reference/2.Get-Started-Query.md
+      - Datasource: reference/1.Get-Started-Datasource.md
+      - Query: reference/2.Get-Started-Query.md
+      - Monitor:
+          - Processor: reference/Monitor-Processor.md
   - Release Note:
       - 1.8.0: release/1.8.0-2021-11-02.md
       - 1.7.0: release/1.7.0-2021-10-09.md

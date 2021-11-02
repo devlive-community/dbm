@@ -101,7 +101,8 @@ export default {
     expiration: 'Expiration',
     mysql: 'MySQL',
     experimental: 'Experimental',
-    version: 'Version'
+    version: 'Version',
+    description: 'Description'
   },
   prompt: {
     component: {

@@ -199,6 +199,10 @@ export default {
         sqlite: {
           name: 'SQLite',
           description: 'The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.'
+        },
+        odbc: {
+          name: 'ODBC',
+          description: 'Allows ClickHouse to connect to external databases via ODBC.'
         }
       }
     }

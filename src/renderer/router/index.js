@@ -102,6 +102,13 @@ export const constantRouterMap = [
         new: false,
         component: () => import('@/views/Monitor/Mutations'),
         meta: { title: i18n.t('common.mutations'), icon: 'anchor' }
+      },
+      {
+        path: 'query',
+        name: 'Query',
+        new: false,
+        component: () => import('@/views/Monitor/Query'),
+        meta: { title: i18n.t('common.query'), icon: 'search' }
       }
     ]
   },

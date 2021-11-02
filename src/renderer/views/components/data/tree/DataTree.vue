@@ -4,12 +4,19 @@
              @node-click="handleNodeClick"
              @node-contextmenu="handlerRightClick">
       <span slot-scope="{ data }" class="custom-tree-node">
-        <el-tooltip :content="data.name" class="item" effect="dark" placement="top">
+        <el-tooltip class="item" effect="dark" placement="top">
+          <div slot="content">
+            <span v-if="isEmpty(data.value)">{{ data.name }}</span>
+            <span v-else>
+              {{ $t('common.engine') }} : {{ data.value }}
+            </span>
+          </div>
           <span><i :class="getFaIcon(data.type)"></i> {{ data.name }}</span>
         </el-tooltip>
       </span>
     </el-tree>
-    <el-popover v-if="menu.data.length > 0" id="contextMenu" v-model="menu.show" :style="`left: ${menu.position.x}px; top: ${menu.position.y}px;`"
+    <el-popover v-if="menu.data.length > 0" id="contextMenu" v-model="menu.show"
+                :style="`left: ${menu.position.x}px; top: ${menu.position.y}px;`"
                 class="popover-inter"
                 placement="right"
                 trigger="manual">
@@ -25,7 +32,7 @@
 <script>
 import { builderTree } from '@/utils/JsonUtils'
 import { getDataByParam } from '@/services/Metadata'
-import { SERVER, DATABASE, TABLE, COLUMN } from '@/utils/Support'
+import { COLUMN, DATABASE, SERVER, TABLE } from '@/utils/Support'
 import { getContextMenu } from '../../../../services/ContextMenu'
 
 export default {

@@ -18,8 +18,12 @@
             <el-input v-loading="form.validateStatus" v-model="form.name" @change="handlerValidate"/>
           </el-form-item>
           <el-divider content-position="left">{{ this.$t('common.property') }}</el-divider>
-          <database-engine-lazy v-if="form.engine === 'Lazy'"
+          <database-engine-lazy v-if="form.engine === this.$t('database.engine.lazy.name')"
                                 @change="handlerDatabaseEngineConfiguration"></database-engine-lazy>
+          <database-engine-mysql v-if="form.engine === this.$t('database.engine.mysql.name')"
+                                 @change="handlerDatabaseEngineConfiguration"></database-engine-mysql>
+          <database-engine-materialized-mysql v-if="form.engine === this.$t('database.engine.materialized.mysql.name')"
+                                              @change="handlerDatabaseEngineConfiguration"></database-engine-materialized-mysql>
         </el-form>
       </el-col>
       <el-col :span="4">
@@ -32,13 +36,15 @@
 <script>
 import { getDatabase } from '../../../../services/DatabaseService'
 import DatabaseEngineLazy from '../Engine/Lazy'
+import DatabaseEngineMysql from '../Engine/MySQL'
+import DatabaseEngineMaterializedMysql from '../Engine/Materialized/MySQL'
 
 const StringUtils = require('../../../../utils/StringUtils')
 const NotifyUtils = require('../../../../utils/NotifyUtils')
 
 export default {
   name: 'DatabaseConfiguration',
-  components: { DatabaseEngineLazy },
+  components: { DatabaseEngineMaterializedMysql, DatabaseEngineMysql, DatabaseEngineLazy },
   props: {
     engine: {
       type: String,

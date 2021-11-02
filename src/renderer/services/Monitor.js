@@ -1,13 +1,15 @@
 import { getQuery } from '@/services/Metadata'
-import { CONNECTIONS, PROCESSES } from '@/utils/Support'
+
+const Support = require('../utils/Support')
+const StringUtils = require('../utils/StringUtils')
 
 export async function getMonitor(server, type) {
   let response
   switch (type) {
-    case CONNECTIONS:
+    case Support.CONNECTIONS:
       response = getConnections(server)
       break
-    case PROCESSES:
+    case Support.PROCESSES:
       response = getProcesses(server)
       break
     default:
@@ -95,5 +97,29 @@ ORDER BY
   event_date DESC
 LIMIT 100
   `
+  return getQuery(server, sql)
+}
+
+export function getSlowQuery(server, threshold) {
+  const sql = StringUtils.format(`
+SELECT 
+    user, 
+    client_hostname AS host, 
+    client_name AS hash, 
+    query_start_time AS time, 
+    query_duration_ms AS elapsed, 
+    round(memory_usage / 1048576) AS memoryUsage, 
+    result_rows AS rows, 
+    result_bytes / 1048576 AS bytes, 
+    read_rows AS readRows, 
+    round(read_bytes / 1048576) AS bytesRead, 
+    written_rows AS writtenRows, 
+    round(written_bytes / 1048576) AS bytesWritten
+FROM system.query_log
+WHERE type = 2
+AND query_duration_ms >= {0}
+ORDER BY query_duration_ms DESC
+LIMIT 100
+  `, [threshold])
   return getQuery(server, sql)
 }

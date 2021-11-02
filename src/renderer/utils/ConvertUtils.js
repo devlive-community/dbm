@@ -53,13 +53,14 @@ function builderEngineProperty(engine, property) {
   let engineProperty
   if (StringUtils.isNotEmpty(property)) {
     switch (engine) {
-      case 'Kafka':
+      case i18n.t('table.engine.integration.kafka.name'):
         engineProperty = builderEngineKafka(property)
         break
-      case 'HDFS':
+      case i18n.t('table.engine.integration.hdfs.name'):
         engineProperty = builderEngineHdfs(property)
         break
       case i18n.t('table.engine.integration.jdbc.name'):
+      case i18n.t('table.engine.integration.odbc.name'):
         engineProperty = builderEngineJdbc(property)
         break
       case i18n.t('table.engine.integration.sqlite.name'):

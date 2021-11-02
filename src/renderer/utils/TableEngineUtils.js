@@ -38,6 +38,10 @@ export const ENGINES = [
       {
         name: i18n.t('table.engine.integration.sqlite.name'),
         description: i18n.t('table.engine.integration.sqlite.description')
+      },
+      {
+        name: i18n.t('table.engine.integration.odbc.name'),
+        description: i18n.t('table.engine.integration.odbc.description')
       }
     ]
   }

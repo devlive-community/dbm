@@ -12,7 +12,7 @@
     <el-row v-if="body.step === 1 && body.checkSupportTableEngine && this.isNotEmpty(supportEngines)">
       <el-skeleton :rows="6" animated/>
     </el-row>
-    <el-row v-else v-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
+    <el-row v-else-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
       <div>
         <el-divider content-position="left">
           {{ engineType.name }}

@@ -26,7 +26,12 @@ export function getContextMenu(type) {
     case Support.DATABASE:
       add.type = Support.DATABASE
       deleted.type = Support.DATABASE
-      menus.push(add, deleted)
+      menus.push(add, deleted, {
+        name: i18n.t('common.ddl'),
+        command: Support.DDL,
+        icon: Support.DDL_ICON,
+        type: Support.DATABASE
+      })
       break
     case Support.TABLE:
       deleted.type = Support.TABLE

@@ -80,6 +80,7 @@
     <modify-column v-if="loading.modifyColumn" :visible.sync="loading.modifyColumn" :configure="treeValue"/>
     <rename-column v-if="loading.renameColumn" :visible.sync="loading.renameColumn" :configure="treeValue"/>
     <preview-column v-if="loading.previewColumn" :visible.sync="loading.previewColumn" :configure="treeValue"/>
+    <database-ddl v-if="loading.databaseDdl" :visible.sync="loading.databaseDdl" :configure="treeValue"></database-ddl>
   </div>
 </template>
 
@@ -104,11 +105,13 @@ import DeleteColumn from '../../components/Column/Delete'
 import ModifyColumn from '../../components/Column/Modify'
 import RenameColumn from '../../components/Column/Rename'
 import PreviewColumn from '../../components/Column/Preview'
+import DatabaseDdl from '../../components/Database/Ddl'
 
 const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    DatabaseDdl,
     PreviewColumn,
     RenameColumn,
     ModifyColumn,
@@ -151,7 +154,8 @@ export default {
         addColumn: false,
         modifyColumn: false,
         renameColumn: false,
-        previewColumn: false
+        previewColumn: false,
+        databaseDdl: false
       },
       items: [],
       switchType: Support.SERVER
@@ -243,6 +247,9 @@ export default {
       }
       if (value.command === Support.PREVIEW && value.type === Support.COLUMN) {
         this.loading.previewColumn = true
+      }
+      if (value.command === Support.DDL && value.type === Support.DATABASE) {
+        this.loading.databaseDdl = true
       }
     }
   }

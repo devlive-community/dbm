@@ -97,6 +97,6 @@ export function getDataSources(name) {
  */
 export async function getConnection(host, port, username, password) {
   const authentication = formatAuthentication(host, port, username, password)
-  const querySql = 'SELECT 1'
+  const querySql = 'SELECT version() AS version'
   return await getAuthenticationResponse(authentication, querySql)
 }

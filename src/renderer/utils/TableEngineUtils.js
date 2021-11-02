@@ -27,10 +27,21 @@ export const ENGINES = [
         name: i18n.t('table.engine.integration.kafka.name'),
         description: i18n.t('table.engine.integration.kafka.description')
       },
-
       {
         name: i18n.t('table.engine.integration.hdfs.name'),
         description: i18n.t('table.engine.integration.hdfs.description')
+      },
+      {
+        name: i18n.t('table.engine.integration.jdbc.name'),
+        description: i18n.t('table.engine.integration.jdbc.description')
+      },
+      {
+        name: i18n.t('table.engine.integration.sqlite.name'),
+        description: i18n.t('table.engine.integration.sqlite.description')
+      },
+      {
+        name: i18n.t('table.engine.integration.odbc.name'),
+        description: i18n.t('table.engine.integration.odbc.description')
       }
     ]
   }

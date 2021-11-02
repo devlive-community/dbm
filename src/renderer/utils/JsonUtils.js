@@ -7,6 +7,11 @@ export function builderTree(array, type) {
       const element = {}
       element.id = StringUtils.isEmpty(e.id) ? e.name : e.id
       element.name = e.name
+      if (StringUtils.isEmpty(e.value)) {
+        element.value = e.type
+      } else {
+        element.value = e.value
+      }
       element.type = type
       elements.push(element)
     })

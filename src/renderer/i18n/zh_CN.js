@@ -101,7 +101,8 @@ export default {
     expiration: '过期',
     mysql: 'MySQL',
     experimental: '实验',
-    version: '版本'
+    version: '版本',
+    description: '描述'
   },
   prompt: {
     component: {
@@ -198,6 +199,10 @@ export default {
         sqlite: {
           name: 'SQLite',
           description: '该引擎允许导入和导出数据到SQLite，并支持直接从ClickHouse查询SQLite表。'
+        },
+        odbc: {
+          name: 'ODBC',
+          description: '允许ClickHouse通过ODBC连接到外部数据库。'
         }
       }
     }

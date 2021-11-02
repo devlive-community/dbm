@@ -55,3 +55,8 @@ WHERE
   `, [value])
   return getQuery(server, sql)
 }
+
+export function getDatabaseDDL(server, value) {
+  const sql = StringUtils.format('SHOW CREATE DATABASE `{0}`', [value])
+  return getQuery(server, sql)
+}

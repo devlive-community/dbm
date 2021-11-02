@@ -1,4 +1,6 @@
-import { getDataSources, getConnection, updateDataSource } from '../services/DataSource'
+import { getConnection, getDataSources, updateDataSource } from '../services/DataSource'
+
+const StringUtils = require('../utils/StringUtils')
 
 /**
  * Check the availability of the data source
@@ -9,7 +11,9 @@ export async function jobOfCheckHealth() {
     const response = await getConnection(element.host, element.port, element.username, element.password)
     element.status = response.status
     element.message = response
-    element.version = response.columns[0].version
+    if (StringUtils.isNotEmpty(response.columns)) {
+      element.version = response.columns[0].version
+    }
     updateDataSource(element.name, element)
   })
 }

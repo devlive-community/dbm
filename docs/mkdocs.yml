@@ -108,6 +108,7 @@ nav:
     - Datasource: reference/1.Get-Started-Datasource.md
     - Query: reference/2.Get-Started-Query.md
   - Release Note:
+      - 1.8.0: release/1.8.0-2021-11-02.md
       - 1.7.0: release/1.7.0-2021-10-09.md
       - 1.6.0: release/1.6.0.md
       - 1.5.0: release/1.5.0.md

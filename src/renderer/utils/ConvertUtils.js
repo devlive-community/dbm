@@ -1,3 +1,5 @@
+import i18n from '../i18n'
+
 const StringUtils = require('./StringUtils')
 
 const tab = '    '
@@ -11,7 +13,7 @@ export function buildDdl(element) {
     const engineProperty = builderEngineProperty(element.configuration.engine, element.configuration.property)
     if (element.configuration.engine !== 'HDFS') {
       if (StringUtils.isNotEmpty(engineProperty)) {
-        response += StringUtils.format(') ENGINE = {0}\n SETTINGS\n', [element.type])
+        response += StringUtils.format(') ENGINE = {0}\n', [element.type])
         response += engineProperty
       } else {
         response += StringUtils.format(') ENGINE = {0}\n', [element.type])
@@ -51,11 +53,18 @@ function builderEngineProperty(engine, property) {
   let engineProperty
   if (StringUtils.isNotEmpty(property)) {
     switch (engine) {
-      case 'Kafka':
+      case i18n.t('table.engine.integration.kafka.name'):
         engineProperty = builderEngineKafka(property)
         break
-      case 'HDFS':
+      case i18n.t('table.engine.integration.hdfs.name'):
         engineProperty = builderEngineHdfs(property)
+        break
+      case i18n.t('table.engine.integration.jdbc.name'):
+      case i18n.t('table.engine.integration.odbc.name'):
+        engineProperty = builderEngineJdbc(property)
+        break
+      case i18n.t('table.engine.integration.sqlite.name'):
+        engineProperty = builderEngineSqlite(property)
         break
     }
   }
@@ -76,7 +85,7 @@ function builderEngineProperty(engine, property) {
  * @returns {string} string
  */
 function builderEngineKafka(property) {
-  let engineProperty = ''
+  let engineProperty = ' SETTINGS\n'
   if (StringUtils.isNotEmpty(property.broker)) {
     engineProperty += StringUtils.format(`{0}kafka_broker_list = '{1}',\n`, [tab, property.broker])
   }
@@ -110,6 +119,54 @@ function builderEngineHdfs(property) {
   }
   if (StringUtils.isNotEmpty(property.format)) {
     engineProperty += StringUtils.format(`{0}'{1}')\n`, [tab, property.format])
+  }
+  return engineProperty
+}
+
+/**
+ * Builder JDBC Engine parameter
+ * @param property parameter, example:
+ * <code>
+ *   {
+ *       "uri": "jdbc:<driver_name>://<host_name>:<port>/?user=<username>&password=<password>",
+ *       "external_database": "database",
+ *       "external_table": "table"
+ *   }
+ * </code>
+ * @returns {string} string
+ */
+function builderEngineJdbc(property) {
+  let engineProperty = ''
+  if (StringUtils.isNotEmpty(property.uri)) {
+    engineProperty += StringUtils.format(`('{0}',`, [property.uri])
+  }
+  if (StringUtils.isNotEmpty(property.database)) {
+    engineProperty += StringUtils.format(`{0}'{1}',`, [tab, property.database])
+  }
+  if (StringUtils.isNotEmpty(property.table)) {
+    engineProperty += StringUtils.format(`{0}'{1}')`, [tab, property.table])
+  }
+  return engineProperty
+}
+
+/**
+ * Builder Sqlite Engine parameter
+ * @param property parameter, example:
+ * <code>
+ *   {
+ *       "uri": "sqlite.db",
+ *       "table": "table"
+ *   }
+ * </code>
+ * @returns {string} string
+ */
+function builderEngineSqlite(property) {
+  let engineProperty = ''
+  if (StringUtils.isNotEmpty(property.uri)) {
+    engineProperty += StringUtils.format(`('{0}',`, [property.uri])
+  }
+  if (StringUtils.isNotEmpty(property.table)) {
+    engineProperty += StringUtils.format(`{0}'{1}')`, [tab, property.table])
   }
   return engineProperty
 }

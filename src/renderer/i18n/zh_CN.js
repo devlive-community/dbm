@@ -101,7 +101,8 @@ export default {
     expiration: '过期',
     mysql: 'MySQL',
     experimental: '实验',
-    version: '版本'
+    version: '版本',
+    description: '描述'
   },
   prompt: {
     component: {

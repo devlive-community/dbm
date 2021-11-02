@@ -9,7 +9,10 @@
       <el-step :title="this.$t('common.configuration')"/>
       <el-step :title="this.stringFormat('{0} {1}', [this.$t('common.table'), this.$t('common.preview')])"/>
     </el-steps>
-    <el-row v-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
+    <el-row v-if="body.step === 1 && body.checkSupportTableEngine && this.isNotEmpty(supportEngines)">
+      <el-skeleton :rows="6" animated/>
+    </el-row>
+    <el-row v-else v-if="body.step === 1" v-for="engineType in this.TableEngine.ENGINES" :gutter="20">
       <div>
         <el-divider content-position="left">
           {{ engineType.name }}
@@ -21,7 +24,8 @@
           </el-tooltip>
         </el-divider>
         <el-col v-for="engine in engineType.engines" :span="6" align="middle">
-          <el-radio v-model="form.type" :label="engine.name" border style="margin-top: 15px;">{{ engine.name }}
+          <el-radio :disabled="handlerCheckSupport(engine.name)" v-model="form.type" :label="engine.name" border
+                    style="margin-top: 15px;">{{ engine.name }}
           </el-radio>
           <el-tooltip placement="top">
             <div slot="content">{{ engine.description }}</div>
@@ -86,6 +90,9 @@
 import TableConfiguration from '../Configuration'
 import { createTable } from '../../../../services/Table'
 import { buildDdl } from '../../../../utils/ConvertUtils'
+import { getVersionAndSupportTableEngine } from '../../../../services/Server'
+
+const NotifyUtils = require('../../../../utils/NotifyUtils')
 
 export default {
   name: 'CreateTable',
@@ -104,6 +111,7 @@ export default {
   },
   created() {
     this.form.configure = this.configure
+    this.handlerGetServerAndSupport()
   },
   data() {
     return {
@@ -115,13 +123,15 @@ export default {
         complete: false,
         disabled: false,
         ddl: '',
-        create: false
+        create: false,
+        checkSupportTableEngine: false
       },
       form: {
         type: 'Log',
         configure: {},
         configuration: {}
-      }
+      },
+      supportEngines: []
     }
   },
   methods: {
@@ -162,19 +172,32 @@ export default {
       this.body.create = true
       createTable(this.configure.server, this.body.ddl).then(response => {
         if (response.status) {
-          this.$notify.success({
-            title: this.$t('common.success'),
-            message: response.message
-          })
+          NotifyUtils.success(this.$t('common.success'), response.message)
           this.closeDialog()
         } else {
-          this.$notify.error({
-            title: this.$t('common.error'),
-            message: response.message
-          })
+          NotifyUtils.success(this.$t('common.error'), response.message)
         }
         this.body.create = false
       })
+    },
+    handlerGetServerAndSupport() {
+      this.body.checkSupportTableEngine = true
+      getVersionAndSupportTableEngine(this.configure.server).then(response => {
+        if (response.status) {
+          this.supportEngines = response.columns
+        }
+        this.body.checkSupportTableEngine = false
+      })
+    },
+    handlerCheckSupport(value) {
+      const engines = this.supportEngines.filter(engine => {
+        return engine.name === value
+      })
+      if (engines.length === 0) {
+        return true
+      } else {
+        return false
+      }
     },
     closeDialog() {
       this.$emit('update:visible', false)

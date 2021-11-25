@@ -102,7 +102,8 @@ export default {
     mysql: 'MySQL',
     experimental: '实验',
     version: '版本',
-    description: '描述'
+    description: '描述',
+    truncate: '截断'
   },
   prompt: {
     component: {
@@ -163,7 +164,8 @@ export default {
     service_not_available: '当前服务不可用。请检查配置或将其删除!',
     service_available: '当前服务可用于查询或其他操作!',
     refresh_config: '配置修改后需要手动重新载入!',
-    experimental: '这是一个试验性特性，不应该在生产中使用。'
+    experimental: '这是一个试验性特性，不应该在生产中使用。',
+    truncate_table: '该操作将会删除所有数据,但是不会进行表的删除!'
   },
   tooltip: {
     is_empty: '是否非空',

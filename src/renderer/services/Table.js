@@ -70,3 +70,8 @@ WHERE
 export function renameTable(server, sql) {
   return getQuery(server, sql)
 }
+
+export function truncateTable(server, database, table) {
+  const sql = StringUtils.format('TRUNCATE TABLE {0}.{1}', [database, table])
+  return getQuery(server, sql)
+}

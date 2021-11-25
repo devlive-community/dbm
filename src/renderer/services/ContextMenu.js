@@ -55,6 +55,11 @@ export function getContextMenu(type) {
         command: Support.EDIT,
         icon: Support.EDIT_ICON,
         type: Support.TABLE
+      }, {
+        name: StringUtils.format('{0}{1}', [i18n.t('common.truncate'), i18n.t('common.table')]),
+        command: Support.TRUNCATE,
+        icon: Support.EDIT_ICON,
+        type: Support.TABLE
       })
       break
     case Support.COLUMN:

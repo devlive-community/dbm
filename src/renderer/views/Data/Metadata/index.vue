@@ -74,6 +74,7 @@
                   @close="loading.tableColumn = false"></table-column>
     <table-rename :loading="loading.tableRename" :configuration="treeValue"
                   @close="loading.tableRename = false"></table-rename>
+    <table-truncate v-if="loading.tableTruncate" :visible.sync="loading.tableTruncate" :configure="treeValue"/>
     <create-table v-if="loading.createTable" :visible.sync="loading.createTable" :configure="treeValue"/>
     <add-column v-if="loading.addColumn" :visible.sync="loading.addColumn" :configure="treeValue"/>
     <delete-column v-if="loading.deleteColumn" :visible.sync="loading.deleteColumn" :configure="treeValue"/>
@@ -106,11 +107,13 @@ import ModifyColumn from '../../components/Column/Modify'
 import RenameColumn from '../../components/Column/Rename'
 import PreviewColumn from '../../components/Column/Preview'
 import DatabaseDdl from '../../components/Database/Ddl'
+import TableTruncate from '../../components/Table/Truncate'
 
 const Support = require('../../../utils/Support')
 
 export default {
   components: {
+    TableTruncate,
     DatabaseDdl,
     PreviewColumn,
     RenameColumn,
@@ -151,6 +154,7 @@ export default {
         tablePreview: false,
         tableColumn: false,
         tableRename: false,
+        tableTruncate: false,
         addColumn: false,
         modifyColumn: false,
         renameColumn: false,
@@ -219,6 +223,9 @@ export default {
       }
       if (value.command === Support.DELETE && value.type === Support.TABLE) {
         this.loading.deleteTable = true
+      }
+      if (value.command === Support.TRUNCATE && value.type === Support.TABLE) {
+        this.loading.tableTruncate = true
       }
       if (value.command === Support.DDL && value.type === Support.TABLE) {
         this.ddl.visible = true

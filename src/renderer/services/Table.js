@@ -75,3 +75,27 @@ export function truncateTable(server, database, table) {
   const sql = StringUtils.format('TRUNCATE TABLE {0}.{1}', [database, table])
   return getQuery(server, sql)
 }
+
+export function getPartitions(server, database, table) {
+  const sql = StringUtils.format(`
+SELECT
+  DISTINCT "partition" AS "partition",
+  "database",
+  "table",
+  name,
+  active
+FROM
+  "system".parts
+WHERE
+  "database" = '{0}'
+  AND "table" = '{1}'
+ORDER BY
+  modification_time DESC`, [database, table])
+  return getQuery(server, sql)
+}
+
+export function cleanTableByPartition(server, database, table, partition) {
+  const sql = StringUtils.format(`ALTER TABLE {0}.{1} DROP PARTITION '{2}'`,
+    [database, table, partition])
+  return getQuery(server, sql)
+}

@@ -105,7 +105,9 @@ export default {
     description: 'Description',
     truncate: 'Truncate',
     clean: 'Clean',
-    partition: 'Partition'
+    partition: 'Partition',
+    optimize: 'Optimize',
+    final: 'Final'
   },
   prompt: {
     component: {

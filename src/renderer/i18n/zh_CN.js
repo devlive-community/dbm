@@ -105,7 +105,9 @@ export default {
     description: '描述',
     truncate: '截断',
     clean: '清理',
-    partition: '分区'
+    partition: '分区',
+    optimize: '优化',
+    final: 'Final'
   },
   prompt: {
     component: {

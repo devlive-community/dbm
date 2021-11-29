@@ -45,6 +45,11 @@ export function getContextMenu(type) {
       command: Support.CLEAN,
       icon: Support.CLEAN_ICON,
       type: Support.TABLE
+    }, {
+      name: StringUtils.format('{0}{1}', [i18n.t('common.optimize'), i18n.t('common.table')]),
+      command: Support.OPTIMIZE,
+      icon: Support.OPTIMIZE_ICON,
+      type: Support.TABLE
     })
   }
   return menus

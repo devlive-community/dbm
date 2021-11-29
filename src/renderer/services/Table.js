@@ -99,3 +99,16 @@ export function cleanTableByPartition(server, database, table, partition) {
     [database, table, partition])
   return getQuery(server, sql)
 }
+
+export function optimizeTable(server, database, table, type, final, partition) {
+  let sql = StringUtils.format('OPTIMIZE TABLE {0}.{1}', [database, table])
+  if (type) {
+    sql = StringUtils.format(`{0} PARTITION ID '{1}'`, [sql, partition])
+  } else {
+    sql = StringUtils.format(`{0} PARTITION '{1}'`, [sql, partition])
+  }
+  if (final) {
+    sql = StringUtils.format('{0} FINAL', [sql])
+  }
+  return getQuery(server, sql)
+}

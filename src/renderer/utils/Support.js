@@ -20,6 +20,8 @@ export const DDL_ICON = 'search'
 export const EDIT = 'EDIT'
 export const RENAME = 'RENAME'
 export const EDIT_ICON = 'edit'
+export const OPTIMIZE = 'OPTIMIZE'
+export const OPTIMIZE_ICON = 'gavel'
 
 export const PROCESSES = 'PROCESSES'
 export const CONNECTIONS = 'CONNECTIONS'

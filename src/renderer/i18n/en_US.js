@@ -103,7 +103,9 @@ export default {
     experimental: 'Experimental',
     version: 'Version',
     description: 'Description',
-    truncate: 'Truncate'
+    truncate: 'Truncate',
+    clean: 'Clean',
+    partition: 'Partition'
   },
   prompt: {
     component: {

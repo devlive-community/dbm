@@ -103,7 +103,9 @@ export default {
     experimental: '实验',
     version: '版本',
     description: '描述',
-    truncate: '截断'
+    truncate: '截断',
+    clean: '清理',
+    partition: '分区'
   },
   prompt: {
     component: {

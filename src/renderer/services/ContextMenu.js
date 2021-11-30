@@ -3,6 +3,7 @@ import i18n from '../i18n'
 const StringUtils = require('../utils/StringUtils')
 const Support = require('../utils/Support')
 const ServerContextMenu = require('./ContextMenu/ServerContextMenu')
+const TableContextMenu = require('./ContextMenu/TableContextMenu')
 
 export function getContextMenu(type) {
   if (StringUtils.isEmpty(type)) {
@@ -34,28 +35,7 @@ export function getContextMenu(type) {
       })
       break
     case Support.TABLE:
-      deleted.type = Support.TABLE
-      menus.push(deleted, {
-        name: StringUtils.format('{0}{1}', [i18n.t('common.add'), i18n.t('common.column')]),
-        command: Support.ADD,
-        icon: Support.ADD_ICON,
-        type: Support.TABLE
-      }, {
-        name: i18n.t('common.ddl'),
-        command: Support.DDL,
-        icon: Support.DDL_ICON,
-        type: Support.TABLE
-      }, {
-        name: i18n.t('common.preview'),
-        command: Support.PREVIEW,
-        icon: Support.PREVIEW_ICON,
-        type: Support.TABLE
-      }, {
-        name: StringUtils.format('{0}{1}', [i18n.t('common.rename'), i18n.t('common.table')]),
-        command: Support.EDIT,
-        icon: Support.EDIT_ICON,
-        type: Support.TABLE
-      })
+      menus = TableContextMenu.getContextMenu(Support.TABLE)
       break
     case Support.COLUMN:
       deleted.type = Support.COLUMN

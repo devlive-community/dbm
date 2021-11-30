@@ -1,0 +1,38 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+
+@import "node_modules/font-awesome/css/font-awesome";
+@import "node_modules/ngx-toastr/toastr";
+@import "node_modules/tree-ngx/style/ngx-tree";
+
+@import "assets/scss/demo";
+
+@import '~codemirror/lib/codemirror';
+
+// Site, Bootstrap, Variable, Mixins
+@import "./assets/scss/variables";
+@import "./assets/scss/mixins";
+@import "./assets/scss/bootstrap-overrides/mixins";
+@import "./assets/scss/bootstrap-imports";
+@import "./assets/scss/base";
+@import "./assets/scss/layout";
+@import "./assets/scss/listview";
+@import "./assets/scss/page-loader";
+@import "./assets/scss/theme";
+@import "./assets/scss/color";
+
+// Bootstrap Overrides
+@import "./assets/scss/bootstrap-overrides/dropdown";
+@import "./assets/scss/bootstrap-overrides/card";
+@import "./assets/scss/bootstrap-overrides/buttons";
+@import "./assets/scss/bootstrap-overrides/tables";
+@import "./assets/scss/bootstrap-overrides/forms";
+@import "./assets/scss/bootstrap-overrides/input-groups";
+@import "./assets/scss/bootstrap-overrides/custom-forms";
+@import "./assets/scss/bootstrap-overrides/pagination";
+@import "./assets/scss/bootstrap-overrides/alerts";
+@import "./assets/scss/bootstrap-overrides/close";
+@import "./assets/scss/bootstrap-overrides/modal";
+@import "./assets/scss/bootstrap-overrides/popovers";
+@import "./assets/scss/bootstrap-overrides/tabs";
+@import "./assets/scss/bootstrap-overrides/tooltip";

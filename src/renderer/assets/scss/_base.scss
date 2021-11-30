@@ -1,0 +1,31 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:focus,
+  &:active {
+    outline: none !important;
+  }
+}
+
+html {
+  font-size: $font-size-root;
+}
+
+a {
+  cursor: pointer;
+}
+
+pre {
+  background-color: $pre-bg;
+  border-radius: $border-radius;
+  padding: 1.5rem;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: $font-family-sans-serif;
+}

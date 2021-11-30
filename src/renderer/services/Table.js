@@ -70,3 +70,45 @@ WHERE
 export function renameTable(server, sql) {
   return getQuery(server, sql)
 }
+
+export function truncateTable(server, database, table) {
+  const sql = StringUtils.format('TRUNCATE TABLE {0}.{1}', [database, table])
+  return getQuery(server, sql)
+}
+
+export function getPartitions(server, database, table) {
+  const sql = StringUtils.format(`
+SELECT
+  DISTINCT "partition" AS "partition",
+  "database",
+  "table",
+  name,
+  active
+FROM
+  "system".parts
+WHERE
+  "database" = '{0}'
+  AND "table" = '{1}'
+ORDER BY
+  modification_time DESC`, [database, table])
+  return getQuery(server, sql)
+}
+
+export function cleanTableByPartition(server, database, table, partition) {
+  const sql = StringUtils.format(`ALTER TABLE {0}.{1} DROP PARTITION '{2}'`,
+    [database, table, partition])
+  return getQuery(server, sql)
+}
+
+export function optimizeTable(server, database, table, type, final, partition) {
+  let sql = StringUtils.format('OPTIMIZE TABLE {0}.{1}', [database, table])
+  if (type) {
+    sql = StringUtils.format(`{0} PARTITION ID '{1}'`, [sql, partition])
+  } else {
+    sql = StringUtils.format(`{0} PARTITION '{1}'`, [sql, partition])
+  }
+  if (final) {
+    sql = StringUtils.format('{0} FINAL', [sql])
+  }
+  return getQuery(server, sql)
+}

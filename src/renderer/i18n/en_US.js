@@ -102,7 +102,12 @@ export default {
     mysql: 'MySQL',
     experimental: 'Experimental',
     version: 'Version',
-    description: 'Description'
+    description: 'Description',
+    truncate: 'Truncate',
+    clean: 'Clean',
+    partition: 'Partition',
+    optimize: 'Optimize',
+    final: 'Final'
   },
   prompt: {
     component: {
@@ -163,7 +168,8 @@ export default {
     service_not_available: 'The current service is not available. Please check the configuration or remove it!',
     service_available: 'The current service is available for query or other operations!',
     refresh_config: 'After the configuration is modified, it needs to be reloaded manually!',
-    experimental: 'This is an experimental feature that should not be used in production.'
+    experimental: 'This is an experimental feature that should not be used in production.',
+    truncate_table: 'This operation deletes all data, but does not delete the table!'
   },
   tooltip: {
     is_empty: 'Is not empty',

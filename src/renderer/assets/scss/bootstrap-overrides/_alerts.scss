@@ -1,0 +1,28 @@
+.alert-heading {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0.15rem 0 1rem;
+}
+
+.alert-dismissible {
+  .close {
+    & > span:not(.sr-only) {
+      @include transition(opacity 300ms);
+      background-color: $white;
+      opacity: 0.8;
+      line-height: 19px;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      display: block;
+    }
+
+    &:hover,
+    &:focus {
+      span:not(.sr-only) {
+        opacity: 1;
+      }
+    }
+  }
+}

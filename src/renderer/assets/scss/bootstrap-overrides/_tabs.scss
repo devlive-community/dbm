@@ -1,0 +1,47 @@
+.nav-tabs {
+  .nav-link {
+    border: 0;
+    text-transform: uppercase;
+    color: $text-muted;
+    font-weight: 500;
+    @include transition(color 300ms);
+    position: relative;
+
+    &:before {
+      content: "";
+      height: 2px;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      background-color: $light-blue;
+      transform: scale(0);
+      @include transition(all 300ms);
+    }
+
+    &.active {
+      &:before {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.tab-content {
+  padding: 1.5rem 0;
+}
+
+
+// Theming
+@mixin tab-theme($bg-color) {
+  .nav-tabs {
+    .nav-link:before {
+      background-color: $bg-color;
+    }
+  }
+}
+
+.tab-container--red { @include tab-theme($red); }
+.tab-container--green { @include tab-theme($green); }
+.tab-container--amber { @include tab-theme($amber); }
+.tab-container--black { @include tab-theme($black); }

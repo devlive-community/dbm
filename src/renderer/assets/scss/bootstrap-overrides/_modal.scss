@@ -1,0 +1,41 @@
+.modal-content {
+  text-align: left;
+  box-shadow: $modal-content-box-shadow-sm-up;
+;
+}
+
+.modal-footer {
+  background-color: $gray-100;
+
+  & > .btn-link {
+    color: darken($body-color, 10%);
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: $border-radius;
+
+    &:hover,
+    &:focus {
+      background-color: $gray-200;
+      box-shadow: none;
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .modal {
+    text-align: center;
+
+    &:before {
+      content: '';
+      height: 100%;
+      width: 1px;
+    }
+
+    &:before,
+    .modal-dialog {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}

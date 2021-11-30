@@ -1,0 +1,119 @@
+.listview__header {
+  color: $headings-color;
+  text-transform: uppercase;
+  padding: 1.2rem 1rem 1rem;
+  border-bottom: 1px solid $gray-100;
+  margin-bottom: 0.75rem;
+  text-align: center;
+
+  .actions {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+  }
+}
+
+.listview__scroll {
+  overflow-y: auto;
+}
+
+.listview__item {
+  display: flex;
+  align-items: center;
+  padding: 15px $card-spacer-x;
+  @include transition(background-color 300ms);
+}
+
+.listview__img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  vertical-align: top;
+  margin: -0.1rem 1.2rem 0 -0.2rem;
+}
+
+.listview__content {
+  flex: 1;
+  min-width: 0;
+
+  & > p {
+    @include text-truncate();
+    color: lighten($body-color, 10%);
+    margin-bottom: 0;
+  }
+}
+
+.listview__heading {
+  font-size: 1rem;
+  color: $headings-color;
+  position: relative;
+
+  & > small {
+    float: right;
+    color: $text-muted;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+
+  & + p {
+    margin: 0.2rem 0 0;
+    font-size: 0.95rem;
+  }
+}
+
+.listview__attrs {
+  flex: 1 100%;
+  margin-top: 0.5rem;
+
+  & > span {
+    padding: 0.45rem 0.7rem 0.5rem;
+    border: 1px solid lighten($grey, 30%);
+    display: inline-block;
+    line-height: 100%;
+    font-size: 1rem;
+    margin: 0.2rem 0.05rem 0 0;
+    background-color: $white;
+  }
+}
+
+// Listview modifier classes
+.listview {
+  &:not(.listview--inverse) {
+
+    &.listview--hover {
+      .listview__item:hover {
+        background-color: $listview-item-hover-bg;
+      }
+    }
+
+    &.listview--striped {
+      .listview__item:nth-child(even) {
+        background-color: $listview-item-striped-bg;
+      }
+    }
+
+    .listview__item--active {
+      background-color: $listview-item-active-bg;
+    }
+
+    &.listview--bordered {
+      .listview__item + .listview__item {
+        border-top: 1px solid $listview-border-color;
+      }
+    }
+  }
+}
+
+.listview--inverse {
+  &.listview--striped {
+    .listview__item:nth-child(even) {
+      background-color: $listview-invert-item-striped-bg;
+    }
+  }
+}
+
+.listview__actions {
+  margin-left: auto;
+  align-self: flex-start;
+  margin-right: -1rem;
+}

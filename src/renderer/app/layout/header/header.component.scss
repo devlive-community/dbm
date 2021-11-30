@@ -1,0 +1,223 @@
+// Import Bootstrap and App variables and mixins
+@import "../../../assets/scss/inner-imports";
+
+// Header Base
+.header {
+  position: fixed;
+  width: 100%;
+  height: $header-height;
+  box-shadow: $header-shadow;
+  color: $white;
+  padding: 0 2rem;
+  z-index: $header-z-index;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+
+  @include clearfix();
+
+  .ma-backdrop {
+    position: absolute;
+  }
+}
+
+// Logo
+.header__logo {
+  @include media-breakpoint-up(xl) {
+    min-width: calc(#{$sidebar-width} - 2rem);
+  }
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+
+  & > h1 {
+    line-height: 100%;
+    font-size: 1.3rem;
+    font-weight: normal;
+    margin: 0;
+
+    & > a {
+      color: $white;
+    }
+  }
+}
+
+
+// Nav
+.top-nav {
+  list-style: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+
+  & > li {
+    display: inline-block;
+    vertical-align: middle;
+
+    & > a {
+      display: block;
+      color: $white;
+      border-radius: 2px;
+      text-align: center;
+      line-height: 100%;
+      position: relative;
+      @include transition(background-color 300ms);
+
+      &:not(.header__nav__text) {
+        padding: 0.5rem 0.15rem;
+        min-width: 50px;
+
+        & > .zmdi {
+          font-size: 1.65rem;
+          line-height: 100%;
+        }
+      }
+
+      &.active,
+      &:hover {
+        background-color: rgba($white, 0.2);
+      }
+    }
+
+    .dropdown-menu--block {
+      padding: 0;
+    }
+
+    @include media-breakpoint-down(xs) {
+      position: static;
+
+      .dropdown-menu--block {
+        left: 20px !important;
+        width: calc(100% - 40px);
+        top: $header-height - 10 !important;
+      }
+    }
+  }
+}
+
+.top-nav__notifications {
+  .listview {
+    position: relative;
+
+    &:before {
+      @include font-icon('\f267', 2.5rem);
+      @include transition(transform 300ms, opacity 300ms);
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 90px;
+      height: 90px;
+      border: 2px solid #ececec;
+      color: lighten($body-color, 10%);
+      border-radius: 50%;
+      transform: scale(0) rotate(-360deg);
+      opacity: 0;
+      text-align: center;
+      line-height: 86px;
+    }
+  }
+
+  .listview__scroll {
+    height: 350px;
+  }
+}
+
+.top-nav__notifications--cleared {
+  .listview {
+    &:before {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+  }
+}
+
+.top-nav__notify {
+  &:before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background-color: lighten($red, 2%);
+    color: $white;
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    @include animate(flash, 2000ms);
+    animation-iteration-count: infinite;
+  }
+}
+
+
+// App shortcuts
+.app-shortcuts {
+  margin: 0;
+  padding: 1rem;
+}
+
+.app-shortcuts__item {
+  text-align: center;
+  padding: 1rem 0;
+  border-radius: $border-radius;
+  @include transition(background-color 300ms);
+
+  &:hover {
+    background-color: $gray-100;
+  }
+
+  & > i {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: $white;
+    line-height: 45px;
+    font-size: 1.5rem;
+  }
+
+  & > small {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+
+    &,
+    &:hover,
+    &:focus {
+      color: $text-muted;
+    }
+  }
+}
+
+// Top Navigation
+.top-menu {
+  position: absolute;
+  background-color: $white;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  box-shadow: 0 3px 5px -2px rgba($black, 0.1);
+  justify-content: center;
+  white-space: nowrap;
+
+  & > li {
+    &.active {
+      position: relative;
+      box-shadow: 0 0 0 -2px red;
+    }
+
+    & > a {
+      line-height: 100%;
+      color: lighten($body-color, 15%);
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+
+      &.active {
+        color: $headings-color;
+      }
+    }
+  }
+}

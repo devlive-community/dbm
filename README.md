@@ -41,7 +41,7 @@ Development:
 
 [![codebeat badge](https://codebeat.co/badges/a291d700-2d4b-435f-aa70-468bd1800d19)](https://codebeat.co/projects/github-com-edurtio-incubator-dbm-master)
 [![With Electron](https://img.shields.io/badge/with-electron-blue.svg)](https://electronjs.org/) 
-[![With Vue](https://img.shields.io/badge/with-vue-blue.svg)](http://vuejs.org/)
+[![With Angular](https://img.shields.io/badge/with-angular-blue.svg)](https://angular.io/)
 [![With Jetbrains](https://img.shields.io/badge/with-Jetbrains-blue.svg)](https://www.jetbrains.com/)
 
 GitHub:

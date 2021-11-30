@@ -1,0 +1,28 @@
+// Alert
+@mixin alert-variant($background, $border, $color) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  hr {
+    border-top-color: darken($border, 5%);
+  }
+
+  .alert-link {
+    color: $color;
+    border-bottom: 1px dotted lighten($color, 35%);
+
+    &:hover {
+      color: darken($color, 8%);
+      border-color: lighten($color, 20%);
+    }
+  }
+  
+  &.alert-dismissible {
+    .close {
+      & > span {
+        color: lighten($color, 15%);
+      }
+    }
+  }
+}

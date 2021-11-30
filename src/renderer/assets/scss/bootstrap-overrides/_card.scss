@@ -1,0 +1,74 @@
+.card {
+  box-shadow: $card-shadow;
+  margin-bottom: $card-columns-margin;
+
+  &:not([class*="border-"]) {
+    border: 0;
+  }
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: normal;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card-subtitle {
+  color: $text-muted;
+  font-size: 1rem;
+  font-weight: normal;
+  margin-top: -1.35rem;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.card > .actions,
+.card-body .actions {
+  position: absolute;
+  right: 15px;
+  z-index: 2;
+  top: 18px;
+}
+
+[class*="card-img"] {
+  width: 100%;
+}
+
+
+.card-link {
+  text-transform: uppercase;
+  font-size: 0.98rem;
+  color: $headings-color;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 1rem;
+
+  &:hover {
+    color: lighten($headings-color, 10%);
+  }
+}
+
+
+.card-body__title {
+  font-size: 1.1rem;
+  color: $headings-color;
+  margin-bottom: 0.6rem;
+  font-weight: normal;
+}
+
+.card--inverse {
+  &, 
+  .card-title,
+  .card-link {
+    color: $white;
+  }
+  
+  .card-subtitle {
+    color: rgba($white, 0.8);
+  }
+}

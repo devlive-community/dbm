@@ -1,17 +1,52 @@
-.DS_Store
-dist/electron/*
-dist/web/*
-build/*
-!build/icons
-package-lock.json
-node_modules/
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+/app-builds
+/release
+main.js
+src/**/*.js
+!src/karma.conf.js
+*.js.map
+
+# dependencies
+node_modules
+
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
 npm-debug.log
-npm-debug.log.*
-thumbs.db
-!.gitkeep
-*.log
-yarn.lock
+testem.log
+/typings
 
-.idea/
+package-lock.json
 
-docs/site/
+# e2e
+/e2e/*.js
+!/e2e/protractor.conf.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+yarn-error.log

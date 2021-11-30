@@ -1,0 +1,119 @@
+.form-control {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  resize: none;
+  appearance: none;
+  -ms-overflow-style: none;
+  box-shadow: none !important;
+
+  &:focus {
+    & ~ .form-group__bar {
+      &:before,
+      &:after {
+        width: 50%;
+      }
+    }
+  }
+
+  &:disabled,
+  &[readonly] {
+    opacity: 0.6;
+  }
+}
+
+
+// Form Group
+.form-group {
+  position: relative;
+
+  &:not(.form-group--float) {
+    & > label {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.form-group__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    @include transition(all 200ms);
+    transition-timing-function: ease;
+    background-color: $light-blue;
+  }
+
+  &:before {
+    left: 50%;
+  }
+
+  &:after {
+    right: 50%;
+  }
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
+  @include select-bg();
+}
+
+@mixin form-group-float($bottom-offset-active, $active-font-size) {
+  &:focus ~ label,
+  &.form-control--active ~ label {
+    bottom: $bottom-offset-active;
+    font-size: $active-font-size;
+  }
+}
+
+.form-group--float {
+  margin-top: 2.5rem;
+
+  .form-control {
+    @include form-group-float(2.5rem, $font-size-sm);
+
+    & ~ label {
+      font-size: $font-size-base;
+      bottom: $input-btn-padding-y;
+      width: 100%;
+    }
+  }
+
+  .form-control-sm {
+    @include form-group-float(3.2rem, $font-size-sm);
+
+    & ~ label {
+      font-size: $font-size-sm;
+      bottom: $input-btn-padding-y-sm;
+    }
+  }
+
+  .form-control-lg {
+    @include form-group-float(2.5rem, $font-size-base);
+
+    & ~ label {
+      font-size: $font-size-lg;
+      bottom: $input-btn-padding-y-lg;
+    }
+  }
+
+  & > label {
+    color: $input-placeholder-color;
+    pointer-events: none;
+    left: $input-btn-padding-x;
+    position: absolute;
+    margin: 0;
+    @include transition(bottom 150ms ease, color 150ms, font-size 150ms ease);
+  }
+}

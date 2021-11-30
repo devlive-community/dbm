@@ -1,0 +1,18 @@
+.demo-inline-wrapper {
+  display: inline-block;
+  margin-bottom: 30px;
+  vertical-align: top;
+}
+
+.demo-inline-wrapper:not(:last-child) {
+  margin-right: 30px;
+}
+
+.demo-inline-wrapper .form-group {
+  margin: 0;
+}
+
+.btn-demo > .btn,
+.btn-demo > .btn-group {
+  margin: 0 10px 10px 0;
+}

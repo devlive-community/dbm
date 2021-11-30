@@ -1,0 +1,30 @@
+.input-group {
+  .form-group {
+    flex: 2;
+    margin: 0;
+
+    .form-control {
+      width: 100%;
+    }
+
+    .form-group__bar {
+      z-index: 3;
+    }
+  }
+
+  .form-group--float {
+    & > label {
+      z-index: 3;
+    }
+  }
+}
+
+.input-group-addon {
+  padding: 0 1rem !important;
+
+  & + .form-group .form-control {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid $input-group-addon-border-color;
+  }
+}

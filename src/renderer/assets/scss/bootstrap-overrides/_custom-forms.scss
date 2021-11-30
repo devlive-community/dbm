@@ -1,0 +1,179 @@
+.custom-control {
+  margin-bottom: 0;
+  min-height: 1.3rem;
+  font-weight: normal;
+}
+
+.custom-control-indicator {
+  border: 2px solid #7a7a7a;
+  color: $white;
+  top: 0.01rem;
+  @include transition(border 200ms);
+}
+
+.custom-checkbox {
+  .custom-control-indicator {
+    &:before {
+      content: '\f26b';
+      font-family: $font-family-icon;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $teal;
+      z-index: 1;
+      opacity: 0;
+      @include transition(background-color 200ms);
+      line-height: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+  }
+
+  .custom-control-input {
+    &:checked ~ .custom-control-indicator {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.custom-radio {
+  .custom-control-indicator {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: $teal;
+      z-index: 1;
+      transform: scale(0);
+      @include transition(transform 200ms);
+    }
+  }
+
+  .custom-control-input {
+    &:checked ~ .custom-control-indicator {
+      &:before {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.custom-control-input {
+  &:checked ~ .custom-control-indicator {
+    border-color: $teal;
+  }
+
+  &:disabled ~ .custom-control-indicator {
+    opacity: 0.5;
+  }
+}
+
+// Checkbox light skin
+.custom-control--light {
+  color: $white;
+
+  .custom-control-indicator {
+    &:before {
+      border-color: $white;
+      background-color: $white;
+      color: lighten($black, 25%);
+    }
+  }
+}
+
+
+// Checkbox Char
+.custom-control--char {
+  margin: 0;
+  font-weight: normal;
+
+  .custom-control-input {
+    width: 3rem;
+    height: 3rem;
+    z-index: 3;
+
+    &:checked + .custom-control--char__helper {
+      &:after {
+        opacity: 1;
+      }
+
+      &:before {
+        opacity: 0;
+      }
+
+      & > i {
+        font-size: 0;
+      }
+    }
+  }
+
+  &:hover {
+    .custom-control--char__helper {
+      &:before {
+        opacity: 1;
+      }
+
+      & > i {
+        font-size: 0;
+      }
+    }
+  }
+}
+
+.custom-control--char__helper {
+  position: absolute;
+  font-style: normal;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+
+  &:before,
+  &:after,
+  & > i {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 1px;
+    line-height: 3rem;
+    color: $white;
+  }
+
+  &:before,
+  &:after {
+    font-family: $font-family-icon;
+    font-size: 1.5rem;
+    opacity: 0;
+    @include transition(opacity 300ms);
+  }
+
+  &:before {
+    content: '\f279';
+    z-index: 1;
+  }
+
+  &:after {
+    content: '\f26b';
+    z-index: 2;
+  }
+
+  & > i {
+    font-style: normal;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: $font-weight-bold;
+    @include transition(font-size 200ms, background-color 300ms);
+  }
+}

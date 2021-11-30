@@ -1,0 +1,86 @@
+.page-loader {
+  @include size(100%, 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: $body-bg;
+  z-index: 999999999;
+  align-items: center;
+  justify-content: center;
+
+  &:not(.page-loader--inner) {
+    display: flex;
+  }
+}
+
+.page-loader--inner {
+  display: none;
+}
+
+router-outlet + div.page-loader--inner {
+  display: flex;
+}
+
+
+.page-loader__spinner {
+  position: relative;
+  @include size(50px, 50px);
+
+
+  svg {
+    animation: rotate 2s linear infinite;
+    transform-origin: center center;
+    @include size(100%, 100%);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    circle {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+      animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+      -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+      -moz-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+      stroke-linecap: round;
+    }
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: $red;
+  }
+  40% {
+    stroke: $blue;
+  }
+  66% {
+    stroke: $green;
+  }
+  80%,
+  90% {
+    stroke: $amber;
+  }
+}

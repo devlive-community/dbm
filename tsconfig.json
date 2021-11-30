@@ -1,0 +1,51 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es5",
+    "module": "es2020",
+    "strict": false,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "noImplicitReturns": true,
+    "experimentalDecorators": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2020",
+      "es2019",
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@main/*": [
+        "src/main/*"
+      ],
+      "@renderer/*": [
+        "src/renderer/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ]
+    },
+    "types": [
+      "node"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts"
+  ]
+}

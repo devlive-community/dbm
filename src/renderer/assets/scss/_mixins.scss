@@ -1,0 +1,134 @@
+// CSS Animations based on animate.css
+@mixin animate($name, $duration) {
+  -webkit-animation-name: $name;
+  animation-name: $name;
+  -webkit-animation-duration: $duration;
+  animation-duration: $duration;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+// Card
+@mixin card() {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $card-shadow;
+}
+
+// Font Icon (for before/after content)
+@mixin font-icon($content, $font-size) {
+  font-family: $font-family-icon;
+  content: $content;
+  font-size: $font-size;
+}
+
+//  Select BG
+@mixin select-bg() {
+  &:before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    right: 0;
+    bottom: 5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 8px 8px;
+    border-color: transparent transparent #d1d1d1 transparent;
+  }
+}
+
+
+// Custom non bootstrap button mixins to perform style overrides.
+// Please note that material admin does not loads bootstrap's default buttons mixins
+
+// Button variants
+@mixin button-variant($background, $border, $active-background: darken($background, 3%), $active-border: darken($border, 3%)) {
+  background-color: $background;
+  border-color: $border;
+  box-shadow: $btn-box-shadow;
+
+  &:hover {
+    background-color: $active-background;
+    border-color: $active-border;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background-color: $background;
+    border-color: $border;
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    background-color: $active-background;
+    background-image: none; // Remove the gradient for the pressed/active state
+    border-color: $active-border;
+  }
+}
+
+@mixin button-outline-variant($color, $color-hover: #fff) {
+  color: $color;
+  background-color: transparent;
+  background-image: none;
+  border-color: $color;
+
+  @include hover {
+    color: $color-hover;
+    background-color: $color;
+    border-color: $color;
+  }
+
+  &.disabled,
+  &:disabled {
+    color: $color;
+    background-color: transparent;
+  }
+
+  &:active,
+  &.active,
+  .show > &.dropdown-toggle {
+    color: $color-hover;
+    background-color: $color;
+    border-color: $color;
+  }
+}
+
+// Button sizes
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  line-height: $line-height;
+  @include border-radius($border-radius);
+}
+
+// Text overflow
+@mixin text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Background Image Cover
+@mixin bg-cover($image) {
+  background-image: url($image);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin bg-cover-inline() {
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+

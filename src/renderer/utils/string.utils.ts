@@ -17,4 +17,38 @@ export class StringUtils {
     }
     return formatted;
   }
+
+  public static isEmpty(source): boolean {
+    return StringUtils.getLengthEqZone(source);
+  }
+
+  public static isNotEmpty(source): boolean {
+    return !StringUtils.isEmpty(source);
+  }
+
+  public static getLength(source): number {
+    if (source !== undefined && source !== null) {
+      return source.length;
+    }
+    return 0;
+  }
+
+  public static getLengthGtZone(source): boolean {
+    return StringUtils.getLength(source) > 0;
+  }
+
+  public static getLengthLtZone(source): boolean {
+    return StringUtils.getLength(source) < 0;
+  }
+
+  public static getLengthEqZone(source): boolean {
+    return StringUtils.getLength(source) === 0;
+  }
+
+  public static getValue(source?: string, defaultValue?: string): string {
+    if (source) {
+      return source;
+    }
+    return defaultValue;
+  }
 }

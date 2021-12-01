@@ -49,6 +49,7 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.29.1",
     "ngx-bootstrap": "^7.1.0",
+    "ngx-toastr": "^14.2.1",
     "rxjs": "~6.6.0",
     "sass-loader": "^12.3.0",
     "tree-ngx": "^4.1.0",

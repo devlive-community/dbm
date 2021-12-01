@@ -16,6 +16,13 @@ a {
   cursor: pointer;
 }
 
+a {
+  color: aliceblue;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
 pre {
   background-color: $pre-bg;
   border-radius: $border-radius;

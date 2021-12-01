@@ -1,3 +1,17 @@
 {
-  "title": "This is a title"
+  "common": {
+    "management": "Management",
+    "datasource": "DataSource",
+    "add": "Add",
+    "refresh": "Refresh",
+    "close": "Close",
+    "alias": "Alias",
+    "protocol": "Protocol",
+    "host": "Host",
+    "port": "Port",
+    "username": "User Name",
+    "password": "Password",
+    "ok": "OK",
+    "test": "Test"
+  }
 }

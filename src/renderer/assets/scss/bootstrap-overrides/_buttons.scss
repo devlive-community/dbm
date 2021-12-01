@@ -1,6 +1,6 @@
 .btn {
   cursor: pointer;
-  
+
   &:not(.btn-light):not([class*="btn-outline-"]):not(.btn-link):not(.btn-default) {
     color: $white;
   }
@@ -79,9 +79,11 @@
 .btn-group-justified {
   display: flex;
   width: 100%;
+
   .btn,
   .btn-group {
     flex: 1;
+
     .btn {
       width: 100%;
     }
@@ -145,4 +147,9 @@
       }
     }
   }
+}
+
+.btn-margin > .btn,
+.btn-margin > .btn-group {
+  margin: 0 10px 10px 0;
 }

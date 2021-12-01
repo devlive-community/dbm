@@ -2,12 +2,12 @@
 @import "node_modules/bootstrap/scss/variables";
 
 @import "node_modules/font-awesome/css/font-awesome";
-@import "node_modules/ngx-toastr/toastr";
 @import "node_modules/tree-ngx/style/ngx-tree";
 
 @import "assets/scss/demo";
 
 @import '~codemirror/lib/codemirror';
+@import "node_modules/ngx-toastr/toastr";
 
 // Site, Bootstrap, Variable, Mixins
 @import "./assets/scss/variables";
@@ -36,3 +36,4 @@
 @import "./assets/scss/bootstrap-overrides/popovers";
 @import "./assets/scss/bootstrap-overrides/tabs";
 @import "./assets/scss/bootstrap-overrides/tooltip";
+

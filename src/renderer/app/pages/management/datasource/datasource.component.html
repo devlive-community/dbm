@@ -1,0 +1,75 @@
+<section class="content--full">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">
+        <div class="btn-margin">
+          <button type="button" class="btn btn-primary btn-sm"
+                  tooltip="{{ 'common.add' | translate }}"
+                  (click)="createModal.show()">
+            <i class="fa fa-plus"></i>
+          </button>
+          <button type="button" class="btn btn-success btn-sm" tooltip="{{ 'common.refresh' | translate }}">
+            <i class="fa fa-refresh"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-subtitle">
+        <hr>
+      </div>
+      <p class="card-text"></p>
+    </div>
+  </div>
+</section>
+<!-- Create new modal start -->
+<div bsModal #createModal="bs-modal" class="modal fade" [config]="{ ignoreBackdropClick: true }">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left">{{'common.datasource' | translate}}</h5>
+      </div>
+      <div class="modal-body">
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.alias"
+          [config]="{'addon': 'common.alias'| translate, 'icon': 'tag' }">
+        </app-directive-bootstrap-input>
+        {{'common.protocol' | translate}}
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'http', 'value': 'http'}">
+        </app-directive-bootstrap-radio>
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'https', 'value': 'https', 'checked': true, 'disabled': true}">
+        </app-directive-bootstrap-radio>
+        <br/><br/>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.host"
+          [config]="{'addon': 'common.host'| translate, 'icon': 'server' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.port"
+          [config]="{'addon': 'common.port'| translate, 'icon': 'fire' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.username"
+          [config]="{'addon': 'common.username'| translate, 'icon': 'user' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.password"
+          [config]="{'addon': 'common.password'| translate, 'icon': 'unlock' }">
+        </app-directive-bootstrap-input>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="loading.test" type="button" class="btn btn-success"
+                (click)="handlerTest()">
+          {{'common.test' | translate}}
+        </button>
+        <button type="button" class="btn btn-danger"
+                (click)="createModal.hide()">{{'common.close' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary">{{'common.ok' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Create new modal end -->

@@ -1,0 +1,12 @@
+<div class="input-group">
+  <span class="input-group-addon" *ngIf="config?.addon">
+    <i *ngIf="config.icon" class="fa fa-{{config.icon}}"></i>&nbsp;{{config.addon}}
+  </span>
+  <div class="form-group">
+    <input type="text" [(ngModel)]="inputValue"
+           (ngModelChange)="message = $event"
+           class="form-control form-control-{{config?.size}}"
+           placeholder="{{config?.placeholder}}">
+    <i class="form-group__bar"></i>
+  </div>
+</div>

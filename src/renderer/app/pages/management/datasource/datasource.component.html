@@ -32,6 +32,16 @@
           [(message)]="formInfo.alias"
           [config]="{'addon': 'common.alias'| translate, 'icon': 'tag' }">
         </app-directive-bootstrap-input>
+        {{'common.protocol' | translate}}
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'http', 'value': 'http'}">
+        </app-directive-bootstrap-radio>
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'https', 'value': 'https', 'checked': true, 'disabled': true}">
+        </app-directive-bootstrap-radio>
+        <br/><br/>
         <app-directive-bootstrap-input
           [(message)]="formInfo.host"
           [config]="{'addon': 'common.host'| translate, 'icon': 'server' }">

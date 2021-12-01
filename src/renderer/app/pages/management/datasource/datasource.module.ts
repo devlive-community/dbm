@@ -7,6 +7,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { InputModule } from '@renderer/directives/bootstrap/input/input.module';
 import { CommonModule } from '@angular/common';
+import { RadioModule } from '@renderer/directives/bootstrap/radio/radio.module';
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -20,7 +21,8 @@ const DATASOURCE_ROUTES: Routes = [
     ModalModule,
     InputModule,
     RouterModule.forChild(DATASOURCE_ROUTES),
-    CommonModule
+    CommonModule,
+    RadioModule
   ],
   exports: [],
   declarations: [

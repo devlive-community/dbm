@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { InputConfiguration } from '@renderer/directives/bootstrap/input/input.configuration';
+import { RadioConfiguration } from '@renderer/directives/bootstrap/radio/radio.configuration';
 
 @Component({
-  selector: 'app-directive-bootstrap-input',
-  templateUrl: './input.component.html'
+  selector: 'app-directive-bootstrap-radio',
+  templateUrl: './radio.component.html'
 })
-export class InputComponent implements OnInit {
+export class RadioComponent implements OnInit {
   @Input()
-  config: InputConfiguration;
+  config: RadioConfiguration;
   @Output()
   messageChange = new EventEmitter<string>();
 

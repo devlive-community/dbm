@@ -12,6 +12,15 @@ const LAYOUT_ROUTES: Routes = [
       {
         path: 'home',
         loadChildren: () => import('../pages/home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'management',
+        children: [
+          {
+            path: 'datasource',
+            loadChildren: () => import('../pages/management/datasource/datasource.module').then(m => m.DatasourceModule)
+          }
+        ]
       }
     ]
   }

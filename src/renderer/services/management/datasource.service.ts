@@ -20,13 +20,13 @@ export class DatasourceService implements BaseService {
     if (validateResponse.length > 0) {
       response.status = false;
       response.message = StringUtils.format('DataSource <{0}> Save Error, exists!',
-        [request.config.name]);
+        [request.config.alias]);
     } else {
       dataSources.push(request.config);
       localStorage.setItem(RequestUtils.KEY_DATASOURCE, JSON.stringify(dataSources));
       response.status = true;
       response.message = StringUtils.format('DataSource <{0}> Save Success!',
-        [request.config.name]);
+        [request.config.alias]);
     }
     return response;
   }

@@ -1,5 +1,6 @@
 .modal-content {
   text-align: left;
+  display: inherit;
   box-shadow: $modal-content-box-shadow-sm-up;;
 }
 
@@ -17,24 +18,6 @@
     &:focus {
       background-color: $gray-200;
       box-shadow: none;
-    }
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .modal {
-    text-align: center;
-
-    &:before {
-      content: '';
-      height: 100%;
-      width: 1px;
-    }
-
-    &:before,
-    .modal-dialog {
-      display: inline-block;
-      vertical-align: middle;
     }
   }
 }

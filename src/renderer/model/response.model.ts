@@ -5,8 +5,8 @@ export class ResponseModel {
 }
 
 export class ResponseDataModel {
-  columns: [];
-  headers: [];
+  columns: any[] = [];
+  headers: any[] = [];
   rows: number;
   statistics: any;
 }

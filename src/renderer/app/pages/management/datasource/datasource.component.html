@@ -60,14 +60,17 @@
         </app-directive-bootstrap-input>
       </div>
       <div class="modal-footer">
-        <button [disabled]="loading.test" type="button" class="btn btn-success"
+        <button [disabled]="loading.button" type="button" class="btn btn-success"
                 (click)="handlerTest()">
           {{'common.test' | translate}}
         </button>
         <button type="button" class="btn btn-danger"
                 (click)="createModal.hide()">{{'common.close' | translate}}
         </button>
-        <button type="button" class="btn btn-primary">{{'common.ok' | translate}}</button>
+        <button [disabled]="disabled.button" type="button" class="btn btn-primary"
+        (click)="handlerSave()">
+          {{'common.ok' | translate}}
+        </button>
       </div>
     </div>
   </div>

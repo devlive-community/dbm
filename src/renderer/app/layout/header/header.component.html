@@ -6,11 +6,8 @@
   </div>
   <ul class="nav">
     <li class="nav-item">
-      <div class="btn-group" dropdown #dp="bs-dropdown">
-        <button id="split-button" type="button" class="btn btn-primary">{{ 'common.management' | translate }}</button>
-        <button type="button" class="btn btn-primary dropdown-toggle-split" dropdownToggle  triggers="hover">
-          <span class="fa fa-arrow-down"></span>
-        </button>
+      <div class="btn-group" triggers="hover" dropdown #dp="bs-dropdown">
+        <a>{{ 'common.management' | translate }}</a>
         <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" (mouseleave)="dp.hide()">
           <a [routerLink]="['/management/datasource']" class="dropdown-item">
             <i class="fa fa-dashcube"> {{ 'common.datasource' | translate }}</i>

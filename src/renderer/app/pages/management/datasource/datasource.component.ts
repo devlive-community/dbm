@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DatasourceModel } from '@renderer/model/datasource.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from '@renderer/app/base.component';
+import { ResponseDataModel } from '@renderer/model/response.model';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-management-datasource',
@@ -11,14 +13,28 @@ import { BaseComponent } from '@renderer/app/base.component';
 })
 export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
+  tableDetails: ResponseDataModel;
+  modalRef: BsModalRef;
 
   constructor(private service: DatasourceService,
-              private toastyService: ToastrService) {
+              private toastyService: ToastrService,
+              private bsModalService: BsModalService) {
     super();
+    this.handlerGetAll();
   }
 
   ngOnInit() {
     this.formInfo = new DatasourceModel();
+  }
+
+  handlerOpenModal(template: TemplateRef<any>) {
+    this.formInfo = new DatasourceModel();
+    this.bsModalService.config.ignoreBackdropClick = true;
+    this.modalRef = this.bsModalService.show(template);
+  }
+
+  handlerCloseModal() {
+    this.modalRef.hide();
   }
 
   handlerTest() {
@@ -31,6 +47,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         this.toastyService.error(response.message);
       } else {
         this.toastyService.success(response.message);
+        this.formInfo.status = true;
         this.disabled.button = false;
       }
       this.loading.button = false;
@@ -46,7 +63,17 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       this.disabled.button = false;
     } else {
       this.toastyService.success(response.message);
+      this.handlerCloseModal();
+      this.handlerGetAll();
     }
     this.loading.button = false;
+  }
+
+  handlerGetKeys(json: any) {
+    return Object.keys(json);
+  }
+
+  handlerGetAll() {
+    this.tableDetails = this.service.getAll().data;
   }
 }

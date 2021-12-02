@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DatasourceComponent } from './datasource.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { InputModule } from '@renderer/directives/bootstrap/input/input.module';
 import { CommonModule } from '@angular/common';
 import { RadioModule } from '@renderer/directives/bootstrap/radio/radio.module';
@@ -36,7 +36,8 @@ const DATASOURCE_ROUTES: Routes = [
       provide: ToastrService,
       useClass: ToastrService
     },
-    DatasourceService
+    DatasourceService,
+    BsModalService
   ]
 })
 export class DatasourceModule {

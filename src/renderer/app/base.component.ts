@@ -3,6 +3,7 @@ export class BaseComponent {
     button: false
   };
   disabled = {
-    button: true
+    button: true,
+    dialog: false
   };
 }

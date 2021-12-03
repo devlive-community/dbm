@@ -12,6 +12,10 @@
     "username": "User Name",
     "password": "Password",
     "ok": "OK",
-    "test": "Test"
+    "test": "Test",
+    "action": "Action",
+    "delete": "Delete",
+    "edit": "Edit",
+    "name": "Name"
   }
 }

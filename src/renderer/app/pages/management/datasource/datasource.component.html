@@ -14,12 +14,31 @@
         </div>
       </div>
       <div class="">
-        <table class="table">
+        <table class="table table-hover">
           <thead>
-          <th *ngFor="let header of tableDetails.headers">{{ header.name }}</th>
+          <tr>
+            <th>{{ "common.alias" | translate }}</th>
+            <th>{{ "common.name" | translate }}</th>
+            <th>{{ "common.host" | translate }}</th>
+            <th>{{ "common.protocol" | translate }}</th>
+            <th>{{ "common.username" | translate }}</th>
+            <th class="text-center">{{ "common.action" | translate }}</th>
+          </tr>
           </thead>
-          <tbody *ngFor="let column of tableDetails.columns">
-          <th *ngFor="let key of handlerGetKeys(column)">{{column[key]}}</th>
+          <tbody>
+          <tr *ngFor="let column of tableDetails.columns" [ngClass]="!column.status ? 'table-danger' : ''">
+            <th>{{column['alias']}}</th>
+            <th>{{column['name']}}</th>
+            <th>{{column['host']}}</th>
+            <th>{{column['protocol']}}</th>
+            <th>{{column['username']}}</th>
+            <th class="text-center">
+              <button class="btn btn-link" tooltip="{{'common.delete'|translate}}"
+                      (click)="handlerDelete(column['alias'])">
+                <i class="fa fa-trash"></i>
+              </button>
+            </th>
+          </tr>
           </tbody>
         </table>
       </div>

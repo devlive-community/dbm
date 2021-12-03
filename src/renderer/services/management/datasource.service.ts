@@ -53,10 +53,21 @@ export class DatasourceService implements BaseService {
       });
       responseData.headers = headers;
       if (StringUtils.isNotEmpty(uniqueName)) {
-        responseData.columns = sources.filter(item => item.name === name);
+        responseData.columns = sources.filter(item => item.alias === uniqueName);
       }
     }
     response.data = responseData;
+    return response;
+  }
+
+  delete(unique: string): ResponseModel {
+    const response = new ResponseModel();
+    response.status = true;
+    const dataSources = JSON.parse(localStorage.getItem(RequestUtils.KEY_DATASOURCE))
+    .filter(item => item.alias !== unique);
+    localStorage.setItem(RequestUtils.KEY_DATASOURCE, JSON.stringify(dataSources));
+    response.message = StringUtils.format('Delete <{0}> success!',
+      [unique]);
     return response;
   }
 }

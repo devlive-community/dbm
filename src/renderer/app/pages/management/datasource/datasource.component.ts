@@ -35,6 +35,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerCloseModal() {
     this.modalRef.hide();
+    this.disabled.button = true;
   }
 
   handlerTest() {
@@ -75,5 +76,11 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerGetAll() {
     this.tableDetails = this.service.getAll().data;
+  }
+
+  handlerDelete(unique: string) {
+    const response = this.service.delete(unique);
+    this.toastyService.success(response.message);
+    this.handlerGetAll();
   }
 }

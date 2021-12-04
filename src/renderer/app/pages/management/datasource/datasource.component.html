@@ -5,7 +5,7 @@
         <div class="btn-margin">
           <button type="button" class="btn btn-primary btn-sm"
                   tooltip="{{ 'common.add' | translate }}"
-                  (click)="handlerOpenModal(template)">
+                  (click)="handlerOpenModal(template, 0)">
             <i class="fa fa-plus"></i>
           </button>
           <button type="button" class="btn btn-success btn-sm" tooltip="{{ 'common.refresh' | translate }}">
@@ -36,6 +36,9 @@
               <button class="btn btn-link" tooltip="{{'common.delete'|translate}}"
                       (click)="handlerDelete(column['alias'])">
                 <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-link" tooltip="{{'common.edit'|translate}}">
+                <i class="fa fa-edit" (click)="handlerOpenModal(template, 2, column['alias'])"></i>
               </button>
             </th>
           </tr>
@@ -94,7 +97,7 @@
           {{'common.close' | translate}}
         </button>
         <button [disabled]="disabled.button" type="button" class="btn btn-primary"
-                (click)="handlerSave()">
+                (click)="actionType === 0 ? handlerSave() : handlerUpdate()">
           {{'common.ok' | translate}}
         </button>
       </div>

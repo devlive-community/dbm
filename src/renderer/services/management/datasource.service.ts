@@ -5,6 +5,7 @@ import { HttpUtils } from '@renderer/utils/http.utils';
 import { UrlUtils } from '@renderer/utils/url.utils';
 import { RequestUtils } from '@renderer/utils/request.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { DatasourceModel } from '@renderer/model/datasource.model';
 
 export class DatasourceService implements BaseService {
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -68,6 +69,25 @@ export class DatasourceService implements BaseService {
     localStorage.setItem(RequestUtils.KEY_DATASOURCE, JSON.stringify(dataSources));
     response.message = StringUtils.format('Delete <{0}> success!',
       [unique]);
+    return response;
+  }
+
+  update(unique: string, source: DatasourceModel) {
+    const response = new ResponseModel();
+    const dataSources = JSON.parse(localStorage.getItem(RequestUtils.KEY_DATASOURCE))
+    .filter(item => item.alias !== unique);
+    const validateResponse = dataSources.filter(item => item.alias === source.alias);
+    if (validateResponse.length > 0) {
+      response.message = StringUtils.format('DataSource <{0}> update error, exists!',
+        [source.alias]);
+      response.status = false;
+    } else {
+      dataSources.push(source);
+      localStorage.setItem(RequestUtils.KEY_DATASOURCE, JSON.stringify(dataSources));
+      response.message = StringUtils.format('Update <{0}> success!',
+        [unique]);
+      response.status = true;
+    }
     return response;
   }
 }

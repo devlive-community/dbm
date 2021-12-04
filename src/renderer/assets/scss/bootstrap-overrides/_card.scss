@@ -7,14 +7,21 @@
   }
 }
 
+.card-body {
+  flex: 1 1 auto;
+  padding: 10px;
+}
+
 .card-title {
   font-size: 1.25rem;
   font-weight: normal;
+  border-bottom: 1px solid #e9ecef;
 
   &:last-child {
     margin-bottom: 0;
   }
 }
+
 
 .card-subtitle {
   color: $text-muted;
@@ -62,12 +69,12 @@
 }
 
 .card--inverse {
-  &, 
+  &,
   .card-title,
   .card-link {
     color: $white;
   }
-  
+
   .card-subtitle {
     color: rgba($white, 0.8);
   }

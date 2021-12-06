@@ -7,6 +7,7 @@ import { BaseComponent } from '@renderer/app/base.component';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActionEnum } from '@renderer/enum/action.enum';
+import { DatasourceJob } from '@renderer/job/datasource.job';
 
 @Component({
   selector: 'app-management-datasource',
@@ -21,7 +22,8 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   constructor(private service: DatasourceService,
               private toastyService: ToastrService,
-              private bsModalService: BsModalService) {
+              private bsModalService: BsModalService,
+              private datasourceJob: DatasourceJob) {
     super();
     this.handlerGetAll();
   }
@@ -58,7 +60,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       if (!response.status) {
         this.toastyService.error(response.message);
       } else {
-        this.toastyService.success(response.message);
+        this.toastyService.success('Test connection success!');
         this.formInfo.status = true;
         this.disabled.button = false;
       }
@@ -100,5 +102,10 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       this.handlerCloseModal();
       this.handlerGetAll();
     }
+  }
+
+  handlerRefresh() {
+    this.datasourceJob.checkHealth();
+    this.handlerGetAll();
   }
 }

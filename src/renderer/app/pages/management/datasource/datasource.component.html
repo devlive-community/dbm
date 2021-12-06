@@ -8,7 +8,9 @@
                   (click)="handlerOpenModal(template, 0)">
             <i class="fa fa-plus"></i>
           </button>
-          <button type="button" class="btn btn-success btn-sm" tooltip="{{ 'common.refresh' | translate }}">
+          <button type="button" class="btn btn-success btn-sm"
+                  tooltip="{{ 'common.refresh' | translate }}"
+                  (click)="handlerRefresh()">
             <i class="fa fa-refresh"></i>
           </button>
         </div>

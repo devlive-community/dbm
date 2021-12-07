@@ -1,0 +1,109 @@
+<section class="content--full">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">
+        <div class="btn-margin">
+          <button type="button" class="btn btn-primary btn-sm"
+                  tooltip="{{ 'common.add' | translate }}"
+                  (click)="handlerOpenModal(template, 0)">
+            <i class="fa fa-plus"></i>
+          </button>
+          <button type="button" class="btn btn-success btn-sm"
+                  tooltip="{{ 'common.refresh' | translate }}"
+                  (click)="handlerRefresh()">
+            <i class="fa fa-refresh"></i>
+          </button>
+        </div>
+      </div>
+      <div class="">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>{{ "common.alias" | translate }}</th>
+            <th>{{ "common.name" | translate }}</th>
+            <th>{{ "common.host" | translate }}</th>
+            <th>{{ "common.protocol" | translate }}</th>
+            <th>{{ "common.username" | translate }}</th>
+            <th class="text-center">{{ "common.action" | translate }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let column of tableDetails.columns" [ngClass]="!column.status ? 'table-danger' : ''">
+            <th>{{column['alias']}}</th>
+            <th>{{column['name']}}</th>
+            <th>{{column['host']}}</th>
+            <th>{{column['protocol']}}</th>
+            <th>{{column['username']}}</th>
+            <th class="text-center">
+              <button class="btn btn-link" tooltip="{{'common.delete'|translate}}"
+                      (click)="handlerDelete(column['alias'])">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-link" tooltip="{{'common.edit'|translate}}">
+                <i class="fa fa-edit" (click)="handlerOpenModal(template, 2, column['alias'])"></i>
+              </button>
+            </th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Create new modal start -->
+<ng-template class="modal fade" #template>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left">{{'common.datasource' | translate}}</h5>
+      </div>
+      <div class="modal-body">
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.alias"
+          [config]="{'addon': 'common.alias'| translate, 'icon': 'tag' }">
+        </app-directive-bootstrap-input>
+        {{'common.protocol' | translate}}
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'http', 'value': 'http'}">
+        </app-directive-bootstrap-radio>
+        <app-directive-bootstrap-radio
+          [(message)]="formInfo.protocol"
+          [config]="{'name': 'ppp', 'title': 'https', 'value': 'https', 'checked': true, 'disabled': true}">
+        </app-directive-bootstrap-radio>
+        <br/><br/>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.host"
+          [config]="{'addon': 'common.host'| translate, 'icon': 'server' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.port"
+          [config]="{'addon': 'common.port'| translate, 'icon': 'fire' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.username"
+          [config]="{'addon': 'common.username'| translate, 'icon': 'user' }">
+        </app-directive-bootstrap-input>
+        <app-directive-bootstrap-input
+          [(message)]="formInfo.password"
+          [config]="{'addon': 'common.password'| translate, 'icon': 'unlock' }">
+        </app-directive-bootstrap-input>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="loading.button" type="button" class="btn btn-success"
+                (click)="handlerTest()">
+          {{'common.test' | translate}}
+        </button>
+        <button type="button" class="btn btn-danger"
+                (click)="handlerCloseModal()">
+          {{'common.close' | translate}}
+        </button>
+        <button [disabled]="disabled.button" type="button" class="btn btn-primary"
+                (click)="actionType === 0 ? handlerSave() : handlerUpdate()">
+          {{'common.ok' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- Create new modal end -->

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "target": "es5",
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "es2020",
+      "es2019",
+      "es2018",
+      "dom"
+    ]
+  },
+  "files": [
+    "./app-runner/index.ts"
+  ]
+}

@@ -1,0 +1,46 @@
+appId: 'github.com/EdurtIO/dbm'
+artifactName: ${name}-${version}-${os}-${arch}.${ext}
+productName: 'dbm'
+publish: { provider: github, releaseType: draft, vPrefixedTagName: true }
+forceCodeSigning: false
+
+directories:
+  output: ./release
+files:
+  - '**/*'
+  - '!**/*.ts'
+  - '!scripts'
+  - '!src'
+  - '!node_modules/rxjs/{_esm5,_esm2015,src,bundles}'
+compression: normal
+asar: false
+
+mac:
+  icon: ./src/shared/assets/icons
+  category: public.app-category.productivity
+  darkModeSupport: true
+  target:
+    - { target: dmg }
+
+dmg:
+  icon: ./src/shared/assets/icons
+  iconSize: 128
+  contents:
+    - { x: 380, y: 240, type: link, path: /Applications }
+    - { x: 122, y: 240, type: file }
+
+linux:
+  icon: ./src/shared/assets/icons/favicon.png
+  target:
+    - { target: AppImage }
+
+win:
+  artifactName: ${name}-${version}-windows-${arch}.${ext}
+  icon: ./src/shared/assets/icons/favicon.ico
+  target:
+    - { target: nsis }
+
+nsis:
+  artifactName: ${name}-${version}-windows-${arch}-nsis-installer.${ext}
+  oneClick: false
+  perMachine: false

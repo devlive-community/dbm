@@ -1,0 +1,60 @@
+// Theming
+@mixin ma-theme($color) {
+  .header,
+  .login__block__header,
+  .login__block__btn {
+    background-color: $color !important;
+  }
+
+  .navigation__sub--active > a,
+  .navigation__active > a,
+  .navigation__active:before {
+    color: $color !important;
+  }
+
+  .top-menu {
+    & > li.active {
+      box-shadow: inset 0 -2px 0 $color !important;
+    }
+  }
+}
+
+[data-ma-theme="green"] {
+  @include ma-theme($green);
+}
+
+[data-ma-theme="blue"] {
+  @include ma-theme($blue);
+}
+
+[data-ma-theme="red"] {
+  @include ma-theme($red);
+}
+
+[data-ma-theme="orange"] {
+  @include ma-theme($orange);
+}
+
+[data-ma-theme="teal"] {
+  @include ma-theme($teal);
+}
+
+[data-ma-theme="cyan"] {
+  @include ma-theme($cyan);
+}
+
+[data-ma-theme="blue-grey"] {
+  @include ma-theme($blue-grey);
+}
+
+[data-ma-theme="purple"] {
+  @include ma-theme($purple);
+}
+
+[data-ma-theme="indigo"] {
+  @include ma-theme($indigo);
+}
+
+[data-ma-theme="lime"] {
+  @include ma-theme($lime);
+}

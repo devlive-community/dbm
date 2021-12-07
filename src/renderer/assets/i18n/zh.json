@@ -1,0 +1,9 @@
+{
+  "common": {
+    "management": "管理",
+    "datasource": "数据源",
+    "add": "新增",
+    "refresh": "刷新",
+    "close": "关闭"
+  }
+}

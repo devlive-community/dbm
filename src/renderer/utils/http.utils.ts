@@ -7,11 +7,11 @@ const timeout = 10 * 1000;
 export class HttpUtils {
   public static post(url, data = {}): Promise<any> {
     return new Promise((resolve, reject) => {
-      axios.post(url, data, {timeout})
+      axios.post(url, data + ' FORMAT JSON', {timeout})
       .then(rs => {
         const response = new ResponseModel();
         if (rs.status === 200) {
-          if (response.data) {
+          if (rs.data) {
             const responseData = new ResponseDataModel();
             responseData.headers = rs.data.meta;
             responseData.columns = rs.data.data;
@@ -28,7 +28,7 @@ export class HttpUtils {
         const response = new ResponseModel();
         response.status = false;
         if (error.response) {
-          response.message = error.response;
+          response.message = error.response.data;
         } else {
           response.message = error;
         }

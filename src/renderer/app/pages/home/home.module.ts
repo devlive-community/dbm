@@ -18,6 +18,5 @@ const HOME_ROUTES: Routes = [
   ],
   providers: []
 })
-// @ts-ignore
 export class HomeModule {
 }

@@ -7,6 +7,7 @@ import { QueryService } from '@renderer/services/query/query.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { ToastrService } from 'ngx-toastr';
+import { SqlUtils } from '@renderer/utils/sql.utils';
 
 @Component({
   selector: 'app-query',
@@ -54,5 +55,9 @@ export class QueryComponent extends BaseComponent {
 
   handlerSelectionExecute() {
     this.handlerExecute(this.codeEditor.codeMirror.getSelection());
+  }
+
+  handlerFormatter() {
+    this.codeEditor.codeMirror.setValue(SqlUtils.formatter(this.codeEditor.codeMirror.getValue()));
   }
 }

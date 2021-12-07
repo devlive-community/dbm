@@ -28,7 +28,7 @@ export class HttpUtils {
         const response = new ResponseModel();
         response.status = false;
         if (error.response) {
-          response.message = error.response;
+          response.message = error.response.data;
         } else {
           response.message = error;
         }

@@ -16,6 +16,11 @@
                   (click)="handlerExecute()">
             <i class="fa fa-{{loading.button ? 'spinner fa-spin' : 'flash'}}"></i> {{ 'common.execute' | translate }}
           </button>
+          <button type="button" class="btn btn-primary btn-sm"
+                  [disabled]="disabledButton.execute"
+                  (click)="handlerSelectionExecute()">
+            <i class="fa fa-flask"></i> {{ 'common.select' | translate }} {{ 'common.execute' | translate }}
+          </button>
         </div>
       </div>
       <div class="card-body">

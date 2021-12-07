@@ -6481,6 +6481,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npm.taobao.org/lodash.debounce/download/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
 lodash.ismatch@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
@@ -6636,6 +6641,11 @@ matcher@^3.0.0:
   integrity sha1-vZBg9MW3CqgEHMxvgDaHYJlPMMo=
   dependencies:
     escape-string-regexp "^4.0.0"
+
+material-design-iconic-font@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/material-design-iconic-font/-/material-design-iconic-font-2.2.0.tgz#66c3b1c880ef0cb87c02ca2a0f900ff0fe7f480d"
+  integrity sha1-ZsOxyIDvDLh8AsoqD5AP8P5/SA0=
 
 mdn-data@2.0.14:
   version "2.0.14"
@@ -7005,6 +7015,14 @@ ngx-bootstrap@^7.1.0:
   integrity sha512-2qUTqq+DtimKpYNEga85G00zdMEZ2fcvtYaZkrdZRtwqyCXbPC69LXXzLkgu5697m83++iFWvwFp0IJDuGev1A==
   dependencies:
     tslib "^2.0.0"
+
+ngx-select-ex@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-select-ex/-/ngx-select-ex-7.0.1.tgz#03366319c7ceb5219f366601b3d78cff338ddbc4"
+  integrity sha512-Iwf4JGaDdKCt98iUrBqFhDaqZuTCnXmasr4q9EnrLCWoHeSuocAv1DB5upP9cFFAdUnfDJkje6O2Y+UmTARsJQ==
+  dependencies:
+    lodash.isequal "^4.5.0"
+    tslib "^2.2.0"
 
 ngx-toastr@^14.2.1:
   version "14.2.1"

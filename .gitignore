@@ -11,6 +11,8 @@ src/**/*.js
 !src/karma.conf.js
 *.js.map
 
+scripts/app-runner/*.js
+
 # dependencies
 node_modules
 

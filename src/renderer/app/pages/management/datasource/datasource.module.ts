@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { RadioModule } from '@renderer/directives/bootstrap/radio/radio.module';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { DatasourceJob } from '@renderer/job/datasource.job';
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -37,7 +38,8 @@ const DATASOURCE_ROUTES: Routes = [
       useClass: ToastrService
     },
     DatasourceService,
-    BsModalService
+    BsModalService,
+    DatasourceJob
   ]
 })
 export class DatasourceModule {

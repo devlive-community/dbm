@@ -12,6 +12,18 @@
     "username": "User Name",
     "password": "Password",
     "ok": "OK",
-    "test": "Test"
+    "test": "Test",
+    "action": "Action",
+    "delete": "Delete",
+    "edit": "Edit",
+    "name": "Name",
+    "query": "Query",
+    "execute": "Execute",
+    "history": "History",
+    "format": "Format",
+    "cancel": "Cancel",
+    "select": "Select",
+    "quick": "Quick",
+    "result": "Result"
   }
 }

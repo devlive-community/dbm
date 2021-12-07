@@ -34,7 +34,8 @@
               "src/renderer/assets"
             ],
             "styles": [
-              "src/renderer/styles.scss"
+              "src/renderer/styles.scss",
+              "node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css"
             ],
             "scripts": [],
             "customWebpackConfig": {

@@ -51,4 +51,8 @@ export class QueryComponent extends BaseComponent {
       }
     });
   }
+
+  handlerSelectionExecute() {
+    this.handlerExecute(this.codeEditor.codeMirror.getSelection());
+  }
 }

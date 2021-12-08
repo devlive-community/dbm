@@ -1,4 +1,18 @@
-<main class="main" [attr.data-ma-theme]="'green'">
+<!--<main class="main" [attr.data-ma-theme]="'green'">-->
+<!--  -->
+<!--  <router-outlet></router-outlet>-->
+<!--</main>-->
+<nz-layout nzTheme="light">
   <app-header></app-header>
-  <router-outlet></router-outlet>
-</main>
+  <nz-content>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+      <nz-breadcrumb-item>List</nz-breadcrumb-item>
+      <nz-breadcrumb-item>App</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+</nz-layout>

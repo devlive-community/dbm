@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,14 +15,9 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    ToastrModule.forRoot()
+    AppRoutingModule
   ],
   providers: [
-    {
-      provide: ToastrService,
-      useClass: ToastrService
-    },
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy

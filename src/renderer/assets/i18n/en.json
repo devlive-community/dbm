@@ -25,5 +25,13 @@
     "select": "Select",
     "quick": "Quick",
     "result": "Result"
+  },
+  "placeholder": {
+    "alias": "Please input alias name!",
+    "protocol": "Please select protocol type!",
+    "host": "Please input host!",
+    "port": "Please input port!",
+    "username": "Please input username!",
+    "password": "Please input password!"
   }
 }

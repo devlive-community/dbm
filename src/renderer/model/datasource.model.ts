@@ -9,5 +9,5 @@ export class DatasourceModel {
   status = false;
   message: string;
   delivery = false;
-  protocol = 'http';
+  protocol = 'HTTP';
 }

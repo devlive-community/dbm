@@ -6,4 +6,10 @@ export class BaseComponent {
     button: true,
     dialog: false
   };
+  dialog = {
+    create: false,
+    delete: false,
+    update: false,
+    select: false
+  };
 }

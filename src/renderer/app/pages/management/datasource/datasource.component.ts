@@ -1,13 +1,13 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatasourceModel } from '@renderer/model/datasource.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { RequestModel } from '@renderer/model/request.model';
-import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from '@renderer/app/base.component';
 import { ResponseDataModel } from '@renderer/model/response.model';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-management-datasource',
@@ -16,15 +16,23 @@ import { DatasourceJob } from '@renderer/job/datasource.job';
 export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
   tableDetails: ResponseDataModel;
-  modalRef: BsModalRef;
   actionType: ActionEnum;
   actionSource: string;
+  validateForm!: FormGroup;
 
   constructor(private service: DatasourceService,
-              private toastyService: ToastrService,
-              private bsModalService: BsModalService,
-              private datasourceJob: DatasourceJob) {
+              private messageService: NzMessageService,
+              private datasourceJob: DatasourceJob,
+              private formBuilder: FormBuilder) {
     super();
+    this.validateForm = this.formBuilder.group({
+      alias: [null, [Validators.required]],
+      protocol: [null, [Validators.required]],
+      host: [null, [Validators.required]],
+      port: [null, [Validators.required]],
+      username: [null, []],
+      password: [null, []]
+    });
     this.handlerGetAll();
   }
 
@@ -32,9 +40,8 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     this.formInfo = new DatasourceModel();
   }
 
-  handlerOpenModal(template: TemplateRef<any>, type: ActionEnum, unique?: string) {
-    this.bsModalService.config.ignoreBackdropClick = true;
-    this.modalRef = this.bsModalService.show(template);
+  handlerOpenModal(type: ActionEnum, unique?: string) {
+    this.dialog.create = true;
     this.actionType = type;
     this.actionSource = unique;
     switch (type) {
@@ -47,7 +54,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   }
 
   handlerCloseModal() {
-    this.modalRef.hide();
+    this.dialog.create = false;
     this.disabled.button = true;
   }
 
@@ -58,9 +65,9 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     request.config = this.formInfo;
     this.service.getResponse(request).then(response => {
       if (!response.status) {
-        this.toastyService.error(response.message);
+        this.messageService.error(response.message);
       } else {
-        this.toastyService.success('Test connection success!');
+        this.messageService.success('Test connection success!');
         this.formInfo.status = true;
         this.disabled.button = false;
       }
@@ -73,10 +80,10 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     request.config = this.formInfo;
     const response = this.service.save(request);
     if (!response.status) {
-      this.toastyService.error(response.message);
+      // this.toastyService.error(response.message);
       this.disabled.button = false;
     } else {
-      this.toastyService.success(response.message);
+      // this.toastyService.success(response.message);
       this.handlerCloseModal();
       this.handlerGetAll();
     }
@@ -89,16 +96,16 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerDelete(unique: string) {
     const response = this.service.delete(unique);
-    this.toastyService.success(response.message);
+    // this.toastyService.success(response.message);
     this.handlerGetAll();
   }
 
   handlerUpdate() {
     const response = this.service.update(this.actionSource, this.formInfo);
     if (!response.status) {
-      this.toastyService.error(response.message);
+      // this.toastyService.error(response.message);
     } else {
-      this.toastyService.success(response.message);
+      // this.toastyService.success(response.message);
       this.handlerCloseModal();
       this.handlerGetAll();
     }
@@ -107,5 +114,18 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   handlerRefresh() {
     this.datasourceJob.checkHealth();
     this.handlerGetAll();
+  }
+
+  handlerSubmitForm(): void {
+    if (this.validateForm.valid) {
+      this.handlerTest();
+    } else {
+      Object.values(this.validateForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({onlySelf: true});
+        }
+      });
+    }
   }
 }

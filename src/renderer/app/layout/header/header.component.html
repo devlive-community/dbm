@@ -1,24 +1,23 @@
-<header class="header">
-  <div class="header__logo">
+<nz-header nzTheme="light" class="layout">
+  <div class="logo">
     <h1>
       <a [routerLink]="['/']">DBM</a>
     </h1>
   </div>
-  <ul class="nav  justify-content-end">
-    <li class="nav-item">
+  <ul nz-menu nzMode="horizontal">
+    <li nz-menu-item>
       <a class="nav-link" [routerLink]="['/query']">
         <i class="fa fa-search"> {{ 'common.query' | translate }}</i>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" triggers="hover" dropdown #dp="bs-dropdown">
-        <i class="fa fa-magnet"> {{ 'common.management' | translate }}</i>
-        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" (mouseleave)="dp.hide()">
+    <li nz-submenu nzTitle="{{ 'common.management' | translate }}">
+      <ul>
+        <li nz-menu-item>
           <a [routerLink]="['/management/datasource']" class="dropdown-item">
             <i class="fa fa-dashcube"> {{ 'common.datasource' | translate }}</i>
           </a>
-        </ul>
-      </a>
+        </li>
+      </ul>
     </li>
   </ul>
-</header>
+</nz-header>

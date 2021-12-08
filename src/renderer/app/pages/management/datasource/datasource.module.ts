@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DatasourceComponent } from './datasource.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
-import { InputModule } from '@renderer/directives/bootstrap/input/input.module';
 import { CommonModule } from '@angular/common';
-import { RadioModule } from '@renderer/directives/bootstrap/radio/radio.module';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { DatasourceJob } from '@renderer/job/datasource.job';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -20,25 +26,28 @@ const DATASOURCE_ROUTES: Routes = [
   imports: [
     FormsModule,
     TranslateModule,
-    TooltipModule,
-    ModalModule,
-    InputModule,
     CommonModule,
-    RadioModule,
-    ToastrModule.forRoot(),
-    RouterModule.forChild(DATASOURCE_ROUTES)
+    NzTableModule,
+    NzCardModule,
+    NzButtonModule,
+    NzToolTipModule,
+    NzTableModule,
+    NzModalModule,
+    NzFormModule,
+    NzInputModule,
+    NzRadioModule,
+    NzMessageModule,
+    NzPopconfirmModule,
+    NzEmptyModule,
+    RouterModule.forChild(DATASOURCE_ROUTES),
+    ReactiveFormsModule
   ],
   exports: [],
   declarations: [
     DatasourceComponent
   ],
   providers: [
-    {
-      provide: ToastrService,
-      useClass: ToastrService
-    },
     DatasourceService,
-    BsModalService,
     DatasourceJob
   ]
 })

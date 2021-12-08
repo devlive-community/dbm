@@ -9936,6 +9936,11 @@ ts-loader@^9.2.3:
     micromatch "^4.0.0"
     semver "^7.3.4"
 
+ts-md5@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.10.tgz#65c9208697a2478269e5e4f45518090fe46dcdcb"
+  integrity sha512-ZpBxcZRHSqVMWU4lE6pTMM6PTxSNZM6ziLwasimxxE/SiItgdalL8bKproawJ+6cPR4M2mSD4+cAgt90VYzjUQ==
+
 ts-node@^10.0.0:
   version "10.1.0"
   resolved "https://registry.nlark.com/ts-node/download/ts-node-10.1.0.tgz?cache=0&sync_timestamp=1625866710908&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fts-node%2Fdownload%2Fts-node-10.1.0.tgz#e656d8ad3b61106938a867f69c39a8ba6efc966e"

@@ -11,6 +11,8 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { CommonModule } from '@angular/common';
 import { QueryService } from '@renderer/services/query/query.service';
 import { TableModule } from '@renderer/directives/bootstrap/table/table.module';
+import { QueryHistoryService } from '@renderer/services/query/query.history.service';
+import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -25,7 +27,8 @@ const QUERY_ROUTES: Routes = [
     RouterModule.forChild(QUERY_ROUTES),
     NgxSelectModule,
     CommonModule,
-    TableModule
+    TableModule,
+    ModalModule
   ],
   exports: [],
   declarations: [
@@ -34,7 +37,9 @@ const QUERY_ROUTES: Routes = [
   providers: [
     EditorService,
     DatasourceService,
-    QueryService
+    QueryService,
+    QueryHistoryService,
+    BsModalService
   ]
 })
 export class QueryModule {

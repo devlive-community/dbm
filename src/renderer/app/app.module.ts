@@ -6,6 +6,7 @@ import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/c
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
-    }
+    },
+    BsModalService
   ],
   bootstrap: [AppComponent]
 })

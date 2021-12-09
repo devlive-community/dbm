@@ -54,12 +54,12 @@ export class QueryComponent extends BaseComponent {
   handlerExecute(sql?: string) {
     const queryHistory = new QueryHistoryModel();
     queryHistory.id = Md5.hashStr(sql + new Date());
-    queryHistory.query = sql;
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];
     queryHistory.server = this.datasource;
     sql = StringUtils.isEmpty(sql) ? this.codeEditors.get(this.containerSelected)['codeMirror'].getValue() : sql;
+    queryHistory.query = sql;
     this.queryService.getResponse(request, sql).then(response => {
       if (response.status) {
         this.responseTableData[this.containerSelected] = response.data;
@@ -95,5 +95,6 @@ export class QueryComponent extends BaseComponent {
   handlerCloseContainer({index}: { index: number }) {
     this.editorContainers.splice(index, 1);
     this.resultContainers.splice(index, 1);
+    this.responseTableData.splice(index, 1);
   }
 }

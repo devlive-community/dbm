@@ -25,10 +25,10 @@
       <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td>{{data.alias}}</td>
-        <th>{{data.name ? data.name : '-'}}</th>
-        <th>{{data.host}}</th>
-        <th>{{data.protocol}}</th>
-        <th>{{data.username ? data.username : '-'}}</th>
+        <td>{{data.name ? data.name : '-'}}</td>
+        <td>{{data.host}}</td>
+        <td>{{data.protocol}}</td>
+        <td>{{data.username ? data.username : '-'}}</td>
         <td>
           <button nz-button nzShape="circle" nzSize="small" nzDanger
                   nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"

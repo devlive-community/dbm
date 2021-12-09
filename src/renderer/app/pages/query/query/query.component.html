@@ -40,6 +40,9 @@
   <button nz-button nzType="primary" nzSize="small" (click)="handlerAddContainer()">
     <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
   </button>
+  <button style="float: right;" nz-button nzType="primary" nzSize="small" (click)="handlerQuickQuery()">
+    <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}} {{'common.query' | translate}}
+  </button>
 </ng-template>
 <!-- Query result container -->
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.result'|translate}}">
@@ -48,10 +51,8 @@
     nzType="editable-card" nzHideAdd
     (nzClose)="handlerCloseContainer($event)">
     <nz-tab *ngFor="let editor of resultContainers; let i = index" [nzClosable]="i > 0" [nzTitle]="editor">
-      <nz-table *ngIf="responseTableData[i]?.columns.length > 0; else notHasValues"
-                #response
-                [nzData]="responseTableData[i].columns"
-                nzShowPagination>
+      <nz-table *ngIf="responseTableData[i]?.columns?.length > 0; else notHasValues"
+                #response [nzData]="responseTableData[i].columns" nzShowPagination>
         <thead>
         <tr>
           <th *ngFor="let header of responseTableData[i].headers">{{header?.name}}</th>
@@ -77,3 +78,7 @@
     </nz-tab>
   </nz-tabset>
 </nz-card>
+<app-component-quick-query *ngIf="dialog.select" [visible]="dialog.select"
+                           (emitter)="handlerQuickQuery(true)"
+                           (emitterValue)="handlerQuickQueryProcessor($event)">
+</app-component-quick-query>

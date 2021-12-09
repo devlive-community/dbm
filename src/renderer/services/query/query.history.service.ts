@@ -11,16 +11,16 @@ export class QueryHistoryService extends PersistenceService implements BaseServi
   }
 
   save(model: BaseModel): any {
-    let histroys = JSON.parse(localStorage.getItem(Support.QUERY_HISTORY));
-    histroys = histroys === null ? [] : histroys;
+    let historySet = JSON.parse(localStorage.getItem(Support.QUERY_HISTORY));
+    historySet = historySet === null ? [] : historySet;
     let index = 1;
-    if (histroys.length > 0) {
-      index = histroys.length + 1;
+    if (historySet.length > 0) {
+      index = historySet.length + 1;
     }
     if (index <= 100) {
-      histroys.id = index;
-      histroys.unshift(model);
-      localStorage.setItem(Support.QUERY_HISTORY, JSON.stringify(histroys));
+      historySet.id = index;
+      historySet.unshift(model);
+      localStorage.setItem(Support.QUERY_HISTORY, JSON.stringify(historySet));
     }
   }
 

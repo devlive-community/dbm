@@ -34,7 +34,9 @@
     "end": "End",
     "elapsed": "Elapsed",
     "ddl": "DDL",
-    "error": "Error"
+    "error": "Error",
+    "database": "Database",
+    "table": "Table"
   },
   "placeholder": {
     "alias": "Please input alias name!",

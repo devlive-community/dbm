@@ -56,6 +56,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   handlerCloseModal() {
     this.dialog.create = false;
     this.disabled.button = true;
+    this.validateForm.clearValidators();
   }
 
   handlerTest() {

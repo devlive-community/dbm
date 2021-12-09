@@ -1,7 +1,11 @@
-//@import '~codemirror/lib/codemirror';
+@import '~codemirror/lib/codemirror';
 @import "~font-awesome/scss/font-awesome";
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
 [nz-button] {
   margin-right: 8px;
+}
+
+.container {
+  height: 200px;
 }

@@ -1,7 +1,7 @@
 <nz-card [nzTitle]="titleTemplate">
   <nz-empty *ngIf="tableDetails.columns.length <= 0; else notHasValues"
-    [nzNotFoundContent]="contentTemplate"
-    [nzNotFoundFooter]="footerTemplate">
+            [nzNotFoundContent]="contentTemplate"
+            [nzNotFoundFooter]="footerTemplate">
     <ng-template #contentTemplate>
     </ng-template>
     <ng-template #footerTemplate>
@@ -129,7 +129,7 @@
             (click)="handlerSubmitForm()">
       {{'common.test' | translate}}
     </button>
-    <button nz-button nzDanger
+    <button [disabled]="loading.button" nz-button nzDanger
             (click)="handlerCloseModal()">
       {{'common.close' | translate}}
     </button>

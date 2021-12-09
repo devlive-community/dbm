@@ -25,7 +25,16 @@
     "select": "Select",
     "quick": "Quick",
     "result": "Result",
-    "editor": "Editor"
+    "editor": "Editor",
+    "id": "ID",
+    "server": "Server",
+    "state": "State",
+    "time": "Time",
+    "start": "Start",
+    "end": "End",
+    "elapsed": "Elapsed",
+    "ddl": "DDL",
+    "error": "Error"
   },
   "placeholder": {
     "alias": "Please input alias name!",

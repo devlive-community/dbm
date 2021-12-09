@@ -1,40 +1,35 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { QueryComponent } from './query.component';
+import { HistoryComponent } from './history.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { EditorService } from '@renderer/services/editor/editor.service';
-import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { CommonModule } from '@angular/common';
-import { QueryService } from '@renderer/services/query/query.service';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 const QUERY_ROUTES: Routes = [
-  {path: '', component: QueryComponent}
+  {path: '', component: HistoryComponent}
 ];
 
 @NgModule({
   imports: [
     FormsModule,
     TranslateModule,
-    CodemirrorModule,
     CommonModule,
     NgZorroAntdModule,
-    CodemirrorModule,
-    RouterModule.forChild(QUERY_ROUTES)
+    RouterModule.forChild(QUERY_ROUTES),
+    CodemirrorModule
   ],
   exports: [],
   declarations: [
-    QueryComponent
+    HistoryComponent
   ],
   providers: [
-    EditorService,
-    DatasourceService,
-    QueryService,
-    QueryHistoryService
+    QueryHistoryService,
+    NzModalService
   ]
 })
-export class QueryModule {
+export class HistoryModule {
 }

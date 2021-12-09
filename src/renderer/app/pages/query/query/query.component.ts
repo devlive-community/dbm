@@ -62,8 +62,12 @@ export class QueryComponent extends BaseComponent {
     queryHistory.query = sql;
     this.queryService.getResponse(request, sql).then(response => {
       if (response.status) {
-        this.responseTableData[this.containerSelected] = response.data;
         queryHistory.state = StateEnum.success;
+        if (response.data) {
+          this.responseTableData[this.containerSelected] = response.data;
+        } else {
+          this.messageService.success('Operation is successful!');
+        }
       } else {
         this.messageService.error(response.message);
         queryHistory.message = response.message;
@@ -96,5 +100,19 @@ export class QueryComponent extends BaseComponent {
     this.editorContainers.splice(index, 1);
     this.resultContainers.splice(index, 1);
     this.responseTableData.splice(index, 1);
+  }
+
+  handlerQuickQuery(close?: boolean) {
+    if (close) {
+      this.dialog.select = false;
+    } else {
+      this.dialog.select = true;
+    }
+  }
+
+  handlerQuickQueryProcessor(sql?: string) {
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    console.log(sql)
+    codeMirror.setValue(sql);
   }
 }

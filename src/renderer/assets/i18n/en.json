@@ -24,7 +24,8 @@
     "cancel": "Cancel",
     "select": "Select",
     "quick": "Quick",
-    "result": "Result"
+    "result": "Result",
+    "editor": "Editor"
   },
   "placeholder": {
     "alias": "Please input alias name!",

@@ -1,0 +1,84 @@
+<nz-card [nzTitle]="titleTemplate">
+  <nz-tabset
+    [(nzSelectedIndex)]="containerSelected"
+    nzType="editable-card" nzHideAdd
+    (nzClose)="handlerCloseContainer($event)">
+    <nz-tab *ngFor="let editor of editorContainers; let i = index" [nzClosable]="i > 0" [nzTitle]="editor">
+      <div class="container">
+        <ngx-codemirror style="height: 100px;" #codeEditors [options]="editorConfig">
+        </ngx-codemirror>
+      </div>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>
+<ng-template #titleTemplate>
+  <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
+             style="width: 150px; margin-right: 8px;"
+             (ngModelChange)="handlerCheckStatus()">
+    <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
+               nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
+  </nz-select>
+  <button nz-button nzType="primary" nzSize="small"
+          [disabled]="disabledButton.execute"
+          (click)="handlerExecute()">
+    <i class="fa fa-{{loading.button ? 'spinner fa-spin' : 'flash'}}"></i>&nbsp;{{'common.execute'|translate}}
+  </button>
+  <button nz-button nzType="primary" nzSize="small"
+          [disabled]="disabledButton.execute"
+          (click)="handlerSelectionExecute()">
+    <i class="fa fa-flask"></i>&nbsp;{{'common.select'|translate}} {{'common.execute'|translate}}
+  </button>
+  <button nz-button nzType="dashed" nzSize="small"
+          [disabled]="disabledButton.execute"
+          (click)="handlerFormatter()">
+    <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
+  </button>
+  <button nz-button nzType="primary" nzSize="small" nzDanger
+          [disabled]="disabledButton.execute">
+    <i class="fa fa-close"></i>&nbsp;{{'common.cancel'|translate}}
+  </button>
+  <button nz-button nzType="primary" nzSize="small" (click)="handlerAddContainer()">
+    <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
+  </button>
+  <button style="float: right;" nz-button nzType="primary" nzSize="small" (click)="handlerQuickQuery()">
+    <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}} {{'common.query' | translate}}
+  </button>
+</ng-template>
+<!-- Query result container -->
+<nz-card style="margin-top: 10px;" nzTitle="{{'common.result'|translate}}">
+  <nz-tabset
+    [(nzSelectedIndex)]="containerSelected"
+    nzType="editable-card" nzHideAdd
+    (nzClose)="handlerCloseContainer($event)">
+    <nz-tab *ngFor="let editor of resultContainers; let i = index" [nzClosable]="i > 0" [nzTitle]="editor">
+      <nz-table *ngIf="responseTableData[i]?.columns?.length > 0; else notHasValues"
+                #response [nzData]="responseTableData[i].columns" nzShowPagination>
+        <thead>
+        <tr>
+          <th *ngFor="let header of responseTableData[i].headers">{{header?.name}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let column of response.data;">
+          <td *ngFor="let header of responseTableData[i].headers">
+            {{column[header.name]}}
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <ng-template #notHasValues>
+        <nz-empty [nzNotFoundContent]="contentTemplate"
+                  [nzNotFoundFooter]="footerTemplate">
+          <ng-template #contentTemplate>
+          </ng-template>
+          <ng-template #footerTemplate>
+          </ng-template>
+        </nz-empty>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>
+<app-component-quick-query *ngIf="dialog.select" [visible]="dialog.select"
+                           (emitter)="handlerQuickQuery(true)"
+                           (emitterValue)="handlerQuickQueryProcessor($event)">
+</app-component-quick-query>

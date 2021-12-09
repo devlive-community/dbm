@@ -24,7 +24,19 @@
     "cancel": "Cancel",
     "select": "Select",
     "quick": "Quick",
-    "result": "Result"
+    "result": "Result",
+    "editor": "Editor",
+    "id": "ID",
+    "server": "Server",
+    "state": "State",
+    "time": "Time",
+    "start": "Start",
+    "end": "End",
+    "elapsed": "Elapsed",
+    "ddl": "DDL",
+    "error": "Error",
+    "database": "Database",
+    "table": "Table"
   },
   "placeholder": {
     "alias": "Please input alias name!",

@@ -5,10 +5,19 @@
     </h1>
   </div>
   <ul nz-menu nzMode="horizontal">
-    <li nz-menu-item>
-      <a class="nav-link" [routerLink]="['/query']">
-        <i class="fa fa-search"> {{ 'common.query' | translate }}</i>
-      </a>
+    <li nz-submenu [nzTitle]="queryMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/query/query']" class="dropdown-item">
+            <i class="fa fa-search"> {{ 'common.query' | translate }}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/query/history']">
+            <i class="fa fa-history"> {{ 'common.history' | translate }}</i>
+          </a>
+        </li>
+      </ul>
     </li>
     <li nz-submenu nzTitle="{{ 'common.management' | translate }}">
       <ul>
@@ -20,4 +29,7 @@
       </ul>
     </li>
   </ul>
+  <ng-template #queryMenuItemTitle>
+    <i class="fa fa-search"></i>&nbsp;{{'common.query'|translate}}
+  </ng-template>
 </nz-header>

@@ -9,6 +9,9 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { CommonModule } from '@angular/common';
 import { QueryService } from '@renderer/services/query/query.service';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
+import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
+import { QuickQueryComponent } from '@renderer/components/query/quick/quick.query.component';
+import { QueryQuickService } from '@renderer/services/query/query.quick.service';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -19,18 +22,21 @@ const QUERY_ROUTES: Routes = [
     FormsModule,
     TranslateModule,
     CodemirrorModule,
-    RouterModule.forChild(QUERY_ROUTES),
-    CommonModule
+    CommonModule,
+    NgZorroAntdModule,
+    RouterModule.forChild(QUERY_ROUTES)
   ],
   exports: [],
   declarations: [
-    QueryComponent
+    QueryComponent,
+    QuickQueryComponent
   ],
   providers: [
     EditorService,
     DatasourceService,
     QueryService,
-    QueryHistoryService
+    QueryHistoryService,
+    QueryQuickService
   ]
 })
 export class QueryModule {

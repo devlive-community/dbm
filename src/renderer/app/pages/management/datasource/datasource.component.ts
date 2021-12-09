@@ -56,6 +56,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   handlerCloseModal() {
     this.dialog.create = false;
     this.disabled.button = true;
+    this.validateForm.clearValidators();
   }
 
   handlerTest() {
@@ -80,10 +81,10 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     request.config = this.formInfo;
     const response = this.service.save(request);
     if (!response.status) {
-      // this.toastyService.error(response.message);
+      this.messageService.error(response.message);
       this.disabled.button = false;
     } else {
-      // this.toastyService.success(response.message);
+      this.messageService.success(response.message);
       this.handlerCloseModal();
       this.handlerGetAll();
     }
@@ -96,16 +97,16 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerDelete(unique: string) {
     const response = this.service.delete(unique);
-    // this.toastyService.success(response.message);
+    this.messageService.success(response.message);
     this.handlerGetAll();
   }
 
   handlerUpdate() {
     const response = this.service.update(this.actionSource, this.formInfo);
     if (!response.status) {
-      // this.toastyService.error(response.message);
+      this.messageService.error(response.message);
     } else {
-      // this.toastyService.success(response.message);
+      this.messageService.success(response.message);
       this.handlerCloseModal();
       this.handlerGetAll();
     }

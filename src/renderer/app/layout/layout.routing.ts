@@ -15,7 +15,16 @@ const LAYOUT_ROUTES: Routes = [
       },
       {
         path: 'query',
-        loadChildren: () => import('../pages/query/query.module').then(m => m.QueryModule)
+        children: [
+          {
+            path: 'query',
+            loadChildren: () => import('../pages/query/query/query.module').then(m => m.QueryModule)
+          },
+          {
+            path: 'history',
+            loadChildren: () => import('../pages/query/history/history.module').then(m => m.HistoryModule)
+          }
+        ]
       },
       {
         path: 'management',

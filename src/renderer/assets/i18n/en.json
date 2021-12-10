@@ -36,7 +36,14 @@
     "ddl": "DDL",
     "error": "Error",
     "database": "Database",
-    "table": "Table"
+    "table": "Table",
+    "tools": "Tools",
+    "system": "System",
+    "monitor": "Monitor",
+    "language": "Language",
+    "track": "Track",
+    "exception": "Exception",
+    "stack": "Stack"
   },
   "placeholder": {
     "alias": "Please input alias name!",

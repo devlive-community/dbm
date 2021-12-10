@@ -30,6 +30,7 @@ export class QueryComponent extends BaseComponent {
   responseTableData: ResponseDataModel[] = new Array();
   editorContainers = [];
   resultContainers = [];
+  loadingContainers = [];
   containerSelected = 0;
 
   constructor(private editorService: EditorService,
@@ -42,6 +43,7 @@ export class QueryComponent extends BaseComponent {
     this.dataSources = this.datasourceService.getAll()?.data?.columns;
     this.editorContainers.push('Editor ' + 1);
     this.resultContainers.push('Editor ' + 1 + ' Result');
+    this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
   }
 
@@ -52,6 +54,8 @@ export class QueryComponent extends BaseComponent {
   }
 
   handlerExecute(sql?: string) {
+    this.disabledButton.execute = true;
+    this.loadingContainers[this.containerSelected].loading = true;
     const queryHistory = new QueryHistoryModel();
     queryHistory.id = Md5.hashStr(sql + new Date());
     queryHistory.startTime = Date.parse(new Date().toString());
@@ -73,6 +77,8 @@ export class QueryComponent extends BaseComponent {
         queryHistory.message = response.message;
         queryHistory.state = StateEnum.failure;
       }
+      this.disabledButton.execute = false;
+      this.loadingContainers[this.containerSelected].loading = false;
       queryHistory.endTime = Date.parse(new Date().toString());
       queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
       this.queryHistoryService.save(queryHistory);
@@ -93,6 +99,7 @@ export class QueryComponent extends BaseComponent {
     this.editorContainers.push('Editor ' + (this.editorContainers.length + 1));
     this.containerSelected = this.editorContainers.length;
     this.resultContainers.push('Editor ' + this.containerSelected + ' Result');
+    this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
   }
 
@@ -100,6 +107,7 @@ export class QueryComponent extends BaseComponent {
     this.editorContainers.splice(index, 1);
     this.resultContainers.splice(index, 1);
     this.responseTableData.splice(index, 1);
+    this.loadingContainers.splice(index, 1);
   }
 
   handlerQuickQuery(close?: boolean) {
@@ -112,7 +120,7 @@ export class QueryComponent extends BaseComponent {
 
   handlerQuickQueryProcessor(sql?: string) {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    console.log(sql)
+    console.log(sql);
     codeMirror.setValue(sql);
   }
 }

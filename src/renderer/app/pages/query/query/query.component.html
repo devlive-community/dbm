@@ -34,7 +34,7 @@
     <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
   </button>
   <button nz-button nzType="primary" nzSize="small" nzDanger
-          [disabled]="disabledButton.execute">
+          disabled="true">
     <i class="fa fa-close"></i>&nbsp;{{'common.cancel'|translate}}
   </button>
   <button nz-button nzType="primary" nzSize="small" (click)="handlerAddContainer()">
@@ -51,30 +51,34 @@
     nzType="editable-card" nzHideAdd
     (nzClose)="handlerCloseContainer($event)">
     <nz-tab *ngFor="let editor of resultContainers; let i = index" [nzClosable]="i > 0" [nzTitle]="editor">
-      <nz-table *ngIf="responseTableData[i]?.columns?.length > 0; else notHasValues"
-                nzSize="small" nzShowPagination nzPaginationPosition="top"
-                #response [nzData]="responseTableData[i].columns">
-        <thead>
-        <tr>
-          <th *ngFor="let header of responseTableData[i].headers">{{header?.name}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let column of response.data;">
-          <td *ngFor="let header of responseTableData[i].headers">
-            {{column[header.name]}}
-          </td>
-        </tr>
-        </tbody>
-      </nz-table>
-      <ng-template #notHasValues>
-        <nz-empty [nzNotFoundContent]="contentTemplate"
-                  [nzNotFoundFooter]="footerTemplate">
-          <ng-template #contentTemplate>
-          </ng-template>
-          <ng-template #footerTemplate>
-          </ng-template>
-        </nz-empty>
+      <nz-skeleton *ngIf="loadingContainers[i].loading; else hasValues" nzActive="true">
+      </nz-skeleton>
+      <ng-template #hasValues>
+        <nz-table *ngIf="responseTableData[i]?.columns?.length > 0; else notHasValues"
+                  nzSize="small" nzShowPagination nzPaginationPosition="top"
+                  #response [nzData]="responseTableData[i].columns">
+          <thead>
+          <tr>
+            <th *ngFor="let header of responseTableData[i].headers">{{header?.name}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let column of response.data;">
+            <td *ngFor="let header of responseTableData[i].headers">
+              {{column[header.name]}}
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+        <ng-template #notHasValues>
+          <nz-empty [nzNotFoundContent]="contentTemplate"
+                    [nzNotFoundFooter]="footerTemplate">
+            <ng-template #contentTemplate>
+            </ng-template>
+            <ng-template #footerTemplate>
+            </ng-template>
+          </nz-empty>
+        </ng-template>
       </ng-template>
     </nz-tab>
   </nz-tabset>

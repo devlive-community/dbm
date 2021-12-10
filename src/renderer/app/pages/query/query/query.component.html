@@ -52,7 +52,8 @@
     (nzClose)="handlerCloseContainer($event)">
     <nz-tab *ngFor="let editor of resultContainers; let i = index" [nzClosable]="i > 0" [nzTitle]="editor">
       <nz-table *ngIf="responseTableData[i]?.columns?.length > 0; else notHasValues"
-                #response [nzData]="responseTableData[i].columns" nzShowPagination>
+                nzSize="small" nzShowPagination nzPaginationPosition="top"
+                #response [nzData]="responseTableData[i].columns">
         <thead>
         <tr>
           <th *ngFor="let header of responseTableData[i].headers">{{header?.name}}</th>

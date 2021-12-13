@@ -39,4 +39,8 @@ export class HistoryComponent extends BaseComponent {
       nzOkText: 'OK'
     });
   }
+
+  handlerAnalysisWidth(): number {
+    return this.tableDetails?.length + 360;
+  }
 }

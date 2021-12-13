@@ -8,10 +8,10 @@ import { TrackComponent } from '@renderer/app/pages/tools/track/track.component'
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { TrackService } from '@renderer/services/tools/track.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DdlQueryComponent } from '@renderer/components/query/ddl/ddl.query.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
 import { ServiceModule } from '@renderer/app/service.module';
+import { CommonShareModule } from '@renderer/app/common-share.module';
 
 const TOOLS_TRACK_ROUTES: Routes = [
   {path: '', component: TrackComponent}
@@ -25,12 +25,12 @@ const TOOLS_TRACK_ROUTES: Routes = [
     NgZorroAntdModule,
     CodemirrorModule,
     ServiceModule,
+    CommonShareModule,
     RouterModule.forChild(TOOLS_TRACK_ROUTES)
   ],
   exports: [],
   declarations: [
-    TrackComponent,
-    DdlQueryComponent
+    TrackComponent
   ],
   providers: [
     DatasourceService,

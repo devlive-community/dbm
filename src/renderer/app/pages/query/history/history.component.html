@@ -9,7 +9,7 @@
   </nz-empty>
   <ng-template #notHasValues>
     <div class="table-body-flex">
-      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: (basicTable?.data.length + 360) + 'px'}">
+      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}">
         <thead>
         <tr>
           <th>{{'common.id' | translate}}</th>
@@ -51,23 +51,6 @@
 <ng-template #titleTemplate>
   <i class="fa fa-history"></i>&nbsp;{{'common.query' | translate}} {{'common.history' | translate}}
 </ng-template>
-<nz-modal
-  [(nzVisible)]="disabled.dialog"
-  [nzTitle]="modalTitle"
-  [nzContent]="modalContent"
-  [nzFooter]="modalFooter"
-  nzMaskClosable="false"
-  (nzOnCancel)="handlerCloseModal()">
-  <ng-template #modalTitle>
-    {{'common.ddl' | translate}}
-  </ng-template>
-  <ng-template #modalContent>
-    <ngx-codemirror [(ngModel)]="queryDDL" [options]="editorConfig"></ngx-codemirror>
-  </ng-template>
-  <ng-template #modalFooter>
-    <button [disabled]="loading.button" nz-button nzDanger
-            (click)="handlerCloseModal()">
-      {{'common.close' | translate}}
-    </button>
-  </ng-template>
-</nz-modal>
+<app-component-ddl-query [visible]="disabled.dialog" [text]="queryDDL"
+                         (emitter)="handlerCloseModal()">
+</app-component-ddl-query>

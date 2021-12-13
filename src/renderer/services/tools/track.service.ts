@@ -42,7 +42,7 @@ FROM
 WHERE
   query_id = '{0}'
 ORDER BY
-  query_duration_ms DESC
+  type DESC
   `, [trackId]);
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(aliasServerName)?.data?.columns[0];

@@ -39,7 +39,15 @@
       </ul>
     </li>
     <li nz-submenu [nzTitle]="i18nMenuItemTitle" style="float: right;"></li>
-    <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;"></li>
+    <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/system/basic']" class="dropdown-item">
+            <i class="fa fa-bandcamp"> {{'common.basic'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
   <ng-template #queryMenuItemTitle>
     <i class="fa fa-search"></i>&nbsp;{{'common.query'|translate}}

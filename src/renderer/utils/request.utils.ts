@@ -5,6 +5,7 @@ import { DatasourceModel } from '@renderer/model/datasource.model';
 export class RequestUtils {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public static KEY_DATASOURCE = 'DATASOURCE';
+  public static KEY_SYSTEM_SETTING_BASIC = 'SETTING_BASIC';
 
   public static getDatasource(name: string, host?: string, port?: number, username?: string, password?: string): DatasourceModule {
     let response: DatasourceModel;

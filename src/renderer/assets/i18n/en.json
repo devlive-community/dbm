@@ -43,7 +43,12 @@
     "language": "Language",
     "track": "Track",
     "exception": "Exception",
-    "stack": "Stack"
+    "stack": "Stack",
+    "copy": "Copy",
+    "basic": "Basic",
+    "network": "Network",
+    "timeout": "Timeout",
+    "setting": "Setting"
   },
   "placeholder": {
     "alias": "Please input alias name!",
@@ -52,5 +57,8 @@
     "port": "Please input port!",
     "username": "Please input username!",
     "password": "Please input password!"
+  },
+  "tooltip": {
+    "network": "Duration of accessing the remote server (in seconds)"
   }
 }

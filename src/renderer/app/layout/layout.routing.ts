@@ -43,6 +43,15 @@ const LAYOUT_ROUTES: Routes = [
             loadChildren: () => import('../pages/tools/track/track.module').then(m => m.TrackModule)
           }
         ]
+      },
+      {
+        path: 'system',
+        children: [
+          {
+            path: 'basic',
+            loadChildren: () => import('../pages/system/basic/basic.module').then(m => m.BasicModule)
+          }
+        ]
       }
     ]
   }

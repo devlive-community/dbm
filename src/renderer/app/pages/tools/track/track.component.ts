@@ -18,6 +18,7 @@ export class TrackComponent extends BaseComponent {
   tracks: any[];
   trackId: string = null;
   trackInfo: any[];
+  queryDDL: string;
 
   constructor(private datasourceService: DatasourceService,
               private trackService: TrackService,
@@ -79,5 +80,14 @@ export class TrackComponent extends BaseComponent {
       nzContent: item[key],
       nzOkText: 'OK'
     });
+  }
+
+  handlerShowDDL(item: any, close: boolean) {
+    if (close) {
+      this.disabled.button = false;
+      this.queryDDL = item.query;
+    } else {
+      this.disabled.button = true;
+    }
   }
 }

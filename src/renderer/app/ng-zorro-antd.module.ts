@@ -20,6 +20,7 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 @NgModule({
   exports: [
@@ -43,7 +44,8 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
     NzSkeletonModule,
     NzDropDownModule,
     NzTimelineModule,
-    NzDescriptionsModule
+    NzDescriptionsModule,
+    NzPopoverModule
   ]
 })
 export class NgZorroAntdModule {

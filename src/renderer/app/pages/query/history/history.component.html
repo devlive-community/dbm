@@ -50,6 +50,10 @@
 </nz-card>
 <ng-template #titleTemplate>
   <i class="fa fa-history"></i>&nbsp;{{'common.query' | translate}} {{'common.history' | translate}}
+  <button style="float: right;" nz-button nzType="primary" nzDanger nzSize="small"
+          [disabled]="tableDetails?.length <= 0" (click)="handlerClearHistory()">
+    <i class="fa fa-trash"></i>&nbsp;{{'common.clear' | translate}} {{'common.history' | translate}}
+  </button>
 </ng-template>
 <app-component-ddl-query [visible]="disabled.dialog" [text]="queryDDL"
                          (emitter)="handlerCloseModal()">

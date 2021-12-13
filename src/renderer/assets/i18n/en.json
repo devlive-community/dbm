@@ -48,7 +48,8 @@
     "basic": "Basic",
     "network": "Network",
     "timeout": "Timeout",
-    "setting": "Setting"
+    "setting": "Setting",
+    "clear": "Clear"
   },
   "placeholder": {
     "alias": "Please input alias name!",

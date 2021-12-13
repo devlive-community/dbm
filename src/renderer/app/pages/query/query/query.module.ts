@@ -13,6 +13,7 @@ import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { QuickQueryComponent } from '@renderer/components/query/quick/quick.query.component';
 import { QueryQuickService } from '@renderer/services/query/query.quick.service';
 import { ServiceModule } from '@renderer/app/service.module';
+import { CommonShareModule } from '@renderer/app/common-share.module';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -26,7 +27,8 @@ const QUERY_ROUTES: Routes = [
     CommonModule,
     NgZorroAntdModule,
     ServiceModule,
-    RouterModule.forChild(QUERY_ROUTES)
+    RouterModule.forChild(QUERY_ROUTES),
+    CommonShareModule
   ],
   exports: [],
   declarations: [

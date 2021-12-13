@@ -11,6 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DdlQueryComponent } from '@renderer/components/query/ddl/ddl.query.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
+import { ServiceModule } from '@renderer/app/service.module';
 
 const TOOLS_TRACK_ROUTES: Routes = [
   {path: '', component: TrackComponent}
@@ -22,8 +23,9 @@ const TOOLS_TRACK_ROUTES: Routes = [
     TranslateModule,
     CommonModule,
     NgZorroAntdModule,
-    RouterModule.forChild(TOOLS_TRACK_ROUTES),
-    CodemirrorModule
+    CodemirrorModule,
+    ServiceModule,
+    RouterModule.forChild(TOOLS_TRACK_ROUTES)
   ],
   exports: [],
   declarations: [

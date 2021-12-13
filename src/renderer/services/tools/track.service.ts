@@ -1,7 +1,7 @@
 import { BaseService } from '@renderer/services/base.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { ResponseModel } from '@renderer/model/response.model';
-import { HttpUtils } from '@renderer/utils/http.utils';
+import { HttpService } from '@renderer/services/http.service';
 import { UrlUtils } from '@renderer/utils/url.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { Injectable } from '@angular/core';
@@ -9,11 +9,12 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 
 @Injectable()
 export class TrackService implements BaseService {
-  constructor(private datasourceService: DatasourceService) {
+  constructor(private datasourceService: DatasourceService,
+              private httpService: HttpService) {
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return HttpUtils.post(UrlUtils.formatUrl(request), sql);
+    return this.httpService.post(UrlUtils.formatUrl(request), sql);
   }
 
   getTrackInfo(aliasServerName: string, trackId: string) {

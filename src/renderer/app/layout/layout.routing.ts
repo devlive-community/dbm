@@ -34,6 +34,15 @@ const LAYOUT_ROUTES: Routes = [
             loadChildren: () => import('../pages/management/datasource/datasource.module').then(m => m.DatasourceModule)
           }
         ]
+      },
+      {
+        path: 'tools',
+        children: [
+          {
+            path: 'track',
+            loadChildren: () => import('../pages/tools/track/track.module').then(m => m.TrackModule)
+          }
+        ]
       }
     ]
   }

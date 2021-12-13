@@ -19,7 +19,7 @@
         </li>
       </ul>
     </li>
-    <li nz-submenu nzTitle="{{ 'common.management' | translate }}">
+    <li nz-submenu [nzTitle]="managementMenuItemTitle">
       <ul>
         <li nz-menu-item>
           <a [routerLink]="['/management/datasource']" class="dropdown-item">
@@ -28,8 +28,35 @@
         </li>
       </ul>
     </li>
+    <li nz-submenu [nzTitle]="monitorMenuItemTitle"></li>
+    <li nz-submenu [nzTitle]="toolMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/tools/track']" class="dropdown-item">
+            <i class="fa fa-wrench"> {{'common.track'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu [nzTitle]="i18nMenuItemTitle" style="float: right;"></li>
+    <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;"></li>
   </ul>
   <ng-template #queryMenuItemTitle>
     <i class="fa fa-search"></i>&nbsp;{{'common.query'|translate}}
+  </ng-template>
+  <ng-template #managementMenuItemTitle>
+    <i class="fa fa-magnet"></i>&nbsp;{{'common.management'|translate}}
+  </ng-template>
+  <ng-template #monitorMenuItemTitle>
+    <i class="fa fa-desktop"></i>&nbsp;{{'common.monitor'|translate}}
+  </ng-template>
+  <ng-template #toolMenuItemTitle>
+    <i class="fa fa-gavel"></i>&nbsp;{{'common.tools'|translate}}
+  </ng-template>
+  <ng-template #systemMenuItemTitle>
+    <i class="fa fa-gear"></i>&nbsp;{{'common.system'|translate}}
+  </ng-template>
+  <ng-template #i18nMenuItemTitle>
+    <i class="fa fa-language"></i>&nbsp;{{'common.language'|translate}}
   </ng-template>
 </nz-header>

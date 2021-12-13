@@ -1,13 +1,27 @@
 import axios from 'axios';
 import { ResponseDataModel, ResponseModel } from '@renderer/model/response.model';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { SystemBasicModel } from '@renderer/model/system.model';
+import { Injectable } from '@angular/core';
 
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-const timeout = 10 * 1000;
 
-export class HttpUtils {
-  public static post(url, data = {}): Promise<any> {
+@Injectable()
+export class HttpService {
+  private basicConfig: SystemBasicModel;
+
+  constructor(private basicService: BasicService) {
+  }
+
+  private getConfig(): SystemBasicModel {
+    return this.basicService.get() === null ? new SystemBasicModel() : this.basicService.get();
+  }
+
+  post(url, data = {}): Promise<any> {
+    this.basicConfig = this.getConfig();
+    const network = this.basicConfig.network * 1000;
     return new Promise((resolve, reject) => {
-      axios.post(url, data + ' FORMAT JSON', {timeout})
+      axios.post(url, data + ' FORMAT JSON', {timeout: network})
       .then(rs => {
         const response = new ResponseModel();
         if (rs.status === 200) {

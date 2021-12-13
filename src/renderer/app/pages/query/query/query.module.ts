@@ -12,6 +12,7 @@ import { QueryHistoryService } from '@renderer/services/query/query.history.serv
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { QuickQueryComponent } from '@renderer/components/query/quick/quick.query.component';
 import { QueryQuickService } from '@renderer/services/query/query.quick.service';
+import { ServiceModule } from '@renderer/app/service.module';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -24,6 +25,7 @@ const QUERY_ROUTES: Routes = [
     CodemirrorModule,
     CommonModule,
     NgZorroAntdModule,
+    ServiceModule,
     RouterModule.forChild(QUERY_ROUTES)
   ],
   exports: [],

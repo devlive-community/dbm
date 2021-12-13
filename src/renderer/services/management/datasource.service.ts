@@ -1,16 +1,21 @@
 import { BaseService } from '@renderer/services/base.service';
 import { ResponseDataModel, ResponseModel } from '@renderer/model/response.model';
 import { RequestModel } from '@renderer/model/request.model';
-import { HttpUtils } from '@renderer/utils/http.utils';
 import { UrlUtils } from '@renderer/utils/url.utils';
 import { RequestUtils } from '@renderer/utils/request.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { DatasourceModel } from '@renderer/model/datasource.model';
+import { HttpService } from '@renderer/services/http.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class DatasourceService implements BaseService {
+  constructor(private httpService: HttpService) {
+  }
+
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
     sql = 'SELECT version() AS version';
-    return HttpUtils.post(UrlUtils.formatUrl(request), sql);
+    return this.httpService.post(UrlUtils.formatUrl(request), sql);
   }
 
   save(request: RequestModel): ResponseModel {

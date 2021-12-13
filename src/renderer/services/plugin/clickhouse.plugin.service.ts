@@ -1,12 +1,12 @@
 import { BasePluginService } from '@renderer/services/plugin/base.plugin.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { ResponseModel } from '@renderer/model/response.model';
-import { HttpUtils } from '@renderer/utils/http.utils';
+import { HttpService } from '@renderer/services/http.utils';
 import { UrlUtils } from '@renderer/utils/url.utils';
 
 export class ClickhousePluginService implements BasePluginService {
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return HttpUtils.post(UrlUtils.formatUrl(request), sql);
+    return HttpService.post(UrlUtils.formatUrl(request), sql);
   }
 
   getQueryCount(request: RequestModel): Promise<ResponseModel> {

@@ -26,6 +26,10 @@ import { TranslateService } from '@ngx-translate/core';
         padding: 24px;
         min-height: 280px;
       }
+
+      .ant-layout {
+        background-color: #ffffff;
+      }
     `
   ]
 })

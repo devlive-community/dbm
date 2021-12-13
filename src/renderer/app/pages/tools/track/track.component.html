@@ -23,7 +23,11 @@
           </nz-card>
           <ng-template #titleTrackInfoTemplate>
             <em [style]="'color:' + handlerGetColor(obj.type) + ';'">{{obj.type}}</em>&nbsp;
-            <span class="em">({{obj?.queryStartTime}})</span>
+            <span class="em">({{obj?.queryStartTime}})</span> &nbsp;
+            <button nz-button nzType="primary" nzSize="small" nzShape="circle"
+                    (click)="handlerShowDDL(obj, true)">
+              <i class="fa fa-search-minus"></i>
+            </button>
             <button style="float: right;" nz-button nzType="primary" nzSize="small" nzDanger
                     [disabled]="!obj?.exception"
                     (click)="handlerShowMessage(obj, 'exception')">
@@ -61,3 +65,8 @@
     <i class="fa fa-{{loading.button ? 'spinner fa-spin' : 'flash'}}"></i>&nbsp;{{'common.execute'|translate}}
   </button>
 </ng-template>
+<app-component-ddl-query *ngIf="!disabled.button"
+                         [visible]="!disabled.button"
+                         [text]="queryDDL"
+                         (emitter)="handlerShowDDL(null, false)">
+</app-component-ddl-query>

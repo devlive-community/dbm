@@ -43,7 +43,8 @@
     "language": "Language",
     "track": "Track",
     "exception": "Exception",
-    "stack": "Stack"
+    "stack": "Stack",
+    "copy": "Copy"
   },
   "placeholder": {
     "alias": "Please input alias name!",

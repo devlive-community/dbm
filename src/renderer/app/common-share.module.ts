@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
 import { BasicTableComponent } from '@renderer/components/table/basic/basic.table.component';
 import { CommonModule } from '@angular/common';
+import { ServiceModule } from '@renderer/app/service.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
     TranslateModule,
     CodemirrorModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ServiceModule
   ],
   declarations: [
     DdlQueryComponent,

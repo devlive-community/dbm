@@ -49,7 +49,11 @@
     "network": "Network",
     "timeout": "Timeout",
     "setting": "Setting",
-    "clear": "Clear"
+    "clear": "Clear",
+    "processor": "Processor",
+    "open": "Open",
+    "close": "Close",
+    "detail": "Detail"
   },
   "placeholder": {
     "alias": "Please input alias name!",

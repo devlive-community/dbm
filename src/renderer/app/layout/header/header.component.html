@@ -28,7 +28,15 @@
         </li>
       </ul>
     </li>
-    <li nz-submenu [nzTitle]="monitorMenuItemTitle"></li>
+    <li nz-submenu [nzTitle]="monitorMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/monitor/processor']" class="dropdown-item">
+            <i class="fa fa-bullseye"> {{'common.processor'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
     <li nz-submenu [nzTitle]="toolMenuItemTitle">
       <ul>
         <li nz-menu-item>

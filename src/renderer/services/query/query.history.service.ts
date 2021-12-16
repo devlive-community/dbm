@@ -27,4 +27,8 @@ export class QueryHistoryService extends PersistenceService implements BaseServi
   getAll(): BaseModel[] {
     return JSON.parse(localStorage.getItem(Support.QUERY_HISTORY));
   }
+
+  clear() {
+    localStorage.removeItem(Support.QUERY_HISTORY);
+  }
 }

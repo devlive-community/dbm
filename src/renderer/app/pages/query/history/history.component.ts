@@ -16,11 +16,15 @@ export class HistoryComponent extends BaseComponent {
   constructor(private queryHistoryService: QueryHistoryService,
               private modal: NzModalService) {
     super();
-    this.tableDetails = this.queryHistoryService.getAll();
+    this.initialize();
     this.editorConfig = {
       mode: 'sql',
       readOnly: true
     };
+  }
+
+  initialize() {
+    this.tableDetails = this.queryHistoryService.getAll();
   }
 
   handlerShowDDL(item: BaseModel) {
@@ -42,5 +46,10 @@ export class HistoryComponent extends BaseComponent {
 
   handlerAnalysisWidth(): number {
     return this.tableDetails?.length + 360;
+  }
+
+  handlerClearHistory() {
+    this.queryHistoryService.clear();
+    this.initialize();
   }
 }

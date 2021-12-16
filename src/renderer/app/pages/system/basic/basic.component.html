@@ -5,7 +5,19 @@
                      nzTooltipTitle="{{'tooltip.network'|translate}}">{{'common.network'|translate}}
       </nz-form-label>
       <nz-form-control [nzSpan]="8">
-        <input nz-input [(ngModel)]="model.network" name="network" type="text" id="network">
+        <input nz-input [(ngModel)]="model.network" name="network" type="text" id="network"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="format"
+                     nzTooltipTitle="{{'tooltip.format'|translate}}">{{'common.format'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.format" name="format" id="format">
+          <ng-container *ngFor="let o of formats">
+            <nz-option [nzValue]="o" [nzLabel]="o"></nz-option>
+          </ng-container>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">

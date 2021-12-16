@@ -48,7 +48,12 @@
     "basic": "Basic",
     "network": "Network",
     "timeout": "Timeout",
-    "setting": "Setting"
+    "setting": "Setting",
+    "clear": "Clear",
+    "processor": "Processor",
+    "open": "Open",
+    "close": "Close",
+    "detail": "Detail"
   },
   "placeholder": {
     "alias": "Please input alias name!",
@@ -59,6 +64,7 @@
     "password": "Please input password!"
   },
   "tooltip": {
-    "network": "Duration of accessing the remote server (in seconds)"
+    "network": "Duration of accessing the remote server (in seconds)",
+    "format": "The underlying data supports formatting types, JSON by default"
   }
 }

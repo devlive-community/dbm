@@ -32,6 +32,7 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
 
   handlerSwitch() {
     this.loading.button = true;
+    this.processors = null;
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.threshold.datasource)?.data?.columns[0];
     this.monitorService.getProcesses(request).then(response => {

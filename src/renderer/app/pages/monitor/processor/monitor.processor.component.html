@@ -12,45 +12,49 @@
   </ng-template>
 </nz-card>
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.detail'|translate}}">
-  <nz-empty *ngIf="processors?.columns.length <= 0; else monitorProcessorHasTableValue"
-            [nzNotFoundContent]="contentTemplate"
-            [nzNotFoundFooter]="footerTemplate">
-    <ng-template #contentTemplate>
+  <nz-skeleton *ngIf="loading.button; else monitorProcessorLoadSuccess" nzActive="true"></nz-skeleton>
+  <ng-template #monitorProcessorLoadSuccess>
+    <nz-empty *ngIf="processors?.columns.length <= 0; else monitorProcessorHasTableValue"
+              [nzNotFoundContent]="contentTemplate"
+              [nzNotFoundFooter]="footerTemplate">
+      <ng-template #contentTemplate>
+      </ng-template>
+      <ng-template #footerTemplate>
+      </ng-template>
+    </nz-empty>
+    <ng-template #monitorProcessorHasTableValue>
+      <nz-table #basicTable [nzData]="processors.columns" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
+                nzSize="small">
+        <thead>
+        <tr>
+          <th *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+            <div nz-popover nzPopoverTrigger="click"
+                 nzPopoverContent="{{header?.name}}">
+              {{header?.name}}
+            </div>
+          </th>
+          <th nzEllipsis>{{'common.action' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let column of basicTable.data">
+          <td *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+            <div nz-popover nzPopoverTrigger="click"
+                 nzPopoverTitle="{{header.name}}" nzPopoverContent="{{column[header.name]}}">
+              {{column[header.name]}}
+            </div>
+          </td>
+          <td>
+            <button nz-button nzShape="circle" nzSize="small" nzType="primary"
+                    nz-tooltip nzTooltipTitle="{{'common.ddl' | translate}}"
+                    (click)="handlerShowDDL(column)">
+              <i class="fa fa-search"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
     </ng-template>
-    <ng-template #footerTemplate>
-    </ng-template>
-  </nz-empty>
-  <ng-template #monitorProcessorHasTableValue>
-    <nz-table #basicTable [nzData]="processors.columns" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}" nzSize="small">
-      <thead>
-      <tr>
-        <th *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
-          <div nz-popover nzPopoverTrigger="click"
-               nzPopoverContent="{{header?.name}}">
-            {{header?.name}}
-          </div>
-        </th>
-        <th nzEllipsis>{{'common.action' | translate}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let column of basicTable.data">
-        <td *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
-          <div nz-popover nzPopoverTrigger="click"
-               nzPopoverTitle="{{header.name}}" nzPopoverContent="{{column[header.name]}}">
-            {{column[header.name]}}
-          </div>
-        </td>
-        <td>
-          <button nz-button nzShape="circle" nzSize="small" nzType="primary"
-                  nz-tooltip nzTooltipTitle="{{'common.ddl' | translate}}"
-                  (click)="handlerShowDDL(column)">
-            <i class="fa fa-search"></i>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </nz-table>
   </ng-template>
 </nz-card>
 <ng-template #titleTemplate>

@@ -23,6 +23,7 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 @NgModule({
   exports: [
@@ -49,7 +50,8 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
     NzDescriptionsModule,
     NzPopoverModule,
     NzInputNumberModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzAvatarModule
   ]
 })
 export class NgZorroAntdModule {

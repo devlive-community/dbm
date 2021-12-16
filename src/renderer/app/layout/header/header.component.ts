@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
         width: 120px;
         height: 31px;
         background: rgba(255, 255, 255, 0.2);
-        margin: 3px 30px 15px 30px;
+        margin: 0px 30px 15px 30px;
         float: left;
       }
 

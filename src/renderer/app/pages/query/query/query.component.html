@@ -20,11 +20,13 @@
   </nz-select>
   <button nz-button nzType="primary" nzSize="small"
           [disabled]="disabledButton.execute"
+          [nzLoading]="loading.button"
           (click)="handlerExecute()">
-    <i class="fa fa-{{loading.button ? 'spinner fa-spin' : 'flash'}}"></i>&nbsp;{{'common.execute'|translate}}
+    <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
   </button>
   <button nz-button nzType="primary" nzSize="small"
           [disabled]="disabledButton.execute"
+          [nzLoading]="loading.button"
           (click)="handlerSelectionExecute()">
     <i class="fa fa-flask"></i>&nbsp;{{'common.select'|translate}} {{'common.execute'|translate}}
   </button>

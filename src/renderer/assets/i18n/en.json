@@ -64,6 +64,7 @@
     "password": "Please input password!"
   },
   "tooltip": {
-    "network": "Duration of accessing the remote server (in seconds)"
+    "network": "Duration of accessing the remote server (in seconds)",
+    "format": "The underlying data supports formatting types, JSON by default"
   }
 }

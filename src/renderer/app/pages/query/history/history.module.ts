@@ -9,6 +9,7 @@ import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonShareModule } from '@renderer/app/common-share.module';
+import { EditorService } from '@renderer/services/editor/editor.service';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: HistoryComponent}
@@ -30,7 +31,8 @@ const QUERY_ROUTES: Routes = [
   ],
   providers: [
     QueryHistoryService,
-    NzModalService
+    NzModalService,
+    EditorService
   ]
 })
 export class HistoryModule {

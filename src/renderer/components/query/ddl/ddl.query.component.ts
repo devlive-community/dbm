@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
+import { EditorService } from '@renderer/services/editor/editor.service';
+import { SystemEditorModel } from '@renderer/model/system.model';
 
 @Component({
   selector: 'app-component-ddl-query',
@@ -14,13 +16,12 @@ export class DdlQueryComponent extends BaseComponent {
   text: string;
   @Output()
   emitter = new EventEmitter<any>();
-  editorConfig = {
-    mode: 'sql',
-    readOnly: true
-  };
+  editorConfig: SystemEditorModel;
 
-  constructor(private clipboardComService: ClipboardComService) {
+  constructor(private clipboardComService: ClipboardComService,
+              private editorService: EditorService) {
     super();
+    this.editorConfig = this.editorService.get();
   }
 
   handlerCancel() {
@@ -29,7 +30,7 @@ export class DdlQueryComponent extends BaseComponent {
   }
 
   handlerFormatter() {
-    this.text = SqlUtils.formatter(this.text);
+    this.text = SqlUtils.formatter(this.text, this.editorConfig);
   }
 
   handlerCopy() {

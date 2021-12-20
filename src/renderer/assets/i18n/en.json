@@ -53,7 +53,12 @@
     "processor": "Processor",
     "open": "Open",
     "close": "Close",
-    "detail": "Detail"
+    "detail": "Detail",
+    "active": "Active",
+    "line": "Line",
+    "theme": "Theme",
+    "preview": "Preview",
+    "number": "Number"
   },
   "placeholder": {
     "alias": "Please input alias name!",
@@ -65,6 +70,13 @@
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
-    "format": "The underlying data supports formatting types, JSON by default"
+    "format": "The underlying data supports formatting types, JSON by default",
+    "editor": {
+      "preview": "Real-time feedback on editor modification status",
+      "activeLine": "Highlight the current selection row shown with the mouse",
+      "theme": "Global editor theme",
+      "lineNumber": "Shows the number of lines of code",
+      "language": "Type of editor formatting"
+    }
   }
 }

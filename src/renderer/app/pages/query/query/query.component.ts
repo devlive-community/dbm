@@ -13,6 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { StateEnum } from '@renderer/enum/state.enum';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
+import { SystemEditorModel } from '@renderer/model/system.model';
 
 @Component({
   selector: 'app-query',
@@ -39,7 +40,8 @@ export class QueryComponent extends BaseComponent {
               private messageService: NzMessageService,
               private queryHistoryService: QueryHistoryService) {
     super();
-    this.editorConfig = this.editorService.getDefault();
+    const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
+    this.editorConfig = Object.assign(this.editorService.getDefault(), cache);
     this.dataSources = this.datasourceService.getAll()?.data?.columns;
     this.editorContainers.push('Editor ' + 1);
     this.resultContainers.push('Editor ' + 1 + ' Result');
@@ -94,7 +96,7 @@ export class QueryComponent extends BaseComponent {
 
   handlerFormatter() {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    codeMirror.setValue(SqlUtils.formatter(codeMirror.getValue()));
+    codeMirror.setValue(SqlUtils.formatter(codeMirror.getValue(), this.editorConfig));
   }
 
   handlerAddContainer() {

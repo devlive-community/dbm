@@ -36,7 +36,8 @@
     <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
   </button>
   <button nz-button nzType="primary" nzSize="small" nzDanger
-          disabled="true">
+          [disabled]="disabledButton.cancel"
+          (click)="handlerCancel()">
     <i class="fa fa-close"></i>&nbsp;{{'common.cancel'|translate}}
   </button>
   <button nz-button nzType="primary" nzSize="small" (click)="handlerAddContainer()">

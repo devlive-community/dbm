@@ -24,6 +24,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   exports: [
@@ -51,7 +52,8 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
     NzPopoverModule,
     NzInputNumberModule,
     NzSwitchModule,
-    NzAvatarModule
+    NzAvatarModule,
+    NzDividerModule
   ]
 })
 export class NgZorroAntdModule {

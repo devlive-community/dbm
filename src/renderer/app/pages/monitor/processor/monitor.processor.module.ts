@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { MonitorService } from '@renderer/services/monitor/monitor.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { EditorService } from '@renderer/services/editor/editor.service';
 
 const MONITOR_PROCESSOR_ROUTES: Routes = [
   {path: '', component: MonitorProcessorComponent}
@@ -30,7 +31,8 @@ const MONITOR_PROCESSOR_ROUTES: Routes = [
   providers: [
     DatasourceService,
     MonitorService,
-    NzMessageService
+    NzMessageService,
+    EditorService
   ]
 })
 export class MonitorProcessorModule {

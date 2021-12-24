@@ -1,0 +1,61 @@
+<nz-card [nzTitle]="systemEditorTemplate">
+  <nz-divider nzText="{{'common.preview'|translate}}" nzOrientation="left"></nz-divider>
+  <ngx-codemirror [(ngModel)]="editor.context" [options]="editor.config">
+  </ngx-codemirror>
+  <nz-divider nzText="{{'common.editor'|translate}}" nzOrientation="left"></nz-divider>
+  <form nz-form style="margin-top: 10px;">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="activeLine"
+                     nzTooltipTitle="{{'tooltip.editor.activeLine'|translate}}">
+        {{'common.active'|translate}} {{'common.line'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-switch [(ngModel)]="model.styleActiveLine" name="activeLine" id="activeLine">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="lineNumbers"
+                     nzTooltipTitle="{{'tooltip.editor.lineNumber'|translate}}">
+        {{'common.line'|translate}} {{'common.number'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-switch [(ngModel)]="model.lineNumbers" name="lineNumbers" id="lineNumbers">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="theme"
+                     nzTooltipTitle="{{'tooltip.editor.theme'|translate}}">{{'common.theme'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.theme" name="theme" id="theme">
+          <ng-container *ngFor="let o of themes">
+            <nz-option [nzValue]="o" [nzLabel]="o"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-divider nzText="{{'common.format'|translate}}" nzOrientation="left"></nz-divider>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="language"
+                     nzTooltipTitle="{{'tooltip.editor.language'|translate}}">{{'common.language'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.language" name="language" id="language">
+          <ng-container *ngFor="let o of languages">
+            <nz-option [nzValue]="o" [nzLabel]="o"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzOffset]="3">
+        <button nz-button nzType="primary" (click)="handlerSave()">{{'common.ok'|translate}}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+<ng-template #systemEditorTemplate>
+  {{'common.editor'|translate}} {{'common.setting'|translate}}
+</ng-template>

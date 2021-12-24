@@ -50,6 +50,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'basic',
             loadChildren: () => import('../pages/system/basic/basic.module').then(m => m.BasicModule)
+          },
+          {
+            path: 'editor',
+            loadChildren: () => import('../pages/system/editor/system.editor.module').then(m => m.SystemEditorModule)
           }
         ]
       },

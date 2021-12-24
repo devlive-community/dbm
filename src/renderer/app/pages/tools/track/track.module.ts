@@ -12,6 +12,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
 import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
+import { EditorService } from '@renderer/services/editor/editor.service';
 
 const TOOLS_TRACK_ROUTES: Routes = [
   {path: '', component: TrackComponent}
@@ -36,7 +37,8 @@ const TOOLS_TRACK_ROUTES: Routes = [
     DatasourceService,
     TrackService,
     NzModalService,
-    ClipboardComService
+    ClipboardComService,
+    EditorService
   ]
 })
 export class TrackModule {

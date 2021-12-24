@@ -1,18 +1,16 @@
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-import { HistoryComponent } from './history.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
+import { SystemEditorComponent } from '@renderer/app/pages/system/editor/system.editor.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { CommonShareModule } from '@renderer/app/common-share.module';
 import { EditorService } from '@renderer/services/editor/editor.service';
+import { DomChangedDirective } from '@renderer/directives/dom/dom.changed.directive';
 
-const QUERY_ROUTES: Routes = [
-  {path: '', component: HistoryComponent}
+const SYSTEM_EDITOR_ROUTES: Routes = [
+  {path: '', component: SystemEditorComponent}
 ];
 
 @NgModule({
@@ -21,19 +19,17 @@ const QUERY_ROUTES: Routes = [
     TranslateModule,
     CommonModule,
     NgZorroAntdModule,
-    RouterModule.forChild(QUERY_ROUTES),
     CodemirrorModule,
-    CommonShareModule
+    RouterModule.forChild(SYSTEM_EDITOR_ROUTES)
   ],
   exports: [],
   declarations: [
-    HistoryComponent
+    SystemEditorComponent,
+    DomChangedDirective
   ],
   providers: [
-    QueryHistoryService,
-    NzModalService,
     EditorService
   ]
 })
-export class HistoryModule {
+export class SystemEditorModule {
 }

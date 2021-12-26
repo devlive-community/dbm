@@ -38,15 +38,6 @@ export class HomeComponent implements OnInit {
           const config = new ChartsModel();
           config.type = 'area';
           const series = new ChartsSeriesModel();
-          // this.chartOptions.xAxis.categories = this.items.map(v => v.categories)
-          // this.chartOptions.series = [{
-          //   name: this.title,
-          //   data: this.items.map(v => v.value)
-          // }]
-          // for (const v of response.data.columns) {
-          //   series.data.push(v.value);
-          //   categories.push(v.categories);
-          // }
           config.xAxis.categories = response.data.columns.map(v => v.categories);
           series.data = response.data.columns.map(v => v.value);
           series.name = 'Count';

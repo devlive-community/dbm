@@ -8,7 +8,10 @@
     </ng-template>
   </nz-empty>
   <ng-template #monitorProcessorHasValue>
-    <nz-skeleton *ngIf="loading.button" nzActive="true"></nz-skeleton>
+    <nz-skeleton *ngIf="loading.button; else loadChart" nzActive="true"></nz-skeleton>
+    <ng-template #loadChart>
+      <app-component-charts-line [config]="chartsConfig"></app-component-charts-line>
+    </ng-template>
   </ng-template>
 </nz-card>
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.detail'|translate}}">

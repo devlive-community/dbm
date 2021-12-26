@@ -7,6 +7,7 @@ import { RequestModel } from '@renderer/model/request.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { BaseModel } from '@renderer/model/base.model';
+import { ChartsModel, ChartsSeriesModel } from '@renderer/model/charts.model';
 
 @Component({
   selector: 'app-monitor-processor',
@@ -22,6 +23,7 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
   timer: any;
   processors: ResponseDataModel;
   queryDDL: string;
+  chartsConfig: ChartsModel;
 
   constructor(private datasourceService: DatasourceService,
               private monitorService: MonitorService,
@@ -38,6 +40,7 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
     this.monitorService.getProcesses(request).then(response => {
       if (response.status) {
         this.processors = response.data;
+        this.handlerInitChart(response);
       } else {
         this.messageService.error(response.message);
       }
@@ -71,6 +74,17 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
 
   handlerCloseModal() {
     this.disabled.dialog = false;
+  }
+
+  handlerInitChart(response) {
+    this.chartsConfig = new ChartsModel();
+    this.chartsConfig.type = 'area';
+    const series = new ChartsSeriesModel();
+    const data = new Array();
+    data.push(response.data.columns.length);
+    series.data = data;
+    series.name = 'Count';
+    this.chartsConfig.series.push(series);
   }
 
   ngOnDestroy() {

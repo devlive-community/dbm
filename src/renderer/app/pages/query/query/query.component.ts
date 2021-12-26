@@ -26,7 +26,8 @@ export class QueryComponent extends BaseComponent {
   dataSources: DatasourceModel[];
   datasource: string;
   disabledButton = {
-    execute: true
+    execute: true,
+    cancel: true
   };
   responseTableData: ResponseDataModel[] = new Array();
   editorContainers = [];
@@ -57,6 +58,7 @@ export class QueryComponent extends BaseComponent {
 
   handlerExecute(sql?: string) {
     this.disabledButton.execute = true;
+    this.disabledButton.cancel = false;
     this.loading.button = true;
     this.loadingContainers[this.containerSelected].loading = true;
     const queryHistory = new QueryHistoryModel();
@@ -83,6 +85,7 @@ export class QueryComponent extends BaseComponent {
       this.disabledButton.execute = false;
       this.loadingContainers[this.containerSelected].loading = false;
       this.loading.button = false;
+      this.disabledButton.cancel = true;
       queryHistory.endTime = Date.parse(new Date().toString());
       queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
       this.queryHistoryService.save(queryHistory);
@@ -97,6 +100,13 @@ export class QueryComponent extends BaseComponent {
   handlerFormatter() {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
     codeMirror.setValue(SqlUtils.formatter(codeMirror.getValue(), this.editorConfig));
+  }
+
+  handlerCancel() {
+    this.loadingContainers[this.containerSelected].loading = false;
+    this.disabledButton.execute = false;
+    this.loading.button = false;
+    this.disabledButton.cancel = true;
   }
 
   handlerAddContainer() {

@@ -25,6 +25,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   exports: [
@@ -53,7 +54,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzInputNumberModule,
     NzSwitchModule,
     NzAvatarModule,
-    NzDividerModule
+    NzDividerModule,
+    NzTagModule
   ]
 })
 export class NgZorroAntdModule {

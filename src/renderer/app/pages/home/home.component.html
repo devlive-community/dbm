@@ -1,5 +1,7 @@
 <section class="content--full">
-  <p>Welcome to DBM <code>{{version}}</code></p>
+  <p>Welcome to DBM
+    <nz-tag [nzColor]="'#f50'">{{version}}</nz-tag>
+  </p>
   <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
     <div *ngFor="let datasource of dataSources; let i = index" nz-col nzSpan="12">
       <nz-card nzTitle="{{datasource.alias}}">

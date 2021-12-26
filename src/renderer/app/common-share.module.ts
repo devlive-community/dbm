@@ -8,6 +8,8 @@ import { ClipboardComService } from '@renderer/services/other/clipboard.service'
 import { BasicTableComponent } from '@renderer/components/table/basic/basic.table.component';
 import { CommonModule } from '@angular/common';
 import { ServiceModule } from '@renderer/app/service.module';
+import { LineChartsComponent } from '@renderer/components/charts/line/line.charts.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   imports: [
@@ -16,18 +18,21 @@ import { ServiceModule } from '@renderer/app/service.module';
     CodemirrorModule,
     FormsModule,
     CommonModule,
-    ServiceModule
+    ServiceModule,
+    ChartModule
   ],
   declarations: [
     DdlQueryComponent,
-    BasicTableComponent
+    BasicTableComponent,
+    LineChartsComponent
   ],
   providers: [
     ClipboardComService
   ],
   exports: [
     DdlQueryComponent,
-    BasicTableComponent
+    BasicTableComponent,
+    LineChartsComponent
   ]
 })
 export class CommonShareModule {

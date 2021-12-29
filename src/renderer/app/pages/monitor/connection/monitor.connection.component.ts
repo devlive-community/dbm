@@ -6,7 +6,6 @@ import { MonitorService } from '@renderer/services/monitor/monitor.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ResponseDataModel } from '@renderer/model/response.model';
-import { BaseModel } from '@renderer/model/base.model';
 import { ChartsModel, ChartsSeriesModel } from '@renderer/model/charts.model';
 
 @Component({
@@ -21,8 +20,7 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
   };
   dataSources: DatasourceModel[];
   timer: any;
-  processors: ResponseDataModel;
-  queryDDL: string;
+  models: ResponseDataModel;
   chartsConfig: ChartsModel;
 
   constructor(private datasourceService: DatasourceService,
@@ -34,12 +32,12 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
 
   handlerSwitch() {
     this.loading.button = true;
-    this.processors = null;
+    this.models = null;
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.threshold.datasource)?.data?.columns[0];
     this.monitorService.getConnections(request).then(response => {
       if (response.status) {
-        this.processors = response.data;
+        this.models = response.data;
         this.handlerInitChart(response);
       } else {
         this.messageService.error(response.message);
@@ -60,20 +58,7 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
   }
 
   handlerAnalysisWidth(): number {
-    return this.processors?.columns.length + 360;
-  }
-
-  handlerFilterHeader(headers: any[]): any[] {
-    return headers.filter(value => value.name !== 'query');
-  }
-
-  handlerShowDDL(item: BaseModel) {
-    this.disabled.dialog = true;
-    this.queryDDL = item['query'];
-  }
-
-  handlerCloseModal() {
-    this.disabled.dialog = false;
+    return this.models?.columns.length + 360;
   }
 
   handlerInitChart(response) {
@@ -84,7 +69,6 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
     series.data = response.data.columns.map(v => v.value);
     series.name = 'Count';
     this.chartsConfig.series.push(series);
-    console.log(JSON.stringify(this.chartsConfig));
   }
 
   ngOnDestroy() {

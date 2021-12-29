@@ -58,7 +58,8 @@
     "line": "Line",
     "theme": "Theme",
     "preview": "Preview",
-    "number": "Number"
+    "number": "Number",
+    "connection": "Connection"
   },
   "placeholder": {
     "alias": "Please input alias name!",

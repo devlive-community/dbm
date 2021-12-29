@@ -1,5 +1,5 @@
 <nz-card [nzTitle]="titleTemplate">
-  <nz-empty *ngIf="threshold.datasource === null; else monitorProcessorHasValue"
+  <nz-empty *ngIf="threshold.datasource === null; else monitorComponentHasValue"
             [nzNotFoundContent]="contentTemplate"
             [nzNotFoundFooter]="footerTemplate">
     <ng-template #contentTemplate>
@@ -7,7 +7,7 @@
     <ng-template #footerTemplate>
     </ng-template>
   </nz-empty>
-  <ng-template #monitorProcessorHasValue>
+  <ng-template #monitorComponentHasValue>
     <nz-skeleton *ngIf="loading.button; else loadChart" nzActive="true"></nz-skeleton>
     <ng-template #loadChart>
       <app-component-charts-line [config]="chartsConfig"></app-component-charts-line>
@@ -15,9 +15,9 @@
   </ng-template>
 </nz-card>
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.detail'|translate}}">
-  <nz-skeleton *ngIf="loading.button; else monitorProcessorLoadSuccess" nzActive="true"></nz-skeleton>
-  <ng-template #monitorProcessorLoadSuccess>
-    <nz-empty *ngIf="processors?.columns.length <= 0; else monitorProcessorHasTableValue"
+  <nz-skeleton *ngIf="loading.button; else monitorComponentLoadSuccess" nzActive="true"></nz-skeleton>
+  <ng-template #monitorComponentLoadSuccess>
+    <nz-empty *ngIf="models?.columns.length <= 0; else monitorComponentHasTableValue"
               [nzNotFoundContent]="contentTemplate"
               [nzNotFoundFooter]="footerTemplate">
       <ng-template #contentTemplate>
@@ -25,12 +25,12 @@
       <ng-template #footerTemplate>
       </ng-template>
     </nz-empty>
-    <ng-template #monitorProcessorHasTableValue>
-      <nz-table #basicTable [nzData]="processors.columns" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
+    <ng-template #monitorComponentHasTableValue>
+      <nz-table #basicTable [nzData]="models.columns" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
                 nzSize="small">
         <thead>
         <tr>
-          <th *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+          <th *ngFor="let header of models.headers" nzEllipsis>
             <div nz-popover nzPopoverTrigger="click"
                  nzPopoverContent="{{header?.name}}">
               {{header?.name}}
@@ -40,7 +40,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let column of basicTable.data">
-          <td *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+          <td *ngFor="let header of models.headers" nzEllipsis>
             <div nz-popover nzPopoverTrigger="click"
                  nzPopoverTitle="{{header.name}}" nzPopoverContent="{{column[header.name]}}">
               {{column[header.name]}}

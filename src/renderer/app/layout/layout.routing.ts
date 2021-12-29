@@ -63,6 +63,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'processor',
             loadChildren: () => import('../pages/monitor/processor/monitor.processor.module').then(m => m.MonitorProcessorModule)
+          },
+          {
+            path: 'connection',
+            loadChildren: () => import('../pages/monitor/connection/monitor.connection.module').then(m => m.MonitorConnectionModule)
           }
         ]
       }

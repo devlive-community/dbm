@@ -35,4 +35,21 @@ WHERE
   `;
     return this.getResponse(request, sql);
   }
+
+  getConnections(request: RequestModel): Promise<ResponseModel> {
+    const sql = `
+SELECT
+  metric AS categories,
+  toUInt32(SUM(value)) AS value
+FROM
+  system.metrics
+WHERE
+  metric LIKE '%Connection'
+GROUP BY
+  metric
+ORDER BY
+  metric DESC
+  `;
+    return this.getResponse(request, sql);
+  }
 }

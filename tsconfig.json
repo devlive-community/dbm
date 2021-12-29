@@ -16,6 +16,8 @@
     "importHelpers": true,
     "noImplicitReturns": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "node_modules/@types"
     ],

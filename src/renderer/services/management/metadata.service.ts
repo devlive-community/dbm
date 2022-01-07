@@ -25,6 +25,9 @@ export class MetadataService implements BaseService {
       case TypeEnum.server:
         sql = baseConfig.diskUsed;
         break;
+      case TypeEnum.database:
+        sql = baseConfig.databaseUsed;
+        break;
     }
     return this.getResponse(request, sql);
   }

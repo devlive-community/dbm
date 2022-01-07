@@ -18,6 +18,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   nodes: TreeModel[];
   items: any[];
   selectNode: any;
+  switchType = TypeEnum.server;
 
   constructor(private nzContextMenuService: NzContextMenuService,
               private dataSourceService: DatasourceService,
@@ -44,20 +45,27 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   }
 
   handlerNodeClick(event: NzFormatEmitEvent): void {
-    if (event.node.isSelected) {
-      this.loading.button = true;
+    // if (event.node.isSelected) {
+    this.loading.button = true;
+    if (event.node !== undefined) {
       this.selectNode = event.node.origin;
-      const request = new RequestModel();
-      request.config = this.dataSourceService.getAll(this.selectNode.value)?.data?.columns[0];
-      this.metadataService.getDiskUsedAndRatio(request, this.selectNode).then(response => {
-        if (response.status) {
-          this.items = response.data.columns;
-        } else {
-          this.messageService.error(response.message);
-        }
-        this.loading.button = false;
-      });
     }
+    if (this.switchType) {
+      this.selectNode.type = TypeEnum.server;
+    } else {
+      this.selectNode.type = TypeEnum.database;
+    }
+    const request = new RequestModel();
+    request.config = this.dataSourceService.getAll(this.selectNode.value)?.data?.columns[0];
+    this.metadataService.getDiskUsedAndRatio(request, this.selectNode).then(response => {
+      if (response.status) {
+        this.items = response.data.columns;
+      } else {
+        this.messageService.error(response.message);
+      }
+      this.loading.button = false;
+    });
+    // }
   }
 
   handlerNodeLoad(event: NzFormatEmitEvent): void {

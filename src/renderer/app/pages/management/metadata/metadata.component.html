@@ -19,7 +19,7 @@
     <div class="inner-box">
       <app-component-antd-empty *ngIf="!selectNode; else hasComponentValue"></app-component-antd-empty>
       <ng-template #hasComponentValue>
-        <nz-card nzTitle="{{selectNode.title}}">
+        <nz-card nzTitle="{{selectNode.title}}" [nzExtra]="rightTemplate">
           <nz-skeleton *ngIf="loading.button; else hasSuccessTemplate" [nzActive]="true"></nz-skeleton>
           <ng-template #hasSuccessTemplate>
             <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
@@ -34,8 +34,9 @@
                   </nz-progress>
                   <ng-template #progressPopoverContent>
                     <nz-descriptions [nzTitle]="item.name" nzBordered [nzColumn]="1" nzSize="small">
-                      <nz-descriptions-item *ngFor="let key of handlerKeys(item)"
-                                            [nzTitle]="key">{{item[key]}}</nz-descriptions-item>
+                      <nz-descriptions-item *ngFor="let key of handlerKeys(item)" [nzTitle]="key">
+                        {{item[key]}}
+                      </nz-descriptions-item>
                     </nz-descriptions>
                   </ng-template>
                 </nz-card>
@@ -43,6 +44,11 @@
             </div>
           </ng-template>
         </nz-card>
+        <ng-template #rightTemplate>
+          <nz-switch [(ngModel)]="switchType" nzCheckedChildren="{{'common.server'|translate}}"
+                     nzUnCheckedChildren="{{'common.database'|translate}}" (ngModelChange)="handlerNodeClick($event)">
+          </nz-switch>
+        </ng-template>
       </ng-template>
     </div>
   </div>

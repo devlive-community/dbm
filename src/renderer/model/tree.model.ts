@@ -6,5 +6,7 @@ export class TreeModel extends BaseModel {
   key: TreeModel;
   value: string;
   type: TypeEnum;
+  database: string;
+  table: string;
   isLeaf: boolean;
 }

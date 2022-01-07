@@ -1,7 +1,7 @@
 import { BaseConfig } from '@renderer/config/base.config';
 
 export class ClickhouseConfig implements BaseConfig {
-  diskUsed = `
+  diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,
     formatReadableSize(total_space - free_space) AS usedSize, formatReadableSize(keep_free_space) AS reservedSize,
@@ -9,7 +9,7 @@ SELECT
 FROM system.disks
 ORDER BY path DESC
   `;
-  databaseUsed = `
+  databaseDiskUsedRatio = `
 WITH t0 AS (
   SELECT total_space AS totalBytes, total_space - free_space AS usedBytes
   FROM system.disks
@@ -24,5 +24,17 @@ SELECT
   formatReadableSize(t1.dbUsedBytes) AS dbUsedSize, round(t1.dbUsedBytes / t0.totalBytes * 100, 3) AS value
 FROM t0, t1
 ORDER BY value DESC
+  `;
+  databaseItems = `
+SELECT name, engine AS value
+FROM "system".databases
+  `;
+  tableItems = `
+SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
+FROM system.tables
+WHERE database = '{0}'
+  `;
+  columnItems = `
+DESC {0}.{1}
   `;
 }

@@ -3,6 +3,7 @@
     <nz-tree [nzData]="nodes" nzAsyncData nzBlockNode
              (nzClick)="handlerNodeClick($event)"
              (nzExpandChange)="handlerNodeLoad($event)"
+             nzVirtualHeight="{{outerHeight}}px"
              [nzTreeTemplate]="nzTreeTemplate">
     </nz-tree>
     <ng-template #nzTreeTemplate let-node let-origin="origin">

@@ -8,6 +8,7 @@ import { TreeModel } from '@renderer/model/tree.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
 import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
 import { Factory } from '@renderer/factory';
+import { StringUtils } from '@renderer/utils/string.utils';
 
 @Injectable()
 export class MetadataService implements BaseService {
@@ -23,10 +24,28 @@ export class MetadataService implements BaseService {
     const baseConfig = Factory.create(ClickhouseConfig);
     switch (config.type) {
       case TypeEnum.server:
-        sql = baseConfig.diskUsed;
+        sql = baseConfig.diskUsedRatio;
         break;
       case TypeEnum.database:
-        sql = baseConfig.databaseUsed;
+        sql = baseConfig.databaseDiskUsedRatio;
+        break;
+    }
+    return this.getResponse(request, sql);
+  }
+
+  getChild(request: RequestModel, config: TreeModel): Promise<ResponseModel> {
+    let sql;
+    const baseConfig = Factory.create(ClickhouseConfig);
+    console.log(config)
+    switch (config.type) {
+      case TypeEnum.server:
+        sql = baseConfig.databaseItems;
+        break;
+      case TypeEnum.database:
+        sql = StringUtils.format(baseConfig.tableItems, [config.key]);
+        break;
+      case TypeEnum.table:
+        sql = StringUtils.format(baseConfig.columnItems, [config.database, config.key]);;
         break;
     }
     return this.getResponse(request, sql);

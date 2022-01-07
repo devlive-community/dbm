@@ -26,6 +26,11 @@
             <i class="fa fa-dashcube"> {{ 'common.datasource' | translate }}</i>
           </a>
         </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/management/metadata']" class="dropdown-item">
+            <i class="fa fa-archive"> {{ 'common.metadata' | translate }}</i>
+          </a>
+        </li>
       </ul>
     </li>
     <li nz-submenu [nzTitle]="monitorMenuItemTitle">

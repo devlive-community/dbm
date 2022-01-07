@@ -32,6 +32,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'datasource',
             loadChildren: () => import('../pages/management/datasource/datasource.module').then(m => m.DatasourceModule)
+          },
+          {
+            path: 'metadata',
+            loadChildren: () => import('../pages/management/metadata/metadata.module').then(m => m.MetadataModule)
           }
         ]
       },

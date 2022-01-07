@@ -15,5 +15,8 @@ export enum EditorThemeEnum {
   darcula = ('darcula'),
   dracula = ('dracula'),
   'duotone-dark' = ('duotone-dark'),
-  'duotone-light' = ('duotone-light')
+  'duotone-light' = ('duotone-light'),
+  eclipse = ('eclipse'),
+  elegant = ('elegant'),
+  'erlang-dark' = ('erlang-dark')
 }

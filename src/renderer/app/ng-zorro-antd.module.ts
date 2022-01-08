@@ -26,8 +26,12 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 @NgModule({
+  declarations: [
+  ],
   exports: [
     NzSelectModule,
     NzButtonModule,
@@ -55,7 +59,9 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     NzSwitchModule,
     NzAvatarModule,
     NzDividerModule,
-    NzTagModule
+    NzTagModule,
+    NzTreeModule,
+    NzProgressModule
   ]
 })
 export class NgZorroAntdModule {

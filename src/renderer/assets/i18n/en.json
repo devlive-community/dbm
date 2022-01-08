@@ -59,7 +59,8 @@
     "theme": "Theme",
     "preview": "Preview",
     "number": "Number",
-    "connection": "Connection"
+    "connection": "Connection",
+    "metadata": "Metadata"
   },
   "placeholder": {
     "alias": "Please input alias name!",

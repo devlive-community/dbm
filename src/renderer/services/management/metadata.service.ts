@@ -23,11 +23,18 @@ export class MetadataService implements BaseService {
     let sql;
     const baseConfig = Factory.create(ClickhouseConfig);
     switch (config.type) {
-      case TypeEnum.server:
+      case TypeEnum.disk:
         sql = baseConfig.diskUsedRatio;
         break;
-      case TypeEnum.database:
+      case TypeEnum.server:
         sql = baseConfig.databaseDiskUsedRatio;
+        break;
+      case TypeEnum.database:
+        sql = StringUtils.format(baseConfig.tableDiskUsedRatio, [config.key]);
+        break;
+      case TypeEnum.table:
+      case TypeEnum.column:
+        sql = StringUtils.format(baseConfig.columnDiskUsedRatio, [config.database, config.key, 100]);
         break;
     }
     return this.getResponse(request, sql);
@@ -36,7 +43,6 @@ export class MetadataService implements BaseService {
   getChild(request: RequestModel, config: TreeModel): Promise<ResponseModel> {
     let sql;
     const baseConfig = Factory.create(ClickhouseConfig);
-    console.log(config)
     switch (config.type) {
       case TypeEnum.server:
         sql = baseConfig.databaseItems;
@@ -45,7 +51,7 @@ export class MetadataService implements BaseService {
         sql = StringUtils.format(baseConfig.tableItems, [config.key]);
         break;
       case TypeEnum.table:
-        sql = StringUtils.format(baseConfig.columnItems, [config.database, config.key]);;
+        sql = StringUtils.format(baseConfig.columnItems, [config.database, config.key]);
         break;
     }
     return this.getResponse(request, sql);

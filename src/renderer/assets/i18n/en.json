@@ -60,7 +60,8 @@
     "preview": "Preview",
     "number": "Number",
     "connection": "Connection",
-    "metadata": "Metadata"
+    "metadata": "Metadata",
+    "disk": "Disk"
   },
   "placeholder": {
     "alias": "Please input alias name!",

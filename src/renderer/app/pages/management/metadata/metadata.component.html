@@ -46,7 +46,9 @@
           </ng-template>
         </nz-card>
         <ng-template #rightTemplate>
-          <nz-switch [(ngModel)]="switchType" nzCheckedChildren="{{'common.server'|translate}}"
+          <nz-switch [(ngModel)]="switchType"
+                     *ngIf="selectNode.origin.type === 'disk' || selectNode.origin.type === 'server' "
+                     nzCheckedChildren="{{'common.disk'|translate}}"
                      nzUnCheckedChildren="{{'common.database'|translate}}" (ngModelChange)="handlerNodeClick($event)">
           </nz-switch>
         </ng-template>

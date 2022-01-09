@@ -23,26 +23,30 @@
         <nz-card nzTitle="{{selectNode.title}}" [nzExtra]="rightTemplate">
           <nz-skeleton *ngIf="loading.button; else hasSuccessTemplate" [nzActive]="true"></nz-skeleton>
           <ng-template #hasSuccessTemplate>
-            <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
-              <div *ngFor="let item of items; let i = index" nz-col nzSpan="6">
-                <nz-card nzTitle="{{ (i + 1) + ': ' + item.name }}">
-                  <nz-progress
-                    nz-popover
-                    [nzPopoverContent]="progressPopoverContent"
-                    nzType="circle"
-                    [nzPercent]="item.value"
-                    [nzStrokeColor]="{ '0%': '#87d068', '50%': '#d9651f', '100%': '#fc0202' }">
-                  </nz-progress>
-                  <ng-template #progressPopoverContent>
-                    <nz-descriptions [nzTitle]="item.name" nzBordered [nzColumn]="1" nzSize="small">
-                      <nz-descriptions-item *ngFor="let key of handlerKeys(item)" [nzTitle]="key">
-                        {{item[key]}}
-                      </nz-descriptions-item>
-                    </nz-descriptions>
-                  </ng-template>
-                </nz-card>
+            <app-component-antd-empty *ngIf="items.length <= 0; else hasLoadTemplate">
+            </app-component-antd-empty>
+            <ng-template #hasLoadTemplate>
+              <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
+                <div *ngFor="let item of items; let i = index" nz-col nzSpan="6">
+                  <nz-card nzTitle="{{ (i + 1) + ': ' + item.name }}">
+                    <nz-progress
+                      nz-popover
+                      [nzPopoverContent]="progressPopoverContent"
+                      nzType="circle"
+                      [nzPercent]="item.value"
+                      [nzStrokeColor]="{ '0%': '#87d068', '50%': '#d9651f', '100%': '#fc0202' }">
+                    </nz-progress>
+                    <ng-template #progressPopoverContent>
+                      <nz-descriptions [nzTitle]="item.name" nzBordered [nzColumn]="1" nzSize="small">
+                        <nz-descriptions-item *ngFor="let key of handlerKeys(item)" [nzTitle]="key">
+                          {{item[key]}}
+                        </nz-descriptions-item>
+                      </nz-descriptions>
+                    </ng-template>
+                  </nz-card>
+                </div>
               </div>
-            </div>
+            </ng-template>
           </ng-template>
         </nz-card>
         <ng-template #rightTemplate>

@@ -22,7 +22,6 @@ export class MetadataService implements BaseService {
   getDiskUsedAndRatio(request: RequestModel, config: TreeModel): Promise<ResponseModel> {
     let sql;
     const baseConfig = Factory.create(ClickhouseConfig);
-    console.log(config)
     switch (config.type) {
       case TypeEnum.disk:
         sql = baseConfig.diskUsedRatio;
@@ -31,7 +30,11 @@ export class MetadataService implements BaseService {
         sql = baseConfig.databaseDiskUsedRatio;
         break;
       case TypeEnum.database:
-        sql = StringUtils.format(baseConfig.tableDiskUsedRatio, [config.key]);;
+        sql = StringUtils.format(baseConfig.tableDiskUsedRatio, [config.key]);
+        break;
+      case TypeEnum.table:
+      case TypeEnum.column:
+        sql = StringUtils.format(baseConfig.columnDiskUsedRatio, [config.database, config.key, 100]);
         break;
     }
     return this.getResponse(request, sql);

@@ -20,7 +20,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   items: any[];
   selectNode: any;
   rootNode: any;
-  switchType = TypeEnum.server;
+  switchType = TypeEnum.disk;
   outerHeight: number;
 
   constructor(private nzContextMenuService: NzContextMenuService,
@@ -34,7 +34,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       treeNode.key = k.name;
       treeNode.value = k.alias;
       treeNode.title = k.alias;
-      treeNode.type = TypeEnum.server;
+      treeNode.type = TypeEnum.disk;
       return treeNode;
     });
     this.outerHeight = window.outerHeight;
@@ -51,20 +51,21 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   handlerNodeClick(event: NzFormatEmitEvent): void {
     // if (event.node.isSelected) {
     this.loading.button = true;
-    if (event.node.level === 0) {
+    if (event.node?.level === 0) {
       this.rootNode = event.node.origin;
     }
     if (event.node !== undefined) {
-      this.selectNode = event.node.origin;
+      this.selectNode = event.node;
     }
     if (this.switchType) {
-      this.selectNode.type = TypeEnum.server;
+      this.selectNode.origin.type = TypeEnum.disk;
     } else {
-      this.selectNode.type = TypeEnum.database;
+      this.selectNode.origin.type = TypeEnum.server;
     }
+    this.handlerLevel(this.selectNode);
     const request = new RequestModel();
     request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
-    this.metadataService.getDiskUsedAndRatio(request, this.selectNode).then(response => {
+    this.metadataService.getDiskUsedAndRatio(request, this.selectNode.origin).then(response => {
       if (response.status) {
         this.items = response.data.columns;
       } else {
@@ -77,21 +78,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
 
   handlerNodeLoad(event: NzFormatEmitEvent): void {
     const node = event.node;
-    switch (node.level) {
-      case 0:
-        this.rootNode = node.origin;
-        break;
-      case 1:
-        node.origin.type = TypeEnum.database;
-        break;
-      case 2:
-        node.origin.type = TypeEnum.table;
-        break;
-      case 3:
-        node.origin.type = TypeEnum.column;
-        break;
-    }
+    this.handlerLevel(node);
     const originNode: any = event.node.origin;
+    if (node?.level === 0) {
+      originNode.type = TypeEnum.server;
+    }
     if (node?.getChildren().length === 0 && node?.isExpanded) {
       const request = new RequestModel();
       request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
@@ -109,5 +100,22 @@ export class MetadataComponent extends BaseComponent implements OnInit {
 
   handlerKeys(item: any) {
     return Object.keys(item);
+  }
+
+  handlerLevel(node) {
+    switch (node.level) {
+      case 0:
+        this.rootNode = node.origin;
+        break;
+      case 1:
+        node.origin.type = TypeEnum.database;
+        break;
+      case 2:
+        node.origin.type = TypeEnum.table;
+        break;
+      case 3:
+        node.origin.type = TypeEnum.column;
+        break;
+    }
   }
 }

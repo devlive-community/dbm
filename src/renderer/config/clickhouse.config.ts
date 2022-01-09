@@ -25,6 +25,26 @@ SELECT
 FROM t0, t1
 ORDER BY value DESC
   `;
+  tableDiskUsedRatio = `
+WITH t0 AS (
+  SELECT total_space AS totalBytes, total_space - free_space AS usedBytes
+  FROM system.disks
+),
+t1 AS (
+  SELECT
+    database AS db, table AS name, SUM(bytes_on_disk) AS tableUsedBytes,
+    formatReadableSize(sum(bytes_on_disk)) AS value
+  FROM system.parts
+  WHERE database = '{0}'
+  GROUP BY db, name
+)
+SELECT
+    format('{}-{}', t1.db, t1.name) AS name, formatReadableSize(t0.totalBytes) AS totalSize,
+    formatReadableSize(t0.usedBytes) AS usedSize, formatReadableSize(t1.tableUsedBytes) AS dbUsedSize,
+    round(t1.tableUsedBytes / t0.totalBytes * 100, 5) AS value
+FROM t0, t1
+ORDER BY t1.tableUsedBytes DESC
+  `;
   databaseItems = `
 SELECT name, engine AS value
 FROM "system".databases

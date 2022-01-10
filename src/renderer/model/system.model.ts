@@ -5,6 +5,7 @@ import { EditorThemeEnum } from '@renderer/enum/editor/theme.enum';
 export class SystemBasicModel extends BaseModel {
   public network = 10;
   public format: FormatEnum = FormatEnum.JSON;
+  public language = 'en';
 }
 
 export class SystemEditorModel extends BaseModel {

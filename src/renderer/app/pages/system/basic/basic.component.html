@@ -20,6 +20,18 @@
         </nz-select>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="language"
+                     nzTooltipTitle="{{'tooltip.language'|translate}}">{{'common.language'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.language" name="language" id="language">
+          <ng-container *ngFor="let o of languages">
+            <nz-option [nzValue]="o.value" [nzLabel]="o.key"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzOffset]="3">
         <button nz-button nzType="primary" (click)="handlerSave()">{{'common.ok'|translate}}</button>

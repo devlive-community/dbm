@@ -56,7 +56,6 @@
         </li>
       </ul>
     </li>
-    <li nz-submenu [nzTitle]="i18nMenuItemTitle" style="float: right;"></li>
     <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;">
       <ul>
         <li nz-menu-item>
@@ -86,8 +85,5 @@
   </ng-template>
   <ng-template #systemMenuItemTitle>
     <i class="fa fa-gear"></i>&nbsp;{{'common.system'|translate}}
-  </ng-template>
-  <ng-template #i18nMenuItemTitle>
-    <i class="fa fa-language"></i>&nbsp;{{'common.language'|translate}}
   </ng-template>
 </nz-header>

@@ -8,6 +8,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
+import { BasicService } from '@renderer/services/system/basic.service';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -30,7 +31,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
       }
     })
   ],
-  providers: []
+  providers: [
+    BasicService
+  ]
 })
 export class LayoutModule {
 }

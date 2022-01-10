@@ -63,6 +63,10 @@
     "metadata": "Metadata",
     "disk": "Disk"
   },
+  "language": {
+    "english": "English",
+    "chinese": "Chinese"
+  },
   "placeholder": {
     "alias": "Please input alias name!",
     "protocol": "Please select protocol type!",
@@ -74,6 +78,7 @@
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
     "format": "The underlying data supports formatting types, JSON by default",
+    "language": "The language used by the software is English by default",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",

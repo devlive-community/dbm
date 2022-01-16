@@ -9,6 +9,8 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
 import { MetadataService } from '@renderer/services/management/metadata.service';
+import { ContextMenuService } from '@renderer/services/context.menu.service';
+import { InfoServerComponent } from '@renderer/components/server/info/info.server.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -26,11 +28,13 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
   ],
   exports: [],
   declarations: [
-    MetadataComponent
+    MetadataComponent,
+    InfoServerComponent
   ],
   providers: [
     DatasourceService,
-    MetadataService
+    MetadataService,
+    ContextMenuService
   ]
 })
 export class MetadataModule {

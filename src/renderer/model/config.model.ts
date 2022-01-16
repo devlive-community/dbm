@@ -1,9 +1,9 @@
 import { BaseModel } from '@renderer/model/base.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
 
-export class TreeModel extends BaseModel {
+export class ConfigModel extends BaseModel {
   title: string;
-  key: TreeModel;
+  key: ConfigModel;
   value: string;
   type: TypeEnum;
   database: string;

@@ -7,12 +7,15 @@
              [nzTreeTemplate]="nzTreeTemplate">
     </nz-tree>
     <ng-template #nzTreeTemplate let-node let-origin="origin">
-        <span (contextmenu)="handlerContextMenu($event, menu, origin.type)">
+        <span (contextmenu)="handlerContextMenu($event, menu, origin)">
           <i class="fa fa-{{origin.type}}"></i>&nbsp;{{origin.title}}
         </span>
     </ng-template>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
+        <li nz-menu-item *ngFor="let item of contextMenus" (click)="handlerContextMenuClick(item)">
+          <i class="fa fa-{{item.icon}}"></i>&nbsp;{{item.title}}
+        </li>
       </ul>
     </nz-dropdown-menu>
   </div>
@@ -60,3 +63,7 @@
     </div>
   </div>
 </div>
+<app-component-info-server *ngIf="disabledComponent.server"
+                           [visible]="disabledComponent.server" [config]="rootNode"
+                           (emitter)="handlerContextMenuClose()">
+</app-component-info-server>

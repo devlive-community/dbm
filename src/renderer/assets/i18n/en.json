@@ -61,7 +61,8 @@
     "number": "Number",
     "connection": "Connection",
     "metadata": "Metadata",
-    "disk": "Disk"
+    "disk": "Disk",
+    "info": "Information"
   },
   "language": {
     "english": "English",

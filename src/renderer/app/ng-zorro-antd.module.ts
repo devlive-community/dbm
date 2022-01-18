@@ -28,6 +28,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
     NzDividerModule,
     NzTagModule,
     NzTreeModule,
-    NzProgressModule
+    NzProgressModule,
+    NzStepsModule
   ]
 })
 export class NgZorroAntdModule {

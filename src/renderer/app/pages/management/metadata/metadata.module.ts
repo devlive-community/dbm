@@ -11,9 +11,11 @@ import { CommonShareModule } from '@renderer/app/common-share.module';
 import { MetadataService } from '@renderer/services/management/metadata.service';
 import { ContextMenuService } from '@renderer/services/context.menu.service';
 import { InfoServerComponent } from '@renderer/components/server/info/info.server.component';
+import { DatabaseBasicComponent } from '@renderer/components/database/basic/database.basic.component';
+import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
-  {path: '', component: MetadataComponent}
+  { path: '', component: MetadataComponent }
 ];
 
 @NgModule({
@@ -29,7 +31,9 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
   exports: [],
   declarations: [
     MetadataComponent,
-    InfoServerComponent
+    InfoServerComponent,
+    DatabaseBasicComponent,
+    DrividerAntdComponent
   ],
   providers: [
     DatasourceService,

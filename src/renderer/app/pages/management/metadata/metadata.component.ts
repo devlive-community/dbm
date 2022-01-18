@@ -27,7 +27,8 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   outerHeight: number;
   contextMenus: MenuModel[];
   disabledComponent = {
-    server: false
+    server: false,
+    database: false
   };
 
   constructor(private nzContextMenuService: NzContextMenuService,
@@ -65,6 +66,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       case TypeEnum.server:
         this.disabledComponent.server = true;
         break;
+      case TypeEnum.database:
+        this.disabledComponent.database = true;
+        break;
     }
   }
 
@@ -72,6 +76,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     switch (this.selectMenu.type) {
       case TypeEnum.server:
         this.disabledComponent.server = false;
+        break;
+      case TypeEnum.database:
+        this.disabledComponent.database = false;
         break;
     }
   }

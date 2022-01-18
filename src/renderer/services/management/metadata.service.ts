@@ -9,6 +9,9 @@ import { TypeEnum } from '@renderer/enum/type.enum';
 import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
 import { Factory } from '@renderer/factory';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { DatabaseModel } from '@renderer/model/database.model';
+import { defaults } from 'codemirror';
+import { DatabaseEnum } from '@renderer/enum/database.enum';
 
 @Injectable()
 export class MetadataService implements BaseService {
@@ -61,6 +64,17 @@ export class MetadataService implements BaseService {
 
   getInfo(request: RequestModel) {
     const sql = this.baseConfig.serverInfo;
+    return this.getResponse(request, sql);
+  }
+
+  createDatabase(request: RequestModel, database: DatabaseModel): Promise<ResponseModel> {
+    let sql;
+    switch (database.type) {
+      case DatabaseEnum.none:
+      default:
+        sql = StringUtils.format('CREATE DATABASE {0}', [database.name])
+        break;
+    }
     return this.getResponse(request, sql);
   }
 }

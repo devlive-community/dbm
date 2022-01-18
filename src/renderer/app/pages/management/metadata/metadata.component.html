@@ -64,6 +64,12 @@
   </div>
 </div>
 <app-component-info-server *ngIf="disabledComponent.server"
-                           [visible]="disabledComponent.server" [config]="rootNode"
+                           [visible]="disabledComponent.server"
+                           [config]="rootNode"
                            (emitter)="handlerContextMenuClose()">
 </app-component-info-server>
+<app-component-database *ngIf="disabledComponent.database"
+                        [visible]="disabledComponent.database"
+                        [config]="rootNode"
+                        (emitter)="handlerContextMenuClose()">
+</app-component-database>

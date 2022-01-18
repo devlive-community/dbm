@@ -10,6 +10,9 @@ import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
 const ngZorroConfig: NzConfig = {
   card: {
     nzSize: 'small'
+  },
+  button: {
+    nzSize: 'small'
   }
 };
 

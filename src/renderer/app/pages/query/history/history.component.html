@@ -9,7 +9,7 @@
   </nz-empty>
   <ng-template #notHasValues>
     <div class="table-body-flex">
-      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}">
+      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}" nzSize="small">
         <thead>
         <tr>
           <th>{{'common.id' | translate}}</th>

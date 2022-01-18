@@ -52,7 +52,6 @@
     "clear": "Clear",
     "processor": "Processor",
     "open": "Open",
-    "close": "Close",
     "detail": "Detail",
     "active": "Active",
     "line": "Line",
@@ -61,7 +60,17 @@
     "number": "Number",
     "connection": "Connection",
     "metadata": "Metadata",
-    "disk": "Disk"
+    "disk": "Disk",
+    "info": "Information",
+    "create": "Create",
+    "engine": "Engine",
+    "configuration": "Configuration",
+    "previous": "Previous",
+    "next": "Next",
+    "experimental": "Experimental",
+    "default": "Default",
+    "save": "Save",
+    "property": "Property"
   },
   "language": {
     "english": "English",
@@ -79,12 +88,16 @@
     "network": "Duration of accessing the remote server (in seconds)",
     "format": "The underlying data supports formatting types, JSON by default",
     "language": "The language used by the software is English by default",
+    "experimental": "This is an experimental feature that should not be used in production.",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",
       "theme": "Global editor theme",
       "lineNumber": "Shows the number of lines of code",
       "language": "Type of editor formatting"
+    },
+    "database": {
+      "default": "Default Database Engine"
     }
   }
 }

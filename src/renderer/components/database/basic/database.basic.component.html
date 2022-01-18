@@ -1,0 +1,73 @@
+<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()" nzWidth="70%"
+  nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}">
+  <div *nzModalContent>
+    <nz-steps [nzCurrent]="current" nzSize="small">
+      <nz-step nzTitle="{{'common.database'|translate}} {{'common.engine'|translate}}"></nz-step>
+      <nz-step nzTitle="{{'common.database'|translate}} {{'common.configuration'|translate}}"></nz-step>
+    </nz-steps>
+    <div *ngIf="current === 0">
+      <div nz-row [nzGutter]="[8, 8]">
+        <div nz-col class="gutter-row" [nzSpan]="24">
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="24" *ngFor="let engine of databaseEngines">
+          <app-component-antd-drivider [title]="engine.name" [description]="engine.description">
+          </app-component-antd-drivider>
+          <div nz-row *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]">
+            <div nz-col [nzSpan]="6" *ngFor="let database of engine.engines">
+              <div class="">
+                <nz-radio-group [(ngModel)]="configure.type">
+                  <label nz-radio-button [nzValue]="database.name">
+                    {{database.name}} &nbsp;
+                    <span *ngIf="database.description" nz-tooltip [nzTooltipTitle]="database.description">
+                      <i class="fa fa-question-circle"></i>
+                    </span>
+                  </label>
+                </nz-radio-group>
+              </div>
+            </div>
+          </div>
+          <ng-template #notHasEngines>
+            <div nz-col [nzSpan]="24">
+              <app-component-antd-empty></app-component-antd-empty>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="current === 1">
+      <div nz-row [nzGutter]="[8, 8]">
+        <div nz-col class="gutter-row" [nzSpan]="24">
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="24">
+          <form nz-form>
+            <nz-divider nzPlain nzText="{{'common.basic'|translate}}" nzOrientation="left"></nz-divider>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input type="text" nz-input name="name" [(ngModel)]="configure.name" (change)="handlerValidate()"/>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-divider nzPlain nzText="{{'common.property'|translate}}" nzOrientation="left"></nz-divider>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handlerPrevious()" *ngIf="current > 0">
+      <span>{{'common.previous'|translate}}</span>
+    </button>
+    <button nz-button nzType="default" (click)="handlerNext()" *ngIf="current < 1">
+      <span>{{'common.next'|translate}}</span>
+    </button>
+    <button nz-button nzType="primary" [disabled]="disabled.button" (click)="handlerComplete()" *ngIf="current === 1">
+      <span>{{'common.save'|translate}}</span>
+    </button>
+  </div>
+</nz-modal>

@@ -1,13 +1,13 @@
-import { TreeModel } from '@renderer/model/tree.model';
+import { ConfigModel } from '@renderer/model/config.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 
 export class TreeUtils {
-  public static builderTreeNode(array, type): TreeModel[] {
+  public static builderTreeNode(array, type): ConfigModel[] {
     const elements = new Array();
     if (StringUtils.getLength(array) > 0) {
       array.forEach(e => {
-        const element = new TreeModel();
+        const element = new ConfigModel();
         element.id = StringUtils.isEmpty(e.id) ? e.name : e.id;
         element.key = e.name;
         element.title = e.name;

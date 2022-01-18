@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BasicService } from '@renderer/services/system/basic.service';
 import { SystemBasicModel } from '@renderer/model/system.model';
+import { TranslateUtils } from '@renderer/utils/translate.utils';
 
 @Component({
   selector: 'app-layout',
@@ -40,6 +41,7 @@ export class LayoutComponent implements OnInit {
               private basicService: BasicService) {
     const basicConfig = this.basicService.get() === null ? new SystemBasicModel() : this.basicService.get();
     this.translate.setDefaultLang(basicConfig.language);
+    TranslateUtils.init(translate);
   }
 
   ngOnInit() {

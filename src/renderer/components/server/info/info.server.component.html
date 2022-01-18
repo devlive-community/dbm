@@ -1,0 +1,16 @@
+<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()"
+          nzWidth="60%"
+          nzTitle="{{'common.query'|translate}} {{'common.ddl'|translate}}">
+  <div *nzModalContent>
+    <nz-skeleton *ngIf="disabled.dialog; else hasValues" nzActive="true">
+    </nz-skeleton>
+    <ng-template #hasValues>
+      <app-component-basic-table [value]="items"></app-component-basic-table>
+    </ng-template>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="dashed" nzDanger (click)="handlerCancel()">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</nz-modal>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { TreeModel } from '@renderer/model/tree.model';
+import { ConfigModel } from '@renderer/model/config.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { TypeEnum } from '@renderer/enum/type.enum';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,32 +10,41 @@ import { MetadataService } from '@renderer/services/management/metadata.service'
 import { RequestModel } from '@renderer/model/request.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TreeUtils } from '@renderer/utils/tree.utils';
+import { ContextMenuService } from '@renderer/services/context.menu.service';
+import { MenuModel } from '@renderer/model/menu.model';
 
 @Component({
   selector: 'app-management-metadata',
   templateUrl: 'metadata.component.html'
 })
 export class MetadataComponent extends BaseComponent implements OnInit {
-  nodes: TreeModel[];
+  nodes: ConfigModel[];
   items: any[];
   selectNode: any;
+  selectMenu: MenuModel;
   rootNode: any;
   switchType = TypeEnum.disk;
   outerHeight: number;
+  contextMenus: MenuModel[];
+  disabledComponent = {
+    server: false,
+    database: false
+  };
 
   constructor(private nzContextMenuService: NzContextMenuService,
               private dataSourceService: DatasourceService,
               private translateService: TranslateService,
               private metadataService: MetadataService,
-              private messageService: NzMessageService) {
+              private messageService: NzMessageService,
+              private contextMenuService: ContextMenuService) {
     super();
     this.nodes = this.dataSourceService.getAll()?.data?.columns.map(k => {
-      const treeNode = new TreeModel();
-      treeNode.key = k.name;
-      treeNode.value = k.alias;
-      treeNode.title = k.alias;
-      treeNode.type = TypeEnum.disk;
-      return treeNode;
+      const configModel = new ConfigModel();
+      configModel.key = k.name;
+      configModel.value = k.alias;
+      configModel.title = k.alias;
+      configModel.type = TypeEnum.disk;
+      return configModel;
     });
     this.outerHeight = window.outerHeight;
   }
@@ -43,9 +52,35 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  handlerContextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, type: TypeEnum): void {
-    console.log(this.translateService.instant('common.add'));
+  handlerContextMenu($event: MouseEvent, menu: NzDropdownMenuComponent, origin: any): void {
+    if (!origin.level) {
+      this.rootNode = origin;
+    }
+    this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
     this.nzContextMenuService.create($event, menu);
+  }
+
+  handlerContextMenuClick(menu: MenuModel): void {
+    this.selectMenu = menu;
+    switch (menu.type) {
+      case TypeEnum.server:
+        this.disabledComponent.server = true;
+        break;
+      case TypeEnum.database:
+        this.disabledComponent.database = true;
+        break;
+    }
+  }
+
+  handlerContextMenuClose() {
+    switch (this.selectMenu.type) {
+      case TypeEnum.server:
+        this.disabledComponent.server = false;
+        break;
+      case TypeEnum.database:
+        this.disabledComponent.database = false;
+        break;
+    }
   }
 
   handlerNodeClick(event: NzFormatEmitEvent): void {

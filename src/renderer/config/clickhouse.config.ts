@@ -82,4 +82,7 @@ WHERE database = '{0}'
   columnItems = `
 DESC {0}.{1}
   `;
+  serverInfo = `
+SELECT * FROM system.build_options
+  `;
 }

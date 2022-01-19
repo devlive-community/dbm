@@ -1,0 +1,11 @@
+<nz-form-item>
+  <nz-form-label [nzSm]="6" [nzXs]="24"
+                 nzTooltipTitle="{{'tooltip.property.timeSeconds'|translate}}">
+    {{'common.expiration'|translate}}{{'common.time'|translate}}
+  </nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-input-number (nzBlur)="handlerValidate()" [(ngModel)]="property.timeSeconds"
+                     [nzMin]="0">
+    </nz-input-number>
+  </nz-form-control>
+</nz-form-item>

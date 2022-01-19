@@ -1,24 +1,25 @@
-<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()" nzWidth="70%"
-  nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}">
+<nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false"
+          nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}"
+          nzWidth="70%">
   <div *nzModalContent>
     <nz-steps [nzCurrent]="current" nzSize="small">
       <nz-step nzTitle="{{'common.database'|translate}} {{'common.engine'|translate}}"></nz-step>
       <nz-step nzTitle="{{'common.database'|translate}} {{'common.configuration'|translate}}"></nz-step>
     </nz-steps>
     <div *ngIf="current === 0">
-      <div nz-row [nzGutter]="[8, 8]">
-        <div nz-col class="gutter-row" [nzSpan]="24">
+      <div [nzGutter]="[8, 8]" nz-row>
+        <div [nzSpan]="24" class="gutter-row" nz-col>
         </div>
-        <div nz-col class="gutter-row" [nzSpan]="24" *ngFor="let engine of databaseEngines">
-          <app-component-antd-drivider [title]="engine.name" [description]="engine.description">
+        <div *ngFor="let engine of databaseEngines" [nzSpan]="24" class="gutter-row" nz-col>
+          <app-component-antd-drivider [description]="engine.description" [title]="engine.name">
           </app-component-antd-drivider>
-          <div nz-row *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]">
-            <div nz-col [nzSpan]="6" *ngFor="let database of engine.engines">
+          <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
+            <div *ngFor="let database of engine.engines" [nzSpan]="6" nz-col>
               <div class="">
-                <nz-radio-group [(ngModel)]="configure.type">
-                  <label nz-radio-button [nzValue]="database.name">
+                <nz-radio-group [(ngModel)]="databaseSelectValue" (ngModelChange)="handlerChange(database)">
+                  <label [nzValue]="database.name" nz-radio-button>
                     {{database.name}} &nbsp;
-                    <span *ngIf="database.description" nz-tooltip [nzTooltipTitle]="database.description">
+                    <span *ngIf="database.description" [nzTooltipTitle]="database.description" nz-tooltip>
                       <i class="fa fa-question-circle"></i>
                     </span>
                   </label>
@@ -27,7 +28,7 @@
             </div>
           </div>
           <ng-template #notHasEngines>
-            <div nz-col [nzSpan]="24">
+            <div [nzSpan]="24" nz-col>
               <app-component-antd-empty></app-component-antd-empty>
             </div>
           </ng-template>
@@ -35,12 +36,12 @@
       </div>
     </div>
     <div *ngIf="current === 1">
-      <div nz-row [nzGutter]="[8, 8]">
-        <div nz-col class="gutter-row" [nzSpan]="24">
+      <div [nzGutter]="[8, 8]" nz-row>
+        <div [nzSpan]="24" class="gutter-row" nz-col>
         </div>
-        <div nz-col class="gutter-row" [nzSpan]="24">
+        <div [nzSpan]="24" class="gutter-row" nz-col>
           <form nz-form>
-            <nz-divider nzPlain nzText="{{'common.basic'|translate}}" nzOrientation="left"></nz-divider>
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.basic'|translate}}"></nz-divider>
             <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
               <nz-form-control [nzSm]="14" [nzXs]="24">
@@ -50,23 +51,30 @@
             <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
               <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input type="text" nz-input name="name" [(ngModel)]="configure.name" (change)="handlerValidate()"/>
+                <input (change)="handlerValidate()" [(ngModel)]="configure.name" name="name" nz-input type="text"/>
               </nz-form-control>
             </nz-form-item>
-            <nz-divider nzPlain nzText="{{'common.property'|translate}}" nzOrientation="left"></nz-divider>
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+            <app-component-database-engine-lazy *ngIf="configure.type === databaseType.lazy"
+                                                (emitter)="handlerComponentEmitter($event)">
+            </app-component-database-engine-lazy>
+            <app-component-property [properties]="properties"
+                                    (emitter)="handlerComponentEmitter($event)">
+            </app-component-property>
           </form>
         </div>
       </div>
     </div>
   </div>
   <div *nzModalFooter>
-    <button nz-button nzType="default" (click)="handlerPrevious()" *ngIf="current > 0">
+    <button (click)="handlerPrevious()" *ngIf="current > 0" nz-button nzType="default">
       <span>{{'common.previous'|translate}}</span>
     </button>
-    <button nz-button nzType="default" (click)="handlerNext()" *ngIf="current < 1">
+    <button (click)="handlerNext()" *ngIf="current < 1" [disabled]="!configure.type" nz-button nzType="default">
       <span>{{'common.next'|translate}}</span>
     </button>
-    <button nz-button nzType="primary" [disabled]="disabled.button" (click)="handlerComplete()" *ngIf="current === 1">
+    <button (click)="handlerComplete()" *ngIf="current === 1" [disabled]="disabled.button" nz-button
+            nzType="primary">
       <span>{{'common.save'|translate}}</span>
     </button>
   </div>

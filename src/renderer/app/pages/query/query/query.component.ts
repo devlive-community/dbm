@@ -134,7 +134,6 @@ export class QueryComponent extends BaseComponent {
 
   handlerQuickQueryProcessor(sql?: string) {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    console.log(sql);
     codeMirror.setValue(sql);
   }
 }

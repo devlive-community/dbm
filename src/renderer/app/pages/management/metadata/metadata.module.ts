@@ -13,9 +13,10 @@ import { ContextMenuService } from '@renderer/services/context.menu.service';
 import { InfoServerComponent } from '@renderer/components/server/info/info.server.component';
 import { DatabaseBasicComponent } from '@renderer/components/database/basic/database.basic.component';
 import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
+import { LazyEngineDatabaseComponent } from '@renderer/components/database/engine/lazy/lazy.engine.database.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
-  { path: '', component: MetadataComponent }
+  {path: '', component: MetadataComponent}
 ];
 
 @NgModule({
@@ -33,7 +34,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     MetadataComponent,
     InfoServerComponent,
     DatabaseBasicComponent,
-    DrividerAntdComponent
+    DrividerAntdComponent,
+    LazyEngineDatabaseComponent
   ],
   providers: [
     DatasourceService,

@@ -1,0 +1,9 @@
+<nz-form-item *ngFor="let item of properties; let i = index">
+  <nz-form-label [nzSm]="6" [nzXs]="24" nzTooltipTitle="{{item.tooltip|translate}}">
+    {{item.label|translate}}
+  </nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24">
+    <input nz-input (change)="handlerValidate()" [(ngModel)]="modelValues[i]"
+           placeholder="{{item.placeholder|translate}}"/>
+  </nz-form-control>
+</nz-form-item>

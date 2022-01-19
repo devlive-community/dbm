@@ -71,7 +71,9 @@
     "default": "Default",
     "save": "Save",
     "property": "Property",
-    "atomic": "Atomic"
+    "atomic": "Atomic",
+    "expiration": "Expiration",
+    "lazy": "Lazy"
   },
   "language": {
     "english": "English",
@@ -99,7 +101,11 @@
     },
     "database": {
       "default": "Default Database Engine",
-      "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default."
+      "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.",
+      "lazy": "Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables."
+    },
+    "property": {
+      "timeSeconds": "Retention time in RAM (unit per second)"
     }
   }
 }

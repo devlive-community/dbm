@@ -10,7 +10,6 @@ import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
 import { Factory } from '@renderer/factory';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { DatabaseModel } from '@renderer/model/database.model';
-import { defaults } from 'codemirror';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
 
 @Injectable()
@@ -69,7 +68,7 @@ export class MetadataService implements BaseService {
   }
 
   createDatabase(request: RequestModel, database: DatabaseModel): Promise<ResponseModel> {
-    const prefix = StringUtils.format('CREATE DATABASE {0}', [database.name])
+    const prefix = StringUtils.format('CREATE DATABASE {0}', [database.name]);
     let suffix;
     switch (database.type) {
       case DatabaseEnum.none:
@@ -77,6 +76,9 @@ export class MetadataService implements BaseService {
         break;
       case DatabaseEnum.atomic:
         suffix = this.builderDatabaseAtomic(database);
+        break;
+      case DatabaseEnum.lazy:
+        suffix = this.builderDatabaseLazy(database);
         break;
     }
     return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
@@ -87,10 +89,24 @@ export class MetadataService implements BaseService {
    * <p>
    *   example: CREATE DATABASE xxx ENGINE Atomic
    * </p>
+   *
    * @param value database configure
    * @returns suffix ddl
    */
   private builderDatabaseAtomic(value): string {
-    return StringUtils.format('{0} = {1}', [this.WORD, value.type])
+    return StringUtils.format('{0} = {1}', [this.WORD, value.type]);
+  }
+
+  /**
+   * Build the database DDL for lazy
+   * <p>
+   *   example: CREATE DATABASE xxx ENGINE Lazy(xxx)
+   * </p>
+   *
+   * @param value database configure
+   * @returns suffix ddl
+   */
+  private builderDatabaseLazy(value): string {
+    return StringUtils.format('{0} = {1}({2})', [this.WORD, value.type, value.property.timeSeconds]);
   }
 }

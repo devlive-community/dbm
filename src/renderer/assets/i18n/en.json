@@ -70,7 +70,8 @@
     "experimental": "Experimental",
     "default": "Default",
     "save": "Save",
-    "property": "Property"
+    "property": "Property",
+    "atomic": "Atomic"
   },
   "language": {
     "english": "English",
@@ -97,7 +98,8 @@
       "language": "Type of editor formatting"
     },
     "database": {
-      "default": "Default Database Engine"
+      "default": "Default Database Engine",
+      "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default."
     }
   }
 }

@@ -9,6 +9,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { RequestModel } from '@renderer/model/request.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
+import * as cloneDeep from 'lodash/cloneDeep';
+import { PropertyModel } from '@renderer/model/property.model';
 
 @Component({
   selector: 'app-component-database',
@@ -22,9 +24,11 @@ export class DatabaseBasicComponent extends BaseComponent {
   @Output()
   emitter = new EventEmitter<any>();
   current = 0;
+  databaseSelectValue: string;
   databaseEngines: DatabaseModel[];
   configure: DatabaseModel;
   databaseType = DatabaseEnum;
+  properties: PropertyModel[];
 
   constructor(private dataSourceService: DatasourceService,
               private metadataService: MetadataService,
@@ -43,6 +47,13 @@ export class DatabaseBasicComponent extends BaseComponent {
     this.current -= 1;
     this.configure = new DatabaseModel();
     this.disabled.button = true;
+  }
+
+  handlerChange(value) {
+    this.configure = cloneDeep(value);
+    this.configure.name = null;
+    this.properties = cloneDeep(this.configure.properties);
+    this.configure.properties = null;
   }
 
   handlerNext(): void {

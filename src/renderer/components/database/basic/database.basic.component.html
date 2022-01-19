@@ -16,7 +16,7 @@
           <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
             <div *ngFor="let database of engine.engines" [nzSpan]="6" nz-col>
               <div class="">
-                <nz-radio-group [(ngModel)]="configure.type">
+                <nz-radio-group [(ngModel)]="databaseSelectValue" (ngModelChange)="handlerChange(database)">
                   <label [nzValue]="database.name" nz-radio-button>
                     {{database.name}} &nbsp;
                     <span *ngIf="database.description" [nzTooltipTitle]="database.description" nz-tooltip>
@@ -58,6 +58,9 @@
             <app-component-database-engine-lazy *ngIf="configure.type === databaseType.lazy"
                                                 (emitter)="handlerComponentEmitter($event)">
             </app-component-database-engine-lazy>
+            <app-component-property [properties]="properties"
+                                    (emitter)="handlerComponentEmitter($event)">
+            </app-component-property>
           </form>
         </div>
       </div>
@@ -67,10 +70,11 @@
     <button (click)="handlerPrevious()" *ngIf="current > 0" nz-button nzType="default">
       <span>{{'common.previous'|translate}}</span>
     </button>
-    <button (click)="handlerNext()" *ngIf="current < 1" nz-button nzType="default">
+    <button (click)="handlerNext()" *ngIf="current < 1" [disabled]="!configure.type" nz-button nzType="default">
       <span>{{'common.next'|translate}}</span>
     </button>
-    <button (click)="handlerComplete()" *ngIf="current === 1" [disabled]="disabled.button" nz-button nzType="primary">
+    <button (click)="handlerComplete()" *ngIf="current === 1" [disabled]="disabled.button" nz-button
+            nzType="primary">
       <span>{{'common.save'|translate}}</span>
     </button>
   </div>

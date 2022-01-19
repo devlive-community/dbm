@@ -1,5 +1,6 @@
 export enum DatabaseEnum {
   none = 'Default',
   atomic = 'Atomic',
-  lazy = 'Lazy'
+  lazy = 'Lazy',
+  mysql = 'MySQL'
 }

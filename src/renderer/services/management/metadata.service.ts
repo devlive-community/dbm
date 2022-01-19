@@ -11,6 +11,7 @@ import { Factory } from '@renderer/factory';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
+import { PropertyModel } from '@renderer/model/property.model';
 
 @Injectable()
 export class MetadataService implements BaseService {
@@ -80,6 +81,9 @@ export class MetadataService implements BaseService {
       case DatabaseEnum.lazy:
         suffix = this.builderDatabaseLazy(database);
         break;
+      case DatabaseEnum.mysql:
+        suffix = this.builderDatabaseMySQL(database);
+        break;
     }
     return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
   }
@@ -108,5 +112,38 @@ export class MetadataService implements BaseService {
    */
   private builderDatabaseLazy(value): string {
     return StringUtils.format('{0} = {1}({2})', [this.WORD, value.type, value.property.timeSeconds]);
+  }
+
+  /**
+   * Build the database DDL for mysql and MaterializedMySQL
+   * <p>
+   *   example: CREATE DATABASE xxx ENGINE MaterializedMySQL('host:port', ['database' | database], 'user', 'password')
+   * </p>
+   *
+   * @param value database configure
+   * @returns suffix ddl
+   */
+  private builderDatabaseMySQL(value): string {
+    const map = this.flatProperty(value.property.properties);
+    let response;
+    if (StringUtils.isEmpty(map.get('database'))) {
+      response = StringUtils.format('{0} = {1}({2}, {3}, {4})', [this.WORD, value.type,
+        StringUtils.format('{0}:{1}', [map.get('host'), map.get('port')]),
+        map.get('username'),
+        map.get('password')]);
+    } else {
+      response = StringUtils.format(`{0} = {1}('{2}', '{3}', '{4}', '{5}')`, [this.WORD, value.type,
+        StringUtils.format('{0}:{1}', [map.get('host'), map.get('port')]),
+        map.get('database'),
+        map.get('username'),
+        map.get('password')]);
+    }
+    return response;
+  }
+
+  private flatProperty(properties: PropertyModel[]): Map<string, string> {
+    const map = new Map<string, string>();
+    properties.forEach(p => map.set(p.name, p.value));
+    return map;
   }
 }

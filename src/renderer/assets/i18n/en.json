@@ -73,7 +73,8 @@
     "property": "Property",
     "atomic": "Atomic",
     "expiration": "Expiration",
-    "lazy": "Lazy"
+    "lazy": "Lazy",
+    "mysql": "MySQL"
   },
   "language": {
     "english": "English",
@@ -85,7 +86,8 @@
     "host": "Please input host!",
     "port": "Please input port!",
     "username": "Please input username!",
-    "password": "Please input password!"
+    "password": "Please input password!",
+    "database": "Please input database [Optional]"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -102,10 +104,16 @@
     "database": {
       "default": "Default Database Engine",
       "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.",
-      "lazy": "Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables."
+      "lazy": "Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.",
+      "mysql": "Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL."
     },
     "property": {
-      "timeSeconds": "Retention time in RAM (unit per second)"
+      "timeSeconds": "Retention time in RAM (unit per second)",
+      "host": "IP address or host name of the remote server",
+      "port": "Port that the remote server is bound to",
+      "database": "An existing database on the remote server",
+      "username": "User name that authorizes access",
+      "password": "The password of the authorized user"
     }
   }
 }

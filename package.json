@@ -47,6 +47,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "font-awesome": "^4.7.0",
     "highcharts": "^9.3.2",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "ng-zorro-antd": "^12.1.0",
     "ngx-clipboard": "^14.0.2",

@@ -1,3 +1,4 @@
 export enum DatabaseEnum {
-    none = 'Default'
+    none = 'Default',
+    atomic = 'Atomic'
 }

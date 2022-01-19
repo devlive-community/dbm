@@ -9,18 +9,27 @@ export class DatabaseConfig {
 
     getConfig(): DatabaseModel[] {
         const databaseEngines = new Array();
-        const defaultDatabase = new DatabaseModel();
-        defaultDatabase.name = StringUtils.format('{0} {1}',
+        /**
+         * basic
+         */
+        const basicDatabase = new DatabaseModel();
+        basicDatabase.name = StringUtils.format('{0} {1}',
             [TranslateUtils.getValue('common.database'), TranslateUtils.getValue('common.engine')]);
-        defaultDatabase.description = defaultDatabase.name;
+        basicDatabase.description = basicDatabase.name;
         const defaultEngines = new Array();
         defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.default'),
             TranslateUtils.getValue('tooltip.database.default'),
             DatabaseEnum.none,
             false));
-        defaultDatabase.engines = defaultEngines;
-        databaseEngines.push(defaultDatabase);
-
+        defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.atomic'),
+            TranslateUtils.getValue('tooltip.database.atomic'),
+            DatabaseEnum.none,
+            false));
+        basicDatabase.engines = defaultEngines;
+        databaseEngines.push(basicDatabase);
+        /**
+         * experimental
+         */
         const experimentalDatabase = new DatabaseModel();
         experimentalDatabase.name = StringUtils.format('{0} {1}({2})',
             [TranslateUtils.getValue('common.database'),

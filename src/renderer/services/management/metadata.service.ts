@@ -16,6 +16,7 @@ import { DatabaseEnum } from '@renderer/enum/database.enum';
 @Injectable()
 export class MetadataService implements BaseService {
   baseConfig: any;
+  WORD = 'ENGINE';
 
   constructor(private httpService: HttpService) {
     this.baseConfig = Factory.create(ClickhouseConfig);
@@ -68,13 +69,28 @@ export class MetadataService implements BaseService {
   }
 
   createDatabase(request: RequestModel, database: DatabaseModel): Promise<ResponseModel> {
-    let sql;
+    const prefix = StringUtils.format('CREATE DATABASE {0}', [database.name])
+    let suffix;
     switch (database.type) {
       case DatabaseEnum.none:
-      default:
-        sql = StringUtils.format('CREATE DATABASE {0}', [database.name])
+        suffix = '';
+        break;
+      case DatabaseEnum.atomic:
+        suffix = this.builderDatabaseAtomic(database);
         break;
     }
-    return this.getResponse(request, sql);
+    return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
+  }
+
+  /**
+   * Build the database DDL for atomic
+   * <p>
+   *   example: CREATE DATABASE xxx ENGINE Atomic
+   * </p>
+   * @param value database configure
+   * @returns suffix ddl
+   */
+  private builderDatabaseAtomic(value): string {
+    return StringUtils.format('{0} = {1}', [this.WORD, value.type])
   }
 }

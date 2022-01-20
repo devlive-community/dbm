@@ -47,6 +47,7 @@ export class DatabaseBasicComponent extends BaseComponent {
     this.current -= 1;
     this.configure = new DatabaseModel();
     this.disabled.button = true;
+    this.databaseSelectValue = null;
   }
 
   handlerChange(value) {

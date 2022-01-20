@@ -7,14 +7,20 @@ export class DatabaseModel {
   type: DatabaseEnum;
   engines: DatabaseModel[];
   property: any;
+  experimental: boolean;
   properties: PropertyModel[];
 
-  public static builder(name: string, description: string, type: DatabaseEnum, properties: PropertyModel[]): DatabaseModel {
+  public static builder(name: string,
+                        description: string,
+                        type: DatabaseEnum,
+                        properties: PropertyModel[],
+                        experimental?: boolean): DatabaseModel {
     const database = new DatabaseModel();
     database.name = name;
     database.description = description;
     database.type = type;
     database.properties = properties;
+    database.experimental = experimental;
     return database;
   }
 }

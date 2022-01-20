@@ -56,6 +56,7 @@
         </li>
       </ul>
     </li>
+    <li nz-submenu [nzTitle]="githubItemTitle" (click)="handlerDirectGitHub()" style="float: right;"></li>
     <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;">
       <ul>
         <li nz-menu-item>
@@ -85,5 +86,8 @@
   </ng-template>
   <ng-template #systemMenuItemTitle>
     <i class="fa fa-gear"></i>&nbsp;{{'common.system'|translate}}
+  </ng-template>
+  <ng-template #githubItemTitle>
+    <i class="fa fa-github"></i>&nbsp;{{'common.github'|translate}}
   </ng-template>
 </nz-header>

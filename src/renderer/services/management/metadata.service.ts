@@ -82,6 +82,7 @@ export class MetadataService implements BaseService {
         suffix = this.builderDatabaseLazy(database);
         break;
       case DatabaseEnum.mysql:
+      case DatabaseEnum.materialized_mysql:
         suffix = this.builderDatabaseMySQL(database);
         break;
     }

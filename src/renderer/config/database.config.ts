@@ -67,6 +67,14 @@ export class DatabaseConfig {
         TranslateUtils.getValue('common.experimental')]);
     experimentalDatabase.description = TranslateUtils.getValue('tooltip.experimental');
     databaseEngines.push(experimentalDatabase);
+    const experimentalEngines = new Array();
+    const materializedMysql = DatabaseModel.builder(TranslateUtils.getValue('common.materialized_mysql'),
+      TranslateUtils.getValue('tooltip.database.materialized_mysql'),
+      DatabaseEnum.materialized_mysql,
+      properties,
+      true);
+    experimentalEngines.push(materializedMysql);
+    experimentalDatabase.engines = experimentalEngines;
     return databaseEngines;
   }
 }

@@ -75,7 +75,8 @@
     "expiration": "Expiration",
     "lazy": "Lazy",
     "mysql": "MySQL",
-    "materialized_mysql": "MaterializeMySQL"
+    "materialized_mysql": "MaterializeMySQL",
+    "github": "GitHub"
   },
   "language": {
     "english": "English",

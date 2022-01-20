@@ -1,3 +1,4 @@
+import { shell } from 'electron';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -29,5 +30,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  handlerDirectGitHub() {
+    shell.openExternal('https://github.com/EdurtIO/dbm');
   }
 }

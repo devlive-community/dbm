@@ -1,3 +1,8 @@
+<nz-form-item *ngIf="experimental">
+  <nz-form-control [nzSm]="24" [nzXs]="24">
+    <nz-alert nzType="warning" nzMessage="{{'tooltip.experimental'|translate}}"></nz-alert>
+  </nz-form-control>
+</nz-form-item>
 <nz-form-item *ngFor="let item of properties; let i = index">
   <nz-form-label [nzSm]="6" [nzXs]="24" nzTooltipTitle="{{item.tooltip|translate}}">
     {{item.label|translate}}

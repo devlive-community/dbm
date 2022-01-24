@@ -82,10 +82,21 @@ export class MetadataService implements BaseService {
         suffix = this.builderDatabaseLazy(database);
         break;
       case DatabaseEnum.mysql:
+      case DatabaseEnum.materialized_mysql:
         suffix = this.builderDatabaseMySQL(database);
         break;
     }
     return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
+  }
+
+  delete(request: RequestModel, value: string): Promise<ResponseModel> {
+    const sql = StringUtils.format('DROP database {0}', [value]);
+    return this.getResponse(request, sql);
+  }
+
+  getDatabaseDDL(request: RequestModel, value: string): Promise<ResponseModel> {
+    const sql = StringUtils.format('SHOW CREATE DATABASE `{0}`', [value]);
+    return this.getResponse(request, sql);
   }
 
   /**

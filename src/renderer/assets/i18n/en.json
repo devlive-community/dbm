@@ -74,7 +74,11 @@
     "atomic": "Atomic",
     "expiration": "Expiration",
     "lazy": "Lazy",
-    "mysql": "MySQL"
+    "mysql": "MySQL",
+    "materialized_mysql": "MaterializeMySQL",
+    "github": "GitHub",
+    "drop": "Drop",
+    "structure": "Structure"
   },
   "language": {
     "english": "English",
@@ -105,7 +109,8 @@
       "default": "Default Database Engine",
       "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.",
       "lazy": "Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.",
-      "mysql": "Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL."
+      "mysql": "Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL.",
+      "materialized_mysql": "Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables. ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries."
     },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",

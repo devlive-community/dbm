@@ -44,6 +44,9 @@ export class ContextMenuService {
       case OperationEnum.create:
         icon = 'plus-circle';
         break;
+      case OperationEnum.delete:
+        icon = 'trash';
+        break;
       default:
         icon = 'info';
     }

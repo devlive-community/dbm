@@ -15,6 +15,7 @@ import { DatabaseBasicComponent } from '@renderer/components/database/basic/data
 import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
 import { LazyEngineDatabaseComponent } from '@renderer/components/database/engine/lazy/lazy.engine.database.component';
 import { PropertyComponent } from '@renderer/components/property/property.component';
+import { DatabaseDropComponent } from '@renderer/components/database/drop/database.drop.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -37,7 +38,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     DatabaseBasicComponent,
     DrividerAntdComponent,
     LazyEngineDatabaseComponent,
-    PropertyComponent
+    PropertyComponent,
+    DatabaseDropComponent
   ],
   providers: [
     DatasourceService,

@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TreeUtils } from '@renderer/utils/tree.utils';
 import { ContextMenuService } from '@renderer/services/context.menu.service';
 import { MenuModel } from '@renderer/model/menu.model';
+import { OperationEnum } from '@renderer/enum/operation.enum';
 
 @Component({
   selector: 'app-management-metadata',
@@ -28,7 +29,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   contextMenus: MenuModel[];
   disabledComponent = {
     server: false,
-    database: false
+    database: {
+      create: false,
+      delete: false
+    }
   };
 
   constructor(private nzContextMenuService: NzContextMenuService,
@@ -62,23 +66,27 @@ export class MetadataComponent extends BaseComponent implements OnInit {
 
   handlerContextMenuClick(menu: MenuModel): void {
     this.selectMenu = menu;
-    switch (menu.type) {
-      case TypeEnum.server:
-        this.disabledComponent.server = true;
-        break;
-      case TypeEnum.database:
-        this.disabledComponent.database = true;
-        break;
-    }
+    this.handlerContextMenuDialog(true);
   }
 
   handlerContextMenuClose() {
+    this.handlerContextMenuDialog(false);
+  }
+
+  handlerContextMenuDialog(selected: boolean) {
     switch (this.selectMenu.type) {
       case TypeEnum.server:
-        this.disabledComponent.server = false;
+        this.disabledComponent.server = selected;
         break;
       case TypeEnum.database:
-        this.disabledComponent.database = false;
+        switch (this.selectMenu.command) {
+          case OperationEnum.delete:
+            this.disabledComponent.database.delete = selected;
+            break;
+          case OperationEnum.create:
+            this.disabledComponent.database.create = selected;
+            break;
+        }
         break;
     }
   }

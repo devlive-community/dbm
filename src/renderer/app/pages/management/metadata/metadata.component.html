@@ -69,7 +69,13 @@
                            (emitter)="handlerContextMenuClose()">
 </app-component-info-server>
 <app-component-database *ngIf="disabledComponent.database"
-                        [visible]="disabledComponent.database"
+                        [visible]="disabledComponent.database.create"
                         [config]="rootNode"
                         (emitter)="handlerContextMenuClose()">
 </app-component-database>
+<app-component-database-drop *ngIf="disabledComponent.database"
+                             [visible]="disabledComponent.database.delete"
+                             [config]="rootNode"
+                             [value]="selectNode?.origin?.key"
+                             (emitter)="handlerContextMenuClose()"
+></app-component-database-drop>

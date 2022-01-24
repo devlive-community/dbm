@@ -76,7 +76,8 @@
     "lazy": "Lazy",
     "mysql": "MySQL",
     "materialized_mysql": "MaterializeMySQL",
-    "github": "GitHub"
+    "github": "GitHub",
+    "drop": "Drop"
   },
   "language": {
     "english": "English",

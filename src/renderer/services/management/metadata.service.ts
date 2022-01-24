@@ -89,6 +89,11 @@ export class MetadataService implements BaseService {
     return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
   }
 
+  delete(request: RequestModel, value: string): Promise<ResponseModel> {
+    const sql = StringUtils.format('DROP database {0}', [value]);
+    return this.getResponse(request, sql);
+  }
+
   /**
    * Build the database DDL for atomic
    * <p>

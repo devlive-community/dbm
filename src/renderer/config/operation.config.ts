@@ -13,6 +13,14 @@ export class OperationConfig {
       {type: TypeEnum.database, actions: [OperationEnum.create]}
     ];
     opertions.push(server);
+    const database = new OperationModel();
+    database.name = TypeEnum.database.toString();
+    database.type = TypeEnum.database;
+    database.operations = [
+      {type: TypeEnum.database, actions: [OperationEnum.delete]},
+      {type: TypeEnum.database, actions: [OperationEnum.structure]}
+    ];
+    opertions.push(database);
     return opertions;
   }
 }

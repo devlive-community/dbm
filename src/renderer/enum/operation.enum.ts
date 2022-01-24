@@ -7,5 +7,6 @@ export enum OperationEnum {
   rename = ('rename'),
   truncate = ('truncate'),
   clean = ('clean'),
-  optimize = ('optimize')
+  optimize = ('optimize'),
+  structure = ('structure')
 }

@@ -10,6 +10,8 @@ import { StringUtils } from '@renderer/utils/string.utils';
 export class PropertyComponent extends BaseComponent {
   @Input()
   properties: PropertyModel[];
+  @Input()
+  experimental: boolean;
   @Output()
   emitter = new EventEmitter<any>();
   modelValues = [];

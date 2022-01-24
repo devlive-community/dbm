@@ -29,10 +29,10 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   exports: [
     NzSelectModule,
     NzButtonModule,
@@ -63,7 +63,8 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
     NzTagModule,
     NzTreeModule,
     NzProgressModule,
-    NzStepsModule
+    NzStepsModule,
+    NzAlertModule
   ]
 })
 export class NgZorroAntdModule {

@@ -17,7 +17,8 @@ export class OperationConfig {
     database.name = TypeEnum.database.toString();
     database.type = TypeEnum.database;
     database.operations = [
-      {type: TypeEnum.database, actions: [OperationEnum.delete]}
+      {type: TypeEnum.database, actions: [OperationEnum.delete]},
+      {type: TypeEnum.database, actions: [OperationEnum.structure]}
     ];
     opertions.push(database);
     return opertions;

@@ -77,7 +77,8 @@
     "mysql": "MySQL",
     "materialized_mysql": "MaterializeMySQL",
     "github": "GitHub",
-    "drop": "Drop"
+    "drop": "Drop",
+    "structure": "Structure"
   },
   "language": {
     "english": "English",

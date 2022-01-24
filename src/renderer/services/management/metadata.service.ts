@@ -94,6 +94,11 @@ export class MetadataService implements BaseService {
     return this.getResponse(request, sql);
   }
 
+  getDatabaseDDL(request: RequestModel, value: string): Promise<ResponseModel> {
+    const sql = StringUtils.format('SHOW CREATE DATABASE `{0}`', [value]);
+    return this.getResponse(request, sql);
+  }
+
   /**
    * Build the database DDL for atomic
    * <p>

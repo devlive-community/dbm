@@ -31,7 +31,8 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     server: false,
     database: {
       create: false,
-      delete: false
+      delete: false,
+      structure: false
     }
   };
 
@@ -85,6 +86,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
             break;
           case OperationEnum.create:
             this.disabledComponent.database.create = selected;
+            break;
+          case OperationEnum.structure:
+            this.disabledComponent.database.structure = selected;
             break;
         }
         break;

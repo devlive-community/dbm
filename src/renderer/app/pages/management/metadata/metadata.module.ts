@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { MetadataComponent } from '@renderer/app/pages/management/metadata/metadata.component';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
@@ -16,6 +17,8 @@ import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivid
 import { LazyEngineDatabaseComponent } from '@renderer/components/database/engine/lazy/lazy.engine.database.component';
 import { PropertyComponent } from '@renderer/components/property/property.component';
 import { DatabaseDropComponent } from '@renderer/components/database/drop/database.drop.component';
+import { DatabaseStructureComponent } from '@renderer/components/database/structure/database.structure.component';
+import { EditorService } from '@renderer/services/editor/editor.service';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -29,6 +32,7 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     NgZorroAntdModule,
     ServiceModule,
     CommonShareModule,
+    CodemirrorModule,
     RouterModule.forChild(MANAGEMENT_METADATA_ROUTES)
   ],
   exports: [],
@@ -39,12 +43,14 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     DrividerAntdComponent,
     LazyEngineDatabaseComponent,
     PropertyComponent,
-    DatabaseDropComponent
+    DatabaseDropComponent,
+    DatabaseStructureComponent
   ],
   providers: [
     DatasourceService,
     MetadataService,
-    ContextMenuService
+    ContextMenuService,
+    EditorService
   ]
 })
 export class MetadataModule {

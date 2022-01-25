@@ -6,5 +6,6 @@ export enum DatabaseEnum {
   materialized_mysql = 'MaterializedMySQL',
 
   // Table Engine
-  log = 'Log'
+  log = 'Log',
+  tinylog = 'TinyLog'
 }

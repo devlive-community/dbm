@@ -80,7 +80,8 @@
     "drop": "Drop",
     "structure": "Structure",
     "log": "Log",
-    "column": "Column"
+    "column": "Column",
+    "tinylog": "TinyLog"
   },
   "language": {
     "english": "English",

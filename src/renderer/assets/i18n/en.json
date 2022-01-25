@@ -78,7 +78,16 @@
     "materialized_mysql": "MaterializeMySQL",
     "github": "GitHub",
     "drop": "Drop",
-    "structure": "Structure"
+    "structure": "Structure",
+    "log": "Log",
+    "column": "Column",
+    "tinylog": "TinyLog",
+    "stripelog": "StripeLog",
+    "integration": "Integration",
+    "broker": "Broker",
+    "topic": "Topic",
+    "group": "Group",
+    "uri": "URI"
   },
   "language": {
     "english": "English",
@@ -91,7 +100,12 @@
     "port": "Please input port!",
     "username": "Please input username!",
     "password": "Please input password!",
-    "database": "Please input database [Optional]"
+    "database": "Please input database [Optional]",
+    "broker": "Please input kafka broker list",
+    "topic": "Please enter Kafka consumption topic for consumption",
+    "group": "Please enter the consuming Kafka message topic owning group",
+    "format": "Please enter the data parsing format",
+    "uri": "Please enter the remote server address"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -112,13 +126,23 @@
       "mysql": "Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL.",
       "materialized_mysql": "Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables. ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries."
     },
+    "table": {
+      "log": "Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.",
+      "integration": "It is mainly used to import external data into ClickHouse, or to manipulate external data sources directly in ClickHouse.",
+      "kafka": "Import data from Kafka Topic directly into ClickHouse"
+    },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",
       "host": "IP address or host name of the remote server",
       "port": "Port that the remote server is bound to",
       "database": "An existing database on the remote server",
       "username": "User name that authorizes access",
-      "password": "The password of the authorized user"
+      "password": "The password of the authorized user",
+      "broker": "List of Kafka Broker services, typically IP:9092",
+      "topic": "Consuming kafka message topic",
+      "group": "The consuming Kafka message topic belongs to a group, anonymous by default",
+      "format": "The data format type varies from engine to engine",
+      "uri": "The IP address of the remote server is in the format of IP: port"
     }
   }
 }

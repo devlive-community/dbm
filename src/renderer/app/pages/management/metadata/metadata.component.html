@@ -85,3 +85,11 @@
                                   [value]="selectNode?.origin?.key"
                                   (emitter)="handlerContextMenuClose()">
 </app-component-database-structure>
+<app-component-common-table *ngIf="disabledComponent.table"
+                            [visible]="disabledComponent.table"
+                            [config]="rootNode"
+                            [value]="selectNode"
+                            [database]="database"
+                            [menu]="selectMenu"
+                            (emitter)="handlerContextMenuClose()">
+</app-component-common-table>

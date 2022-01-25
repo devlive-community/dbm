@@ -27,6 +27,11 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.table.log'),
       DatabaseEnum.tinylog,
       null));
+    // StripeLog
+    logEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.stripelog'),
+      TranslateUtils.getValue('tooltip.table.log'),
+      DatabaseEnum.stripelog,
+      null));
     logTable.engines = logEngines;
     tableEngines.push(logTable);
     return tableEngines;

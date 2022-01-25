@@ -81,7 +81,8 @@
     "structure": "Structure",
     "log": "Log",
     "column": "Column",
-    "tinylog": "TinyLog"
+    "tinylog": "TinyLog",
+    "stripelog": "StripeLog"
   },
   "language": {
     "english": "English",

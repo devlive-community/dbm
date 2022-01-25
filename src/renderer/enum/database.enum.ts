@@ -8,5 +8,6 @@ export enum DatabaseEnum {
   // Table Engine
   log = 'Log',
   tinylog = 'TinyLog',
-  stripelog = 'StripeLog'
+  stripelog = 'StripeLog',
+  kafka = 'Kafka'
 }

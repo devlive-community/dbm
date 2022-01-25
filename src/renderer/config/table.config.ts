@@ -34,6 +34,39 @@ export class TableConfig {
       null));
     logTable.engines = logEngines;
     tableEngines.push(logTable);
+
+    const integrationTable = new DatabaseModel();
+    integrationTable.name = StringUtils.format('{0}',
+      [TranslateUtils.getValue('common.integration')]);
+    integrationTable.description = TranslateUtils.getValue('tooltip.table.integration');
+    const integrationEngines = new Array();
+    const kafkaProperties = new Array();
+    kafkaProperties.push(PropertyModel.builder('broker',
+      TranslateUtils.getValue('common.broker'),
+      TranslateUtils.getValue('placeholder.broker'),
+      TranslateUtils.getValue('tooltip.property.broker'),
+      'kafka_broker_list'));
+    kafkaProperties.push(PropertyModel.builder('kafka',
+      TranslateUtils.getValue('common.topic'),
+      TranslateUtils.getValue('placeholder.topic'),
+      TranslateUtils.getValue('tooltip.property.topic'),
+      'kafka_topic_list'));
+    kafkaProperties.push(PropertyModel.builder('group',
+      TranslateUtils.getValue('common.group'),
+      TranslateUtils.getValue('placeholder.group'),
+      TranslateUtils.getValue('tooltip.property.group'),
+      'kafka_group_name'));
+    kafkaProperties.push(PropertyModel.builder('format',
+      TranslateUtils.getValue('common.format'),
+      TranslateUtils.getValue('placeholder.format'),
+      TranslateUtils.getValue('tooltip.property.format'),
+      'kafka_format'));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.kafka.toString(),
+      TranslateUtils.getValue('tooltip.table.kafka'),
+      DatabaseEnum.kafka,
+      kafkaProperties));
+    integrationTable.engines = integrationEngines;
+    tableEngines.push(integrationTable);
     return tableEngines;
   }
 }

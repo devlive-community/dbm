@@ -115,6 +115,26 @@ export class TableConfig {
       jdbcProperties,
       false,
       PropertyEnum.name));
+    // SQLite
+    const sqliteProperties = new Array();
+    sqliteProperties.push(PropertyModel.builder('path',
+      TranslateUtils.getValue('common.path'),
+      TranslateUtils.getValue('placeholder.path'),
+      TranslateUtils.getValue('tooltip.property.path'),
+      null,
+      false));
+    sqliteProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.sqlite.toString(),
+      TranslateUtils.getValue('tooltip.table.sqlite'),
+      DatabaseEnum.sqlite,
+      sqliteProperties,
+      false,
+      PropertyEnum.name));
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;

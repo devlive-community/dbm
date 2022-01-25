@@ -86,7 +86,8 @@
     "integration": "Integration",
     "broker": "Broker",
     "topic": "Topic",
-    "group": "Group"
+    "group": "Group",
+    "uri": "URI"
   },
   "language": {
     "english": "English",
@@ -103,7 +104,8 @@
     "broker": "Please input kafka broker list",
     "topic": "Please enter Kafka consumption topic for consumption",
     "group": "Please enter the consuming Kafka message topic owning group",
-    "format": "Please enter the Kafka consumption data parsing format"
+    "format": "Please enter the data parsing format",
+    "uri": "Please enter the remote server address"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -139,7 +141,8 @@
       "broker": "List of Kafka Broker services, typically IP:9092",
       "topic": "Consuming kafka message topic",
       "group": "The consuming Kafka message topic belongs to a group, anonymous by default",
-      "format": "Kafka consumption data parsing format, default JSONEachRow"
+      "format": "The data format type varies from engine to engine",
+      "uri": "The IP address of the remote server is in the format of IP: port"
     }
   }
 }

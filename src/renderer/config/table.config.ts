@@ -4,6 +4,7 @@ import { DatabaseModel } from '@renderer/model/database.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
+import { PropertyEnum } from '@renderer/enum/property.enum';
 
 @Injectable()
 export class TableConfig {
@@ -40,6 +41,7 @@ export class TableConfig {
       [TranslateUtils.getValue('common.integration')]);
     integrationTable.description = TranslateUtils.getValue('tooltip.table.integration');
     const integrationEngines = new Array();
+    // Kafka
     const kafkaProperties = new Array();
     kafkaProperties.push(PropertyModel.builder('broker',
       TranslateUtils.getValue('common.broker'),
@@ -64,7 +66,29 @@ export class TableConfig {
     integrationEngines.push(DatabaseModel.builder(DatabaseEnum.kafka.toString(),
       TranslateUtils.getValue('tooltip.table.kafka'),
       DatabaseEnum.kafka,
-      kafkaProperties));
+      kafkaProperties,
+      false,
+      PropertyEnum.key));
+    // HDFS
+    const hdfsProperties = new Array();
+    hdfsProperties.push(PropertyModel.builder('uri',
+      TranslateUtils.getValue('common.uri'),
+      TranslateUtils.getValue('placeholder.uri'),
+      TranslateUtils.getValue('tooltip.property.uri'),
+      null,
+      false));
+    hdfsProperties.push(PropertyModel.builder('format',
+      TranslateUtils.getValue('common.format'),
+      TranslateUtils.getValue('placeholder.format'),
+      TranslateUtils.getValue('tooltip.property.format'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.hdfs.toString(),
+      TranslateUtils.getValue('tooltip.table.hdfs'),
+      DatabaseEnum.hdfs,
+      hdfsProperties,
+      false,
+      PropertyEnum.name));
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;

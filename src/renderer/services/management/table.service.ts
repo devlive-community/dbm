@@ -1,3 +1,4 @@
+import { NullTemplateVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { PropertyEnum } from '@renderer/enum/property.enum';
 import { ColumnModel } from '@renderer/model/column.model';
@@ -22,8 +23,8 @@ export class TableService implements BaseService {
     createTable(request: RequestModel, database: DatabaseModel, columns: ColumnModel[]): Promise<ResponseModel> {
         let sql = StringUtils.format('CREATE TABLE {0}.{1} (\n', [database.database, database.name]);
         sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)])
-        sql += StringUtils.format(') ENGINE = {0}\n', [database.type])
-        sql += StringUtils.format('SETTINGS {0}', [this.builderProperties(database.property.properties)]);
+        sql += StringUtils.format(') {0}\n', [this.builderEngine(database)])
+        sql += this.builderProperties(database.property.properties)
         return this.getResponse(request, sql);
     }
 
@@ -69,21 +70,42 @@ export class TableService implements BaseService {
                 substr += StringUtils.format('\n  {0} = \'{1}\',', [k, v]);
             }
         });
-        substr = substr.substring(0, substr.length - 1);
+        if (StringUtils.isNotEmpty(substr)) {
+            substr = StringUtils.format('SETTINGS {0}', [substr.substring(0, substr.length - 1)]);
+        }
         return substr;
+    }
+
+    private builderEngine(configure: DatabaseModel): string {
+        let sql: string;
+        const prefix = '\nENGINE = ';
+        switch (configure.propertyType) {
+            case PropertyEnum.key:
+                sql = StringUtils.format('{0} {1}()', [prefix, configure.type]);
+                break;
+            case PropertyEnum.name:
+                const substr = configure.property.properties
+                    .flatMap(element => StringUtils.format('\'{0}\'', [element.value]))
+                    .join(', ');
+                sql = StringUtils.format('{0} {1}({2})', [prefix, configure.type, substr]);
+                break;
+        }
+        return sql;
     }
 
     private flatProperties(properties: PropertyModel[]): Map<string, string> {
         const map = new Map<string, string>();
-        properties.forEach(p => {
-            if (StringUtils.isNotEmpty(p.origin)) {
-                map.set('type', PropertyEnum.key)
-                map.set(p.origin, p.value)
-            } else {
-                map.set('type', PropertyEnum.name)
-                map.set(p.name, p.value)
-            }
-        });
+        properties
+            .filter(p => p.isSetting === undefined || p.isSetting)
+            .forEach(p => {
+                if (StringUtils.isNotEmpty(p.origin)) {
+                    map.set('type', PropertyEnum.key)
+                    map.set(p.origin, p.value)
+                } else {
+                    map.set('type', PropertyEnum.name)
+                    map.set(p.name, p.value)
+                }
+            });
         return map;
     }
 }

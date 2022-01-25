@@ -9,5 +9,6 @@ export enum DatabaseEnum {
   log = 'Log',
   tinylog = 'TinyLog',
   stripelog = 'StripeLog',
-  kafka = 'Kafka'
+  kafka = 'Kafka',
+  hdfs = 'HDFS'
 }

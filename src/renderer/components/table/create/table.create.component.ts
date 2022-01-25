@@ -108,7 +108,6 @@ export class CreateTableComponent extends BaseComponent {
         this.emitter.emit(true);
       } else {
         this.messageService.error(response.message);
-        this.emitter.emit(false);
       }
     });
   }

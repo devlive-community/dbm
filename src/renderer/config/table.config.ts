@@ -22,6 +22,11 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.table.log'),
       DatabaseEnum.log,
       null));
+    // TinyLog
+    logEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.tinylog'),
+      TranslateUtils.getValue('tooltip.table.log'),
+      DatabaseEnum.tinylog,
+      null));
     logTable.engines = logEngines;
     tableEngines.push(logTable);
     return tableEngines;

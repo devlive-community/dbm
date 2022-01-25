@@ -47,5 +47,4 @@ export class TableService implements BaseService {
         }
         return column
     }
-
 }

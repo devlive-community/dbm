@@ -91,7 +91,12 @@
             </nz-form-item>
           </div>
 
-          <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+          <div *ngIf="properties?.length > 0">
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+            <app-component-property [properties]="properties" [experimental]="configure.experimental"
+              (emitter)="handlerComponentEmitter($event)">
+            </app-component-property>
+          </div>
         </form>
       </div>
     </div>

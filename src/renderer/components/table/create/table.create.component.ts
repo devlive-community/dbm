@@ -90,6 +90,11 @@ export class CreateTableComponent extends BaseComponent {
     this.current += 1;
   }
 
+  handlerComponentEmitter($event) {
+    this.configure.property = $event;
+    this.handlerValidate();
+  }
+
   handlerPrevious(): void {
     this.current -= 1;
     this.configure = new DatabaseModel();

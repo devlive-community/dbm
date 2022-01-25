@@ -1,0 +1,7 @@
+<nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false" [nzFooter]="null"
+    nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}" nzWidth="80%">
+    <div *nzModalContent>
+        <app-component-create-table [config]="config" [value]="value" (emitter)="handlerEmitter($event)">
+        </app-component-create-table>
+    </div>
+</nz-modal>

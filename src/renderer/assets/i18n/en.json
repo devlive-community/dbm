@@ -87,7 +87,8 @@
     "broker": "Broker",
     "topic": "Topic",
     "group": "Group",
-    "uri": "URI"
+    "uri": "URI",
+    "jdbc": "JDBC"
   },
   "language": {
     "english": "English",
@@ -105,7 +106,8 @@
     "topic": "Please enter Kafka consumption topic for consumption",
     "group": "Please enter the consuming Kafka message topic owning group",
     "format": "Please enter the data parsing format",
-    "uri": "Please enter the remote server address"
+    "uri": "Please enter the remote server address",
+    "table": "Please input table name"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -130,20 +132,22 @@
       "log": "Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.",
       "integration": "It is mainly used to import external data into ClickHouse, or to manipulate external data sources directly in ClickHouse.",
       "kafka": "Import data from Kafka Topic directly into ClickHouse",
-      "hdfs": "Import data from HDFS directly into ClickHouse"
+      "hdfs": "Import data from HDFS directly into ClickHouse",
+      "jdbc": "Allows ClickHouse to connect to external databases via JDBC"
     },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",
       "host": "IP address or host name of the remote server",
       "port": "Port that the remote server is bound to",
-      "database": "An existing database on the remote server",
+      "database": "Database in an external DBMS",
       "username": "User name that authorizes access",
       "password": "The password of the authorized user",
       "broker": "List of Kafka Broker services, typically IP:9092",
       "topic": "Consuming kafka message topic",
       "group": "The consuming Kafka message topic belongs to a group, anonymous by default",
       "format": "The data format type varies from engine to engine",
-      "uri": "The IP address of the remote server is in the format of IP: port"
+      "uri": "URI or name of an external DBMS.\nURI Format: jdbc:<driver_name>://<host_name>:<port>/?user=<username>&password=<password>",
+      "table": "Name of the table in external_database or a select query like select * from table1 where column1=1"
     }
   }
 }

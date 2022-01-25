@@ -10,5 +10,6 @@ export enum DatabaseEnum {
   tinylog = 'TinyLog',
   stripelog = 'StripeLog',
   kafka = 'Kafka',
-  hdfs = 'HDFS'
+  hdfs = 'HDFS',
+  jdbc = 'JDBC'
 }

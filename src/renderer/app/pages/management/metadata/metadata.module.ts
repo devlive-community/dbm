@@ -23,6 +23,7 @@ import { CommonTableComponent } from '@renderer/components/table/common/common.t
 import { CreateTableComponent } from '@renderer/components/table/create/table.create.component';
 import { TableService } from '@renderer/services/management/table.service';
 import { DeleteTableComponent } from '@renderer/components/table/delete/table.delete.component';
+import { StructureTableComponent } from '@renderer/components/table/structure/table.structure.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -51,7 +52,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     DatabaseStructureComponent,
     CommonTableComponent,
     CreateTableComponent,
-    DeleteTableComponent
+    DeleteTableComponent,
+    StructureTableComponent
   ],
   providers: [
     DatasourceService,

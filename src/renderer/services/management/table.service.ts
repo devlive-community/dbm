@@ -24,6 +24,11 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    delete(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+        const sql = StringUtils.format('DROP TABLE {0}.{1}', [value.database, value.name]);
+        return this.getResponse(request, sql);
+    }
+
     builderColumnsToString(columns: ColumnModel[]): string {
         let columnStr = ''
         columns.forEach((value, index) => {

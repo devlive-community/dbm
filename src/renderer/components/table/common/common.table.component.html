@@ -1,7 +1,11 @@
 <nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false" [nzFooter]="null"
     nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}" nzWidth="80%">
     <div *nzModalContent>
-        <app-component-create-table [config]="config" [value]="value" (emitter)="handlerEmitter($event)">
+        <app-component-create-table *ngIf="menu.command === operation.create" [config]="config"
+            [value]="value?.origin?.key" (emitter)="handlerEmitter($event)">
         </app-component-create-table>
+        <app-component-delete-table *ngIf="menu.command === operation.delete" [config]="config"
+            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+        </app-component-delete-table>
     </div>
 </nz-modal>

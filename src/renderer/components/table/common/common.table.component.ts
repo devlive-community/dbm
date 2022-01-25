@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
+import { OperationEnum } from '@renderer/enum/operation.enum';
 import { ConfigModel } from '@renderer/model/config.model';
+import { MenuModel } from '@renderer/model/menu.model';
 
 @Component({
   selector: 'app-component-common-table',
@@ -12,10 +14,15 @@ export class CommonTableComponent extends BaseComponent {
   @Input()
   config: ConfigModel;
   @Input()
-  value: string;
+  value: any;
+  @Input()
+  database: string;
+  @Input()
+  menu: MenuModel;
   @Output()
   emitter = new EventEmitter<any>();
   current = 0;
+  operation = OperationEnum;
 
   handlerCancel() {
     this.visible = false;

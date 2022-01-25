@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '@renderer/app/base.component';
-import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { ConfigModel } from '@renderer/model/config.model';
-import { DatasourceService } from '@renderer/services/management/datasource.service';
-import { TypeEnum } from '@renderer/enum/type.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { MetadataService } from '@renderer/services/management/metadata.service';
-import { RequestModel } from '@renderer/model/request.model';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { TreeUtils } from '@renderer/utils/tree.utils';
-import { ContextMenuService } from '@renderer/services/context.menu.service';
-import { MenuModel } from '@renderer/model/menu.model';
+import { BaseComponent } from '@renderer/app/base.component';
 import { OperationEnum } from '@renderer/enum/operation.enum';
+import { TypeEnum } from '@renderer/enum/type.enum';
+import { ConfigModel } from '@renderer/model/config.model';
+import { MenuModel } from '@renderer/model/menu.model';
+import { RequestModel } from '@renderer/model/request.model';
+import { ContextMenuService } from '@renderer/services/context.menu.service';
+import { DatasourceService } from '@renderer/services/management/datasource.service';
+import { MetadataService } from '@renderer/services/management/metadata.service';
+import { TreeUtils } from '@renderer/utils/tree.utils';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
   selector: 'app-management-metadata',
@@ -36,13 +36,13 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     },
     table: false
   };
+  database: string;
 
   constructor(private nzContextMenuService: NzContextMenuService,
-              private dataSourceService: DatasourceService,
-              private translateService: TranslateService,
-              private metadataService: MetadataService,
-              private messageService: NzMessageService,
-              private contextMenuService: ContextMenuService) {
+    private dataSourceService: DatasourceService,
+    private metadataService: MetadataService,
+    private messageService: NzMessageService,
+    private contextMenuService: ContextMenuService) {
     super();
     this.nodes = this.dataSourceService.getAll()?.data?.columns.map(k => {
       const configModel = new ConfigModel();
@@ -95,6 +95,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         break;
       case TypeEnum.table:
         this.disabledComponent.table = selected;
+        this.database = this.selectNode?.parentNode?.key;
         break;
     }
   }

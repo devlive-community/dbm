@@ -9,19 +9,26 @@ export class OperationConfig {
     server.name = TypeEnum.disk.toString();
     server.type = TypeEnum.disk;
     server.operations = [
-      {type: TypeEnum.server, actions: [OperationEnum.info]},
-      {type: TypeEnum.database, actions: [OperationEnum.create]}
+      { type: TypeEnum.server, actions: [OperationEnum.info] },
+      { type: TypeEnum.database, actions: [OperationEnum.create] }
     ];
     opertions.push(server);
     const database = new OperationModel();
     database.name = TypeEnum.database.toString();
     database.type = TypeEnum.database;
     database.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.create]},
-      {type: TypeEnum.database, actions: [OperationEnum.delete]},
-      {type: TypeEnum.database, actions: [OperationEnum.structure]}
+      { type: TypeEnum.table, actions: [OperationEnum.create] },
+      { type: TypeEnum.database, actions: [OperationEnum.delete] },
+      { type: TypeEnum.database, actions: [OperationEnum.structure] }
     ];
     opertions.push(database);
+    const table = new OperationModel();
+    table.name = TypeEnum.table.toString();
+    table.type = TypeEnum.table;
+    table.operations = [
+      { type: TypeEnum.table, actions: [OperationEnum.delete] }
+    ];
+    opertions.push(table);
     return opertions;
   }
 }

@@ -7,5 +7,8 @@
         <app-component-delete-table *ngIf="menu.command === operation.delete" [config]="config"
             [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
         </app-component-delete-table>
+        <app-component-structure-table *ngIf="menu.command === operation.structure" [config]="config"
+            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+        </app-component-structure-table>
     </div>
 </nz-modal>

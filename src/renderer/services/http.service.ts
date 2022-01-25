@@ -21,7 +21,7 @@ export class HttpService {
     this.basicConfig = this.getConfig();
     const network = this.basicConfig.network * 1000;
     return new Promise((resolve, reject) => {
-      axios.post(url, data + ' FORMAT ' + this.basicConfig.format, {timeout: network})
+      axios.post(url, data + '\n FORMAT ' + this.basicConfig.format, {timeout: network})
       .then(rs => {
         const response = new ResponseModel();
         if (rs.status === 200) {

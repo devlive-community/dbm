@@ -1,0 +1,28 @@
+<div>
+    <em>We don't recommend that you delete the data table
+        <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
+        ? This operation produces the following?
+    </em>
+    <ol>
+        <li>
+            <nz-tag [nzColor]="'#f50'">No rollback</nz-tag>
+            The metadata will be removed from the Clickhouse metadata
+        </li>
+        <li>
+            <nz-tag [nzColor]="'#f50'">No rollback</nz-tag>
+            All data files generated in this table will be removed from the relevant Clickhouse server file system
+        </li>
+        <li>If you want to confirm the deletion, enter the table name in the
+            <input nz-input [(ngModel)]="inputValue" (change)="handlerValidate()" />
+            and click the delete button below
+        </li>
+    </ol>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+    <div class="ng-star-inserted">
+        <button nz-button nzType="primary" nzDanger [disabled]="disabled.button" [nzLoading]="loading.button"
+            (click)="handlerDelete()">
+            <span>{{'common.delete'|translate}}</span>
+        </button>
+    </div>
+</div>

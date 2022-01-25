@@ -90,7 +90,8 @@
     "uri": "URI",
     "jdbc": "JDBC",
     "sqlite": "SQLite",
-    "path": "Path"
+    "path": "Path",
+    "odbc": "ODBC"
   },
   "language": {
     "english": "English",
@@ -110,7 +111,8 @@
     "format": "Please enter the data parsing format",
     "uri": "Please enter the remote server address",
     "table": "Please input table name",
-    "path": "Please input file path"
+    "path": "Please input file path",
+    "setting": "Please input setting file path"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -137,7 +139,8 @@
       "kafka": "Import data from Kafka Topic directly into ClickHouse",
       "hdfs": "Import data from HDFS directly into ClickHouse",
       "jdbc": "Allows ClickHouse to connect to external databases via JDBC",
-      "sqlite": "The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse."
+      "sqlite": "The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.",
+      "odbc": "Allows ClickHouse to connect to external databases via ODBC"
     },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",
@@ -152,7 +155,10 @@
       "format": "The data format type varies from engine to engine",
       "uri": "URI or name of an external DBMS.\nURI Format: jdbc:<driver_name>://<host_name>:<port>/?user=<username>&password=<password>",
       "table": "Name of the table in database",
-      "path": "Path to file with a database"
+      "path": "Path to file with a database",
+      "setting": {
+        "odbc": "Name of the section with connection settings in the odbc.ini file"
+      }
     }
   }
 }

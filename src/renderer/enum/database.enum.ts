@@ -12,5 +12,6 @@ export enum DatabaseEnum {
   kafka = 'Kafka',
   hdfs = 'HDFS',
   jdbc = 'JDBC',
-  sqlite = 'SQLite'
+  sqlite = 'SQLite',
+  odbc = 'ODBC'
 }

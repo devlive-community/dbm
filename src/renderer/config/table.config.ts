@@ -135,6 +135,32 @@ export class TableConfig {
       sqliteProperties,
       false,
       PropertyEnum.name));
+    // ODBC
+    const odbcProperties = new Array();
+    odbcProperties.push(PropertyModel.builder('path',
+      TranslateUtils.getValue('common.path'),
+      TranslateUtils.getValue('placeholder.setting'),
+      TranslateUtils.getValue('tooltip.property.setting.odbc'),
+      null,
+      false));
+      odbcProperties.push(PropertyModel.builder('database',
+      TranslateUtils.getValue('common.database'),
+      TranslateUtils.getValue('placeholder.database'),
+      TranslateUtils.getValue('tooltip.property.database'),
+      null,
+      false));
+      odbcProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.odbc.toString(),
+      TranslateUtils.getValue('tooltip.table.odbc'),
+      DatabaseEnum.odbc,
+      odbcProperties,
+      false,
+      PropertyEnum.name));
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;

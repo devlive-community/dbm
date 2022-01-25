@@ -19,9 +19,12 @@ import { PropertyComponent } from '@renderer/components/property/property.compon
 import { DatabaseDropComponent } from '@renderer/components/database/drop/database.drop.component';
 import { DatabaseStructureComponent } from '@renderer/components/database/structure/database.structure.component';
 import { EditorService } from '@renderer/services/editor/editor.service';
+import { CommonTableComponent } from '@renderer/components/table/common/common.table.component';
+import { CreateTableComponent } from '@renderer/components/table/create/table.create.component';
+import { TableService } from '@renderer/services/management/table.service';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
-  {path: '', component: MetadataComponent}
+  { path: '', component: MetadataComponent }
 ];
 
 @NgModule({
@@ -44,13 +47,16 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     LazyEngineDatabaseComponent,
     PropertyComponent,
     DatabaseDropComponent,
-    DatabaseStructureComponent
+    DatabaseStructureComponent,
+    CommonTableComponent,
+    CreateTableComponent
   ],
   providers: [
     DatasourceService,
     MetadataService,
     ContextMenuService,
-    EditorService
+    EditorService,
+    TableService
   ]
 })
 export class MetadataModule {

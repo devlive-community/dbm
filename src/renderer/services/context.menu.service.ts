@@ -48,7 +48,7 @@ export class ContextMenuService {
         icon = 'trash';
         break;
       default:
-        icon = 'info';
+        icon = 'info-circle';
     }
     return icon;
   }

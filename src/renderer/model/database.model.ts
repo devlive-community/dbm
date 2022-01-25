@@ -7,6 +7,7 @@ export class DatabaseModel {
   type: DatabaseEnum;
   engines: DatabaseModel[];
   property: any;
+  database: string;
   experimental: boolean;
   properties: PropertyModel[];
 

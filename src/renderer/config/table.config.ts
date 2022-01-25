@@ -89,6 +89,78 @@ export class TableConfig {
       hdfsProperties,
       false,
       PropertyEnum.name));
+    // JDBC
+    const jdbcProperties = new Array();
+    jdbcProperties.push(PropertyModel.builder('uri',
+      TranslateUtils.getValue('common.uri'),
+      TranslateUtils.getValue('placeholder.uri'),
+      TranslateUtils.getValue('tooltip.property.uri'),
+      null,
+      false));
+    jdbcProperties.push(PropertyModel.builder('database',
+      TranslateUtils.getValue('common.database'),
+      TranslateUtils.getValue('placeholder.database'),
+      TranslateUtils.getValue('tooltip.property.database'),
+      null,
+      false));
+    jdbcProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.jdbc.toString(),
+      TranslateUtils.getValue('tooltip.table.jdbc'),
+      DatabaseEnum.jdbc,
+      jdbcProperties,
+      false,
+      PropertyEnum.name));
+    // SQLite
+    const sqliteProperties = new Array();
+    sqliteProperties.push(PropertyModel.builder('path',
+      TranslateUtils.getValue('common.path'),
+      TranslateUtils.getValue('placeholder.path'),
+      TranslateUtils.getValue('tooltip.property.path'),
+      null,
+      false));
+    sqliteProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.sqlite.toString(),
+      TranslateUtils.getValue('tooltip.table.sqlite'),
+      DatabaseEnum.sqlite,
+      sqliteProperties,
+      false,
+      PropertyEnum.name));
+    // ODBC
+    const odbcProperties = new Array();
+    odbcProperties.push(PropertyModel.builder('path',
+      TranslateUtils.getValue('common.path'),
+      TranslateUtils.getValue('placeholder.setting'),
+      TranslateUtils.getValue('tooltip.property.setting.odbc'),
+      null,
+      false));
+      odbcProperties.push(PropertyModel.builder('database',
+      TranslateUtils.getValue('common.database'),
+      TranslateUtils.getValue('placeholder.database'),
+      TranslateUtils.getValue('tooltip.property.database'),
+      null,
+      false));
+      odbcProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.odbc.toString(),
+      TranslateUtils.getValue('tooltip.table.odbc'),
+      DatabaseEnum.odbc,
+      odbcProperties,
+      false,
+      PropertyEnum.name));
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;

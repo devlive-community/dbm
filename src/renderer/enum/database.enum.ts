@@ -11,5 +11,6 @@ export enum DatabaseEnum {
   stripelog = 'StripeLog',
   kafka = 'Kafka',
   hdfs = 'HDFS',
-  jdbc = 'JDBC'
+  jdbc = 'JDBC',
+  sqlite = 'SQLite'
 }

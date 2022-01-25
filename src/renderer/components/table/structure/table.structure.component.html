@@ -1,0 +1,25 @@
+<div>
+  <nz-skeleton *ngIf="loading.button; else hasValues" nzActive="true">
+  </nz-skeleton>
+  <ng-template #hasValues>
+    <app-component-antd-empty *ngIf="!structure; else hasCompleteValue"></app-component-antd-empty>
+    <ng-template #hasCompleteValue>
+      <div style="margin-bottom: 15px;">
+        <button nz-button nzType="dashed" nzSize="small" (click)="handlerFormatter()">
+          <i class="fa fa-code"></i>&nbsp;{{'common.format'|translate}}
+        </button>
+        <button nz-button nzType="primary" nzSize="small" (click)="handlerCopy()">
+          <i class="fa fa-copy"></i>&nbsp;{{'common.copy'|translate}}
+        </button>
+      </div>
+      <ngx-codemirror [(ngModel)]="structure" [options]="editorConfig" style="margin-top: 10px;"></ngx-codemirror>
+    </ng-template>
+  </ng-template>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="dashed" nzDanger (click)="handlerCancel()">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</div>

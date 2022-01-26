@@ -51,11 +51,6 @@ GitHub:
 [![GitHub issues](https://img.shields.io/github/issues/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/issues)
 [![GitHub forks](https://img.shields.io/github/forks/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/network)
 
-Gitee:
-
-[![star](https://gitee.com/EdurtIO/incubator-dbm/badge/star.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/stargazers)
-[![fork](https://gitee.com/EdurtIO/incubator-dbm/badge/fork.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/members)
-
 ## Thank you
 
 - [Jetbrains](https://www.jetbrains.com/)

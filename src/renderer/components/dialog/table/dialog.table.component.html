@@ -1,0 +1,13 @@
+<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()"
+          nzWidth="60%"
+          nzTitle="{{'common.query'|translate}} {{'common.ddl'|translate}}">
+  <div *nzModalContent>
+    ddd
+    {{config|json}}
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="dashed" nzDanger (click)="handlerCancel()">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</nz-modal>

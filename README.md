@@ -41,7 +41,7 @@ Development:
 
 [![codebeat badge](https://codebeat.co/badges/a291d700-2d4b-435f-aa70-468bd1800d19)](https://codebeat.co/projects/github-com-edurtio-incubator-dbm-master)
 [![With Electron](https://img.shields.io/badge/with-electron-blue.svg)](https://electronjs.org/) 
-[![With Vue](https://img.shields.io/badge/with-vue-blue.svg)](http://vuejs.org/)
+[![With Angular](https://img.shields.io/badge/with-angular-blue.svg)](https://angular.io/)
 [![With Jetbrains](https://img.shields.io/badge/with-Jetbrains-blue.svg)](https://www.jetbrains.com/)
 
 GitHub:
@@ -50,11 +50,6 @@ GitHub:
 [![GitHub license](https://img.shields.io/github/license/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/issues)
 [![GitHub forks](https://img.shields.io/github/forks/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/network)
-
-Gitee:
-
-[![star](https://gitee.com/EdurtIO/incubator-dbm/badge/star.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/stargazers)
-[![fork](https://gitee.com/EdurtIO/incubator-dbm/badge/fork.svg?theme=dark)](https://gitee.com/EdurtIO/incubator-dbm/members)
 
 ## Thank you
 

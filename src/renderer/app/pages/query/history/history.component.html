@@ -1,0 +1,60 @@
+<nz-card [nzTitle]="titleTemplate">
+  <nz-empty *ngIf="tableDetails?.length <= 0; else notHasValues"
+            [nzNotFoundContent]="contentTemplate"
+            [nzNotFoundFooter]="footerTemplate">
+    <ng-template #contentTemplate>
+    </ng-template>
+    <ng-template #footerTemplate>
+    </ng-template>
+  </nz-empty>
+  <ng-template #notHasValues>
+    <div class="table-body-flex">
+      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}" nzSize="small">
+        <thead>
+        <tr>
+          <th>{{'common.id' | translate}}</th>
+          <th>{{'common.server' | translate}}</th>
+          <th>{{'common.state' | translate}}</th>
+          <th>{{'common.start' | translate}}{{'common.time' | translate}}</th>
+          <th>{{'common.end' | translate}}{{'common.time' | translate}}</th>
+          <th>{{'common.elapsed' | translate}}{{'common.time' | translate}}</th>
+          <th>{{'common.action' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{data.id}}</td>
+          <td>{{data.server}}</td>
+          <td>{{data.state}}</td>
+          <td>{{data.startTime}}</td>
+          <td>{{data.endTime}}</td>
+          <td>{{data.elapsedTime}}</td>
+          <td>
+            <button nz-button nzShape="circle" nzSize="small" nzType="primary"
+                    nz-tooltip nzTooltipTitle="{{'common.ddl' | translate}}"
+                    (click)="handlerShowDDL(data)">
+              <i class="fa fa-search"></i>
+            </button>
+            <button nz-button nzShape="circle" nzSize="small" nzType="dashed" nzDanger
+                    nz-tooltip nzTooltipTitle="{{'common.error' | translate}}"
+                    [disabled]="data?.state !== 1"
+                    (click)="handlerShowMessage(data)">
+              <i class="fa fa-warning"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-template>
+</nz-card>
+<ng-template #titleTemplate>
+  <i class="fa fa-history"></i>&nbsp;{{'common.query' | translate}} {{'common.history' | translate}}
+  <button style="float: right;" nz-button nzType="primary" nzDanger nzSize="small"
+          [disabled]="tableDetails?.length <= 0" (click)="handlerClearHistory()">
+    <i class="fa fa-trash"></i>&nbsp;{{'common.clear' | translate}} {{'common.history' | translate}}
+  </button>
+</ng-template>
+<app-component-ddl-query [visible]="disabled.dialog" [text]="queryDDL"
+                         (emitter)="handlerCloseModal()">
+</app-component-ddl-query>

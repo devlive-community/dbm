@@ -56,6 +56,9 @@ export class ContextMenuService {
       case OperationEnum.clean:
         icon = 'minus-circle';
         break;
+      case OperationEnum.optimize:
+        icon = 'gavel';
+        break;
       default:
         icon = 'info-circle';
     }

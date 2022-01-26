@@ -26,4 +26,9 @@ export class ColumnService implements BaseService {
         const sql = StringUtils.format('ALTER TABLE {0} DROP COLUMN {1}', [SqlUtils.getTableName(value.database, value.table), value.name]);
         return this.getResponse(request, sql);
     }
+
+    rename(request: RequestModel, value: DatabaseModel, newName: string): Promise<ResponseModel> {
+        const sql = StringUtils.format('ALTER TABLE {0} RENAME COLUMN {1} TO {2}', [SqlUtils.getTableName(value.database, value.table), value.name, newName]);
+        return this.getResponse(request, sql);
+    }
 }

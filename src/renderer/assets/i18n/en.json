@@ -91,7 +91,8 @@
     "jdbc": "JDBC",
     "sqlite": "SQLite",
     "path": "Path",
-    "odbc": "ODBC"
+    "odbc": "ODBC",
+    "rename": "Rename"
   },
   "language": {
     "english": "English",
@@ -112,7 +113,8 @@
     "uri": "Please enter the remote server address",
     "table": "Please input table name",
     "path": "Please input file path",
-    "setting": "Please input setting file path"
+    "setting": "Please input setting file path",
+    "name": "Please input name"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -160,5 +162,8 @@
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }
     }
+  },
+  "alert": {
+    "rename": "The RENAME query is supported by the Atomic database engine only"
   }
 }

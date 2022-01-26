@@ -21,4 +21,9 @@ export class ColumnService implements BaseService {
         const sql = StringUtils.format(`SELECT {0} FROM {1} LIMIT 10`, [value.name, SqlUtils.getTableName(value.database, value.table)]);
         return this.getResponse(request, sql);
     }
+
+    delete(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+        const sql = StringUtils.format('ALTER TABLE {0} DROP COLUMN {1}', [SqlUtils.getTableName(value.database, value.table), value.name]);
+        return this.getResponse(request, sql);
+    }
 }

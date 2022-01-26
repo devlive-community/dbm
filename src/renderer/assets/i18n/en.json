@@ -95,7 +95,9 @@
     "rename": "Rename",
     "truncate": "Truncate",
     "rollback": "Rollback",
-    "no_rollback": "No Rollback"
+    "no_rollback": "No Rollback",
+    "clean": "Clean",
+    "partition": "Partition"
   },
   "language": {
     "english": "English",

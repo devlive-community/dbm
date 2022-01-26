@@ -1,4 +1,3 @@
-import { NullTemplateVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { PropertyEnum } from '@renderer/enum/property.enum';
 import { ColumnModel } from '@renderer/model/column.model';
@@ -43,8 +42,30 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    clean(request: RequestModel, value: DatabaseModel, partition: string): Promise<ResponseModel> {
+        const sql = StringUtils.format('ALTER TABLE {0}.{1} DROP PARTITION \'{2}\'', [value.database, value.name, partition]);
+        return this.getResponse(request, sql);
+    }
+
     getCreateStatement(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
         const sql = StringUtils.format('SHOW CREATE TABLE {0}.{1}', [value.database, value.name]);
+        return this.getResponse(request, sql);
+    }
+
+    getPartitions(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+        const sql = StringUtils.format(`SELECT
+        DISTINCT "partition" AS "partition",
+        "database",
+        "table",
+        name,
+        active
+      FROM
+        "system".parts
+      WHERE
+        "database" = '{0}'
+        AND "table" = '{1}'
+      ORDER BY
+        modification_time DESC`, [value.database, value.name]);
         return this.getResponse(request, sql);
     }
 

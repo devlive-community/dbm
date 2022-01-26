@@ -16,5 +16,8 @@
         <app-component-truncate-table *ngIf="menu.command === operation.truncate" [config]="config"
             [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
         </app-component-truncate-table>
+        <app-component-clean-table *ngIf="menu.command === operation.clean" [config]="config"
+            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+        </app-component-clean-table>
     </div>
 </nz-modal>

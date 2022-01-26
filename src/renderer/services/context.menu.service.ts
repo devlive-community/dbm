@@ -53,6 +53,9 @@ export class ContextMenuService {
       case OperationEnum.truncate:
         icon = 'ambulance';
         break;
+      case OperationEnum.clean:
+        icon = 'minus-circle';
+        break;
       default:
         icon = 'info-circle';
     }

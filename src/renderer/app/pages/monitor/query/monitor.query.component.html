@@ -1,0 +1,64 @@
+<nz-card [nzTitle]="titleTemplate">
+  <nz-empty *ngIf="threshold.datasource === null; else monitorProcessorHasValue" [nzNotFoundContent]="contentTemplate"
+    [nzNotFoundFooter]="footerTemplate">
+    <ng-template #contentTemplate>
+    </ng-template>
+    <ng-template #footerTemplate>
+    </ng-template>
+  </nz-empty>
+  <ng-template #monitorProcessorHasValue>
+    <nz-skeleton *ngIf="loading.button; else monitorProcessorLoadSuccess" nzActive="true"></nz-skeleton>
+    <ng-template #monitorProcessorLoadSuccess>
+      <nz-empty *ngIf="processors?.columns.length <= 0; else monitorProcessorHasTableValue"
+        [nzNotFoundContent]="contentTemplate" [nzNotFoundFooter]="footerTemplate">
+        <ng-template #contentTemplate>
+        </ng-template>
+        <ng-template #footerTemplate>
+        </ng-template>
+      </nz-empty>
+      <ng-template #monitorProcessorHasTableValue>
+        <nz-table #basicTable [nzData]="processors.columns" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+                <div nz-popover nzPopoverTrigger="click" nzPopoverContent="{{header?.name}}">
+                  {{header?.name}}
+                </div>
+              </th>
+              <th nzEllipsis>{{'common.action' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let column of basicTable.data">
+              <td *ngFor="let header of handlerFilterHeader(processors.headers)" nzEllipsis>
+                <div nz-popover nzPopoverTrigger="click" nzPopoverTitle="{{header.name}}"
+                  nzPopoverContent="{{column[header.name]}}">
+                  {{column[header.name]}}
+                </div>
+              </td>
+              <td>
+                <button nz-button nzShape="circle" nzSize="small" nzType="primary" nz-tooltip
+                  nzTooltipTitle="{{'common.ddl' | translate}}" (click)="handlerShowDDL(column)">
+                  <i class="fa fa-search"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+</nz-card>
+<ng-template #titleTemplate>
+  <nz-select [(ngModel)]="threshold.datasource" nzShowSearch nzAllowClear nzSize="small"
+    (ngModelChange)="handlerSwitch()" style="width: 150px; margin-right: 8px;">
+    <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status" nzValue="{{detail.alias}}"
+      nzLabel="{{detail.alias}}"></nz-option>
+  </nz-select>
+  <nz-input-number style="float: right;" [(ngModel)]="threshold.ranger" [nzMin]="500" [nzStep]="500"
+    [nzDisabled]="threshold.active" (ngModelChange)="handlerSwitch()">
+  </nz-input-number>
+</ng-template>
+<app-component-ddl-query [visible]="disabled.dialog" [text]="queryDDL" (emitter)="handlerCloseModal()">
+</app-component-ddl-query>

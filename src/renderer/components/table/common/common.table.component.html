@@ -19,5 +19,8 @@
         <app-component-clean-table *ngIf="menu.command === operation.clean" [config]="config"
             [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
         </app-component-clean-table>
+        <app-component-optimize-table *ngIf="menu.command === operation.optimize" [config]="config"
+            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+        </app-component-optimize-table>
     </div>
 </nz-modal>

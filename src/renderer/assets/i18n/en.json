@@ -97,7 +97,9 @@
     "rollback": "Rollback",
     "no_rollback": "No Rollback",
     "clean": "Clean",
-    "partition": "Partition"
+    "partition": "Partition",
+    "optimize": "Optimize",
+    "final": "Final"
   },
   "language": {
     "english": "English",
@@ -163,6 +165,7 @@
       "uri": "URI or name of an external DBMS.\nURI Format: jdbc:<driver_name>://<host_name>:<port>/?user=<username>&password=<password>",
       "table": "Name of the table in database",
       "path": "Path to file with a database",
+      "final": "When FINAL is specified, ClickHouse fully merges the data before returning the result and thus performs all data transformations that happen during merges for the given table engine",
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }

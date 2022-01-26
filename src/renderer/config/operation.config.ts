@@ -30,7 +30,8 @@ export class OperationConfig {
       { type: TypeEnum.table, actions: [OperationEnum.structure] },
       { type: TypeEnum.table, actions: [OperationEnum.rename] },
       { type: TypeEnum.table, actions: [OperationEnum.truncate] },
-      { type: TypeEnum.table, actions: [OperationEnum.clean] }
+      { type: TypeEnum.table, actions: [OperationEnum.clean] },
+      { type: TypeEnum.table, actions: [OperationEnum.optimize] }
     ];
     opertions.push(table);
     return opertions;

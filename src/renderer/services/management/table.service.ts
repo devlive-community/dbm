@@ -47,6 +47,14 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    optimize(request: RequestModel, value: DatabaseModel, partition: string, final: boolean): Promise<ResponseModel> {
+        let sql = StringUtils.format('OPTIMIZE TABLE {0}.{1} PARTITION \'{2}\'', [value.database, value.name, partition]);
+        if (final) {
+            sql = StringUtils.format('{0} FINAL', [sql])
+        }
+        return this.getResponse(request, sql);
+    }
+
     getCreateStatement(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
         const sql = StringUtils.format('SHOW CREATE TABLE {0}.{1}', [value.database, value.name]);
         return this.getResponse(request, sql);

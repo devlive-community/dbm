@@ -27,7 +27,7 @@ export class ContextMenuService {
           const flag = c.type === TypeEnum.disk && ac === OperationEnum.info;
           menu.title = flag ? this.translateService.instant('common.' + ac)
             : StringUtils.format('{0}{1}', [this.translateService.instant('common.' + ac),
-              this.translateService.instant('common.' + op.type)]);
+            this.translateService.instant('common.' + op.type)]);
           menus.push(menu);
         });
       });
@@ -49,6 +49,9 @@ export class ContextMenuService {
         break;
       case OperationEnum.rename:
         icon = 'pencil-square';
+        break;
+      case OperationEnum.truncate:
+        icon = 'ambulance';
         break;
       default:
         icon = 'info-circle';

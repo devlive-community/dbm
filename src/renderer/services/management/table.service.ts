@@ -38,6 +38,11 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    truncate(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+        const sql = StringUtils.format('TRUNCATE TABLE {0}.{1}', [value.database, value.name]);
+        return this.getResponse(request, sql);
+    }
+
     getCreateStatement(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
         const sql = StringUtils.format('SHOW CREATE TABLE {0}.{1}', [value.database, value.name]);
         return this.getResponse(request, sql);

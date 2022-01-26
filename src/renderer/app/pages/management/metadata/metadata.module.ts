@@ -28,6 +28,7 @@ import { RenameTableComponent } from '@renderer/components/table/rename/table.re
 import { TruncateTableComponent } from '@renderer/components/table/truncate/table.truncate.component';
 import { CleanTableComponent } from '@renderer/components/table/clean/table.clean.component';
 import { OptimizeTableComponent } from '@renderer/components/table/optimize/table.optimize.component';
+import { PreviewTableComponent } from '@renderer/components/table/preview/table.preview.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -61,7 +62,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     RenameTableComponent,
     TruncateTableComponent,
     CleanTableComponent,
-    OptimizeTableComponent
+    OptimizeTableComponent,
+    PreviewTableComponent
   ],
   providers: [
     DatasourceService,

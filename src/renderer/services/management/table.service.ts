@@ -77,6 +77,11 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    getPreview(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+        const sql = StringUtils.format(`SELECT * FROM {0}.{1} LIMIT 10`, [value.database, value.name]);
+        return this.getResponse(request, sql);
+    }
+
     builderColumnsToString(columns: ColumnModel[]): string {
         let columnStr = ''
         columns.forEach((value, index) => {

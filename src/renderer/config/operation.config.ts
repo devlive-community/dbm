@@ -26,6 +26,7 @@ export class OperationConfig {
     table.name = TypeEnum.table.toString();
     table.type = TypeEnum.table;
     table.operations = [
+      { type: TypeEnum.table, actions: [OperationEnum.preview] },
       { type: TypeEnum.table, actions: [OperationEnum.delete] },
       { type: TypeEnum.table, actions: [OperationEnum.structure] },
       { type: TypeEnum.table, actions: [OperationEnum.rename] },

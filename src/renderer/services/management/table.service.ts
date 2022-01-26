@@ -20,6 +20,23 @@ export class TableService implements BaseService {
         return this.httpService.post(UrlUtils.formatUrl(request), sql);
     }
 
+    getAll(request: RequestModel, database: string): Promise<ResponseModel> {
+        const sql = StringUtils.format('SELECT name, engine FROM system.tables WHERE database = \'{0}\'', [database]);
+        return this.getResponse(request, sql);
+    }
+
+    check(request: RequestModel, database: string, table: string): Promise<ResponseModel> {
+        const sql = StringUtils.format(`
+      SELECT
+        name
+      FROM
+        system.tables
+      WHERE
+        database = '{0}' AND name = '{1}'
+        `, [database, table])
+        return this.getResponse(request, sql);
+    }
+
     createTable(request: RequestModel, database: DatabaseModel, columns: ColumnModel[]): Promise<ResponseModel> {
         let sql = StringUtils.format('CREATE TABLE {0} (\n', [SqlUtils.getTableName(database.database, database.name)]);
         sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)])

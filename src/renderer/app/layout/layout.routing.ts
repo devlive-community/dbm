@@ -45,6 +45,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'track',
             loadChildren: () => import('../pages/tools/track/track.module').then(m => m.TrackModule)
+          },
+          {
+            path: 'migrte',
+            loadChildren: () => import('../pages/tools/migrte/migrte.module').then(m => m.MigrateModule)
           }
         ]
       },

@@ -47,6 +47,9 @@ export class ContextMenuService {
       case OperationEnum.delete:
         icon = 'trash';
         break;
+      case OperationEnum.rename:
+        icon = 'pencil-square';
+        break;
       default:
         icon = 'info-circle';
     }

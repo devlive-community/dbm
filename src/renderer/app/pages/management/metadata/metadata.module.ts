@@ -24,6 +24,7 @@ import { CreateTableComponent } from '@renderer/components/table/create/table.cr
 import { TableService } from '@renderer/services/management/table.service';
 import { DeleteTableComponent } from '@renderer/components/table/delete/table.delete.component';
 import { StructureTableComponent } from '@renderer/components/table/structure/table.structure.component';
+import { RenameTableComponent } from '@renderer/components/table/rename/table.rename.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -53,7 +54,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     CommonTableComponent,
     CreateTableComponent,
     DeleteTableComponent,
-    StructureTableComponent
+    StructureTableComponent,
+    RenameTableComponent
   ],
   providers: [
     DatasourceService,

@@ -71,6 +71,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'connection',
             loadChildren: () => import('../pages/monitor/connection/monitor.connection.module').then(m => m.MonitorConnectionModule)
+          },
+          {
+            path: 'mutations',
+            loadChildren: () => import('../pages/monitor/mutations/monitor.mutations.module').then(m => m.MonitorMutationsModule)
           }
         ]
       }

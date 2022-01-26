@@ -90,7 +90,7 @@ export class MetadataService implements BaseService {
   }
 
   delete(request: RequestModel, value: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('DROP database {0}', [value]);
+    const sql = StringUtils.format('DROP DATABASE {0}', [value]);
     return this.getResponse(request, sql);
   }
 

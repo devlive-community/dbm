@@ -45,6 +45,10 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'track',
             loadChildren: () => import('../pages/tools/track/track.module').then(m => m.TrackModule)
+          },
+          {
+            path: 'migrte',
+            loadChildren: () => import('../pages/tools/migrte/migrte.module').then(m => m.MigrateModule)
           }
         ]
       },
@@ -71,6 +75,14 @@ const LAYOUT_ROUTES: Routes = [
           {
             path: 'connection',
             loadChildren: () => import('../pages/monitor/connection/monitor.connection.module').then(m => m.MonitorConnectionModule)
+          },
+          {
+            path: 'mutations',
+            loadChildren: () => import('../pages/monitor/mutations/monitor.mutations.module').then(m => m.MonitorMutationsModule)
+          },
+          {
+            path: 'query',
+            loadChildren: () => import('../pages/monitor/query/monitor.query.module').then(m => m.MonitorQueryModule)
           }
         ]
       }

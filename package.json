@@ -23,6 +23,7 @@
     "dev": "npm run script:tsc && node scripts/app-runner/index.js",
     "build": "npm run pack:main && npm run pack:renderer",
     "release": "npm run build && electron-builder build --publish never",
+    "release:win": "npm run build && electron-builder build --publish never --win",
     "pack:main": "npm run script:tsc && cross-env NODE_ENV=production webpack --progress --config scripts/app-runner/webpack.main.config.js",
     "pack:renderer": "ng build --configuration production",
     "script:tsc": "tsc -p scripts/tsconfig.json",

@@ -24,6 +24,16 @@ import { CreateTableComponent } from '@renderer/components/table/create/table.cr
 import { TableService } from '@renderer/services/management/table.service';
 import { DeleteTableComponent } from '@renderer/components/table/delete/table.delete.component';
 import { StructureTableComponent } from '@renderer/components/table/structure/table.structure.component';
+import { RenameTableComponent } from '@renderer/components/table/rename/table.rename.component';
+import { TruncateTableComponent } from '@renderer/components/table/truncate/table.truncate.component';
+import { CleanTableComponent } from '@renderer/components/table/clean/table.clean.component';
+import { OptimizeTableComponent } from '@renderer/components/table/optimize/table.optimize.component';
+import { PreviewTableComponent } from '@renderer/components/table/preview/table.preview.component';
+import { CommonColumnComponent } from '@renderer/components/column/common/common.column.component';
+import { PreviewColumnComponent } from '@renderer/components/column/preview/column.preview.component';
+import { ColumnService } from '@renderer/services/management/column.service';
+import { DeleteColumnComponent } from '@renderer/components/column/delete/column.delete.component';
+import { RenameColumnComponent } from '@renderer/components/column/rename/column.rename.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -53,14 +63,24 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     CommonTableComponent,
     CreateTableComponent,
     DeleteTableComponent,
-    StructureTableComponent
+    StructureTableComponent,
+    RenameTableComponent,
+    TruncateTableComponent,
+    CleanTableComponent,
+    OptimizeTableComponent,
+    PreviewTableComponent,
+    CommonColumnComponent,
+    PreviewColumnComponent,
+    DeleteColumnComponent,
+    RenameColumnComponent
   ],
   providers: [
     DatasourceService,
     MetadataService,
     ContextMenuService,
     EditorService,
-    TableService
+    TableService,
+    ColumnService
   ]
 })
 export class MetadataModule {

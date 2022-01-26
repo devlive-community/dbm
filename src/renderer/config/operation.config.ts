@@ -26,10 +26,24 @@ export class OperationConfig {
     table.name = TypeEnum.table.toString();
     table.type = TypeEnum.table;
     table.operations = [
+      { type: TypeEnum.table, actions: [OperationEnum.preview] },
       { type: TypeEnum.table, actions: [OperationEnum.delete] },
-      { type: TypeEnum.table, actions: [OperationEnum.structure] }
+      { type: TypeEnum.table, actions: [OperationEnum.structure] },
+      { type: TypeEnum.table, actions: [OperationEnum.rename] },
+      { type: TypeEnum.table, actions: [OperationEnum.truncate] },
+      { type: TypeEnum.table, actions: [OperationEnum.clean] },
+      { type: TypeEnum.table, actions: [OperationEnum.optimize] }
     ];
     opertions.push(table);
+    const column = new OperationModel();
+    column.name = TypeEnum.column.toString();
+    column.type = TypeEnum.column;
+    column.operations = [
+      { type: TypeEnum.column, actions: [OperationEnum.preview] },
+      { type: TypeEnum.column, actions: [OperationEnum.delete] },
+      { type: TypeEnum.column, actions: [OperationEnum.rename] }
+    ];
+    opertions.push(column);
     return opertions;
   }
 }

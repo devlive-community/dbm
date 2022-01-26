@@ -91,7 +91,19 @@
     "jdbc": "JDBC",
     "sqlite": "SQLite",
     "path": "Path",
-    "odbc": "ODBC"
+    "odbc": "ODBC",
+    "rename": "Rename",
+    "truncate": "Truncate",
+    "rollback": "Rollback",
+    "no_rollback": "No Rollback",
+    "clean": "Clean",
+    "partition": "Partition",
+    "optimize": "Optimize",
+    "final": "Final",
+    "mutations": "Mutations",
+    "migrte": "Migrte",
+    "target": "Target",
+    "source": "Source"
   },
   "language": {
     "english": "English",
@@ -112,7 +124,8 @@
     "uri": "Please enter the remote server address",
     "table": "Please input table name",
     "path": "Please input file path",
-    "setting": "Please input setting file path"
+    "setting": "Please input setting file path",
+    "name": "Please input name"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
@@ -156,9 +169,14 @@
       "uri": "URI or name of an external DBMS.\nURI Format: jdbc:<driver_name>://<host_name>:<port>/?user=<username>&password=<password>",
       "table": "Name of the table in database",
       "path": "Path to file with a database",
+      "final": "When FINAL is specified, ClickHouse fully merges the data before returning the result and thus performs all data transformations that happen during merges for the given table engine",
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }
     }
+  },
+  "alert": {
+    "rename": "The RENAME query is supported by the Atomic database engine only",
+    "truncate": "This operation deletes all data, but does not delete the table"
   }
 }

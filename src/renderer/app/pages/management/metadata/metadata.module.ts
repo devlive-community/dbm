@@ -33,6 +33,7 @@ import { CommonColumnComponent } from '@renderer/components/column/common/common
 import { PreviewColumnComponent } from '@renderer/components/column/preview/column.preview.component';
 import { ColumnService } from '@renderer/services/management/column.service';
 import { DeleteColumnComponent } from '@renderer/components/column/delete/column.delete.component';
+import { RenameColumnComponent } from '@renderer/components/column/rename/column.rename.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -70,7 +71,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     PreviewTableComponent,
     CommonColumnComponent,
     PreviewColumnComponent,
-    DeleteColumnComponent
+    DeleteColumnComponent,
+    RenameColumnComponent
   ],
   providers: [
     DatasourceService,

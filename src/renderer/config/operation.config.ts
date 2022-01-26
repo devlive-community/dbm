@@ -28,7 +28,8 @@ export class OperationConfig {
     table.operations = [
       { type: TypeEnum.table, actions: [OperationEnum.delete] },
       { type: TypeEnum.table, actions: [OperationEnum.structure] },
-      { type: TypeEnum.table, actions: [OperationEnum.rename] }
+      { type: TypeEnum.table, actions: [OperationEnum.rename] },
+      { type: TypeEnum.table, actions: [OperationEnum.truncate] }
     ];
     opertions.push(table);
     return opertions;

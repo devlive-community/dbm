@@ -39,7 +39,8 @@ export class OperationConfig {
     column.name = TypeEnum.column.toString();
     column.type = TypeEnum.column;
     column.operations = [
-      { type: TypeEnum.column, actions: [OperationEnum.preview] }
+      { type: TypeEnum.column, actions: [OperationEnum.preview] },
+      { type: TypeEnum.column, actions: [OperationEnum.delete] }
     ];
     opertions.push(column);
     return opertions;

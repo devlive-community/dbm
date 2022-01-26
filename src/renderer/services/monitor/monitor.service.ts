@@ -4,6 +4,7 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { Injectable } from '@angular/core';
 import { HttpService } from '@renderer/services/http.service';
 import { UrlUtils } from '@renderer/utils/url.utils';
+import { StringUtils } from '@renderer/utils/string.utils';
 
 @Injectable()
 export class MonitorService implements BaseService {
@@ -33,6 +34,30 @@ FROM
 WHERE
   round(elapsed, 1) > 0
   `;
+    return this.getResponse(request, sql);
+  }
+
+  getSlowQuery(request: RequestModel, threshold: number): Promise<ResponseModel> {
+    const sql = StringUtils.format(`
+    SELECT 
+        user, 
+        client_hostname AS host, 
+        client_name AS hash, 
+        query_start_time AS time, 
+        query_duration_ms AS elapsed, 
+        round(memory_usage / 1048576) AS memoryUsage, 
+        result_rows AS rows, 
+        result_bytes / 1048576 AS bytes, 
+        read_rows AS readRows, 
+        round(read_bytes / 1048576) AS bytesRead, 
+        written_rows AS writtenRows, 
+        round(written_bytes / 1048576) AS bytesWritten
+    FROM system.query_log
+    WHERE type = 2
+    AND query_duration_ms >= {0}
+    ORDER BY query_duration_ms DESC
+    LIMIT 100
+      `, [threshold]);
     return this.getResponse(request, sql);
   }
 

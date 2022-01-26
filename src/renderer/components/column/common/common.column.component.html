@@ -1,0 +1,8 @@
+<nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false" [nzFooter]="null"
+    nzTitle="{{'common.column'|translate}}{{'common.action'|translate}}" nzWidth="80%">
+    <div *nzModalContent>
+        <app-component-preview-column *ngIf="menu.command === operation.preview" [config]="config"
+            [value]="value?.origin?.key" [database]="database" [table]="table" (emitter)="handlerEmitter($event)">
+        </app-component-preview-column>
+    </div>
+</nz-modal>

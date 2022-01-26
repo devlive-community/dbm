@@ -29,6 +29,9 @@ import { TruncateTableComponent } from '@renderer/components/table/truncate/tabl
 import { CleanTableComponent } from '@renderer/components/table/clean/table.clean.component';
 import { OptimizeTableComponent } from '@renderer/components/table/optimize/table.optimize.component';
 import { PreviewTableComponent } from '@renderer/components/table/preview/table.preview.component';
+import { CommonColumnComponent } from '@renderer/components/column/common/common.column.component';
+import { PreviewColumnComponent } from '@renderer/components/column/preview/column.preview.component';
+import { ColumnService } from '@renderer/services/management/column.service';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -63,14 +66,17 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     TruncateTableComponent,
     CleanTableComponent,
     OptimizeTableComponent,
-    PreviewTableComponent
+    PreviewTableComponent,
+    CommonColumnComponent,
+    PreviewColumnComponent
   ],
   providers: [
     DatasourceService,
     MetadataService,
     ContextMenuService,
     EditorService,
-    TableService
+    TableService,
+    ColumnService
   ]
 })
 export class MetadataModule {

@@ -9,16 +9,17 @@ export class DatabaseModel {
   engines: DatabaseModel[];
   property: any;
   database: string;
+  table: string;
   experimental: boolean;
   properties: PropertyModel[];
   propertyType: PropertyEnum;
 
   public static builder(name: string,
-                        description: string,
-                        type: DatabaseEnum,
-                        properties: PropertyModel[],
-                        experimental?: boolean,
-                        propertyType?: PropertyEnum): DatabaseModel {
+    description: string,
+    type: DatabaseEnum,
+    properties: PropertyModel[],
+    experimental?: boolean,
+    propertyType?: PropertyEnum): DatabaseModel {
     const database = new DatabaseModel();
     database.name = name;
     database.description = description;

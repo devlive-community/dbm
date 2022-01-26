@@ -34,9 +34,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       delete: false,
       structure: false
     },
-    table: false
+    table: false,
+    column: false
   };
   database: string;
+  table: string;
 
   constructor(private nzContextMenuService: NzContextMenuService,
     private dataSourceService: DatasourceService,
@@ -96,6 +98,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       case TypeEnum.table:
         this.disabledComponent.table = selected;
         this.database = this.selectNode?.parentNode?.key;
+        break;
+      case TypeEnum.column:
+        this.disabledComponent.column = selected;
+        this.database = this.selectNode?.parentNode?.parentNode?.key;
+        this.table = this.selectNode?.parentNode?.key;
         break;
     }
   }

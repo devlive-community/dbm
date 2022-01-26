@@ -1,0 +1,103 @@
+<nz-header nzTheme="light" class="layout">
+  <div class="logo">
+    <a [routerLink]="['/']">
+      <nz-avatar [nzSize]="32" nzSrc="shared/assets/icons/favicon.png"></nz-avatar>
+    </a>
+  </div>
+  <ul nz-menu nzMode="horizontal">
+    <li nz-submenu [nzTitle]="queryMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/query/query']" class="dropdown-item">
+            <i class="fa fa-search"> {{ 'common.query' | translate }}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/query/history']">
+            <i class="fa fa-history"> {{ 'common.history' | translate }}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu [nzTitle]="managementMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/management/datasource']" class="dropdown-item">
+            <i class="fa fa-dashcube"> {{ 'common.datasource' | translate }}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/management/metadata']" class="dropdown-item">
+            <i class="fa fa-archive"> {{ 'common.metadata' | translate }}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu [nzTitle]="monitorMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/monitor/processor']" class="dropdown-item">
+            <i class="fa fa-bullseye"> {{'common.processor'|translate}}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/monitor/connection']" class="dropdown-item">
+            <i class="fa fa-connectdevelop"> {{'common.connection'|translate}}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/monitor/mutations']" class="dropdown-item">
+            <i class="fa fa-anchor"> {{'common.mutations'|translate}}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/monitor/query']" class="dropdown-item">
+            <i class="fa fa-search"> {{'common.query'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu [nzTitle]="toolMenuItemTitle">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/tools/track']" class="dropdown-item">
+            <i class="fa fa-wrench"> {{'common.track'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu [nzTitle]="githubItemTitle" (click)="handlerDirectGitHub()" style="float: right;"></li>
+    <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;">
+      <ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/system/basic']" class="dropdown-item">
+            <i class="fa fa-bandcamp"> {{'common.basic'|translate}}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/system/editor']" class="dropdown-item">
+            <i class="fa fa-edit"> {{'common.editor'|translate}}</i>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ng-template #queryMenuItemTitle>
+    <i class="fa fa-search"></i>&nbsp;{{'common.query'|translate}}
+  </ng-template>
+  <ng-template #managementMenuItemTitle>
+    <i class="fa fa-magnet"></i>&nbsp;{{'common.management'|translate}}
+  </ng-template>
+  <ng-template #monitorMenuItemTitle>
+    <i class="fa fa-desktop"></i>&nbsp;{{'common.monitor'|translate}}
+  </ng-template>
+  <ng-template #toolMenuItemTitle>
+    <i class="fa fa-gavel"></i>&nbsp;{{'common.tools'|translate}}
+  </ng-template>
+  <ng-template #systemMenuItemTitle>
+    <i class="fa fa-gear"></i>&nbsp;{{'common.system'|translate}}
+  </ng-template>
+  <ng-template #githubItemTitle>
+    <i class="fa fa-github"></i>&nbsp;{{'common.github'|translate}}
+  </ng-template>
+</nz-header>

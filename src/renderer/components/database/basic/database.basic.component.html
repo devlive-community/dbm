@@ -1,0 +1,82 @@
+<nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false"
+          nzTitle="{{'common.create'|translate}} {{'common.database'|translate}}"
+          nzWidth="70%">
+  <div *nzModalContent>
+    <nz-steps [nzCurrent]="current" nzSize="small">
+      <nz-step nzTitle="{{'common.database'|translate}} {{'common.engine'|translate}}"></nz-step>
+      <nz-step nzTitle="{{'common.database'|translate}} {{'common.configuration'|translate}}"></nz-step>
+    </nz-steps>
+    <div *ngIf="current === 0">
+      <div [nzGutter]="[8, 8]" nz-row>
+        <div [nzSpan]="24" class="gutter-row" nz-col>
+        </div>
+        <div *ngFor="let engine of databaseEngines" [nzSpan]="24" class="gutter-row" nz-col>
+          <app-component-antd-drivider [description]="engine.description" [title]="engine.name">
+          </app-component-antd-drivider>
+          <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
+            <div *ngFor="let database of engine.engines" [nzSpan]="6" nz-col>
+              <div class="">
+                <nz-radio-group [(ngModel)]="databaseSelectValue" (ngModelChange)="handlerChange(database)">
+                  <label [nzValue]="database.name" nz-radio-button>
+                    {{database.name}} &nbsp;
+                    <span *ngIf="database.description" [nzTooltipTitle]="database.description" nz-tooltip>
+                      <i class="fa fa-question-circle"></i>
+                    </span>
+                  </label>
+                </nz-radio-group>
+              </div>
+            </div>
+          </div>
+          <ng-template #notHasEngines>
+            <div [nzSpan]="24" nz-col>
+              <app-component-antd-empty></app-component-antd-empty>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="current === 1">
+      <div [nzGutter]="[8, 8]" nz-row>
+        <div [nzSpan]="24" class="gutter-row" nz-col>
+        </div>
+        <div [nzSpan]="24" class="gutter-row" nz-col>
+          <form nz-form>
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.basic'|translate}}"></nz-divider>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input (change)="handlerValidate()" [(ngModel)]="configure.name" name="name" nz-input type="text"/>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+            <app-component-database-engine-lazy *ngIf="configure.type === databaseType.lazy"
+                                                (emitter)="handlerComponentEmitter($event)">
+            </app-component-database-engine-lazy>
+            <app-component-property [properties]="properties"
+                                    [experimental]="configure.experimental"
+                                    (emitter)="handlerComponentEmitter($event)">
+            </app-component-property>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *nzModalFooter>
+    <button (click)="handlerPrevious()" *ngIf="current > 0" nz-button nzType="default">
+      <span>{{'common.previous'|translate}}</span>
+    </button>
+    <button (click)="handlerNext()" *ngIf="current < 1" [disabled]="!configure.type" nz-button nzType="default">
+      <span>{{'common.next'|translate}}</span>
+    </button>
+    <button (click)="handlerComplete()" *ngIf="current === 1" [disabled]="disabled.button" nz-button
+            nzType="primary">
+      <span>{{'common.save'|translate}}</span>
+    </button>
+  </div>
+</nz-modal>

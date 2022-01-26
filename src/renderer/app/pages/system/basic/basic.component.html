@@ -1,0 +1,44 @@
+<nz-card [nzTitle]="systemBasicTemplate">
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="network"
+                     nzTooltipTitle="{{'tooltip.network'|translate}}">{{'common.network'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input [(ngModel)]="model.network" name="network" type="text" id="network"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="format"
+                     nzTooltipTitle="{{'tooltip.format'|translate}}">{{'common.format'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.format" name="format" id="format">
+          <ng-container *ngFor="let o of formats">
+            <nz-option [nzValue]="o" [nzLabel]="o"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="3" nzFor="language"
+                     nzTooltipTitle="{{'tooltip.language'|translate}}">{{'common.language'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select [(ngModel)]="model.language" name="language" id="language">
+          <ng-container *ngFor="let o of languages">
+            <nz-option [nzValue]="o.value" [nzLabel]="o.key"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzOffset]="3">
+        <button nz-button nzType="primary" (click)="handlerSave()">{{'common.ok'|translate}}</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+<ng-template #systemBasicTemplate>
+  {{'common.basic'|translate}} {{'common.setting'|translate}}
+</ng-template>

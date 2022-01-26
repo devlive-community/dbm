@@ -1,0 +1,22 @@
+<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()"
+          nzWidth="60%"
+          nzTitle="{{'common.query'|translate}} {{'common.ddl'|translate}}">
+  <div *nzModalContent>
+    <div style="margin-bottom: 15px;">
+      <button nz-button nzType="dashed" nzSize="small"
+              (click)="handlerFormatter()">
+        <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
+      </button>
+      <button nz-button nzType="primary" nzSize="small"
+              (click)="handlerCopy()">
+        <i class="fa fa-copy"></i>&nbsp;{{ 'common.copy' | translate }}
+      </button>
+    </div>
+    <ngx-codemirror [(ngModel)]="text" [options]="editorConfig" style="margin-top: 10px;"></ngx-codemirror>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="dashed" nzDanger (click)="handlerCancel()">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</nz-modal>

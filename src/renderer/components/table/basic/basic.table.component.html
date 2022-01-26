@@ -1,0 +1,34 @@
+<nz-table *ngIf="value?.columns?.length > 0; else notHasValues"
+          nzSize="small" nzShowPagination nzPaginationPosition="top"
+          [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
+          #response [nzData]="value.columns">
+  <thead>
+  <tr>
+    <th *ngFor="let header of value.headers" nzEllipsis>
+      <div nz-popover nzPopoverTrigger="click"
+           nzPopoverContent="{{header?.name}}">
+        {{header?.name}}
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let column of response.data;">
+    <td *ngFor="let header of value.headers" nzEllipsis>
+      <div nz-popover nzPopoverTrigger="click"
+           nzPopoverTitle="{{header.name}}" nzPopoverContent="{{column[header.name]}}">
+        {{column[header.name]}}
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<ng-template #notHasValues>
+  <nz-empty [nzNotFoundContent]="contentTemplate"
+            [nzNotFoundFooter]="footerTemplate">
+    <ng-template #contentTemplate>
+    </ng-template>
+    <ng-template #footerTemplate>
+    </ng-template>
+  </nz-empty>
+</ng-template>

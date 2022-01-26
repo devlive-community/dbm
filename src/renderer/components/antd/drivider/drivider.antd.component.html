@@ -1,0 +1,8 @@
+<nz-divider [nzText]="titleTemplate" nzOrientation="left">
+    <ng-template #titleTemplate>
+        {{title}}
+        <span *ngIf="description" nz-tooltip [nzTooltipTitle]="description">
+            <i class="fa fa-question-circle"></i>
+        </span>
+    </ng-template>
+</nz-divider>

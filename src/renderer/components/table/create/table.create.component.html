@@ -1,0 +1,117 @@
+<div>
+  <nz-steps [nzCurrent]="current" nzSize="small">
+    <nz-step nzTitle="{{'common.table'|translate}} {{'common.engine'|translate}}"></nz-step>
+    <nz-step nzTitle="{{'common.table'|translate}} {{'common.configuration'|translate}}"></nz-step>
+  </nz-steps>
+  <div *ngIf="current === 0">
+    <div [nzGutter]="[8, 8]" nz-row>
+      <div [nzSpan]="24" nz-col>
+      </div>
+      <div *ngFor="let engine of tableEngines" [nzSpan]="24" nz-col>
+        <app-component-antd-drivider [description]="engine.description" [title]="engine.name">
+        </app-component-antd-drivider>
+        <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
+          <div *ngFor="let value of engine.engines" [nzSpan]="6" nz-col>
+            <div class="">
+              <nz-radio-group [(ngModel)]="selectValue" (ngModelChange)="handlerChange(value)">
+                <label [nzValue]="value.name" nz-radio-button>
+                  {{value.name}} &nbsp;
+                  <span *ngIf="value.description" [nzTooltipTitle]="value.description" nz-tooltip>
+                    <i class="fa fa-question-circle"></i>
+                  </span>
+                </label>
+              </nz-radio-group>
+            </div>
+          </div>
+        </div>
+        <ng-template #notHasEngines>
+          <div [nzSpan]="24" nz-col>
+            <app-component-antd-empty></app-component-antd-empty>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="current === 1">
+    <div [nzGutter]="[8, 8]" nz-row>
+      <div [nzSpan]="24" nz-col>
+      </div>
+      <div [nzSpan]="24" nz-col>
+        <form nz-form>
+          <nz-divider nzOrientation="left" nzPlain nzText="{{'common.basic'|translate}}"></nz-divider>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input (change)="handlerValidate()" [(ngModel)]="configure.name" name="name" nz-input type="text" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-divider nzOrientation="left" nzPlain nzText="{{'common.column'|translate}}"></nz-divider>
+          <div nz-row [nzGutter]="[4, 8]">
+            <nz-form-item *ngFor="let column of columns; let i = index">
+              <nz-form-control>
+                <div nz-row [nzGutter]="[4, 8]">
+                  <div [nzSpan]="2" nz-col>
+                    <button nz-button nzType="primary" nzDanger nzShape="circle" nz-tooltip
+                      nzTooltipTitle="{{'common.delete'|translate}}" (click)="handlerRemoveColumn(column)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                  <div [nzSpan]="8" nz-col>
+                    <input [(ngModel)]="column.name" nz-input type="text" [ngModelOptions]="{standalone: true}"
+                      placeholder="{{'common.column'|translate}}{{'common.name'|translate}}" style="width: 100%;" />
+                  </div>
+                  <div [nzSpan]="6" nz-col>
+                    <nz-select [(ngModel)]="column.type" [ngModelOptions]="{standalone: true}" style="width: 130px;">
+                      <nz-option nzValue="{{type}}" nzLabel="{{type}}" *ngFor="let type of columnTypes"></nz-option>
+                    </nz-select>
+                  </div>
+                  <div [nzSpan]="6" nz-col>
+                    <input [(ngModel)]="column.description" nz-input type="text"
+                      [ngModelOptions]="{standalone: true}" />
+                  </div>
+                  <div [nzSpan]="2" nz-col>
+                  </div>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item [nzSpan]="24" nz-col>
+              <nz-form-control>
+                <button nz-button nzType="dashed" (click)="handlerAddColumn()" nz-tooltip
+                  nzTooltipTitle="{{'common.add'|translate}}">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+          <div *ngIf="properties?.length > 0">
+            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+            <app-component-property [properties]="properties" [experimental]="configure.experimental"
+              (emitter)="handlerComponentEmitter($event)">
+            </app-component-property>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button (click)="handlerNext()" *ngIf="current < 1" [disabled]="!selectValue" nz-button nzType="default">
+      <span>{{'common.next'|translate}}</span>
+    </button>
+    <button (click)="handlerPrevious()" *ngIf="current > 0" nz-button nzType="default">
+      <span>{{'common.previous'|translate}}</span>
+    </button>
+    <button (click)="handlerComplete()" *ngIf="current === 1" [disabled]="disabled.button" nz-button nzType="primary">
+      <span>{{'common.save'|translate}}</span>
+    </button>
+  </div>
+</div>

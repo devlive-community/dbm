@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "./renderer/main.ts",
+    "./renderer/polyfills.ts",
+    "./renderer/app/**/*.ts",
+    "./renderer/environments/*.ts",
+    "./renderer/**/*.d.ts"
+  ]
+}

@@ -1,0 +1,72 @@
+<nz-card [nzTitle]="titleTemplate">
+  <nz-empty *ngIf="trackInfo?.length <= 0; else hasValues"
+            [nzNotFoundContent]="contentTemplate"
+            [nzNotFoundFooter]="footerTemplate">
+    <ng-template #contentTemplate>
+    </ng-template>
+    <ng-template #footerTemplate>
+    </ng-template>
+  </nz-empty>
+  <ng-template #hasValues>
+    <nz-skeleton [nzActive]="true" *ngIf="loading.button; else loadSuccess">
+    </nz-skeleton>
+    <ng-template #loadSuccess>
+      <nz-timeline>
+        <nz-timeline-item *ngFor="let obj of trackInfo" [nzColor]="handlerGetColor(obj.type)">
+          <nz-card [nzTitle]="titleTrackInfoTemplate" nzSize="small">
+            <nz-descriptions nzBordered nzSize="small" [nzColumn]="{ xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }"
+                             nzLayout="vertical">
+              <nz-descriptions-item *ngFor="let key of handlerGetKeys(obj)"
+                                    [nzTitle]="key">{{obj[key]}}
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
+          <ng-template #titleTrackInfoTemplate>
+            <em [style]="'color:' + handlerGetColor(obj.type) + ';'">{{obj.type}}</em>&nbsp;
+            <span class="em">({{obj?.queryStartTime}})</span> &nbsp;
+            <button nz-button nzType="primary" nzSize="small" nzShape="circle"
+                    (click)="handlerShowDDL(obj, true)">
+              <i class="fa fa-search-minus"></i>
+            </button>
+            <button style="float: right;" nz-button nzType="primary" nzSize="small" nzDanger
+                    [disabled]="!obj?.exception"
+                    (click)="handlerShowMessage(obj, 'exception')">
+              <i class="fa fa-warning"></i>&nbsp;{{'common.exception' | translate}}
+            </button>
+            <button style="float: right;" nz-button nzType="dashed" nzSize="small" nzDanger nzShape="round"
+                    [disabled]="!obj?.stack"
+                    (click)="handlerShowMessage(obj, 'stack')">
+              <i class="fa fa-warning"></i>&nbsp;{{'common.stack' | translate}}
+            </button>
+          </ng-template>
+        </nz-timeline-item>
+      </nz-timeline>
+    </ng-template>
+  </ng-template>
+</nz-card>
+<ng-template #titleTemplate>
+  {{'common.server'|translate}}&nbsp;
+  <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
+             style="width: 150px; margin-right: 8px;">
+    <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
+               nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
+  </nz-select>
+  {{'common.track'|translate}}&nbsp;
+  <nz-select [(ngModel)]="trackId" nzAllowClear nzShowSearch nzServerSearch nzSize="small"
+             style="width: 300px;" (nzOnSearch)="handlerSearch($event)">
+    <ng-container *ngFor="let o of tracks">
+      <nz-option *ngIf="!loading.button" [nzValue]="o.value" [nzLabel]="o.value"></nz-option>
+    </ng-container>
+    <nz-option *ngIf="loading.button" nzDisabled nzCustomContent>
+      <i class="fa fa-spin fa-spinner"></i>
+    </nz-option>
+  </nz-select>&nbsp;
+  <button nz-button nzType="primary" nzSize="small" [disabled]="trackId === null" (click)="handlerGetTrackInfo()">
+    <i class="fa fa-{{loading.button ? 'spinner fa-spin' : 'flash'}}"></i>&nbsp;{{'common.execute'|translate}}
+  </button>
+</ng-template>
+<app-component-ddl-query *ngIf="!disabled.button"
+                         [visible]="!disabled.button"
+                         [text]="queryDDL"
+                         (emitter)="handlerShowDDL(null, false)">
+</app-component-ddl-query>

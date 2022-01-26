@@ -99,7 +99,8 @@
     "clean": "Clean",
     "partition": "Partition",
     "optimize": "Optimize",
-    "final": "Final"
+    "final": "Final",
+    "mutations": "Mutations"
   },
   "language": {
     "english": "English",

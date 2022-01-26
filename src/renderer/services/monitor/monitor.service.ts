@@ -36,6 +36,22 @@ WHERE
     return this.getResponse(request, sql);
   }
 
+  getMutations(request: RequestModel): Promise<ResponseModel> {
+    const sql = `
+SELECT
+  database,
+  table,
+  mutation_id AS id,
+  command AS query,
+  create_time AS createTime,
+  now() - create_time AS "elapsedTime(ms)"
+FROM
+  system.mutations
+WHERE is_done = 0
+  `;
+    return this.getResponse(request, sql);
+  }
+
   getConnections(request: RequestModel): Promise<ResponseModel> {
     const sql = `
 SELECT

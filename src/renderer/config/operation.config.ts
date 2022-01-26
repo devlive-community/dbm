@@ -35,6 +35,13 @@ export class OperationConfig {
       { type: TypeEnum.table, actions: [OperationEnum.optimize] }
     ];
     opertions.push(table);
+    const column = new OperationModel();
+    column.name = TypeEnum.column.toString();
+    column.type = TypeEnum.column;
+    column.operations = [
+      { type: TypeEnum.column, actions: [OperationEnum.preview] }
+    ];
+    opertions.push(column);
     return opertions;
   }
 }

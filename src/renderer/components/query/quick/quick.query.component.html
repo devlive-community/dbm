@@ -1,6 +1,5 @@
-<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()"
-          nzWidth="60%"
-          nzTitle="{{'common.quick'|translate}} {{'common.query'|translate}}">
+<nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()" nzWidth="80%"
+  nzTitle="{{'common.quick'|translate}} {{'common.query'|translate}}">
   <div *nzModalContent>
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="8">
@@ -21,8 +20,7 @@
           </nz-skeleton>
           <ng-template #loadSuccess>
             <nz-list-item *ngIf="databaseSet?.length <= 0; else hasValues">
-              <nz-empty [nzNotFoundContent]="contentTemplate"
-                        [nzNotFoundFooter]="footerTemplate">
+              <nz-empty [nzNotFoundContent]="contentTemplate" [nzNotFoundFooter]="footerTemplate">
                 <ng-template #contentTemplate>
                 </ng-template>
                 <ng-template #footerTemplate>
@@ -33,11 +31,11 @@
               <nz-radio-group [(ngModel)]="database" (ngModelChange)="handlerChangeValue(2)">
                 <nz-table #databaseTable [nzData]="databaseSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
-                  <tr *ngFor="let obj of databaseTable.data">
-                    <td nzEllipsis>
-                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
-                    </td>
-                  </tr>
+                    <tr *ngFor="let obj of databaseTable.data">
+                      <td nzEllipsis>
+                        <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
+                      </td>
+                    </tr>
                   </tbody>
                 </nz-table>
               </nz-radio-group>
@@ -54,8 +52,7 @@
           </nz-skeleton>
           <ng-template #loadTableSuccess>
             <nz-list-item *ngIf="tableSet?.length <= 0; else hasTableValues">
-              <nz-empty [nzNotFoundContent]="contentTemplate"
-                        [nzNotFoundFooter]="footerTemplate">
+              <nz-empty [nzNotFoundContent]="contentTemplate" [nzNotFoundFooter]="footerTemplate">
                 <ng-template #contentTemplate>
                 </ng-template>
                 <ng-template #footerTemplate>
@@ -66,11 +63,12 @@
               <nz-radio-group [(ngModel)]="table">
                 <nz-table #tableTable [nzData]="tableSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
-                  <tr *ngFor="let obj of tableTable.data">
-                    <td nzEllipsis>
-                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
-                    </td>
-                  </tr>
+                    <tr *ngFor="let obj of tableTable.data">
+                      <td nzEllipsis>
+                        <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}" nz-tooltip
+                          nzTooltipTitle="{{obj.name}}">{{obj.name}}</label>
+                      </td>
+                    </tr>
                   </tbody>
                 </nz-table>
               </nz-radio-group>

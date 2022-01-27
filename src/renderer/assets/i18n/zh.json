@@ -103,7 +103,8 @@
     "mutations": "Mutations",
     "migrte": "迁移",
     "target": "目标",
-    "source": "源"
+    "source": "源",
+    "nullable": "空"
   },
   "language": {
     "english": "英语",

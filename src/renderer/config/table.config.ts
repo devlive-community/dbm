@@ -143,13 +143,13 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.property.setting.odbc'),
       null,
       false));
-      odbcProperties.push(PropertyModel.builder('database',
+    odbcProperties.push(PropertyModel.builder('database',
       TranslateUtils.getValue('common.database'),
       TranslateUtils.getValue('placeholder.database'),
       TranslateUtils.getValue('tooltip.property.database'),
       null,
       false));
-      odbcProperties.push(PropertyModel.builder('table',
+    odbcProperties.push(PropertyModel.builder('table',
       TranslateUtils.getValue('common.table'),
       TranslateUtils.getValue('placeholder.table'),
       TranslateUtils.getValue('tooltip.property.table'),

@@ -41,7 +41,9 @@ export class TableService implements BaseService {
         let sql = StringUtils.format('CREATE TABLE {0} (\n', [SqlUtils.getTableName(database.database, database.name)]);
         sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)])
         sql += StringUtils.format(') {0}\n', [this.builderEngine(database)])
-        sql += this.builderProperties(database.property.properties)
+        if (database?.property?.properties) {
+            sql += this.builderProperties(database?.property?.properties)
+        }
         return this.getResponse(request, sql);
     }
 
@@ -144,10 +146,11 @@ export class TableService implements BaseService {
     }
 
     private builderEngine(configure: DatabaseModel): string {
-        let sql: string;
+        let sql: string = '';
         const prefix = '\nENGINE = ';
         switch (configure.propertyType) {
             case PropertyEnum.key:
+            default:
                 sql = StringUtils.format('{0} {1}()', [prefix, configure.type]);
                 break;
             case PropertyEnum.name:

@@ -41,7 +41,9 @@ export class TableService implements BaseService {
         let sql = StringUtils.format('CREATE TABLE {0} (\n', [SqlUtils.getTableName(database.database, database.name)]);
         sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)])
         sql += StringUtils.format(') {0}\n', [this.builderEngine(database)])
-        sql += this.builderProperties(database.property.properties)
+        if (database?.property?.properties) {
+            sql += this.builderProperties(database?.property?.properties)
+        }
         return this.getResponse(request, sql);
     }
 
@@ -114,7 +116,12 @@ export class TableService implements BaseService {
 
     builderColumnToString(value: ColumnModel, end: boolean): string {
         let column: string;
-        const dStr = StringUtils.format('    {0} {1}', [value.name, value.type])
+        let dStr: string;
+        if (value.empty) {
+            dStr = StringUtils.format('    {0} Nullable({1})', [value.name, value.type])
+        } else {
+            dStr = StringUtils.format('    {0} {1}', [value.name, value.type])
+        }
         const endStr = end ? ',\n' : ''
         if (StringUtils.isNotEmpty(value.description)) {
             column = StringUtils.format(`    {0} COMMENT '{1}' {2}`, [dStr, value.description, endStr])
@@ -131,12 +138,18 @@ export class TableService implements BaseService {
      */
     private builderProperties(properties: PropertyModel[]): string {
         let substr: string = '';
-        const map = this.flatProperties(properties);
-        map.forEach((v, k) => {
-            if (k !== 'type') {
-                substr += StringUtils.format('\n  {0} = \'{1}\',', [k, v]);
-            }
-        });
+        // const map = this.flatProperties(properties);
+        // map.forEach((v, k) => {
+        //     if (k !== 'type') {
+        //         substr += StringUtils.format('\n  {0} = \'{1}\',', [k, v]);
+        //     }
+        // });
+        properties
+            .filter(p => p.origin !== undefined && StringUtils.isNotEmpty(p.origin))
+            .filter(p => p.value !== undefined)
+            .forEach(p => {
+                substr += StringUtils.format('\n  {0} = \'{1}\',', [p.origin, p.value]);
+            })
         if (StringUtils.isNotEmpty(substr)) {
             substr = StringUtils.format('SETTINGS {0}', [substr.substring(0, substr.length - 1)]);
         }
@@ -144,10 +157,11 @@ export class TableService implements BaseService {
     }
 
     private builderEngine(configure: DatabaseModel): string {
-        let sql: string;
+        let sql: string = '';
         const prefix = '\nENGINE = ';
         switch (configure.propertyType) {
             case PropertyEnum.key:
+            default:
                 sql = StringUtils.format('{0} {1}()', [prefix, configure.type]);
                 break;
             case PropertyEnum.name:

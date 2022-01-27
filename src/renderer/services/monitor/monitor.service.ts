@@ -43,6 +43,7 @@ WHERE
         user, 
         client_hostname AS host, 
         client_name AS hash, 
+        query AS query,
         query_start_time AS time, 
         query_duration_ms AS elapsed, 
         round(memory_usage / 1048576) AS memoryUsage, 

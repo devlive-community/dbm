@@ -138,12 +138,18 @@ export class TableService implements BaseService {
      */
     private builderProperties(properties: PropertyModel[]): string {
         let substr: string = '';
-        const map = this.flatProperties(properties);
-        map.forEach((v, k) => {
-            if (k !== 'type') {
-                substr += StringUtils.format('\n  {0} = \'{1}\',', [k, v]);
-            }
-        });
+        // const map = this.flatProperties(properties);
+        // map.forEach((v, k) => {
+        //     if (k !== 'type') {
+        //         substr += StringUtils.format('\n  {0} = \'{1}\',', [k, v]);
+        //     }
+        // });
+        properties
+            .filter(p => p.origin !== undefined && StringUtils.isNotEmpty(p.origin))
+            .filter(p => p.value !== undefined)
+            .forEach(p => {
+                substr += StringUtils.format('\n  {0} = \'{1}\',', [p.origin, p.value]);
+            })
         if (StringUtils.isNotEmpty(substr)) {
             substr = StringUtils.format('SETTINGS {0}', [substr.substring(0, substr.length - 1)]);
         }

@@ -103,7 +103,8 @@
     "mutations": "Mutations",
     "migrte": "Migrte",
     "target": "Target",
-    "source": "Source"
+    "source": "Source",
+    "nullable": "Nullable"
   },
   "language": {
     "english": "English",

@@ -116,7 +116,12 @@ export class TableService implements BaseService {
 
     builderColumnToString(value: ColumnModel, end: boolean): string {
         let column: string;
-        const dStr = StringUtils.format('    {0} {1}', [value.name, value.type])
+        let dStr: string;
+        if (value.empty) {
+            dStr = StringUtils.format('    {0} Nullable({1})', [value.name, value.type])
+        } else {
+            dStr = StringUtils.format('    {0} {1}', [value.name, value.type])
+        }
         const endStr = end ? ',\n' : ''
         if (StringUtils.isNotEmpty(value.description)) {
             column = StringUtils.format(`    {0} COMMENT '{1}' {2}`, [dStr, value.description, endStr])

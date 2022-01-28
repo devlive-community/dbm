@@ -19,7 +19,7 @@
   "publish": [
     {
       "provider": "generic",
-      "url": "http://localhost:7777/release/"
+      "url": ""
     }
   ],
   "main": "dist/main/main.js",

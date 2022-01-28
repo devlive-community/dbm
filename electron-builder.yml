@@ -17,10 +17,10 @@ asar: false
 
 mac:
   icon: ./src/shared/assets/icons
-  category: public.app-category.productivity
-  darkModeSupport: true
-  target:
-    - { target: dmg }
+  # category: public.app-category.productivity
+  # darkModeSupport: true
+  # target:
+  #   - { target: dmg }
 
 dmg:
   icon: ./src/shared/assets/icons

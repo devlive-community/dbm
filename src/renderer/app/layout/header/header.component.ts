@@ -1,5 +1,9 @@
-import { shell } from 'electron';
+import { shell, ipcRenderer } from 'electron';
 import { Component, OnInit } from '@angular/core';
+import { PackageUtils } from '@renderer/utils/package.utils';
+import { BaseComponent } from '@renderer/app/base.component';
+import { StringUtils } from '@renderer/utils/string.utils';
+import { UpdateEnum } from '@renderer/enum/update.enum';
 
 @Component({
   selector: 'app-header',
@@ -25,8 +29,15 @@ import { Component, OnInit } from '@angular/core';
     `
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent extends BaseComponent implements OnInit {
+  version: string = PackageUtils.get('version');
+  update = UpdateEnum;
+  latestVersionInfo: any;
+  updateResponse: any;
+  percentage: 0;
+
   constructor() {
+    super();
   }
 
   ngOnInit() {
@@ -34,5 +45,55 @@ export class HeaderComponent implements OnInit {
 
   handlerDirectGitHub() {
     shell.openExternal('https://github.com/EdurtIO/dbm');
+  }
+
+  handlerUpdate(flag: boolean) {
+    this.updateResponse = null;
+    if (flag) {
+      this.dialog.update = true;
+      this.loading.button = true;
+      ipcRenderer.send('check-update');
+      this.handlerUpdateState();
+    } else {
+      this.dialog.update = false;
+    }
+  }
+
+  handlerDownload() {
+    ipcRenderer.send('confirm-downloadUpdate');
+    this.handlerUpdateState();
+  }
+
+  handlerUpdateState() {
+    ipcRenderer.on('updater', (event, arg) => {
+      console.log('update status ', arg);
+      this.loading.button = false;
+      switch (arg.state) {
+        case UpdateEnum.hasversion:
+          if (StringUtils.isNotEmpty(arg)) {
+            this.latestVersionInfo = arg.message;
+          }
+          break;
+        case UpdateEnum.downloading:
+          console.log(arg)
+          this.disabled.button = false;
+          this.percentage = arg.message.percent.toFixed(1);
+          break;
+        case UpdateEnum.completed:
+          console.log('download success!');
+          ipcRenderer.send('confirm-update');
+          this.disabled.button = true;
+          break;
+        case UpdateEnum.noversion:
+          this.loading.button = true;
+          console.log('no version', arg)
+          break;
+        default:
+          console.log('default', arg)
+          this.updateResponse = arg;
+          this.disabled.button = true;
+          break;
+      }
+    })
   }
 }

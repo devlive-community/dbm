@@ -1,7 +1,8 @@
 import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
 import * as path from 'path';
-import { createMenu } from './menu';
 import { createAbout } from './about';
+import { createMenu } from './menu';
+import { handlerUpdater } from './update';
 
 let win: BrowserWindow = null;
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -32,12 +33,14 @@ function createWindow(): BrowserWindow {
   }
   win.loadURL(winURL).then(() => {
   });
-  win.on('closed', () => {
+  win.on('closed', (event) => {
     win = null;
+    event.preventDefault();
   });
   if (isDevelopment) {
     app.dock.setIcon(path.join(__dirname, '../shared/assets/icons/favicon.png'));
   }
+  handlerUpdater(win);
   return win;
 }
 
@@ -61,6 +64,7 @@ try {
     if (win === null) {
       createWindow();
     }
+    handlerUpdater(win);
   });
   // handle the ping from renderer
   ipcMain.handle('PING', () => 'PONG');

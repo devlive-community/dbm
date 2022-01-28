@@ -1,8 +1,8 @@
 {
   "name": "dbm",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "author": "qianmoQ <shicheng@ttxit.com>",
-  "description": "ClickHouse DataBase Manager Tools",
+  "description": "ClickHouse DataBase GUI",
   "github": "https://github.com/EdurtIO/dbm.git",
   "homepage": "https://dbm.edurt.io",
   "keywords": [
@@ -15,6 +15,12 @@
     "linux",
     "dbm",
     "clickhouse"
+  ],
+  "publish": [
+    {
+      "provider": "generic",
+      "url": "http://localhost:7777/release/"
+    }
   ],
   "main": "dist/main/main.js",
   "scripts": {
@@ -46,6 +52,7 @@
     "angular-highcharts": "^13.0.1",
     "codemirror": "^5.64.0",
     "conventional-changelog-cli": "^2.1.1",
+    "electron-updater": "^4.6.1",
     "font-awesome": "^4.7.0",
     "highcharts": "^9.3.2",
     "lodash": "^4.17.21",

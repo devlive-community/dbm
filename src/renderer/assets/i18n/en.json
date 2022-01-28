@@ -104,7 +104,13 @@
     "migrte": "Migrte",
     "target": "Target",
     "source": "Source",
-    "nullable": "Nullable"
+    "nullable": "Nullable",
+    "current": "Current",
+    "version": "Version",
+    "latest": "Latest",
+    "download": "Download",
+    "update": "Update",
+    "new": "New"
   },
   "language": {
     "english": "English",

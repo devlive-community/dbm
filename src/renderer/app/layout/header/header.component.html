@@ -107,12 +107,18 @@
 </nz-header>
 
 <nz-modal [(nzVisible)]="dialog.update" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
-  (nzOnCancel)="handlerUpdate(false)" [nzMaskClosable]="false">
+          (nzOnCancel)="handlerUpdate(false)" [nzMaskClosable]="false"
+          [nzClosable]="false">
   <ng-template #modalTitle>{{'common.update'|translate}}</ng-template>
   <ng-template #modalContent>
     <form nz-form nzSize="mini">
+      <nz-form-item *ngIf="updateResponse?.state === update.failed">
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <nz-alert nzType="error" nzMessage="{{updateResponse.message}}"></nz-alert>
+        </nz-form-control>
+      </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.current'|translate}}{{'common.version'|translate}}
+        <nz-form-label [nzSm]="8" [nzXs]="24">{{'common.current'|translate}}{{'common.version'|translate}}
         </nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24">
           <nz-tag [nzColor]="'#2db7f5'" nzSize="mini">{{version}}</nz-tag>
@@ -120,19 +126,27 @@
       </nz-form-item>
       <nz-spin [nzSpinning]="loading.button">
         <div *ngIf="latestVersionInfo">
-          <nz-divider nzText="{{'common.new'|translate}}{{'common.version'|translate}}" nzOrientation="left"></nz-divider>
+          <nz-divider nzText="{{'common.new'|translate}}{{'common.version'|translate}}"
+                      nzOrientation="left"></nz-divider>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.latest'|translate}}{{'common.version'|translate}}
+            <nz-form-label [nzSm]="8" [nzXs]="24">{{'common.latest'|translate}}{{'common.version'|translate}}
             </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <nz-tag [nzColor]="'#f50'" nzSize="mini">{{latestVersionInfo?.version}}</nz-tag>
-              <button nz-button nzType="primary" (click)="handlerDownload()">
+              <button nz-button nzType="primary" (click)="handlerDownload()" [disabled]="!disabled.button">
                 <i class="fa fa-download"></i>
               </button>
               <button nz-button nzType="default" nzDanger nz-popover nzPopoverContent="{{updateResponse?.message}}"
-                *ngIf="updateResponse?.state === update.failed">
+                      *ngIf="updateResponse?.state === update.failed">
                 <i class="fa fa-exclamation-triangle"></i>
               </button>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item *ngIf="!disabled.button">
+            <nz-form-label [nzSm]="8" [nzXs]="24">{{'common.download'|translate}}{{'common.percentage'|translate}}
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <nz-progress [nzPercent]="percentage"></nz-progress>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -140,7 +154,7 @@
     </form>
   </ng-template>
   <ng-template #modalFooter>
-    <button nz-button nzType="default" (click)="handlerUpdate(false)">{{'common.cancel'|translate}}</button>
-    <!-- <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Custom Submit</button> -->
+    <button nz-button nzType="default" (click)="handlerUpdate(false)"
+            [disabled]="!disabled.button">{{'common.cancel'|translate}}</button>
   </ng-template>
 </nz-modal>

@@ -76,17 +76,22 @@ export class HeaderComponent extends BaseComponent implements OnInit {
           break;
         case UpdateEnum.downloading:
           console.log(arg)
-          // this.percentage = arg.msg.percent.toFixed(1);
+          this.disabled.button = false;
+          this.percentage = arg.message.percent.toFixed(1);
           break;
         case UpdateEnum.completed:
           console.log('download success!');
           ipcRenderer.send('confirm-update');
+          this.disabled.button = true;
           break;
         case UpdateEnum.noversion:
+          this.loading.button = true;
           console.log('no version', arg)
           break;
         default:
+          console.log('default', arg)
           this.updateResponse = arg;
+          this.disabled.button = true;
           break;
       }
     })

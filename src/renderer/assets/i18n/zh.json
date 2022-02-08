@@ -111,7 +111,9 @@
     "download": "下载",
     "update": "更新",
     "new": "新",
-    "percentage": "进度"
+    "percentage": "进度",
+    "release": "发布",
+    "note": "日志"
   },
   "language": {
     "english": "英语",

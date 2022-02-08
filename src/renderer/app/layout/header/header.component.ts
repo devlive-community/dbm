@@ -1,9 +1,9 @@
-import { shell, ipcRenderer } from 'electron';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PackageUtils } from '@renderer/utils/package.utils';
 import { BaseComponent } from '@renderer/app/base.component';
-import { StringUtils } from '@renderer/utils/string.utils';
 import { UpdateEnum } from '@renderer/enum/update.enum';
+import { PackageUtils } from '@renderer/utils/package.utils';
+import { StringUtils } from '@renderer/utils/string.utils';
+import { ipcRenderer, shell } from 'electron';
 
 @Component({
   selector: 'app-header',
@@ -35,6 +35,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   latestVersionInfo: any;
   updateResponse: any;
   percentage = 0;
+  releaseNotes: string;
 
   constructor(private ref: ChangeDetectorRef) {
     super();
@@ -80,6 +81,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
           if (StringUtils.isNotEmpty(arg)) {
             this.latestVersionInfo = arg.message;
           }
+          this.releaseNotes = arg?.message?.releaseNotes;
           break;
         case UpdateEnum.downloading:
           console.log(arg)

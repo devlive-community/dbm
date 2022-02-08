@@ -184,7 +184,9 @@
     }
   },
   "alert": {
-    "rename": "The RENAME query is supported by the Atomic database engine only",
-    "truncate": "This operation deletes all data, but does not delete the table"
+    "rename": "仅Atomic数据库引擎支持RENAME操作",
+    "truncate": "该操作将删除所有数据，但不会删除表",
+    "noversion": "当前已经是最新版本",
+    "not_support_online": "当前暂不支持在线更新"
   }
 }

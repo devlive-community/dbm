@@ -1,5 +1,5 @@
 import { shell, ipcRenderer } from 'electron';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PackageUtils } from '@renderer/utils/package.utils';
 import { BaseComponent } from '@renderer/app/base.component';
 import { StringUtils } from '@renderer/utils/string.utils';
@@ -34,9 +34,9 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   update = UpdateEnum;
   latestVersionInfo: any;
   updateResponse: any;
-  percentage: 0;
+  percentage = 0;
 
-  constructor() {
+  constructor(private ref: ChangeDetectorRef) {
     super();
   }
 
@@ -64,10 +64,17 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     this.handlerUpdateState();
   }
 
+  handlerCancel() {
+    ipcRenderer.send('confirm-downloadCancel');
+    this.handlerUpdateState();
+  }
+
   handlerUpdateState() {
     ipcRenderer.on('updater', (event, arg) => {
       console.log('update status ', arg);
       this.loading.button = false;
+      this.ref.markForCheck();
+      this.ref.detectChanges();
       switch (arg.state) {
         case UpdateEnum.hasversion:
           if (StringUtils.isNotEmpty(arg)) {
@@ -77,7 +84,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
         case UpdateEnum.downloading:
           console.log(arg)
           this.disabled.button = false;
-          this.percentage = arg.message.percent.toFixed(1);
+          this.percentage = arg.message.percent.toFixed(2);
           break;
         case UpdateEnum.completed:
           console.log('download success!');
@@ -86,7 +93,12 @@ export class HeaderComponent extends BaseComponent implements OnInit {
           break;
         case UpdateEnum.noversion:
           this.loading.button = true;
+          this.loading.button = false;
           console.log('no version', arg)
+          break;
+        case UpdateEnum.cancel:
+          console.log('cancel download', arg)
+          this.disabled.button = true;
           break;
         default:
           console.log('default', arg)

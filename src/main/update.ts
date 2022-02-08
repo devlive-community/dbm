@@ -27,7 +27,6 @@ function handlerUpdater(mainWindow: BrowserWindow) {
   if (process.env.NODE_ENV === 'development') {
     uploadUrl = 'http://localhost:7777/release/';
   }
-  uploadUrl = 'http://localhost:7777/release/';
   console.log(uploadUrl);
   autoUpdater.setFeedURL(uploadUrl)
   autoUpdater.autoDownload = false

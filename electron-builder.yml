@@ -4,6 +4,10 @@ productName: 'dbm'
 publish: { provider: github, releaseType: draft, vPrefixedTagName: true }
 forceCodeSigning: false
 
+releaseInfo:
+  releaseNotes: |
+    
+
 directories:
   output: ./release
 files:

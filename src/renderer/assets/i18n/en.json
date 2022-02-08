@@ -111,7 +111,9 @@
     "download": "Download",
     "update": "Update",
     "new": "New",
-    "percentage": "Percentage"
+    "percentage": "Percentage",
+    "release": "Release",
+    "note": "Note"
   },
   "language": {
     "english": "English",

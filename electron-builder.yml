@@ -1,4 +1,4 @@
-appId: 'github.com/EdurtIO/dbm'
+appId: 'io.edurt.dbm'
 artifactName: ${name}-${version}-${os}-${arch}.${ext}
 productName: 'dbm'
 publish: { provider: github, releaseType: draft, vPrefixedTagName: true }

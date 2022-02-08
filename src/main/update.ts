@@ -1,7 +1,7 @@
-import {UpdateEnum} from '../renderer/enum/update.enum';
-import {BrowserWindow, ipcMain} from 'electron';
-import {autoUpdater} from 'electron-updater';
-import {platform} from 'os';
+import { UpdateEnum } from '../renderer/enum/update.enum';
+import { BrowserWindow, ipcMain } from 'electron';
+import { autoUpdater, CancellationToken } from 'electron-updater';
+import { platform, arch } from 'os';
 
 /**
  * -1 Failed to check the update
@@ -21,15 +21,18 @@ function handlerMessage(mainWindow: BrowserWindow, type: Number, data?: String) 
 }
 
 function handlerUpdater(mainWindow: BrowserWindow) {
-  console.log(platform());
+  console.log(platform(), arch());
   console.log(process.env.NODE_ENV);
-  let uploadUrl = 'https://downloads.edurt.io/dbm/releases/' + platform() + '/';
+  let uploadUrl = 'https://downloads.edurt.io/dbm/releases/' + platform() + '/' + arch() + '/';
   if (process.env.NODE_ENV === 'development') {
     uploadUrl = 'http://localhost:7777/release/';
   }
+  uploadUrl = 'http://localhost:7777/release/';
   console.log(uploadUrl);
   autoUpdater.setFeedURL(uploadUrl)
   autoUpdater.autoDownload = false
+
+  let cancellationToken = new CancellationToken();;
 
   autoUpdater.on('error', (err) => {
     if (err.message.includes('sha512 checksum mismatch')) {
@@ -70,13 +73,25 @@ function handlerUpdater(mainWindow: BrowserWindow) {
   })
 
   ipcMain.on('confirm-update', () => {
-    autoUpdater.quitAndInstall()
+    console.log('quit install')
+    try {
+      autoUpdater.quitAndInstall(true, true);
+    } catch (e) {
+      console.log('Error', 'Failed to install updates', e);
+      handlerMessage(mainWindow, UpdateEnum.failed, e);
+    }
   })
 
   ipcMain.on('confirm-downloadUpdate', () => {
-    autoUpdater.downloadUpdate().catch(err => {
+    autoUpdater.downloadUpdate(cancellationToken).catch(err => {
       handlerMessage(mainWindow, UpdateEnum.failed, err)
     })
+  })
+
+  ipcMain.on('confirm-downloadCancel', () => {
+    cancellationToken.cancel();
+    cancellationToken = new CancellationToken();
+    handlerMessage(mainWindow, UpdateEnum.cancel, 'Cancel');
   })
 }
 

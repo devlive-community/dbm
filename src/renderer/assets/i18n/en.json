@@ -185,6 +185,8 @@
   },
   "alert": {
     "rename": "The RENAME query is supported by the Atomic database engine only",
-    "truncate": "This operation deletes all data, but does not delete the table"
+    "truncate": "This operation deletes all data, but does not delete the table",
+    "noversion": "This is the latest version!",
+    "not_support_online": "Currently, online updates are not supported"
   }
 }

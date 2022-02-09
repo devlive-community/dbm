@@ -121,6 +121,13 @@ plugins:
           Home: Home
         zh:
           Home: 主页
+          Getting started: 准备开始
+          Datasource: 数据源
+          Query: 查询
+          Monitor: 监控
+          Processor: 进程
+          Release Note: 发布日志
+          Development: 开发
 
 nav:
   - Home: index.md
@@ -141,4 +148,4 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
-  - How to Contribution?: contribution.md
+  - Development: contribution.md

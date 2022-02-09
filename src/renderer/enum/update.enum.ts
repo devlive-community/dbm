@@ -5,5 +5,6 @@ export enum UpdateEnum {
     noversion, // No new version is detected
     downloading, // Downloading
     completed, // Download completed
-    failed // update failed
+    failed, // update failed
+    cancel // Download cancel
 }

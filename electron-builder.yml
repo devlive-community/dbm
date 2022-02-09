@@ -6,7 +6,22 @@ forceCodeSigning: false
 
 releaseInfo:
   releaseNotes: |
-    
+    #### Enhancement
+    ---
+
+    - Support Nullable column
+    - Optional parameters are supported
+    - Support version update check
+
+    #### Optimize
+    ----
+
+
+    #### Bug
+    ---
+
+    - Fixed inability to build Log related engine tables
+    - Fix slow query list cannot display DDL
 
 directories:
   output: ./release

@@ -39,6 +39,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   constructor(private ref: ChangeDetectorRef) {
     super();
+    this.handlerUpdate(true);
   }
 
   ngOnInit() {

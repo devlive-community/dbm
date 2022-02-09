@@ -63,6 +63,13 @@ extra:
       link: https://github.com/EdurtIO
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/qianmoQ/
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Chinese (Simplified)
+      link: /zh/
+      lang: zh
 
 markdown_extensions:
   - admonition
@@ -101,6 +108,19 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+
+plugins:
+  - search
+  - i18n:
+      default_language: en
+      languages:
+        en: English
+        zh: Chinese
+      nav_translations:
+        en: 
+          Home: Home
+        zh:
+          Home: 主页
 
 nav:
   - Home: index.md

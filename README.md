@@ -1,7 +1,7 @@
 <br />
 <p align="center">
     <a href="https://github.com/EdurtIO/incubator-dbm">
-      <img src="static/images/logo.svg" alt="Logo" width="120px" height="120px">
+      <img src="src/shared/assets/icons/favicon.png" alt="Logo" width="120px" height="120px">
     </a>
     <h2 align="center">DBM</h3>
     <p align="center">

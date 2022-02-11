@@ -11,7 +11,7 @@ export class RequestUtils {
     let response: DatasourceModel;
     if (StringUtils.isNotEmpty(name)) {
       response = JSON.parse(localStorage.getItem(RequestUtils.KEY_DATASOURCE))
-      .filter(item => item.name === name);
+        .filter(item => item.name === name);
     } else {
       response = new DatasourceModel();
       response.host = host;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LogicEnum } from '@renderer/enum/logic.enum';
 import { PropertyEnum } from '@renderer/enum/property.enum';
 import { ColumnModel } from '@renderer/model/column.model';
 import { DatabaseModel } from '@renderer/model/database.model';
@@ -63,7 +64,8 @@ export class TableService implements BaseService {
     }
 
     clean(request: RequestModel, value: DatabaseModel, partition: string): Promise<ResponseModel> {
-        const sql = StringUtils.format('ALTER TABLE {0} DROP PARTITION \'{1}\'', [SqlUtils.getTableName(value.database, value.name), partition]);
+        const sql = StringUtils.format('ALTER TABLE {0} DROP PARTITION \'{1}\'',
+            [SqlUtils.getTableName(value.database, value.name), partition]);
         return this.getResponse(request, sql);
     }
 
@@ -80,8 +82,8 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
-    getPartitions(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
-        const sql = StringUtils.format(`SELECT
+    getPartitions(request: RequestModel, value: DatabaseModel, partition?: string, logic?: LogicEnum): Promise<ResponseModel> {
+        let sql = StringUtils.format(`SELECT
         DISTINCT "partition" AS "partition",
         "database",
         "table",
@@ -94,6 +96,22 @@ export class TableService implements BaseService {
         AND "table" = '{1}'
       ORDER BY
         modification_time DESC`, [value.database, value.name]);
+        if (StringUtils.isNotEmpty(partition) && StringUtils.isNotEmpty(logic)) {
+            sql = StringUtils.format(`SELECT
+        DISTINCT "partition" AS "partition",
+        "database",
+        "table",
+        name,
+        active
+      FROM
+        "system".parts
+      WHERE
+        "database" = '{0}'
+        AND "table" = '{1}'
+        AND "partition" {2} '{3}'
+      ORDER BY
+        modification_time DESC`, [value.database, value.name, logic, partition]);
+        }
         return this.getResponse(request, sql);
     }
 

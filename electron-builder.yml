@@ -12,6 +12,7 @@ releaseInfo:
     - Support Nullable column
     - Optional parameters are supported
     - Support version update check
+    - Support to clear partition data by filtering criteria
 
     #### Docs
     ---

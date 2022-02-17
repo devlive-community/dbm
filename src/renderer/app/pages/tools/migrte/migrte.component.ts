@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
-import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { DatasourceModel } from '@renderer/model/datasource.model';
-import { TrackService } from '@renderer/services/tools/track.service';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { TrackEnum } from '@renderer/enum/track.enum';
-import { ColorEnum } from '@renderer/enum/color.enum';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { DatabaseService } from '@renderer/services/management/database.service';
 import { RequestModel } from '@renderer/model/request.model';
+import { DatabaseService } from '@renderer/services/management/database.service';
+import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { TableService } from '@renderer/services/management/table.service';
 import { MigrateService } from '@renderer/services/tools/migrate.service';
+import { StringUtils } from '@renderer/utils/string.utils';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
     selector: 'app-tools-migrte',
@@ -20,6 +17,7 @@ export class MigrteComponent extends BaseComponent {
     dataSources: DatasourceModel[];
     source = { datasource: null, databases: [], database: null, tables: [], table: null };
     target = { datasource: null, databases: [], database: null, tables: [], table: null };
+    tableSizeInfo: any;
 
     constructor(private datasourceService: DatasourceService,
         private databaseService: DatabaseService,
@@ -42,6 +40,7 @@ export class MigrteComponent extends BaseComponent {
                 this.messageService.error(response.message);
             }
         });
+        this.handlerValidate();
     }
 
     handlerSwitchDatabase(type: boolean) {
@@ -62,6 +61,7 @@ export class MigrteComponent extends BaseComponent {
                 this.messageService.error(response.message);
             }
         });
+        this.handlerValidate();
     }
 
     handlerRequest(type: boolean): RequestModel {
@@ -74,7 +74,43 @@ export class MigrteComponent extends BaseComponent {
         return request;
     }
 
-    handlerMigrate() {
-        this.migrateService.migrate(this.source, this.target).then(respnse => { });
+    handlerCheckTable() {
+        const request = new RequestModel();
+        request.config = this.datasourceService.getAll(this.source.datasource)?.data?.columns[0];
+        this.tableService.getSize(request, this.source.database, this.source.table).then(response => {
+            if (response.status) {
+                if (response?.data?.columns.length > 0) {
+                    this.tableSizeInfo = response?.data?.columns[0];
+                } else {
+                    this.tableSizeInfo = { flag: 0 };
+                }
+            } else {
+                this.messageService.error(response.message);
+            }
+        })
+    }
+
+    handlerValidate(): boolean {
+        if (StringUtils.isNotEmpty(this.source.datasource)
+            && StringUtils.isNotEmpty(this.source.database)
+            && StringUtils.isNotEmpty(this.source.table)
+            && StringUtils.isNotEmpty(this.target.datasource)
+            && StringUtils.isNotEmpty(this.target.database)
+            && this.tableSizeInfo?.flag === 0
+        ) {
+            return false;
+        }
+        return true;
+    }
+
+    async handlerMigrate() {
+        this.loading.button = true
+        const response = await this.migrateService.migrate(this.source, this.target)
+        if (response.status) {
+            this.loading.button = false;
+        } else {
+            this.loading.button = false;
+            this.messageService.error(response.message);
+        }
     }
 }

@@ -120,7 +120,6 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item *ngIf="source.datasource">
-                    {{loading.button}}
                     <button nz-button [nzLoading]="loading.button" nzType="primary" [disabled]="handlerValidate()" (click)="handlerMigrate()">{{'common.execute'|translate}}</button>
                 </nz-form-item>
             </form>

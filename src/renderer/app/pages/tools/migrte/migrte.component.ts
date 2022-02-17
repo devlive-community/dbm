@@ -106,11 +106,12 @@ export class MigrteComponent extends BaseComponent {
     async handlerMigrate() {
         this.loading.button = true
         const response = await this.migrateService.migrate(this.source, this.target)
-        if (response.status) {
+        if (response?.status) {
             this.loading.button = false;
+            this.messageService.success(response?.message);
         } else {
             this.loading.button = false;
-            this.messageService.error(response.message);
+            this.messageService.error(response?.message);
         }
     }
 }

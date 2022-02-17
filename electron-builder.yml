@@ -13,6 +13,7 @@ releaseInfo:
     - Optional parameters are supported
     - Support version update check
     - Support to clear partition data by filtering criteria
+    - Supports data migration
 
     #### Docs
     ---
@@ -22,6 +23,7 @@ releaseInfo:
     #### Optimize
     ----
 
+    - Optimize database deletion UI
 
     #### Bug
     ---

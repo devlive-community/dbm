@@ -65,6 +65,11 @@
             <i class="fa fa-wrench"> {{'common.track'|translate}}</i>
           </a>
         </li>
+        <li nz-menu-item>
+          <a [routerLink]="['/tools/migrte']" class="dropdown-item">
+            <i class="fa fa-exchange"> {{'common.migrte'|translate}}</i>
+          </a>
+        </li>
       </ul>
     </li>
     <li nz-submenu [nzTitle]="githubItemTitle" (click)="handlerDirectGitHub()" style="float: right;"></li>

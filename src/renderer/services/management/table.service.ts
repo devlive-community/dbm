@@ -38,6 +38,19 @@ export class TableService implements BaseService {
         return this.getResponse(request, sql);
     }
 
+    getSize(request: RequestModel, database: string, table: string): Promise<ResponseModel> {
+        const sql = StringUtils.format(`
+      SELECT
+        database AS db, table AS name, SUM(bytes_on_disk) AS tableUsedBytes,
+        formatReadableSize(sum(bytes_on_disk)) AS value,
+        if(SUM(bytes_on_disk) > (1024*1024*1024*50), 1, 0) AS flag
+        FROM system.parts
+      WHERE database = '{0}' AND name = '{1}'
+      GROUP BY db, name
+        `, [database, table])
+        return this.getResponse(request, sql);
+    } 
+
     createTable(request: RequestModel, database: DatabaseModel, columns: ColumnModel[]): Promise<ResponseModel> {
         let sql = StringUtils.format('CREATE TABLE {0} (\n', [SqlUtils.getTableName(database.database, database.name)]);
         sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)])

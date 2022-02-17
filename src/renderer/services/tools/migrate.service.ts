@@ -41,6 +41,8 @@ export class MigrateService implements BaseService {
         if (cr?.status) {
             if (cr.data?.columns.length > 0) {
                 tableExists = true
+            } else {
+                response = cr;
             }
         }
 
@@ -51,12 +53,16 @@ export class MigrateService implements BaseService {
         if (gr?.status) {
             if (gr.data?.columns.length > 0) {
                 tableDdl = gr.data.columns[0].statement
+            } else {
+                response = gr;
             }
         }
 
         // step 3: replace table name
-        tableDdl = tableDdl.replace(StringUtils.format('{0}.{1}', [source.database, source.table]),
-            StringUtils.format('`{0}`.`{1}`', [targetDatabase, targetTable]))
+        if (StringUtils.isNotEmpty(tableDdl)) {
+            tableDdl = tableDdl.replace(StringUtils.format('{0}.{1}', [source.database, source.table]),
+                StringUtils.format('`{0}`.`{1}`', [targetDatabase, targetTable]))
+        }
 
         // step 4: create table on target server
         let tableCreate = false
@@ -64,6 +70,8 @@ export class MigrateService implements BaseService {
             const gqr = await this.getResponse(targetRequest, tableDdl)
             if (gqr?.status) {
                 tableCreate = true
+            } else {
+                response = gqr;
             }
         }
 

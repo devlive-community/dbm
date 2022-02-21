@@ -189,6 +189,7 @@
     "rename": "仅Atomic数据库引擎支持RENAME操作",
     "truncate": "该操作将删除所有数据，但不会删除表",
     "noversion": "当前已经是最新版本",
-    "not_support_online": "当前暂不支持在线更新"
+    "not_support_online": "当前暂不支持在线更新",
+    "table_grate_50": "暂不支持迁移大于50GB数据表"
   }
 }

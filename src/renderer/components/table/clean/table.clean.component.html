@@ -24,20 +24,40 @@
         <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.partition'|translate}}</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-                <nz-select [(ngModel)]="inputValue" name="partition" (ngModelChange)="handlerValidate()">
-                    <nz-option *ngFor="let item of partitions" nzValue="{{item.partition}}"
-                        nzLabel="{{item.partition}}">
-                    </nz-option>
-                </nz-select>
+                <div nz-row [nzGutter]="16">
+                    <div nz-col [nzSpan]="6">
+                        <nz-select [(ngModel)]="allowValue.logic" name="logic" (ngModelChange)="handlerValidate()">
+                            <nz-option *ngFor="let item of keys(logic)" nzValue="{{logic[item]}}"
+                                nzLabel="{{logic[item]}}">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                    <div nz-col [nzSpan]="12">
+                        <nz-select [(ngModel)]="allowValue.partition" name="partition"
+                            (ngModelChange)="handlerValidate()" [nzDisabled]="!allowValue.logic">
+                            <nz-option *ngFor="let item of partitions" nzValue="{{item.partition}}"
+                                nzLabel="{{item.partition}}">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="allowPartitions?.length > 0">
+            <nz-form-control [nzSm]="24" [nzXs]="24">
+                <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
+                    <div *ngFor="let item of allowPartitions; let i = index" nz-col nzSpan="4">
+                        <nz-tag [nzColor]="'#2db7f5'">
+                            {{item.partition}}
+                            <button nz-button nzType="text" nzDanger [disabled]="disabled.button"
+                                style="margin-right: -8px;" [nzLoading]="loading.button"
+                                (click)="handlerClean(item.partition)">
+                                <span *ngIf="!loading.button" class="fa fa-minus-circle"></span>
+                            </button>
+                        </nz-tag>
+                    </div>
+                </div>
             </nz-form-control>
         </nz-form-item>
     </form>
-</div>
-<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
-    <div class="ng-star-inserted">
-        <button nz-button nzType="primary" nzDanger [disabled]="disabled.button" [nzLoading]="loading.button"
-            (click)="handlerClean()">
-            <span>{{'common.clean'|translate}}</span>
-        </button>
-    </div>
 </div>

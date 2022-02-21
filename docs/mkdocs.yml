@@ -63,6 +63,13 @@ extra:
       link: https://github.com/EdurtIO
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/qianmoQ/
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Chinese (Simplified)
+      link: /zh/
+      lang: zh
 
 markdown_extensions:
   - admonition
@@ -102,14 +109,37 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.tilde
 
+plugins:
+  - search
+  - i18n:
+      default_language: en
+      languages:
+        en: English
+        zh: Chinese
+      nav_translations:
+        en: 
+          Home: Home
+        zh:
+          Home: 主页
+          Getting started: 准备开始
+          Datasource: 数据源
+          Query: 查询
+          Monitor: 监控
+          Processor: 进程
+          Release Note: 发布日志
+          Development: 开发
+          Documention: 文档
+          Contribution: 贡献
+
 nav:
   - Home: index.md
   - Getting started:
-      - Datasource: reference/1.Get-Started-Datasource.md
+      - Datasource: reference/get_started_datasource.md
       - Query: reference/2.Get-Started-Query.md
       - Monitor:
           - Processor: reference/Monitor-Processor.md
   - Release Note:
+      - 1.11.0: release/1.11.0-20220222.md
       - 1.10.0: release/1.10.0-20220127.md
       - 1.9.0: release/1.9.0-20211130.md
       - 1.8.0: release/1.8.0-2021-11-02.md
@@ -121,4 +151,6 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
-  - How to Contribution?: contribution.md
+  - Development: 
+    - Documention: development/documention.md
+    - Contribution: development/contribution.md

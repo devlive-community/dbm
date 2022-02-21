@@ -103,7 +103,17 @@
     "mutations": "Mutations",
     "migrte": "迁移",
     "target": "目标",
-    "source": "源"
+    "source": "源",
+    "nullable": "空",
+    "current": "当前",
+    "version": "版本",
+    "latest": "最新",
+    "download": "下载",
+    "update": "更新",
+    "new": "新",
+    "percentage": "进度",
+    "release": "发布",
+    "note": "日志"
   },
   "language": {
     "english": "英语",
@@ -176,7 +186,10 @@
     }
   },
   "alert": {
-    "rename": "The RENAME query is supported by the Atomic database engine only",
-    "truncate": "This operation deletes all data, but does not delete the table"
+    "rename": "仅Atomic数据库引擎支持RENAME操作",
+    "truncate": "该操作将删除所有数据，但不会删除表",
+    "noversion": "当前已经是最新版本",
+    "not_support_online": "当前暂不支持在线更新",
+    "table_grate_50": "暂不支持迁移大于50GB数据表"
   }
 }

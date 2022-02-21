@@ -34,6 +34,7 @@ import { PreviewColumnComponent } from '@renderer/components/column/preview/colu
 import { ColumnService } from '@renderer/services/management/column.service';
 import { DeleteColumnComponent } from '@renderer/components/column/delete/column.delete.component';
 import { RenameColumnComponent } from '@renderer/components/column/rename/column.rename.component';
+import { DatabaseService } from '@renderer/services/management/database.service';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   { path: '', component: MetadataComponent }
@@ -80,7 +81,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     ContextMenuService,
     EditorService,
     TableService,
-    ColumnService
+    ColumnService,
+    DatabaseService
   ]
 })
 export class MetadataModule {

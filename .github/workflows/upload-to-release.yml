@@ -46,7 +46,8 @@ jobs:
         uses: actions/setup-node@master
       - run: npm cache clear --force
       - run: npm install yarn --legacy-peer-deps
-      - run: yarn install --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
       - run: yarn run release
 
       - name: Upload Release Asset For dmg
@@ -102,10 +103,11 @@ jobs:
 
       - name: Build
         uses: actions/setup-node@master
-      - run: npm install yarn
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
       - run: yarn install
-      - run: yarn run build:win
-      - run: tar -cvf dbm-win.tar.gz ./release/dbm*.exe
+      - run: yarn run release
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -114,6 +116,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ./dbm-win.tar.gz
-          asset_name: dbm-win.tar.gz
-          asset_content_type: application/x-tg
+          asset_path: ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          asset_name: dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          asset_content_type: application/octet-stream
+
+      - name: Download and upload to qiniu
+        run: |
+          wget https://devtools.qiniu.com/qshell-v2.6.2-linux-amd64.tar.gz
+          tar -xvzf qshell-v2.6.2-linux-amd64.tar.gz
+          # echo '--------- Start ---------'
+          # ./qshell account ${{ env.TOKEN_AK }} ${{ env.TOKEN_SK }}
+          # echo '--------- End ---------'
+          ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
+          ./qshell fput edurtio-other dbm/releases/windows/x64/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          

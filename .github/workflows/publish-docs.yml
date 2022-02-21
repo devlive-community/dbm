@@ -16,3 +16,4 @@ jobs:
           CUSTOM_DOMAIN: dbm.incubator.edurt.io
           CONFIG_FILE: docs/mkdocs.yml
           EXTRA_PACKAGES: build-base
+          REQUIREMENTS: docs/requirements.txt

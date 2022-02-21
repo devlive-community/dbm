@@ -101,9 +101,19 @@
     "optimize": "Optimize",
     "final": "Final",
     "mutations": "Mutations",
-    "migrte": "Migrte",
+    "migrte": "Migrate",
     "target": "Target",
-    "source": "Source"
+    "source": "Source",
+    "nullable": "Nullable",
+    "current": "Current",
+    "version": "Version",
+    "latest": "Latest",
+    "download": "Download",
+    "update": "Update",
+    "new": "New",
+    "percentage": "Percentage",
+    "release": "Release",
+    "note": "Note"
   },
   "language": {
     "english": "English",
@@ -177,6 +187,9 @@
   },
   "alert": {
     "rename": "The RENAME query is supported by the Atomic database engine only",
-    "truncate": "This operation deletes all data, but does not delete the table"
+    "truncate": "This operation deletes all data, but does not delete the table",
+    "noversion": "This is the latest version!",
+    "not_support_online": "Currently, online updates are not supported",
+    "table_grate_50": "Data tables larger than 50GB cannot be migrated"
   }
 }

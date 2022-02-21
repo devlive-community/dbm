@@ -1,7 +1,7 @@
 <br />
 <p align="center">
     <a href="https://github.com/EdurtIO/incubator-dbm">
-      <img src="static/images/logo.svg" alt="Logo" width="120px" height="120px">
+      <img src="src/shared/assets/icons/favicon.png" alt="Logo" width="120px" height="120px">
     </a>
     <h2 align="center">DBM</h3>
     <p align="center">
@@ -50,6 +50,12 @@ GitHub:
 [![GitHub license](https://img.shields.io/github/license/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/issues)
 [![GitHub forks](https://img.shields.io/github/forks/EdurtIO/incubator-dbm?style=for-the-badge)](https://github.com/EdurtIO/incubator-dbm/network)
+
+## Join Us
+
+Open the DingTalk software and scan the following QR code to join
+
+<img src="src/shared/common/dingtalk.jpg" width="200px" height="250px"></img>
 
 ## Thank you
 

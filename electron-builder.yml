@@ -1,8 +1,37 @@
-appId: 'github.com/EdurtIO/dbm'
+appId: 'io.edurt.dbm'
 artifactName: ${name}-${version}-${os}-${arch}.${ext}
 productName: 'dbm'
 publish: { provider: github, releaseType: draft, vPrefixedTagName: true }
 forceCodeSigning: false
+
+releaseInfo:
+  releaseNotes: |
+    #### Enhancement
+    ---
+
+    - Support Nullable column
+    - Optional parameters are supported
+    - Support version update check
+    - Support to clear partition data by filtering criteria
+    - Supports data migration
+
+    #### Docs
+    ---
+
+    - Support For Chinese documents
+
+    #### Optimize
+    ----
+
+    - Optimize database deletion UI
+
+    #### Bug
+    ---
+
+    - Fixed inability to build Log related engine tables
+    - Fix slow query list cannot display DDL
+    - Fix README.md file logo cannot be displayed
+    - Fix CI exceptions caused by the new version
 
 directories:
   output: ./release
@@ -17,10 +46,10 @@ asar: false
 
 mac:
   icon: ./src/shared/assets/icons
-  category: public.app-category.productivity
-  darkModeSupport: true
-  target:
-    - { target: dmg }
+  # category: public.app-category.productivity
+  # darkModeSupport: true
+  # target:
+  #   - { target: dmg }
 
 dmg:
   icon: ./src/shared/assets/icons

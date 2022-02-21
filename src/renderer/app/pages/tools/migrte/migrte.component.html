@@ -31,10 +31,11 @@
                             <nz-form-label [nzSpan]="6" [nzXs]="12">{{'common.table'|translate}}</nz-form-label>
                             <nz-form-control [nzSpan]="14" [nzXs]="12">
                                 <nz-select [(ngModel)]="source.table" nzShowSearch nzAllowClear nzSize="small"
-                                    style="width: 150px; margin-right: 8px;" name="sourceTable">
+                                    style="width: 150px; margin-right: 8px;" name="sourceTable" (ngModelChange)="handlerCheckTable()">
                                     <nz-option *ngFor="let detail of source.tables" nzValue="{{detail.name}}"
                                         nzLabel="{{detail.name}}"></nz-option>
                                 </nz-select>
+                                <i *ngIf="tableSizeInfo?.flag" nz-popover nzPopoverContent="{{'alert.table_grate_50'|translate}}" class="fa fa-question-circle f50"></i>
                             </nz-form-control>
                         </nz-form-item>
                     </form>
@@ -119,7 +120,7 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item *ngIf="source.datasource">
-                    <button nz-button nzType="primary" (click)="handlerMigrate()">{{'common.execute'|translate}}</button>
+                    <button nz-button [nzLoading]="loading.button" nzType="primary" [disabled]="handlerValidate()" (click)="handlerMigrate()">{{'common.execute'|translate}}</button>
                 </nz-form-item>
             </form>
         </div>

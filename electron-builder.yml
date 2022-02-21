@@ -31,6 +31,7 @@ releaseInfo:
     - Fixed inability to build Log related engine tables
     - Fix slow query list cannot display DDL
     - Fix README.md file logo cannot be displayed
+    - Fix CI exceptions caused by the new version
 
 directories:
   output: ./release

@@ -96,12 +96,11 @@ export class TableService implements BaseService {
     }
 
     getPartitions(request: RequestModel, value: DatabaseModel, partition?: string, logic?: LogicEnum): Promise<ResponseModel> {
-        let sql = StringUtils.format(`SELECT
+        let sql = StringUtils.format(`
+      SELECT
         DISTINCT "partition" AS "partition",
         "database",
-        "table",
-        name,
-        active
+        "table"
       FROM
         "system".parts
       WHERE
@@ -110,12 +109,11 @@ export class TableService implements BaseService {
       ORDER BY
         modification_time DESC`, [value.database, value.name]);
         if (StringUtils.isNotEmpty(partition) && StringUtils.isNotEmpty(logic)) {
-            sql = StringUtils.format(`SELECT
+            sql = StringUtils.format(`
+      SELECT
         DISTINCT "partition" AS "partition",
         "database",
-        "table",
-        name,
-        active
+        "table"
       FROM
         "system".parts
       WHERE

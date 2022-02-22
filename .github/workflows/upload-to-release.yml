@@ -89,7 +89,7 @@ jobs:
           # echo '--------- End ---------'
           ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
           ./qshell fput edurtio-other dbm/releases/darwin/x64/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg --overwrite
-          ./qshell fput edurtio-other dbm/releases/darwin/x64/dbm-${{ needs.release.outputs.version }}-mac-x64.zip ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg --overwrite
+          ./qshell fput edurtio-other dbm/releases/darwin/x64/dbm-${{ needs.release.outputs.version }}-mac-x64.zip ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.zip --overwrite
           ./qshell fput edurtio-other dbm/releases/darwin/x64/latest-mac.yml ./release/latest-mac.yml --overwrite
 
 

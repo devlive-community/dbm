@@ -13,5 +13,8 @@ export enum DatabaseEnum {
   hdfs = 'HDFS',
   jdbc = 'JDBC',
   sqlite = 'SQLite',
-  odbc = 'ODBC'
+  odbc = 'ODBC',
+
+  // DataSource Type
+  clickhosue = 'ClickHouse'
 }

@@ -113,7 +113,8 @@
     "new": "新",
     "percentage": "进度",
     "release": "发布",
-    "note": "日志"
+    "note": "日志",
+    "type": "类型"
   },
   "language": {
     "english": "英语",
@@ -183,6 +184,10 @@
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }
+    },
+    "source": {
+      "basic": "基本数据源",
+      "clickhouse": "整合ClickHouse数据源"
     }
   },
   "alert": {

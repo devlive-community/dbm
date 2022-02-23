@@ -10,16 +10,18 @@ export class DatabaseModel {
   property: any;
   database: string;
   table: string;
+  icon: string;
   experimental: boolean;
   properties: PropertyModel[];
   propertyType: PropertyEnum;
 
   public static builder(name: string,
-    description: string,
-    type: DatabaseEnum,
-    properties: PropertyModel[],
-    experimental?: boolean,
-    propertyType?: PropertyEnum): DatabaseModel {
+                        description: string,
+                        type: DatabaseEnum,
+                        properties: PropertyModel[],
+                        experimental?: boolean,
+                        propertyType?: PropertyEnum,
+                        icon?: string): DatabaseModel {
     const database = new DatabaseModel();
     database.name = name;
     database.description = description;
@@ -27,6 +29,7 @@ export class DatabaseModel {
     database.properties = properties;
     database.experimental = experimental;
     database.propertyType = propertyType;
+    database.icon = icon;
     return database;
   }
 }

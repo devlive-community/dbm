@@ -12,11 +12,18 @@ releaseInfo:
     #### Docs
     ---
 
+    - Add contributing software documentation guide
+
     #### Optimize
     ----
 
     #### Bug
     ---
+
+    #### UI
+    ---
+
+    - New data source window layout
 
 directories:
   output: ./release

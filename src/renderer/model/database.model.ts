@@ -12,7 +12,15 @@ export class DatabaseModel {
   table: string;
   icon: string;
   experimental: boolean;
+  /**
+   * Customize configuration parameters
+   * You are advised to use the key specified in the internationalization file to customize configuration parameters and field description
+   */
   properties: PropertyModel[];
+  /**
+   * key: This is converted to an external key --> value form, such as Engine Kafka kafka_broker_list = XXX
+   * name: Convert to internal key --> value form, for example Engine HDFS(uri= XXX)
+   */
   propertyType: PropertyEnum;
 
   public static builder(name: string,

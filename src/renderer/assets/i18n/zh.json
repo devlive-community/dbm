@@ -158,11 +158,11 @@
       "materialized_mysql": "Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables. ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries."
     },
     "table": {
-      "log": "Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.",
-      "integration": "It is mainly used to import external data into ClickHouse, or to manipulate external data sources directly in ClickHouse.",
-      "kafka": "Import data from Kafka Topic directly into ClickHouse",
-      "hdfs": "Import data from HDFS directly into ClickHouse",
-      "jdbc": "Allows ClickHouse to connect to external databases via JDBC",
+      "log": "轻量级引擎。当您需要快速地构建多个小表(最多100万行)，然后将它们作为一个整体读取时，它们是最有效的。",
+      "integration": "它主要用于将外部数据导入到ClickHouse中，或者直接在ClickHouse中操作外部数据源。",
+      "kafka": "允许从Kafka Topic直接导入数据到ClickHouse",
+      "hdfs": "允许从HDFS导入数据到ClickHouse",
+      "jdbc": "允许ClickHouse通过JDBC连接到外部数据库",
       "sqlite": "The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.",
       "odbc": "Allows ClickHouse to connect to external databases via ODBC"
     },

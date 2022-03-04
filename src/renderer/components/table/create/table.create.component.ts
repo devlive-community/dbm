@@ -35,7 +35,7 @@ export class CreateTableComponent extends BaseComponent {
     private dataSourceService: DatasourceService,
     private messageService: NzMessageService) {
     super();
-    this.tableEngines = new TableConfig().getConfig();
+    this.tableEngines = new TableConfig().getConfigFromJson();
     this.columnTypes.push('Int8',
       'Int16',
       'Int32',

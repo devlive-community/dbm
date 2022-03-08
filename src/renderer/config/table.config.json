@@ -65,6 +65,64 @@
             "required": true
           }
         ],
+        "optionalProperties": [
+          {
+            "name": "rowDelimiter",
+            "label": "common.rowDelimiter",
+            "placeholder": "placeholder.rowDelimiter",
+            "tooltip": "tooltip.property.rowDelimiter",
+            "origin": "kafka_row_delimiter",
+            "required": false
+          },
+          {
+            "name": "schema",
+            "label": "common.schema",
+            "placeholder": "placeholder.schema",
+            "tooltip": "tooltip.property.schema",
+            "origin": "kafka_schema",
+            "required": false
+          },
+          {
+            "name": "numOfConsumer",
+            "label": "common.numOfConsumer",
+            "placeholder": "placeholder.numOfConsumer",
+            "tooltip": "tooltip.property.numOfConsumer",
+            "origin": "kafka_num_consumers",
+            "required": false
+          },
+          {
+            "name": "maxBlockSize",
+            "label": "common.maxBlockSize",
+            "placeholder": "placeholder.maxBlockSize",
+            "tooltip": "tooltip.property.maxBlockSize",
+            "origin": "kafka_max_block_size",
+            "required": false
+          },
+          {
+            "name": "skipBrokenMessages",
+            "label": "common.skipBrokenMessages",
+            "placeholder": "placeholder.skipBrokenMessages",
+            "tooltip": "tooltip.property.skipBrokenMessages",
+            "origin": "kafka_skip_broken_messages",
+            "required": false
+          },
+          {
+            "name": "commitEveryBatch",
+            "label": "common.commitEveryBatch",
+            "placeholder": "placeholder.commitEveryBatch",
+            "tooltip": "tooltip.property.commitEveryBatch",
+            "origin": "kafka_commit_every_batch",
+            "required": false
+          },
+          {
+            "name": "threadPerConsumer",
+            "label": "common.threadPerConsumer",
+            "placeholder": "placeholder.threadPerConsumer",
+            "tooltip": "tooltip.property.threadPerConsumer",
+            "origin": "kafka_thread_per_consumer",
+            "required": false
+          }
+        ],
         "experimental": false,
         "propertyType": "key"
       },

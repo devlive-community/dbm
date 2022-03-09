@@ -19,6 +19,7 @@
         <th>{{'common.host' | translate}}</th>
         <th>{{'common.protocol' | translate}}</th>
         <th>{{'common.username' | translate}}</th>
+        <th>{{'common.version' | translate}}</th>
         <th>{{'common.action' | translate}}</th>
       </tr>
       </thead>
@@ -29,6 +30,7 @@
         <td>{{data.host}}</td>
         <td>{{data.protocol}}</td>
         <td>{{data.username ? data.username : '-'}}</td>
+        <td>{{data.version ? data.version : '-'}}</td>
         <td>
           <button nz-button nzShape="circle" nzSize="small" nzDanger
                   nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"

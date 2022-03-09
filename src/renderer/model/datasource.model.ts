@@ -11,4 +11,5 @@ export class DatasourceModel {
   delivery = false;
   protocol = 'HTTP';
   type: string;
+  version: string;
 }

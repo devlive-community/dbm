@@ -112,6 +112,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       } else {
         this.messageService.success('Test connection success!');
         this.formInfo.status = true;
+        this.formInfo.version = response?.data?.columns[0]?.version;
         this.disabled.button = false;
       }
       this.loading.button = false;

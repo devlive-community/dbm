@@ -1,5 +1,3 @@
-import { DatabaseEnum } from '@renderer/enum/database.enum';
-
 export class DatasourceModel {
   id: number;
   name: string;

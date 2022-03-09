@@ -87,7 +87,7 @@
           <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
             <div *ngFor="let value of engine.engines" [nzSpan]="6" nz-col>
               <div class="">
-                <nz-radio-group [(ngModel)]="selectSourceType" (ngModelChange)="handlerChange(value)">
+                <nz-radio-group [(ngModel)]="formInfo.type" (ngModelChange)="handlerChange(value)">
                   <label [nzValue]="value.name" nz-radio-button>
                     <nz-badge nzDot [nzTooltipTitle]="value.description" nz-tooltip>
                       <nz-avatar [nzShape]="'square'" [nzSize]="64" [nzSrc]="value.icon">

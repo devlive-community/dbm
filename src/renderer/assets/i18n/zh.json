@@ -122,7 +122,8 @@
     "maxBlockSize": "Max Block Size",
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
-    "threadPerConsumer": "Thread Per Consumer"
+    "threadPerConsumer": "Thread Per Consumer",
+    "clickhouse": "ClickHouse"
   },
   "language": {
     "english": "英语",

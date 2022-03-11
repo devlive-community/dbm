@@ -113,7 +113,8 @@
     "new": "New",
     "percentage": "Percentage",
     "release": "Release",
-    "note": "Note"
+    "note": "Note",
+    "type": "Type"
   },
   "language": {
     "english": "English",
@@ -183,6 +184,10 @@
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }
+    },
+    "source": {
+      "basic": "Basic DataSource Type",
+      "clickhouse": "Integrate ClickHouse data sources"
     }
   },
   "alert": {

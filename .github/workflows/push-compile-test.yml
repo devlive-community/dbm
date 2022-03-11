@@ -1,0 +1,44 @@
+name: Test by push
+
+on:
+  push
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
+      - run: yarn run release
+
+  build-win:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
+      - run: yarn run release
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
+      - run: yarn run release

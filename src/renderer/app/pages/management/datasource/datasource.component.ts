@@ -8,10 +8,25 @@ import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatabaseModel } from '@renderer/model/database.model';
+import { SourceTypeConfig } from '@renderer/config/source.type.config';
+import { StringUtils } from '@renderer/utils/string.utils';
 
 @Component({
   selector: 'app-management-datasource',
-  templateUrl: 'datasource.component.html'
+  templateUrl: 'datasource.component.html',
+  styles: [
+    `
+      .ant-radio-button-wrapper {
+        height: auto;
+        padding: 0;
+      }
+
+      .gutter-row {
+        margin-top: 10px;
+      }
+    `
+  ]
 })
 export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
@@ -19,6 +34,13 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   actionType: ActionEnum;
   actionSource: string;
   validateForm!: FormGroup;
+  currentStep: number = 1;
+  showButton = {
+    previous: false,
+    next: false
+  };
+  sourceTypes: DatabaseModel[];
+  selectSourceType: string;
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -33,11 +55,26 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       username: [null, []],
       password: [null, []]
     });
+    this.sourceTypes = new SourceTypeConfig().getConfig();
     this.handlerGetAll();
+    this.handlerResetButton();
   }
 
   ngOnInit() {
     this.formInfo = new DatasourceModel();
+  }
+
+  handlerChange(value: DatabaseModel) {
+    this.formInfo.type = value.type;
+    this.handlerResetButton();
+  }
+
+  handlerResetButton() {
+    if (this.currentStep === 1 && StringUtils.isNotEmpty(this.selectSourceType)) {
+      this.showButton.next = true;
+    } else {
+      this.showButton.previous = true;
+    }
   }
 
   handlerOpenModal(type: ActionEnum, unique?: string) {
@@ -56,6 +93,11 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   handlerCloseModal() {
     this.dialog.create = false;
     this.disabled.button = true;
+    this.currentStep = 1;
+    this.selectSourceType = null;
+    this.showButton.next = false;
+    this.showButton.previous = false;
+    this.handlerResetButton();
     this.validateForm.clearValidators();
   }
 
@@ -128,5 +170,15 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         }
       });
     }
+  }
+
+  handlerNext() {
+    this.currentStep++;
+    this.handlerResetButton();
+  }
+
+  handlerPrevious() {
+    this.currentStep--;
+    this.handlerResetButton();
   }
 }

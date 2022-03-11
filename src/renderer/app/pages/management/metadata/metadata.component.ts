@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { OperationEnum } from '@renderer/enum/operation.enum';
 import { TypeEnum } from '@renderer/enum/type.enum';

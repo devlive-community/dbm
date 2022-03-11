@@ -9,29 +9,21 @@ releaseInfo:
     #### Enhancement
     ---
 
-    - Support Nullable column
-    - Optional parameters are supported
-    - Support version update check
-    - Support to clear partition data by filtering criteria
-    - Supports data migration
-
     #### Docs
     ---
 
-    - Support For Chinese documents
+    - Add contributing software documentation guide
 
     #### Optimize
     ----
 
-    - Optimize database deletion UI
-
     #### Bug
     ---
 
-    - Fixed inability to build Log related engine tables
-    - Fix slow query list cannot display DDL
-    - Fix README.md file logo cannot be displayed
-    - Fix CI exceptions caused by the new version
+    #### UI
+    ---
+
+    - New data source window layout
 
 directories:
   output: ./release

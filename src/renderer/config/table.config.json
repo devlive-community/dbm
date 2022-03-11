@@ -1,0 +1,199 @@
+[
+  {
+    "name": "common.log",
+    "description": "tooltip.table.log",
+    "engines": [
+      {
+        "name": "common.log",
+        "description": "tooltip.table.log",
+        "type": "Log",
+        "properties": null
+      },
+      {
+        "name": "common.tinylog",
+        "description": "tooltip.table.log",
+        "type": "TinyLog",
+        "properties": null
+      },
+      {
+        "name": "common.stripelog",
+        "description": "tooltip.table.log",
+        "type": "StripeLog",
+        "properties": null
+      }
+    ]
+  },
+  {
+    "name": "common.integration",
+    "description": "tooltip.table.integration",
+    "engines": [
+      {
+        "name": "Kafka",
+        "description": "tooltip.table.kafka",
+        "type": "Kafka",
+        "properties": [
+          {
+            "name": "broker",
+            "label": "common.broker",
+            "placeholder": "placeholder.broker",
+            "tooltip": "tooltip.property.broker",
+            "origin": "kafka_broker_list",
+            "required": true
+          },
+          {
+            "name": "kafka",
+            "label": "common.topic",
+            "placeholder": "placeholder.topic",
+            "tooltip": "tooltip.property.topic",
+            "origin": "kafka_topic_list",
+            "required": true
+          },
+          {
+            "name": "group",
+            "label": "common.group",
+            "placeholder": "placeholder.group",
+            "tooltip": "tooltip.property.group",
+            "origin": "kafka_group_name",
+            "required": true
+          },
+          {
+            "name": "format",
+            "label": "common.format",
+            "placeholder": "placeholder.format",
+            "tooltip": "tooltip.property.format",
+            "origin": "kafka_format",
+            "required": true
+          }
+        ],
+        "experimental": false,
+        "propertyType": "key"
+      },
+      {
+        "name": "HDFS",
+        "description": "tooltip.table.hdfs",
+        "type": "HDFS",
+        "properties": [
+          {
+            "name": "uri",
+            "label": "common.uri",
+            "placeholder": "placeholder.uri",
+            "tooltip": "tooltip.property.uri",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "format",
+            "label": "common.format",
+            "placeholder": "placeholder.format",
+            "tooltip": "tooltip.property.format",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          }
+        ],
+        "experimental": false,
+        "propertyType": "name"
+      },
+      {
+        "name": "JDBC",
+        "description": "tooltip.table.jdbc",
+        "type": "JDBC",
+        "properties": [
+          {
+            "name": "uri",
+            "label": "common.uri",
+            "placeholder": "placeholder.uri",
+            "tooltip": "tooltip.property.uri",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "database",
+            "label": "common.database",
+            "placeholder": "placeholder.database",
+            "tooltip": "tooltip.property.database",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "table",
+            "label": "common.table",
+            "placeholder": "placeholder.table",
+            "tooltip": "tooltip.property.table",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          }
+        ],
+        "experimental": false,
+        "propertyType": "name"
+      },
+      {
+        "name": "SQLite",
+        "description": "tooltip.table.sqlite",
+        "type": "SQLite",
+        "properties": [
+          {
+            "name": "path",
+            "label": "common.path",
+            "placeholder": "placeholder.path",
+            "tooltip": "tooltip.property.path",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "table",
+            "label": "common.table",
+            "placeholder": "placeholder.table",
+            "tooltip": "tooltip.property.table",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          }
+        ],
+        "experimental": false,
+        "propertyType": "name"
+      },
+      {
+        "name": "ODBC",
+        "description": "tooltip.table.odbc",
+        "type": "ODBC",
+        "properties": [
+          {
+            "name": "path",
+            "label": "common.path",
+            "placeholder": "placeholder.setting",
+            "tooltip": "tooltip.property.setting.odbc",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "database",
+            "label": "common.database",
+            "placeholder": "placeholder.database",
+            "tooltip": "tooltip.property.database",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "table",
+            "label": "common.table",
+            "placeholder": "placeholder.table",
+            "tooltip": "tooltip.property.table",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          }
+        ],
+        "experimental": false,
+        "propertyType": "name"
+      }
+    ]
+  }
+]

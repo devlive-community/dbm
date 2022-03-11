@@ -33,6 +33,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   declarations: [],
@@ -70,7 +71,8 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
     NzAlertModule,
     NzSpinModule,
     NzResultModule,
-    NzCollapseModule
+    NzCollapseModule,
+    NzBadgeModule
   ]
 })
 export class NgZorroAntdModule {

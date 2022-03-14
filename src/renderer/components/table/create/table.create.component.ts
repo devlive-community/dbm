@@ -4,7 +4,6 @@ import { TableConfig } from '@renderer/config/table.config';
 import { ColumnModel } from '@renderer/model/column.model';
 import { ConfigModel } from '@renderer/model/config.model';
 import { DatabaseModel } from '@renderer/model/database.model';
-import { PropertyModel } from '@renderer/model/property.model';
 import { RequestModel } from '@renderer/model/request.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { TableService } from '@renderer/services/management/table.service';
@@ -26,14 +25,13 @@ export class CreateTableComponent extends BaseComponent {
   current = 0;
   tableEngines: DatabaseModel[];
   configure: DatabaseModel;
-  properties: PropertyModel[];
   selectValue: string;
   columns: ColumnModel[] = new Array();
   columnTypes: string[] = new Array();
 
   constructor(private tableService: TableService,
-    private dataSourceService: DatasourceService,
-    private messageService: NzMessageService) {
+              private dataSourceService: DatasourceService,
+              private messageService: NzMessageService) {
     super();
     this.tableEngines = new TableConfig().getConfigFromJson();
     this.columnTypes.push('Int8',
@@ -58,17 +56,16 @@ export class CreateTableComponent extends BaseComponent {
 
   handlerChange(value: DatabaseModel) {
     this.configure = cloneDeep(value);
-    this.configure.name = null;
-    this.properties = cloneDeep(this.configure.properties);
-    this.configure.properties = null;
   }
 
   handlerValidate() {
-    let flag = true;
-    if (this.configure?.property) {
-      flag = this.configure?.property?.validate;
+    let flag;
+    if (this.configure.validate != undefined) {
+      flag = this.configure.validate;
+    } else {
+      flag = true;
     }
-    if (StringUtils.isNotEmpty(this.configure.name) && flag && this.columns.length > 0) {
+    if (StringUtils.isNotEmpty(this.configure.targetName) && flag && this.columns.length > 0) {
       this.disabled.button = false;
     } else {
       this.disabled.button = true;
@@ -80,9 +77,9 @@ export class CreateTableComponent extends BaseComponent {
   }
 
   handlerRemoveColumn(column: ColumnModel) {
-    const index = this.columns.indexOf(column)
+    const index = this.columns.indexOf(column);
     if (index !== -1) {
-      this.columns.splice(index, 1)
+      this.columns.splice(index, 1);
     }
   }
 
@@ -90,8 +87,13 @@ export class CreateTableComponent extends BaseComponent {
     this.current += 1;
   }
 
-  handlerComponentEmitter($event) {
-    this.configure.property = $event;
+  handlerComponentEmitter($event, required: boolean) {
+    if (required) {
+      this.configure.properties = $event.properties;
+      this.configure.validate = $event.validate;
+    } else {
+      this.configure.optionalProperties = $event.properties;
+    }
     this.handlerValidate();
   }
 

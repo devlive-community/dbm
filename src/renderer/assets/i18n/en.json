@@ -159,6 +159,9 @@
     "format": "The underlying data supports formatting types, JSON by default",
     "language": "The language used by the software is English by default",
     "experimental": "This is an experimental feature that should not be used in production.",
+    "elapsed": "Total Time (sec)",
+    "rowsRead": "The total number of rows of data read",
+    "bytesRead": "The total number of bytes of data read",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",

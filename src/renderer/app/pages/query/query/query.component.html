@@ -69,6 +69,17 @@
       <nz-skeleton *ngIf="loadingContainers[i].loading; else hasValues" nzActive="true">
       </nz-skeleton>
       <ng-template #hasValues>
+        <div *ngIf="!loadingContainers[i].loading && responseTableData[i]?.statistics">
+          <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.elapsed'|translate}}">
+            <i class="fa fa-clock-o"></i> {{responseTableData[i].statistics.elapsed}}
+          </nz-tag>
+          <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.rowsRead'|translate}}">
+            <i class="fa fa-columns"></i> {{responseTableData[i].statistics.rows_read}}
+          </nz-tag>
+          <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.bytesRead'|translate}}">
+            <i class="fa fa-braille"></i> {{responseTableData[i].statistics.bytes_read}}
+          </nz-tag>
+        </div>
         <app-component-basic-table [value]="responseTableData[i]"></app-component-basic-table>
       </ng-template>
     </nz-tab>

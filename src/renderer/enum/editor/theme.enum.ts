@@ -18,5 +18,14 @@ export enum EditorThemeEnum {
   'duotone-light' = ('duotone-light'),
   eclipse = ('eclipse'),
   elegant = ('elegant'),
-  'erlang-dark' = ('erlang-dark')
+  'erlang-dark' = ('erlang-dark'),
+  'gruvbox-dark' = ('gruvbox-dark'),
+  hopscotch = ('hopscotch'),
+  idea = ('idea'),
+  icecoder = ('icecoder'),
+  isotope = ('isotope'),
+  juejin = ('juejin'),
+  'lesser-dark' = ('lesser-dark'),
+  liquibyte = ('liquibyte'),
+  lucario = ('lucario')
 }

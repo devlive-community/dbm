@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { SourceTypeConfig } from '@renderer/config/source.type.config';
-import { StringUtils } from '@renderer/utils/string.utils';
 
 @Component({
   selector: 'app-management-datasource',
@@ -40,7 +39,6 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     next: false
   };
   sourceTypes: DatabaseModel[];
-  selectSourceType: string;
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -70,7 +68,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   }
 
   handlerResetButton() {
-    if (this.currentStep === 1 && StringUtils.isNotEmpty(this.selectSourceType)) {
+    if (this.currentStep === 1 && this.formInfo?.type !== undefined) {
       this.showButton.next = true;
     } else {
       this.showButton.previous = true;
@@ -87,6 +85,8 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         break;
       case ActionEnum.update:
         this.formInfo = this.service.getAll(unique)?.data?.columns[0];
+        this.showButton.next = false;
+        this.handlerResetButton();
     }
   }
 
@@ -94,7 +94,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     this.dialog.create = false;
     this.disabled.button = true;
     this.currentStep = 1;
-    this.selectSourceType = null;
+    this.formInfo = new DatasourceModel();
     this.showButton.next = false;
     this.showButton.previous = false;
     this.handlerResetButton();
@@ -112,6 +112,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       } else {
         this.messageService.success('Test connection success!');
         this.formInfo.status = true;
+        this.formInfo.version = response?.data?.columns[0]?.version;
         this.disabled.button = false;
       }
       this.loading.button = false;

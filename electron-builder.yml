@@ -9,6 +9,10 @@ releaseInfo:
     #### Enhancement
     ---
 
+    - Support visual construction of data table and configuration of optional parameters
+    - Add data source list to display service version information
+    - Add editor execution status feedback
+
     #### Docs
     ---
 

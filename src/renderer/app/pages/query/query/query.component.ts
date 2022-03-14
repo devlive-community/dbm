@@ -33,6 +33,7 @@ export class QueryComponent extends BaseComponent {
   editorContainers = [];
   resultContainers = [];
   loadingContainers = [];
+  processorContainers = [];
   containerSelected = 0;
 
   constructor(private editorService: EditorService,
@@ -48,6 +49,7 @@ export class QueryComponent extends BaseComponent {
     this.resultContainers.push('Editor ' + 1 + ' Result');
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
+    this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
   }
 
   handlerCheckStatus() {
@@ -69,9 +71,13 @@ export class QueryComponent extends BaseComponent {
     queryHistory.server = this.datasource;
     sql = StringUtils.isEmpty(sql) ? this.codeEditors.get(this.containerSelected)['codeMirror'].getValue() : sql;
     queryHistory.query = sql;
+    this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
+    this.processorContainers[this.containerSelected].color = 'cyan';
     this.queryService.getResponse(request, sql).then(response => {
       if (response.status) {
         queryHistory.state = StateEnum.success;
+        this.processorContainers[this.containerSelected].icon = 'check-circle';
+        this.processorContainers[this.containerSelected].color = '#87d068';
         if (response.data) {
           this.responseTableData[this.containerSelected] = response.data;
         } else {
@@ -81,6 +87,8 @@ export class QueryComponent extends BaseComponent {
         this.messageService.error(response.message);
         queryHistory.message = response.message;
         queryHistory.state = StateEnum.failure;
+        this.processorContainers[this.containerSelected].icon = 'times-circle';
+        this.processorContainers[this.containerSelected].color = '#f50';
       }
       this.disabledButton.execute = false;
       this.loadingContainers[this.containerSelected].loading = false;
@@ -115,6 +123,7 @@ export class QueryComponent extends BaseComponent {
     this.resultContainers.push('Editor ' + this.containerSelected + ' Result');
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
+    this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
   }
 
   handlerCloseContainer({index}: { index: number }) {
@@ -122,6 +131,7 @@ export class QueryComponent extends BaseComponent {
     this.resultContainers.splice(index, 1);
     this.responseTableData.splice(index, 1);
     this.loadingContainers.splice(index, 1);
+    this.processorContainers.splice(index, 1);
   }
 
   handlerQuickQuery(close?: boolean) {

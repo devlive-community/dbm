@@ -19,6 +19,7 @@
         <th>{{'common.host' | translate}}</th>
         <th>{{'common.protocol' | translate}}</th>
         <th>{{'common.username' | translate}}</th>
+        <th>{{'common.version' | translate}}</th>
         <th>{{'common.action' | translate}}</th>
       </tr>
       </thead>
@@ -29,6 +30,7 @@
         <td>{{data.host}}</td>
         <td>{{data.protocol}}</td>
         <td>{{data.username ? data.username : '-'}}</td>
+        <td>{{data.version ? data.version : '-'}}</td>
         <td>
           <button nz-button nzShape="circle" nzSize="small" nzDanger
                   nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"
@@ -87,7 +89,7 @@
           <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
             <div *ngFor="let value of engine.engines" [nzSpan]="6" nz-col>
               <div class="">
-                <nz-radio-group [(ngModel)]="selectSourceType" (ngModelChange)="handlerChange(value)">
+                <nz-radio-group [(ngModel)]="formInfo.type" (ngModelChange)="handlerChange(value)">
                   <label [nzValue]="value.name" nz-radio-button>
                     <nz-badge nzDot [nzTooltipTitle]="value.description" nz-tooltip>
                       <nz-avatar [nzShape]="'square'" [nzSize]="64" [nzSrc]="value.icon">

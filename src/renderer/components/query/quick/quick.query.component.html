@@ -1,13 +1,19 @@
 <nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()" nzWidth="80%"
-  nzTitle="{{'common.quick'|translate}} {{'common.query'|translate}}">
+          nzTitle="{{'common.quick'|translate}} {{'common.query'|translate}}">
   <div *nzModalContent>
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="8">
         <nz-list nzGrid nzBordered nzSize="small" [nzHeader]="databaseTemplate">
           <nz-radio-group [(ngModel)]="dataSource" (ngModelChange)="handlerChangeValue(1)">
-            <nz-list-item *ngFor="let datasource of dataSourceSet">
-              <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{datasource.alias}}">{{datasource.alias}}</label>
-            </nz-list-item>
+            <nz-table #databaseTable [nzData]="dataSourceSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
+              <tbody>
+              <tr *ngFor="let obj of databaseTable.data">
+                <td nzEllipsis>
+                  <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.alias}}">{{obj.alias}}</label>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
           </nz-radio-group>
         </nz-list>
         <ng-template #databaseTemplate>
@@ -31,11 +37,11 @@
               <nz-radio-group [(ngModel)]="database" (ngModelChange)="handlerChangeValue(2)">
                 <nz-table #databaseTable [nzData]="databaseSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
-                    <tr *ngFor="let obj of databaseTable.data">
-                      <td nzEllipsis>
-                        <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
-                      </td>
-                    </tr>
+                  <tr *ngFor="let obj of databaseTable.data">
+                    <td nzEllipsis>
+                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
+                    </td>
+                  </tr>
                   </tbody>
                 </nz-table>
               </nz-radio-group>
@@ -63,12 +69,12 @@
               <nz-radio-group [(ngModel)]="table">
                 <nz-table #tableTable [nzData]="tableSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
-                    <tr *ngFor="let obj of tableTable.data">
-                      <td nzEllipsis>
-                        <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}" nz-tooltip
-                          nzTooltipTitle="{{obj.name}}">{{obj.name}}</label>
-                      </td>
-                    </tr>
+                  <tr *ngFor="let obj of tableTable.data">
+                    <td nzEllipsis>
+                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}" nz-tooltip
+                             nzTooltipTitle="{{obj.name}}">{{obj.name}}</label>
+                    </td>
+                  </tr>
                   </tbody>
                 </nz-table>
               </nz-radio-group>

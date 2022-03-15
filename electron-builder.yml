@@ -13,6 +13,7 @@ releaseInfo:
     - Add data source list to display service version information
     - Add editor execution status feedback
     - Add ancillary information such as execution result and time
+    - SQL shortcut keys can be executed by Ctrl+Enter [#102](https://github.com/EdurtIO/dbm/issues/102)
 
     #### Docs
     ---
@@ -29,6 +30,7 @@ releaseInfo:
     ---
 
     - New data source window layout
+    - Add nine editor themes
 
 directories:
   output: ./release

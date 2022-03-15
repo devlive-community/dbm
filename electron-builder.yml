@@ -26,6 +26,8 @@ releaseInfo:
     #### Bug
     ---
 
+    - Fixed data source not paging problem in quick query
+
     #### UI
     ---
 

@@ -143,6 +143,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+    this.ngAfterViewInit();
   }
 
   handlerCloseContainer({index}: { index: number }) {

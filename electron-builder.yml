@@ -30,6 +30,7 @@ releaseInfo:
     - Fixed data source not paging problem in quick query
     - Fixed the problem that metadata information cannot be distinguished due to multiple selections
     - Fix top menu style exception
+    - Fix the problem that the metadata operation node is not refreshed [#101](https://github.com/EdurtIO/dbm/issues/101)
 
     #### UI
     ---

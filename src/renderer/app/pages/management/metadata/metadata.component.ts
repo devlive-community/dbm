@@ -77,6 +77,32 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     this.handlerContextMenuDialog(false);
   }
 
+  handlerContextMenuClosed(event: ConfigModel) {
+    this.handlerContextMenuDialog(false);
+    if (event.status) {
+      let node = event.currentNode;
+      if (event.menu.command === OperationEnum.delete) {
+        node = node.parentNode;
+      }
+      const originNode: any = node.origin;
+      if (event.menu.type === TypeEnum.database) {
+        originNode.type = TypeEnum.server;
+      }
+      const request = new RequestModel();
+      request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
+      this.metadataService.getChild(request, originNode).then(response => {
+        if (response.status) {
+          // clear old data
+          node['children'] = [];
+          node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
+        } else {
+          node.addChildren([]);
+        }
+        this.loading.button = false;
+      });
+    }
+  }
+
   handlerContextMenuDialog(selected: boolean) {
     switch (this.selectMenu.type) {
       case TypeEnum.server:

@@ -21,7 +21,7 @@ import { ipcRenderer, shell } from 'electron';
       nz-header {
         position: fixed;
         width: 100%;
-        z-index: 9999;
+        z-index: 1;
       }
 
       .ant-layout-header {

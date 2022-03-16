@@ -51,7 +51,8 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       host: [null, [Validators.required]],
       port: [null, [Validators.required]],
       username: [null, []],
-      password: [null, []]
+      password: [null, []],
+      maxTotal: [null, []]
     });
     this.sourceTypes = new SourceTypeConfig().getConfig();
     this.handlerGetAll();

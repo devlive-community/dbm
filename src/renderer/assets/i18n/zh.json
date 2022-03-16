@@ -123,7 +123,9 @@
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
     "threadPerConsumer": "Thread Per Consumer",
-    "clickhouse": "ClickHouse"
+    "clickhouse": "ClickHouse",
+    "advanced": "高级",
+    "maxTotal": "最大总数"
   },
   "language": {
     "english": "英语",
@@ -152,7 +154,8 @@
     "maxBlockSize": "Max Block Size",
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
-    "threadPerConsumer": "Thread Per Consumer"
+    "threadPerConsumer": "Thread Per Consumer",
+    "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效"
   },
   "tooltip": {
     "network": "访问远程服务器的时间(以秒为单位)",

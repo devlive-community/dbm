@@ -12,4 +12,5 @@ export class DatasourceModel {
   protocol = 'HTTP';
   type: string;
   version: string;
+  maxTotal = 0;
 }

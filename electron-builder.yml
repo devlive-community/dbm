@@ -14,6 +14,7 @@ releaseInfo:
     - Add editor execution status feedback
     - Add ancillary information such as execution result and time
     - SQL shortcut keys can be executed by Ctrl+Enter [#102](https://github.com/EdurtIO/dbm/issues/102)
+    - Support for data source maxTotal configuration (experimental) [#102](https://github.com/EdurtIO/dbm/issues/102)
 
     #### Docs
     ---

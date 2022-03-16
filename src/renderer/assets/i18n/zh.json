@@ -123,7 +123,9 @@
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
     "threadPerConsumer": "Thread Per Consumer",
-    "clickhouse": "ClickHouse"
+    "clickhouse": "ClickHouse",
+    "advanced": "高级",
+    "maxTotal": "最大总数"
   },
   "language": {
     "english": "英语",
@@ -152,13 +154,17 @@
     "maxBlockSize": "Max Block Size",
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
-    "threadPerConsumer": "Thread Per Consumer"
+    "threadPerConsumer": "Thread Per Consumer",
+    "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效"
   },
   "tooltip": {
     "network": "访问远程服务器的时间(以秒为单位)",
     "format": "底层数据支持格式化类型，默认为JSON",
     "language": "软件默认使用的语言为英文",
     "experimental": "这是一个实验性的特性，不应该在生产中使用",
+    "elapsed": "耗时总时长(秒)",
+    "rowsRead": "读取数据的总行数",
+    "bytesRead": "读取数据的总字节数",
     "editor": {
       "preview": "实时反馈编辑器修改状态",
       "activeLine": "用鼠标高亮显示当前选择行",

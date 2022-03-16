@@ -12,6 +12,9 @@ releaseInfo:
     - Support visual construction of data table and configuration of optional parameters
     - Add data source list to display service version information
     - Add editor execution status feedback
+    - Add ancillary information such as execution result and time
+    - SQL shortcut keys can be executed by Ctrl+Enter [#102](https://github.com/EdurtIO/dbm/issues/102)
+    - Support for data source maxTotal configuration (experimental) [#102](https://github.com/EdurtIO/dbm/issues/102)
 
     #### Docs
     ---
@@ -24,10 +27,16 @@ releaseInfo:
     #### Bug
     ---
 
+    - Fixed data source not paging problem in quick query
+    - Fixed the problem that metadata information cannot be distinguished due to multiple selections
+    - Fix top menu style exception
+    - Fix the problem that the metadata operation node is not refreshed [#101](https://github.com/EdurtIO/dbm/issues/101)
+
     #### UI
     ---
 
     - New data source window layout
+    - Add nine editor themes
 
 directories:
   output: ./release

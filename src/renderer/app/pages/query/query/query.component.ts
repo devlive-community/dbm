@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { EditorService } from '@renderer/services/editor/editor.service';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
@@ -19,7 +19,7 @@ import { SystemEditorModel } from '@renderer/model/system.model';
   selector: 'app-query',
   templateUrl: 'query.component.html'
 })
-export class QueryComponent extends BaseComponent {
+export class QueryComponent extends BaseComponent implements AfterViewInit {
   @ViewChildren('codeEditors')
   private codeEditors: QueryList<ElementRef>;
   editorConfig: any;
@@ -50,6 +50,25 @@ export class QueryComponent extends BaseComponent {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+      // const queryInstance = this;
+      codeMirror.addKeyMap({
+        'Ctrl-Enter': function(cm) {
+          // queryInstance.handlerExecute(null);
+          // Call the click method with the fetch element tag
+          const selectionContext = cm.getSelection();
+          if (StringUtils.isNotEmpty(selectionContext)) {
+            document.getElementById('selectionExecuteButton').click();
+          } else {
+            document.getElementById('executeButton').click();
+          }
+        }
+      });
+    }, 0);
   }
 
   handlerCheckStatus() {
@@ -124,6 +143,7 @@ export class QueryComponent extends BaseComponent {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+    this.ngAfterViewInit();
   }
 
   handlerCloseContainer({index}: { index: number }) {

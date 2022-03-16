@@ -11,6 +11,8 @@ import { RequestModel } from '@renderer/model/request.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
 import * as cloneDeep from 'lodash/cloneDeep';
 import { PropertyModel } from '@renderer/model/property.model';
+import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
+import { MenuModel } from '@renderer/model/menu.model';
 
 @Component({
   selector: 'app-component-database',
@@ -21,8 +23,12 @@ export class DatabaseBasicComponent extends BaseComponent {
   visible: boolean;
   @Input()
   config: ConfigModel;
+  @Input()
+  node: NzTreeNode;
+  @Input()
+  menu: MenuModel;
   @Output()
-  emitter = new EventEmitter<any>();
+  emitter = new EventEmitter<ConfigModel>();
   current = 0;
   databaseSelectValue: string;
   databaseEngines: DatabaseModel[];
@@ -40,7 +46,7 @@ export class DatabaseBasicComponent extends BaseComponent {
 
   handlerCancel() {
     this.visible = false;
-    this.emitter.emit(this.visible);
+    this.emitter.emit(this.config);
   }
 
   handlerPrevious(): void {
@@ -84,7 +90,10 @@ export class DatabaseBasicComponent extends BaseComponent {
     this.metadataService.createDatabase(request, this.configure).then(response => {
       if (response.status) {
         this.messageService.success(response.message);
-        this.handlerCancel();
+        this.config.status = true;
+        this.config.menu = this.menu;
+        this.config.currentNode = this.node;
+        this.emitter.emit(this.config);
       } else {
         this.messageService.error(response.message);
       }

@@ -123,7 +123,9 @@
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
     "threadPerConsumer": "Thread Per Consumer",
-    "clickhouse": "ClickHouse"
+    "clickhouse": "ClickHouse",
+    "advanced": "Advanced",
+    "maxTotal": "MaxTotal"
   },
   "language": {
     "english": "English",
@@ -152,13 +154,17 @@
     "maxBlockSize": "Max Block Size",
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
-    "threadPerConsumer": "Thread Per Consumer"
+    "threadPerConsumer": "Thread Per Consumer",
+    "maxTotal": "The maximum number of rows is displayed. If you manually enter limit, the configuration is overwritten. If 0 is set, the configuration does not take effect"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
     "format": "The underlying data supports formatting types, JSON by default",
     "language": "The language used by the software is English by default",
     "experimental": "This is an experimental feature that should not be used in production.",
+    "elapsed": "Total Time (sec)",
+    "rowsRead": "The total number of rows of data read",
+    "bytesRead": "The total number of bytes of data read",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",

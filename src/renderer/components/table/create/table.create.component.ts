@@ -21,7 +21,7 @@ export class CreateTableComponent extends BaseComponent {
   @Input()
   value: string;
   @Output()
-  emitter = new EventEmitter<boolean>();
+  emitter = new EventEmitter<ConfigModel>();
   current = 0;
   tableEngines: DatabaseModel[];
   configure: DatabaseModel;
@@ -112,7 +112,8 @@ export class CreateTableComponent extends BaseComponent {
     this.tableService.createTable(request, this.configure, this.columns).then(response => {
       if (response.status) {
         this.messageService.success(response.message);
-        this.emitter.emit(true);
+        this.config.status = true;
+        this.emitter.emit(this.config);
       } else {
         this.messageService.error(response.message);
       }

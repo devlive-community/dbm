@@ -28,6 +28,7 @@ releaseInfo:
     ---
 
     - Fixed data source not paging problem in quick query
+    - Fixed the problem that metadata information cannot be distinguished due to multiple selections
 
     #### UI
     ---

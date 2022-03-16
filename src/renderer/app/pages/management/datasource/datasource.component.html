@@ -110,13 +110,15 @@
     </div>
 
     <div *ngIf="currentStep === 2">
-      <div [nzGutter]="[8, 8]" nz-row>
-        <div [nzSpan]="24" nz-col>
-        </div>
-        <div [nzSpan]="24" nz-col>
-          <form nz-form [formGroup]="validateForm" class="login-form">
+      <form nz-form [formGroup]="validateForm" class="login-form">
+        <app-component-antd-drivider title="{{'common.basic'|translate}}">
+        </app-component-antd-drivider>
+        <div [nzGutter]="[8, 8]" nz-row>
+          <div [nzSpan]="3" nz-col>
+          </div>
+          <div [nzSpan]="18" nz-col>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired
                              nzFor="alias">{{'common.alias'|translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.alias'|translate}}">
                 <nz-input-group>
@@ -125,7 +127,7 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired
                              nzFor="protocol">{{'common.protocol'|translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.protocol'|translate}}">
                 <nz-radio-group formControlName="protocol" [(ngModel)]="formInfo.protocol">
@@ -135,7 +137,7 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="host">{{'common.host'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="host">{{'common.host'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.host'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="host" [(ngModel)]="formInfo.host"/>
@@ -143,7 +145,7 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="port">{{'common.port'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="port">{{'common.port'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.port'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="port" [(ngModel)]="formInfo.port"/>
@@ -151,7 +153,7 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username">{{'common.username'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="username">{{'common.username'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.username'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="username" [(ngModel)]="formInfo.username"/>
@@ -159,16 +161,36 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password">{{'common.password'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="password">{{'common.password'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.password'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="password" [(ngModel)]="formInfo.password"/>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
-          </form>
+          </div>
+          <div [nzSpan]="3" nz-col>
+          </div>
         </div>
-      </div>
+        <app-component-antd-drivider title="{{'common.experimental'|translate}}">
+        </app-component-antd-drivider>
+        <div [nzGutter]="[8, 8]" nz-row>
+          <div [nzSpan]="3" nz-col>
+          </div>
+          <div [nzSpan]="18" nz-col>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzTooltipTitle="{{'placeholder.maxTotal'|translate}}">
+                <span>{{'common.maxTotal'| translate}}</span>
+              </nz-form-label>
+              <nz-form-control>
+                <input nz-input id="maxTotal" formControlName="maxTotal" [(ngModel)]="formInfo.maxTotal"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div [nzSpan]="3" nz-col>
+          </div>
+        </div>
+      </form>
     </div>
   </ng-template>
   <ng-template #modalFooter>

@@ -123,7 +123,9 @@
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
     "threadPerConsumer": "Thread Per Consumer",
-    "clickhouse": "ClickHouse"
+    "clickhouse": "ClickHouse",
+    "advanced": "Advanced",
+    "maxTotal": "MaxTotal"
   },
   "language": {
     "english": "English",
@@ -152,7 +154,8 @@
     "maxBlockSize": "Max Block Size",
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
-    "threadPerConsumer": "Thread Per Consumer"
+    "threadPerConsumer": "Thread Per Consumer",
+    "maxTotal": "The maximum number of rows is displayed. If you manually enter limit, the configuration is overwritten. If 0 is set, the configuration does not take effect"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",

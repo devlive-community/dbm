@@ -20,17 +20,18 @@ export class CommonTableComponent extends BaseComponent {
   @Input()
   menu: MenuModel;
   @Output()
-  emitter = new EventEmitter<any>();
+  emitter = new EventEmitter<ConfigModel>();
   current = 0;
   operation = OperationEnum;
 
   handlerCancel() {
-    this.visible = false;
-    this.emitter.emit(this.visible);
+    this.config.status = false;
+    this.emitter.emit(this.config);
   }
 
-  handlerEmitter(event: boolean) {
-    this.visible = event;
-    this.emitter.emit(this.visible);
+  handlerEmitter(event: ConfigModel) {
+    this.config.menu = this.menu;
+    this.config.currentNode = this.value;
+    this.emitter.emit(event);
   }
 }

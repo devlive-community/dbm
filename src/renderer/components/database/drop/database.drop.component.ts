@@ -6,6 +6,8 @@ import { MetadataService } from '@renderer/services/management/metadata.service'
 import { DatabaseService } from '@renderer/services/management/database.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { RequestModel } from '@renderer/model/request.model';
+import { MenuModel } from '@renderer/model/menu.model';
+import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 
 @Component({
   selector: 'app-component-database-drop',
@@ -18,16 +20,20 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
   config: ConfigModel;
   @Input()
   value: string;
+  @Input()
+  node: NzTreeNode;
+  @Input()
+  menu: MenuModel;
   @Output()
-  emitter = new EventEmitter<any>();
+  emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
   getTables = false;
   tables: any[];
 
   constructor(private dataSourceService: DatasourceService,
-    private metadataService: MetadataService,
-    private databaseService: DatabaseService,
-    private messageService: NzMessageService) {
+              private metadataService: MetadataService,
+              private databaseService: DatabaseService,
+              private messageService: NzMessageService) {
     super();
   }
 
@@ -53,7 +59,7 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
 
   handlerCancel() {
     this.visible = false;
-    this.emitter.emit(this.visible);
+    this.emitter.emit(this.config);
   }
 
   handlerValidate() {
@@ -71,7 +77,10 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     this.metadataService.delete(request, this.value).then(response => {
       if (response.status) {
         this.messageService.success(response.message);
-        this.handlerCancel();
+        this.config.status = true;
+        this.config.menu = this.menu;
+        this.config.currentNode = this.node;
+        this.emitter.emit(this.config);
       } else {
         this.messageService.error(response.message);
       }

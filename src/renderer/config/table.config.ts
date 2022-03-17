@@ -6,6 +6,8 @@ import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
 import { PropertyEnum } from '@renderer/enum/property.enum';
 
+const tableConfigJson = require('./table.config.json');
+
 @Injectable()
 export class TableConfig {
   getConfig(): DatabaseModel[] {
@@ -35,7 +37,6 @@ export class TableConfig {
       null));
     logTable.engines = logEngines;
     tableEngines.push(logTable);
-
     const integrationTable = new DatabaseModel();
     integrationTable.name = StringUtils.format('{0}',
       [TranslateUtils.getValue('common.integration')]);
@@ -164,5 +165,9 @@ export class TableConfig {
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;
+  }
+
+  getConfigFromJson(): DatabaseModel[] {
+    return tableConfigJson;
   }
 }

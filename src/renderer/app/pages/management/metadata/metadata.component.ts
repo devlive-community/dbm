@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { OperationEnum } from '@renderer/enum/operation.enum';
 import { TypeEnum } from '@renderer/enum/type.enum';
@@ -19,7 +18,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
   templateUrl: 'metadata.component.html'
 })
 export class MetadataComponent extends BaseComponent implements OnInit {
-  nodes: ConfigModel[];
+  nodes: any[];
   items: any[];
   selectNode: any;
   selectMenu: MenuModel;
@@ -41,19 +40,20 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   table: string;
 
   constructor(private nzContextMenuService: NzContextMenuService,
-    private dataSourceService: DatasourceService,
-    private metadataService: MetadataService,
-    private messageService: NzMessageService,
-    private contextMenuService: ContextMenuService) {
+              private dataSourceService: DatasourceService,
+              private metadataService: MetadataService,
+              private messageService: NzMessageService,
+              private contextMenuService: ContextMenuService) {
     super();
-    this.nodes = this.dataSourceService.getAll()?.data?.columns.map(k => {
+    const datasourceConfigs = this.dataSourceService.getAll()?.data?.columns.map(k => {
       const configModel = new ConfigModel();
-      configModel.key = k.name;
+      configModel.key = k.alias;
       configModel.value = k.alias;
       configModel.title = k.alias;
       configModel.type = TypeEnum.disk;
       return configModel;
     });
+    this.nodes = datasourceConfigs;
     this.outerHeight = window.outerHeight;
   }
 
@@ -75,6 +75,32 @@ export class MetadataComponent extends BaseComponent implements OnInit {
 
   handlerContextMenuClose() {
     this.handlerContextMenuDialog(false);
+  }
+
+  handlerContextMenuClosed(event: ConfigModel) {
+    this.handlerContextMenuDialog(false);
+    if (event.status) {
+      let node = event.currentNode;
+      if (event.menu.command === OperationEnum.delete) {
+        node = node.parentNode;
+      }
+      const originNode: any = node.origin;
+      if (event.menu.type === TypeEnum.database) {
+        originNode.type = TypeEnum.server;
+      }
+      const request = new RequestModel();
+      request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
+      this.metadataService.getChild(request, originNode).then(response => {
+        if (response.status) {
+          // clear old data
+          node['children'] = [];
+          node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
+        } else {
+          node.addChildren([]);
+        }
+        this.loading.button = false;
+      });
+    }
   }
 
   handlerContextMenuDialog(selected: boolean) {

@@ -125,7 +125,8 @@
     "threadPerConsumer": "Thread Per Consumer",
     "clickhouse": "ClickHouse",
     "advanced": "Advanced",
-    "maxTotal": "MaxTotal"
+    "maxTotal": "MaxTotal",
+    "quicklyEnter": "Quickly enter"
   },
   "language": {
     "english": "English",

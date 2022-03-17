@@ -27,8 +27,9 @@
             <app-component-antd-empty *ngIf="items.length <= 0; else hasLoadTemplate">
             </app-component-antd-empty>
             <ng-template #hasLoadTemplate>
-              <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
-                <div *ngFor="let item of items; let i = index" nz-col nzSpan="6">
+              <nz-table nzPageSize="20" #progressItemsTable [nzData]="items">
+                <tbody nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
+                <tr *ngFor="let item of progressItemsTable.data; let i = index" nz-col nzSpan="6">
                   <nz-card nzTitle="{{ (i + 1) + ': ' + item.name }}">
                     <nz-progress nz-popover [nzPopoverContent]="progressPopoverContent" nzType="circle"
                                  [nzPercent]="item.value"
@@ -42,8 +43,8 @@
                       </nz-descriptions>
                     </ng-template>
                   </nz-card>
-                </div>
-              </div>
+                </tr>
+              </nz-table>
             </ng-template>
           </ng-template>
         </nz-card>

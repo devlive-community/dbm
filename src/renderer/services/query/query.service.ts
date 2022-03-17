@@ -23,6 +23,7 @@ export class QueryService implements BaseService {
           sql += '\nLIMIT ' + limit;
         }
       } catch (err) {
+        console.log(err);
         // The SQL tree fails to be parsed and no action is taken
       }
     }

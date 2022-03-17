@@ -82,8 +82,7 @@ export class QuickQueryComponent extends BaseComponent {
   }
 
   handlerQuickCommand(command: { name: string, value: string }) {
-    const dt = StringUtils.format('{0}.{1}', [this.database, this.table]);
-    const sql = StringUtils.format(command.value, [dt]);
+    const sql = StringUtils.format(command.value, [this.database, this.table]);
     this.emitterValue.emit(sql);
     this.handlerCancel();
   }

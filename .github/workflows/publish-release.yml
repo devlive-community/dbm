@@ -1,0 +1,132 @@
+name: Publish New Release
+
+on:
+  pull_request:
+    branch:
+      - 'master'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Read package.json
+        id: package-version
+        uses: tyankatsu0105/read-package-version-actions@v1
+        with:
+          path: './'
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: ${{ steps.package-version.outputs.version }}
+          release_name: ${{ steps.package-version.outputs.version }}
+          draft: false
+          prerelease: false
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      version: ${{ steps.package-version.outputs.version }}
+
+
+  build-mac:
+    runs-on: macos-latest
+    needs: release
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
+      - run: yarn run release
+
+      - name: Upload Release Asset For dmg
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg
+          asset_name: dbm-${{ needs.release.outputs.version }}-mac-x64.dmg
+          asset_content_type: application/x-tg
+
+      - name: Upload Release Asset For zip
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.zip
+          asset_name: dbm-${{ needs.release.outputs.version }}-mac-x64.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset For yml
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./release/latest-mac.yml
+          asset_name: latest-mac-inter.yml
+          asset_content_type: application/x-yaml
+      
+      - name: Download and upload to qiniu
+        run: |
+          wget https://devtools.qiniu.com/qshell-v2.6.2-darwin-amd64.tar.gz
+          tar -xvzf qshell-v2.6.2-darwin-amd64.tar.gz
+          # echo '--------- Start ---------'
+          # ./qshell account ${{ env.TOKEN_AK }} ${{ env.TOKEN_SK }}
+          # echo '--------- End ---------'
+          ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
+          ./qshell fput edurtio-other dbm/releases/darwin/x64/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.dmg --overwrite
+          ./qshell fput edurtio-other dbm/releases/darwin/x64/dbm-${{ needs.release.outputs.version }}-mac-x64.zip ./release/dbm-${{ needs.release.outputs.version }}-mac-x64.zip --overwrite
+          ./qshell fput edurtio-other dbm/releases/darwin/x64/latest-mac.yml ./release/latest-mac.yml --overwrite
+
+
+  build-win:
+    runs-on: windows-latest
+    needs: release
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Build
+        uses: actions/setup-node@master
+      - run: npm cache clear --force
+      - run: npm install yarn --legacy-peer-deps
+      - run: yarn add ajv-formats
+      - run: yarn install
+      - run: yarn run release
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          asset_name: dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          asset_content_type: application/octet-stream
+
+      - name: Download and upload to qiniu
+        run: |
+          wget https://devtools.qiniu.com/qshell-v2.6.2-linux-amd64.tar.gz
+          tar -xvzf qshell-v2.6.2-linux-amd64.tar.gz
+          # echo '--------- Start ---------'
+          # ./qshell account ${{ env.TOKEN_AK }} ${{ env.TOKEN_SK }}
+          # echo '--------- End ---------'
+          ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
+          ./qshell fput edurtio-other dbm/releases/windows/x64/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          

@@ -139,6 +139,7 @@ nav:
       - Monitor:
           - Processor: reference/Monitor-Processor.md
   - Release Note:
+      - 1.12.0: release/1.12.0-20220318.md
       - 1.11.0: release/1.11.0-20220222.md
       - 1.10.0: release/1.10.0-20220127.md
       - 1.9.0: release/1.9.0-20211130.md

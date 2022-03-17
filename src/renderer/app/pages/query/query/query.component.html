@@ -25,12 +25,14 @@
                nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
   </nz-select>
   <button id="executeButton" nz-button nzType="primary" nzSize="small"
+          nzTooltipTitle="{{'tooltip.execute'|translate}}" nzTooltipPlacement="bottom" nz-tooltip
           [disabled]="disabledButton.execute"
           [nzLoading]="loading.button"
           (click)="handlerExecute()">
     <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
   </button>
   <button id="selectionExecuteButton" nz-button nzType="primary" nzSize="small"
+          nzTooltipTitle="{{'tooltip.execute'|translate}}" nzTooltipPlacement="bottom" nz-tooltip
           [disabled]="disabledButton.execute"
           [nzLoading]="loading.button"
           (click)="handlerSelectionExecute()">

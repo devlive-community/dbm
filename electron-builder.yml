@@ -37,6 +37,7 @@ releaseInfo:
 
     - New data source window layout
     - Add nine editor themes
+    - Execute button to add shortcut key prompt
 
 directories:
   output: ./release

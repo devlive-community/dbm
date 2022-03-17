@@ -165,6 +165,7 @@
     "elapsed": "Total Time (sec)",
     "rowsRead": "The total number of rows of data read",
     "bytesRead": "The total number of bytes of data read",
+    "execute": "Press Ctrl+Enter to execute the command",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",

@@ -63,12 +63,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
         'Ctrl-Enter': function(cm) {
           // queryInstance.handlerExecute(null);
           // Call the click method with the fetch element tag
-          const selectionContext = cm.getSelection();
-          if (StringUtils.isNotEmpty(selectionContext)) {
-            document.getElementById('selectionExecuteButton').click();
-          } else {
-            document.getElementById('executeButton').click();
-          }
+          document.getElementById('executeButton').click();
         }
       });
     }, 0);
@@ -80,18 +75,25 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     status === true ? this.disabledButton.execute = true : this.disabledButton.execute = false;
   }
 
-  handlerExecute(sql?: string) {
+  handlerExecute(command?: CommandModel) {
     this.disabledButton.execute = true;
     this.disabledButton.cancel = false;
     this.loading.button = true;
     this.loadingContainers[this.containerSelected].loading = true;
     const queryHistory = new QueryHistoryModel();
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    let sql = codeMirror.getValue();
+    if (StringUtils.isNotEmpty(codeMirror.getSelection())) {
+      sql = codeMirror.getSelection();
+    }
+    if (command?.name) {
+      sql = StringUtils.format(command.format, [sql]);
+    }
     queryHistory.id = Md5.hashStr(sql + new Date());
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];
     queryHistory.server = this.datasource;
-    sql = StringUtils.isEmpty(sql) ? this.codeEditors.get(this.containerSelected)['codeMirror'].getValue() : sql;
     queryHistory.query = sql;
     this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
     this.processorContainers[this.containerSelected].color = 'cyan';
@@ -120,11 +122,6 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
       queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
       this.queryHistoryService.save(queryHistory);
     });
-  }
-
-  handlerSelectionExecute() {
-    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    this.handlerExecute(codeMirror.getSelection());
   }
 
   handlerFormatter() {
@@ -171,11 +168,6 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   }
 
   handlerExecuteCommand(command: CommandModel) {
-    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    let sql = codeMirror.getValue();
-    if (StringUtils.isNotEmpty(codeMirror.getSelection())) {
-      sql = codeMirror.getSelection();
-    }
-    this.handlerExecute(StringUtils.format(command.format, [sql]));
+    this.handlerExecute(command);
   }
 }

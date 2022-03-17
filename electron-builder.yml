@@ -27,6 +27,7 @@ releaseInfo:
     ----
 
     - Optimized the display of metadata management disk usage
+    - Merge Query Select the query & query function
 
     #### Bug
     ---

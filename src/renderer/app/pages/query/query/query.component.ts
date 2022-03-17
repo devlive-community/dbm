@@ -14,6 +14,7 @@ import { StateEnum } from '@renderer/enum/state.enum';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
+import { CommandModel } from '@renderer/model/command.model';
 
 @Component({
   selector: 'app-query',
@@ -30,6 +31,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     cancel: true
   };
   responseTableData: ResponseDataModel[] = new Array();
+  executeCommands: CommandModel[] = new Array();
   editorContainers = [];
   resultContainers = [];
   loadingContainers = [];
@@ -50,6 +52,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+    this.executeCommands.push(new CommandModel('EXPLAIN ...', 'EXPLAIN {0}'));
   }
 
   ngAfterViewInit(): void {
@@ -60,12 +63,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
         'Ctrl-Enter': function(cm) {
           // queryInstance.handlerExecute(null);
           // Call the click method with the fetch element tag
-          const selectionContext = cm.getSelection();
-          if (StringUtils.isNotEmpty(selectionContext)) {
-            document.getElementById('selectionExecuteButton').click();
-          } else {
-            document.getElementById('executeButton').click();
-          }
+          document.getElementById('executeButton').click();
         }
       });
     }, 0);
@@ -77,18 +75,25 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     status === true ? this.disabledButton.execute = true : this.disabledButton.execute = false;
   }
 
-  handlerExecute(sql?: string) {
+  handlerExecute(command?: CommandModel) {
     this.disabledButton.execute = true;
     this.disabledButton.cancel = false;
     this.loading.button = true;
     this.loadingContainers[this.containerSelected].loading = true;
     const queryHistory = new QueryHistoryModel();
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    let sql = codeMirror.getValue();
+    if (StringUtils.isNotEmpty(codeMirror.getSelection())) {
+      sql = codeMirror.getSelection();
+    }
+    if (command?.name) {
+      sql = StringUtils.format(command.format, [sql]);
+    }
     queryHistory.id = Md5.hashStr(sql + new Date());
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];
     queryHistory.server = this.datasource;
-    sql = StringUtils.isEmpty(sql) ? this.codeEditors.get(this.containerSelected)['codeMirror'].getValue() : sql;
     queryHistory.query = sql;
     this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
     this.processorContainers[this.containerSelected].color = 'cyan';
@@ -117,11 +122,6 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
       queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
       this.queryHistoryService.save(queryHistory);
     });
-  }
-
-  handlerSelectionExecute() {
-    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
-    this.handlerExecute(codeMirror.getSelection());
   }
 
   handlerFormatter() {
@@ -165,5 +165,9 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   handlerQuickQueryProcessor(sql?: string) {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
     codeMirror.setValue(sql);
+  }
+
+  handlerExecuteCommand(command: CommandModel) {
+    this.handlerExecute(command);
   }
 }

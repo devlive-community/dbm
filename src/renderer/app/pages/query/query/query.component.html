@@ -24,18 +24,21 @@
     <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
                nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
   </nz-select>
-  <button id="executeButton" nz-button nzType="primary" nzSize="small"
-          [disabled]="disabledButton.execute"
-          [nzLoading]="loading.button"
-          (click)="handlerExecute()">
-    <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
-  </button>
-  <button id="selectionExecuteButton" nz-button nzType="primary" nzSize="small"
-          [disabled]="disabledButton.execute"
-          [nzLoading]="loading.button"
-          (click)="handlerSelectionExecute()">
-    <i class="fa fa-flask"></i>&nbsp;{{'common.select'|translate}} {{'common.execute'|translate}}
-  </button>
+  <nz-button-group>
+    <button id="executeButton" nz-button nzType="primary" nzSize="small"
+            nzTooltipTitle="{{'tooltip.execute'|translate}}" nzTooltipPlacement="bottom" nz-tooltip
+            [disabled]="disabledButton.execute"
+            [nzLoading]="loading.button"
+            (click)="handlerExecute()">
+      <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
+    </button>
+    <button nz-button nz-dropdown nzType="primary" nzPlacement="bottomRight"
+            [disabled]="disabledButton.execute"
+            [nzDropdownMenu]="executeMenu"
+            style="margin-left: -10px;">
+      <i class="fa fa-ellipsis-h"></i>
+    </button>
+  </nz-button-group>
   <button nz-button nzType="dashed" nzSize="small"
           [disabled]="disabledButton.execute"
           (click)="handlerFormatter()">
@@ -52,6 +55,13 @@
   <button style="float: right;" nz-button nzType="primary" nzSize="small" (click)="handlerQuickQuery()">
     <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}} {{'common.query' | translate}}
   </button>
+  <nz-dropdown-menu #executeMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item *ngFor="let command of executeCommands" (click)="handlerExecuteCommand(command)">
+        {{command.name}}
+      </li>
+    </ul>
+  </nz-dropdown-menu>
 </ng-template>
 <!-- Query result container -->
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.result'|translate}}">

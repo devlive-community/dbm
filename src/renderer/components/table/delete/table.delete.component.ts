@@ -54,4 +54,9 @@ export class DeleteTableComponent extends BaseComponent {
       this.loading.button = false;
     });
   }
+
+  handlerQuicklyEnter() {
+    this.inputValue = this.value;
+    this.handlerValidate();
+  }
 }

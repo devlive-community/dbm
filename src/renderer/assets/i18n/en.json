@@ -113,7 +113,19 @@
     "new": "New",
     "percentage": "Percentage",
     "release": "Release",
-    "note": "Note"
+    "note": "Note",
+    "type": "Type",
+    "rowDelimiter": "Row Delimiter",
+    "optional": "Optional",
+    "schema": "Schema",
+    "numOfConsumer": "Number Of Consumer",
+    "maxBlockSize": "Max Block Size",
+    "skipBrokenMessages": "Skip Broken Messages",
+    "commitEveryBatch": "Commit Every Batch",
+    "threadPerConsumer": "Thread Per Consumer",
+    "clickhouse": "ClickHouse",
+    "advanced": "Advanced",
+    "maxTotal": "MaxTotal"
   },
   "language": {
     "english": "English",
@@ -135,13 +147,25 @@
     "table": "Please input table name",
     "path": "Please input file path",
     "setting": "Please input setting file path",
-    "name": "Please input name"
+    "name": "Please input name",
+    "rowDelimiter": "delimiter symbol",
+    "schema": "Schema",
+    "numOfConsumer": "Number Of Consumer",
+    "maxBlockSize": "Max Block Size",
+    "skipBrokenMessages": "Skip Broken Messages",
+    "commitEveryBatch": "Commit Every Batch",
+    "threadPerConsumer": "Thread Per Consumer",
+    "maxTotal": "The maximum number of rows is displayed. If you manually enter limit, the configuration is overwritten. If 0 is set, the configuration does not take effect"
   },
   "tooltip": {
     "network": "Duration of accessing the remote server (in seconds)",
     "format": "The underlying data supports formatting types, JSON by default",
     "language": "The language used by the software is English by default",
     "experimental": "This is an experimental feature that should not be used in production.",
+    "elapsed": "Total Time (sec)",
+    "rowsRead": "The total number of rows of data read",
+    "bytesRead": "The total number of bytes of data read",
+    "execute": "Press Ctrl+Enter to execute the command",
     "editor": {
       "preview": "Real-time feedback on editor modification status",
       "activeLine": "Highlight the current selection row shown with the mouse",
@@ -180,9 +204,20 @@
       "table": "Name of the table in database",
       "path": "Path to file with a database",
       "final": "When FINAL is specified, ClickHouse fully merges the data before returning the result and thus performs all data transformations that happen during merges for the given table engine",
+      "rowDelimiter": "Delimiter character, which ends the message.",
+      "schema": "Parameter that must be used if the format requires a schema definition. For example, Cap’n Proto requires the path to the schema file and the name of the root schema.capnp:Message object.",
+      "numOfConsumer": "The number of consumers per table. Default: 1. Specify more consumers if the throughput of one consumer is insufficient. The total number of consumers should not exceed the number of partitions in the topic, since only one consumer can be assigned per partition.",
+      "maxBlockSize": "The maximum batch size (in messages) for poll (default: max_block_size).",
+      "skipBrokenMessages": "Kafka message parser tolerance to schema-incompatible messages per block. Default: 0. If kafka_skip_broken_messages = N then the engine skips N Kafka messages that cannot be parsed (a message equals a row of data).",
+      "commitEveryBatch": "Commit every consumed and handled batch instead of a single commit after writing a whole block (default: 0).",
+      "threadPerConsumer": "Provide independent thread for each consumer (default: 0). When enabled, every consumer flush the data independently, in parallel (otherwise — rows from several consumers squashed to form one block).",
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
       }
+    },
+    "source": {
+      "basic": "Basic DataSource Type",
+      "clickhouse": "Integrate ClickHouse data sources"
     }
   },
   "alert": {

@@ -11,6 +11,7 @@ import { ServiceModule } from '@renderer/app/service.module';
 import { LineChartsComponent } from '@renderer/components/charts/line/line.charts.component';
 import { ChartModule } from 'angular-highcharts';
 import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.component';
+import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.c
     DdlQueryComponent,
     BasicTableComponent,
     LineChartsComponent,
-    EmptyAntdComponent
+    EmptyAntdComponent,
+    DrividerAntdComponent
   ],
   providers: [
     ClipboardComService
@@ -35,7 +37,8 @@ import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.c
     DdlQueryComponent,
     BasicTableComponent,
     LineChartsComponent,
-    EmptyAntdComponent
+    EmptyAntdComponent,
+    DrividerAntdComponent
   ]
 })
 export class CommonShareModule {

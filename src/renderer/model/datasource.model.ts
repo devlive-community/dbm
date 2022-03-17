@@ -10,4 +10,7 @@ export class DatasourceModel {
   message: string;
   delivery = false;
   protocol = 'HTTP';
+  type: string;
+  version: string;
+  maxTotal = 0;
 }

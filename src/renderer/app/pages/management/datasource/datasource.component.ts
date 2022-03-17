@@ -8,10 +8,24 @@ import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatabaseModel } from '@renderer/model/database.model';
+import { SourceTypeConfig } from '@renderer/config/source.type.config';
 
 @Component({
   selector: 'app-management-datasource',
-  templateUrl: 'datasource.component.html'
+  templateUrl: 'datasource.component.html',
+  styles: [
+    `
+      .ant-radio-button-wrapper {
+        height: auto;
+        padding: 0;
+      }
+
+      .gutter-row {
+        margin-top: 10px;
+      }
+    `
+  ]
 })
 export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
@@ -19,6 +33,12 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   actionType: ActionEnum;
   actionSource: string;
   validateForm!: FormGroup;
+  currentStep: number = 1;
+  showButton = {
+    previous: false,
+    next: false
+  };
+  sourceTypes: DatabaseModel[];
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -31,13 +51,29 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       host: [null, [Validators.required]],
       port: [null, [Validators.required]],
       username: [null, []],
-      password: [null, []]
+      password: [null, []],
+      maxTotal: [null, []]
     });
+    this.sourceTypes = new SourceTypeConfig().getConfig();
     this.handlerGetAll();
+    this.handlerResetButton();
   }
 
   ngOnInit() {
     this.formInfo = new DatasourceModel();
+  }
+
+  handlerChange(value: DatabaseModel) {
+    this.formInfo.type = value.type;
+    this.handlerResetButton();
+  }
+
+  handlerResetButton() {
+    if (this.currentStep === 1 && this.formInfo?.type !== undefined) {
+      this.showButton.next = true;
+    } else {
+      this.showButton.previous = true;
+    }
   }
 
   handlerOpenModal(type: ActionEnum, unique?: string) {
@@ -50,12 +86,19 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         break;
       case ActionEnum.update:
         this.formInfo = this.service.getAll(unique)?.data?.columns[0];
+        this.showButton.next = false;
+        this.handlerResetButton();
     }
   }
 
   handlerCloseModal() {
     this.dialog.create = false;
     this.disabled.button = true;
+    this.currentStep = 1;
+    this.formInfo = new DatasourceModel();
+    this.showButton.next = false;
+    this.showButton.previous = false;
+    this.handlerResetButton();
     this.validateForm.clearValidators();
   }
 
@@ -70,6 +113,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       } else {
         this.messageService.success('Test connection success!');
         this.formInfo.status = true;
+        this.formInfo.version = response?.data?.columns[0]?.version;
         this.disabled.button = false;
       }
       this.loading.button = false;
@@ -128,5 +172,15 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         }
       });
     }
+  }
+
+  handlerNext() {
+    this.currentStep++;
+    this.handlerResetButton();
+  }
+
+  handlerPrevious() {
+    this.currentStep--;
+    this.handlerResetButton();
   }
 }

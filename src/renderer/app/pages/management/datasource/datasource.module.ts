@@ -8,6 +8,7 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { DatasourceJob } from '@renderer/job/datasource.job';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { ServiceModule } from '@renderer/app/service.module';
+import { CommonShareModule } from '@renderer/app/common-share.module';
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -21,6 +22,7 @@ const DATASOURCE_ROUTES: Routes = [
     ReactiveFormsModule,
     NgZorroAntdModule,
     ServiceModule,
+    CommonShareModule,
     RouterModule.forChild(DATASOURCE_ROUTES)
   ],
   exports: [],

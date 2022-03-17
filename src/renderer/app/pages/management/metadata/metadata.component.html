@@ -1,7 +1,8 @@
 <div nz-row [nzGutter]="8">
   <div nz-col class="gutter-row" [nzSpan]="6">
     <nz-tree [nzData]="nodes" nzAsyncData nzBlockNode (nzClick)="handlerNodeClick($event)"
-      (nzExpandChange)="handlerNodeLoad($event)" nzVirtualHeight="{{outerHeight}}px" [nzTreeTemplate]="nzTreeTemplate">
+             (nzExpandChange)="handlerNodeLoad($event)" nzVirtualHeight="{{outerHeight}}px"
+             [nzTreeTemplate]="nzTreeTemplate">
     </nz-tree>
     <ng-template #nzTreeTemplate let-node let-origin="origin">
       <span (contextmenu)="handlerContextMenu($event, menu, origin)">
@@ -26,12 +27,13 @@
             <app-component-antd-empty *ngIf="items.length <= 0; else hasLoadTemplate">
             </app-component-antd-empty>
             <ng-template #hasLoadTemplate>
-              <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
-                <div *ngFor="let item of items; let i = index" nz-col nzSpan="6">
+              <nz-table nzPageSize="20" #progressItemsTable [nzData]="items">
+                <tbody nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
+                <tr *ngFor="let item of progressItemsTable.data; let i = index" nz-col nzSpan="6">
                   <nz-card nzTitle="{{ (i + 1) + ': ' + item.name }}">
                     <nz-progress nz-popover [nzPopoverContent]="progressPopoverContent" nzType="circle"
-                      [nzPercent]="item.value"
-                      [nzStrokeColor]="{ '0%': '#87d068', '50%': '#d9651f', '100%': '#fc0202' }">
+                                 [nzPercent]="item.value"
+                                 [nzStrokeColor]="{ '0%': '#87d068', '50%': '#d9651f', '100%': '#fc0202' }">
                     </nz-progress>
                     <ng-template #progressPopoverContent>
                       <nz-descriptions [nzTitle]="item.name" nzBordered [nzColumn]="1" nzSize="small">
@@ -41,16 +43,17 @@
                       </nz-descriptions>
                     </ng-template>
                   </nz-card>
-                </div>
-              </div>
+                </tr>
+              </nz-table>
             </ng-template>
           </ng-template>
         </nz-card>
         <ng-template #rightTemplate>
           <nz-switch [(ngModel)]="switchType"
-            *ngIf="selectNode.origin.type === 'disk' || selectNode.origin.type === 'server' "
-            nzCheckedChildren="{{'common.disk'|translate}}" nzUnCheckedChildren="{{'common.database'|translate}}"
-            (ngModelChange)="handlerNodeClick($event)">
+                     *ngIf="selectNode.origin.type === 'disk' || selectNode.origin.type === 'server' "
+                     nzCheckedChildren="{{'common.disk'|translate}}"
+                     nzUnCheckedChildren="{{'common.database'|translate}}"
+                     (ngModelChange)="handlerNodeClick($event)">
           </nz-switch>
         </ng-template>
       </ng-template>
@@ -58,21 +61,28 @@
   </div>
 </div>
 <app-component-info-server *ngIf="disabledComponent.server" [visible]="disabledComponent.server" [config]="rootNode"
-  (emitter)="handlerContextMenuClose()">
+                           (emitter)="handlerContextMenuClose()">
 </app-component-info-server>
 <app-component-database *ngIf="disabledComponent.database.create" [visible]="disabledComponent.database.create"
-  [config]="rootNode" (emitter)="handlerContextMenuClose()">
+                        [config]="rootNode"
+                        [node]="selectNode" [menu]="selectMenu"
+                        (emitter)="handlerContextMenuClosed($event)">
 </app-component-database>
 <app-component-database-drop *ngIf="disabledComponent.database.delete" [visible]="disabledComponent.database.delete"
-  [config]="rootNode" [value]="selectNode?.origin?.key" (emitter)="handlerContextMenuClose()">
+                             [config]="rootNode" [value]="selectNode?.origin?.key"
+                             [node]="selectNode" [menu]="selectMenu"
+                             (emitter)="handlerContextMenuClosed($event)">
 </app-component-database-drop>
 <app-component-database-structure *ngIf="disabledComponent.database.structure"
-  [visible]="disabledComponent.database.structure" [config]="rootNode" [value]="selectNode?.origin?.key"
-  (emitter)="handlerContextMenuClose()">
+                                  [visible]="disabledComponent.database.structure" [config]="rootNode"
+                                  [value]="selectNode?.origin?.key"
+                                  (emitter)="handlerContextMenuClose()">
 </app-component-database-structure>
 <app-component-common-table *ngIf="disabledComponent.table" [visible]="disabledComponent.table" [config]="rootNode"
-  [value]="selectNode" [database]="database" [menu]="selectMenu" (emitter)="handlerContextMenuClose()">
+                            [value]="selectNode" [database]="database" [menu]="selectMenu"
+                            (emitter)="handlerContextMenuClosed($event)">
 </app-component-common-table>
 <app-component-common-column *ngIf="disabledComponent.column" [visible]="disabledComponent.column" [config]="rootNode"
-  [value]="selectNode" [database]="database" [table]="table" [menu]="selectMenu" (emitter)="handlerContextMenuClose()">
+                             [value]="selectNode" [database]="database" [table]="table" [menu]="selectMenu"
+                             (emitter)="handlerContextMenuClosed($event)">
 </app-component-common-column>

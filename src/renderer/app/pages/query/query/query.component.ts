@@ -14,6 +14,7 @@ import { StateEnum } from '@renderer/enum/state.enum';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
+import { CommandModel } from '@renderer/model/command.model';
 
 @Component({
   selector: 'app-query',
@@ -30,6 +31,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     cancel: true
   };
   responseTableData: ResponseDataModel[] = new Array();
+  executeCommands: CommandModel[] = new Array();
   editorContainers = [];
   resultContainers = [];
   loadingContainers = [];
@@ -50,6 +52,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+    this.executeCommands.push(new CommandModel('EXPLAIN ...', 'EXPLAIN {0}'));
   }
 
   ngAfterViewInit(): void {
@@ -165,5 +168,14 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   handlerQuickQueryProcessor(sql?: string) {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
     codeMirror.setValue(sql);
+  }
+
+  handlerExecuteCommand(command: CommandModel) {
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    let sql = codeMirror.getValue();
+    if (StringUtils.isNotEmpty(codeMirror.getSelection())) {
+      sql = codeMirror.getSelection();
+    }
+    this.handlerExecute(StringUtils.format(command.format, [sql]));
   }
 }

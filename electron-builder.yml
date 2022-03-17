@@ -9,29 +9,41 @@ releaseInfo:
     #### Enhancement
     ---
 
-    - Support Nullable column
-    - Optional parameters are supported
-    - Support version update check
-    - Support to clear partition data by filtering criteria
-    - Supports data migration
+    - Support visual construction of data table and configuration of optional parameters
+    - Add data source list to display service version information
+    - Add editor execution status feedback
+    - Add ancillary information such as execution result and time
+    - SQL shortcut keys can be executed by Ctrl+Enter [#102](https://github.com/EdurtIO/dbm/issues/102)
+    - Support for data source maxTotal configuration (experimental) [#102](https://github.com/EdurtIO/dbm/issues/102)
+    - Add `SHOW PARTITIONS` quick query
+    - The `EXPLAIN` command is supported
+    - Metadata management delete data table supports quick input of table name
 
     #### Docs
     ---
 
-    - Support For Chinese documents
+    - Add contributing software documentation guide
 
     #### Optimize
     ----
 
-    - Optimize database deletion UI
+    - Optimized the display of metadata management disk usage
+    - Merge Query Select the query & query function
 
     #### Bug
     ---
 
-    - Fixed inability to build Log related engine tables
-    - Fix slow query list cannot display DDL
-    - Fix README.md file logo cannot be displayed
-    - Fix CI exceptions caused by the new version
+    - Fixed data source not paging problem in quick query
+    - Fixed the problem that metadata information cannot be distinguished due to multiple selections
+    - Fix top menu style exception
+    - Fix the problem that the metadata operation node is not refreshed [#101](https://github.com/EdurtIO/dbm/issues/101)
+
+    #### UI
+    ---
+
+    - New data source window layout
+    - Add nine editor themes
+    - Execute button to add shortcut key prompt
 
 directories:
   output: ./release

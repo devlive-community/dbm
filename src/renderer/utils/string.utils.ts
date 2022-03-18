@@ -51,4 +51,12 @@ export class StringUtils {
     }
     return defaultValue;
   }
+
+  /**
+   * Append backslashes
+   * @param value
+   */
+  public static appendBackslash(value: string) {
+    return value.replace(/\'/g, '\\\'');
+  }
 }

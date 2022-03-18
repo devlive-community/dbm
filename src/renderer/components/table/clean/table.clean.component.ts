@@ -8,89 +8,95 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { TableService } from '@renderer/services/management/table.service';
 import { ValidateUtils } from '@renderer/utils/validate.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { StringUtils } from '@renderer/utils/string.utils';
 
 @Component({
-    selector: 'app-component-clean-table',
-    templateUrl: './table.clean.component.html'
+  selector: 'app-component-clean-table',
+  templateUrl: './table.clean.component.html'
 })
 export class CleanTableComponent extends BaseComponent implements AfterViewInit {
-    @Input()
-    config: ConfigModel;
-    @Input()
-    value: string;
-    @Input()
-    database: string;
-    @Output()
-    emitter = new EventEmitter<any>();
-    allowValue = {
-        partition: null,
-        logic: null
-    };
-    partitions: any[];
-    allowPartitions: any[];
-    logic = LogicEnum;
+  @Input()
+  config: ConfigModel;
+  @Input()
+  value: string;
+  @Input()
+  database: string;
+  @Output()
+  emitter = new EventEmitter<any>();
+  allowValue = {
+    partition: null,
+    logic: null
+  };
+  partitions: any[];
+  allowPartitions: any[];
+  logic = LogicEnum;
 
-    constructor(private dataSourceService: DatasourceService,
-        private tableService: TableService,
-        private messageService: NzMessageService) {
-        super();
-    }
+  constructor(private dataSourceService: DatasourceService,
+              private tableService: TableService,
+              private messageService: NzMessageService) {
+    super();
+  }
 
-    ngAfterViewInit(): void {
-        this.tableService.getPartitions(this.handlerGetRequest(), this.handlerGetDatabaseModel())
-            .then(response => {
-                if (response.status) {
-                    this.partitions = response.data.columns;
-                } else {
-                    this.messageService.error(response.message);
-                }
-            });
-    }
+  ngAfterViewInit(): void {
+    this.tableService.getPartitions(this.handlerGetRequest(), this.handlerGetDatabaseModel())
+    .then(response => {
+      if (response.status) {
+        this.partitions = response.data.columns;
+      } else {
+        this.messageService.error(response.message);
+      }
+    });
+  }
 
-    handlerGetRequest(): RequestModel {
-        const request = new RequestModel();
-        request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
-        return request;
-    }
+  handlerGetRequest(): RequestModel {
+    const request = new RequestModel();
+    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    return request;
+  }
 
-    handlerGetDatabaseModel(): DatabaseModel {
-        const _value = new DatabaseModel();
-        _value.database = this.database;
-        _value.name = this.value;
-        return _value;
-    }
+  handlerGetDatabaseModel(): DatabaseModel {
+    const _value = new DatabaseModel();
+    _value.database = this.database;
+    _value.name = this.value;
+    return _value;
+  }
 
-    handlerValidate() {
-        if (ValidateUtils.validate(this.allowValue)) {
-            this.tableService.getPartitions(this.handlerGetRequest(), this.handlerGetDatabaseModel(), this.allowValue.partition, this.allowValue.logic)
-                .then(response => {
-                    if (response.status) {
-                        this.allowPartitions = response.data.columns;
-                        if (this.allowPartitions?.length > 0) {
-                            this.disabled.button = false;
-                        } else {
-                            this.disabled.button = false;
-                        }
-                    } else {
-                        this.messageService.error(response.message);
-                    }
-                });
+  handlerValidate() {
+    if (ValidateUtils.validate(this.allowValue)) {
+      this.tableService.getPartitions(this.handlerGetRequest(),
+        this.handlerGetDatabaseModel(),
+        StringUtils.appendBackslash(this.allowValue.partition),
+        this.allowValue.logic)
+      .then(response => {
+        if (response.status) {
+          this.allowPartitions = response.data.columns;
+          if (this.allowPartitions?.length > 0) {
+            this.disabled.button = false;
+          } else {
+            this.disabled.button = false;
+          }
         } else {
-            this.disabled.button = true;
+          this.messageService.error(response.message);
         }
+      });
+    } else {
+      this.disabled.button = true;
     }
+  }
 
-    handlerClean(value: string) {
-        this.loading.button = true;
-        this.tableService.clean(this.handlerGetRequest(), this.handlerGetDatabaseModel(), value)
-            .then(response => {
-                if (response.status) {
-                    this.messageService.success(response.message);
-                    this.allowPartitions = this.allowPartitions.filter(v => v.partition !== value);
-                } else {
-                    this.messageService.error(response.message);
-                }
-                this.loading.button = false;
-            });
-    }
+  handlerClean(value: string) {
+    this.loading.button = true;
+    this.tableService.clean(this.handlerGetRequest(),
+      this.handlerGetDatabaseModel(),
+      StringUtils.appendBackslash(value))
+    .then(response => {
+      if (response.status) {
+        this.messageService.success(response.message);
+        this.allowPartitions = this.allowPartitions.filter(v => v.id !== value);
+      } else {
+        this.messageService.error(response.message);
+      }
+      this.loading.button = false;
+    });
+  }
 }

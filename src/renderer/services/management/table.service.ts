@@ -76,7 +76,7 @@ export class TableService implements BaseService {
   }
 
   clean(request: RequestModel, value: DatabaseModel, partition: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('ALTER TABLE {0} DROP PARTITION \'{1}\'',
+    const sql = StringUtils.format('ALTER TABLE {0} DROP PARTITION ID \'{1}\'',
       [SqlUtils.getTableName(value.database, value.name), partition]);
     return this.getResponse(request, sql);
   }
@@ -98,6 +98,7 @@ export class TableService implements BaseService {
     let sql = StringUtils.format(`
       SELECT
         DISTINCT "partition" AS "partition",
+        partition_id AS id,
         "database",
         "table"
       FROM
@@ -111,6 +112,7 @@ export class TableService implements BaseService {
       sql = StringUtils.format(`
       SELECT
         DISTINCT "partition" AS "partition",
+        partition_id AS id,
         "database",
         "table"
       FROM

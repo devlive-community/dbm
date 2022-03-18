@@ -7,7 +7,10 @@ forceCodeSigning: false
 releaseInfo:
   releaseNotes: |
     #### Enhancement
+
     ---
+
+    - Metadata management delete database supports quick input of database name
 
     #### Docs
     ---
@@ -16,7 +19,10 @@ releaseInfo:
     ----
 
     #### Bug
+
     ---
+
+    - Fix the problem of clearing multi-partition data
 
     #### UI
     ---

@@ -52,7 +52,13 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
-    this.executeCommands.push(new CommandModel('EXPLAIN ...', 'EXPLAIN {0}'));
+    this.executeCommands.push(new CommandModel('EXPLAIN ...', 'EXPLAIN {0}'),
+      new CommandModel('EXPLAIN AST ...', 'EXPLAIN AST {0}'),
+      new CommandModel('EXPLAIN SYNTAX ...', 'EXPLAIN SYNTAX {0}'),
+      new CommandModel('EXPLAIN PLAN ...', 'EXPLAIN PLAN {0}'),
+      new CommandModel('EXPLAIN PIPELINE ...', 'EXPLAIN PIPELINE {0}'),
+      new CommandModel('EXPLAIN ESTIMATE ...', 'EXPLAIN ESTIMATE {0}'),
+      new CommandModel('EXPLAIN TABLE OVERRIDE ...', 'EXPLAIN TABLE OVERRIDE {0}'));
   }
 
   ngAfterViewInit(): void {

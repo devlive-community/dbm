@@ -140,6 +140,8 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.disabledButton.execute = false;
     this.loading.button = false;
     this.disabledButton.cancel = true;
+    this.processorContainers[this.containerSelected].icon = 'ban';
+    this.processorContainers[this.containerSelected].color = '#f50';
   }
 
   handlerAddContainer() {

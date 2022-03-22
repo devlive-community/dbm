@@ -20,6 +20,7 @@
 <ng-template #titleTemplate>
   <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
              style="width: 150px; margin-right: 8px;"
+             [disabled]="loading.button"
              (ngModelChange)="handlerCheckStatus()">
     <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
                nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>

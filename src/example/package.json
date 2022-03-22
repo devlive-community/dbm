@@ -1,6 +1,6 @@
 {
-  "name": "dbm",
-  "version": "1.13.0",
+  "name": "dbm-example",
+  "version": "1.0.0",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "ClickHouse DataBase GUI",
   "github": "https://github.com/EdurtIO/dbm.git",
@@ -16,6 +16,7 @@
     "dbm",
     "clickhouse"
   ],
+  "type": "commonjs",
   "publish": [
     {
       "provider": "generic",
@@ -26,7 +27,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
-    "dev": "npm run script:tsc && node --max-old-space-size=4096 scripts/app-runner/index.js",
+    "dev": "npm run script:tsc && node scripts/app-runner/index.js",
     "build": "npm run pack:main && npm run pack:renderer",
     "release": "npm run build && electron-builder build --publish never",
     "release:win": "npm run build && electron-builder build --publish never --win",

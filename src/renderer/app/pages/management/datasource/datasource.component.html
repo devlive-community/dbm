@@ -24,7 +24,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of basicTable.data">
+      <tr *ngFor="let data of basicTable.data" style="{{!data.status ? 'color: #F50;': ''}}">
         <td>{{data.alias}}</td>
         <td>{{data.name ? data.name : '-'}}</td>
         <td>{{data.host}}</td>
@@ -43,6 +43,10 @@
           <button nz-button nzShape="circle" nzSize="small" nzType="primary"
                   nz-tooltip nzTooltipTitle="{{'common.edit' | translate}}">
             <i class="fa fa-edit" (click)="handlerOpenModal(2, data.alias)"></i>
+          </button>
+          <button *ngIf="!data.status" nz-button nzShape="circle" nzSize="small" nzType="primary"
+                  nzDanger (click)="handlerShowMessage(data.alias, data?.message?.message)">
+            <i class="fa fa-warning"></i>
           </button>
         </td>
       </tr>

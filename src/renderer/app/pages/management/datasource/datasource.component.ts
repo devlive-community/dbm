@@ -10,6 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { SourceTypeConfig } from '@renderer/config/source.type.config';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { BaseModel } from '@renderer/model/base.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-management-datasource',
@@ -42,6 +45,8 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
+              private translateService: TranslateService,
+              private nzModalService: NzModalService,
               private datasourceJob: DatasourceJob,
               private formBuilder: FormBuilder) {
     super();
@@ -182,5 +187,13 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   handlerPrevious() {
     this.currentStep--;
     this.handlerResetButton();
+  }
+
+  handlerShowMessage(title: string, message: string) {
+    this.nzModalService.error({
+      nzTitle: title,
+      nzContent: message,
+      nzOkText: this.translateService.instant('common.ok')
+    });
   }
 }

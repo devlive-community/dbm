@@ -9,6 +9,7 @@ import { DatasourceJob } from '@renderer/job/datasource.job';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -31,7 +32,8 @@ const DATASOURCE_ROUTES: Routes = [
   ],
   providers: [
     DatasourceService,
-    DatasourceJob
+    DatasourceJob,
+    NzModalService
   ]
 })
 export class DatasourceModule {

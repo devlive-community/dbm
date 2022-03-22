@@ -25,9 +25,12 @@ releaseInfo:
 
     - Fix the problem of clearing multi-partition data
     - Fix run dev Last few GCs
+    - Fixed editor state not resetting after cancel execution
 
     #### UI
     ---
+
+    - The status of the metadata management service request failure is red
 
 directories:
   output: ./release

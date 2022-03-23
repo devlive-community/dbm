@@ -34,6 +34,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @NgModule({
   declarations: [],
@@ -72,7 +73,8 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
     NzSpinModule,
     NzResultModule,
     NzCollapseModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzPaginationModule
   ]
 })
 export class NgZorroAntdModule {

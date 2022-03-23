@@ -12,6 +12,7 @@ import { LineChartsComponent } from '@renderer/components/charts/line/line.chart
 import { ChartModule } from 'angular-highcharts';
 import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.component';
 import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
+import { TableModule } from 'ngx-easy-table';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivid
     FormsModule,
     CommonModule,
     ServiceModule,
-    ChartModule
+    ChartModule,
+    TableModule
   ],
   declarations: [
     DdlQueryComponent,

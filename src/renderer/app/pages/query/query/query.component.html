@@ -81,6 +81,9 @@
       </nz-skeleton>
       <ng-template #hasValues>
         <div *ngIf="!loadingContainers[i].loading && responseTableData[i]?.statistics">
+          <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.rows'|translate}}">
+            <i class="fa fa-columns"></i> {{responseTableData[i].rows}}
+          </nz-tag>
           <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.elapsed'|translate}}">
             <i class="fa fa-clock-o"></i> {{responseTableData[i].statistics.elapsed}}
           </nz-tag>

@@ -38,6 +38,7 @@ releaseInfo:
 
     - The status of the metadata management service request failure is red
     - Metadata Management Property menu Added the number of submenus to display
+    - Add the total number of rows returned from the query result
 
 directories:
   output: ./release

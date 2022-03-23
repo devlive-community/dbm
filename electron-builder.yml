@@ -28,9 +28,11 @@ releaseInfo:
     - Fixed editor state not resetting after cancel execution
 
     #### UI
+
     ---
 
     - The status of the metadata management service request failure is red
+    - Metadata Management Property menu Added the number of submenus to display
 
 directories:
   output: ./release

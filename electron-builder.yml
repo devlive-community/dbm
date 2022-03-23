@@ -17,7 +17,10 @@ releaseInfo:
     ---
 
     #### Optimize
+
     ----
+
+    - Optimize metadata management to delete data columns
 
     #### Bug
 

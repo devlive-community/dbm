@@ -34,7 +34,8 @@
               "src/renderer/assets"
             ],
             "styles": [
-              "src/renderer/styles.scss"
+              "src/renderer/styles.scss",
+              "node_modules/ngx-easy-table/style.css"
             ],
             "scripts": [],
             "customWebpackConfig": {

@@ -21,6 +21,7 @@ releaseInfo:
     ----
 
     - Optimize metadata management to delete data columns
+    - Optimize the query result display table
 
     #### Bug
 

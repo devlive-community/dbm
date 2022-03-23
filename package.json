@@ -59,6 +59,7 @@
     "moment": "^2.29.1",
     "ng-zorro-antd": "^12.1.0",
     "ngx-clipboard": "^14.0.2",
+    "ngx-easy-table": "^15.2.0",
     "ngx-markdown": "^13.1.0",
     "node-sql-parser": "^4.1.1",
     "rxjs": "~6.6.0",

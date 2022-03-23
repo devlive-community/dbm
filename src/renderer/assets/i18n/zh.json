@@ -126,7 +126,10 @@
     "clickhouse": "ClickHouse",
     "advanced": "高级",
     "maxTotal": "最大总数",
-    "quicklyEnter": "快速输入"
+    "quicklyEnter": "快速输入",
+    "export": "导出",
+    "csv": "CSV",
+    "result": "结果"
   },
   "language": {
     "english": "英语",

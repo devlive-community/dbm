@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
+import { ExportToCsv } from 'export-to-csv';
+import { StringUtils } from '@renderer/utils/string.utils';
+import { TranslateService } from '@ngx-translate/core';
 
-const minAndMax = 3000;
+const lodash = require('lodash');
 
 @Component({
   selector: 'app-component-basic-table',
@@ -14,7 +17,7 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
   public configuration: Config;
   public headers: Columns[] = new Array();
 
-  constructor() {
+  constructor(private translateService: TranslateService) {
     super();
     this.configuration = {...DefaultConfig};
     this.configuration.horizontalScroll = true;
@@ -30,11 +33,23 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
     }, 0);
   }
 
-  handlerAnalysisWidth(): number {
-    let width = this.value?.columns.length * 100 + 360;
-    if (width > minAndMax) {
-      width = minAndMax;
-    }
-    return width;
+  handlerExportToCSV(): void {
+    const filename = StringUtils.format('{0}{1}-{2}',
+      [this.translateService.instant('common.query'),
+        this.translateService.instant('common.result'),
+        lodash.now().toString()]);
+    const options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalSeparator: '.',
+      showLabels: true,
+      showTitle: false,
+      useTextFile: false,
+      useBom: true,
+      filename: filename,
+      useKeysAsHeaders: true
+    };
+    const csvExporter = new ExportToCsv(options);
+    csvExporter.generateCsv(this.value.columns);
   }
 }

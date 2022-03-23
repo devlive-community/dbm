@@ -126,7 +126,10 @@
     "clickhouse": "ClickHouse",
     "advanced": "Advanced",
     "maxTotal": "MaxTotal",
-    "quicklyEnter": "Quickly enter"
+    "quicklyEnter": "Quickly enter",
+    "export": "Export",
+    "csv": "CSV",
+    "result": "Result"
   },
   "language": {
     "english": "English",

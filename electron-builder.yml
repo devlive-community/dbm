@@ -12,6 +12,7 @@ releaseInfo:
 
     - Metadata management delete database supports quick input of database name
     - Add `EXPLAIN AST`, `EXPLAIN SYNTAX`, `EXPLAIN PLAN`, `EXPLAIN PIPELINE`, `EXPLAIN ESTIMATE`, `EXPLAIN TABLE OVERRIDE`
+    - Query results can be exported to CSV files
 
     #### Docs
     ---

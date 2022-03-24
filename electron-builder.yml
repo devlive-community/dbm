@@ -23,6 +23,7 @@ releaseInfo:
 
     - Optimize metadata management to delete data columns
     - Optimize the query result display table
+    - Optimize the data table arrangement when deleting a database
 
     #### Bug
 
@@ -37,7 +38,7 @@ releaseInfo:
     ---
 
     - The status of the metadata management service request failure is red
-    - Metadata Management Property menu Added the number of submenus to display
+    - Metadata Management menu Added the number of submenus to display
     - Add the total number of rows returned from the query result
 
 directories:

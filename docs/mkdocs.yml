@@ -108,6 +108,9 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 plugins:
   - search
@@ -139,7 +142,8 @@ nav:
       - Monitor:
           - Processor: reference/Monitor-Processor.md
   - Release Note:
-      - 1.12.0: release/1.12.0-20220318.md
+      - Development Version: development/version/1.13.0-development.md
+      - 1.12.0 (latest): release/1.12.0-20220318.md
       - 1.11.0: release/1.11.0-20220222.md
       - 1.10.0: release/1.10.0-20220127.md
       - 1.9.0: release/1.9.0-20211130.md

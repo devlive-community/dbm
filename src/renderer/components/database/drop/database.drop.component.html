@@ -1,5 +1,5 @@
 <nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false"
-          nzTitle="{{'common.delete'|translate}} {{'common.database'|translate}}" nzWidth="70%">
+          nzTitle="{{'common.delete'|translate}} {{'common.database'|translate}}" nzWidth="80%">
   <div *nzModalContent>
     <form nz-form>
       <nz-form-item>
@@ -43,9 +43,13 @@
               <nz-collapse-panel nzHeader="{{'common.table'|translate}} {{tables?.length}}">
                 <nz-alert nzType="error" nzMessage="Delete all data tables before deleting the database"
                           style="margin-bottom: 10px;"></nz-alert>
-                <nz-tag [nzColor]="'blue'" *ngFor="let table of tables">
-                  {{table.name}}
-                </nz-tag>
+                <nz-table nzPageSize="20" #progressItemsTable [nzData]="tables" nzTableLayout="fixed">
+                  <tbody nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
+                  <tr nzEllipsis *ngFor="let item of progressItemsTable.data; let i = index" nz-col nzSpan="6">
+                    <nz-tag [nzColor]="'blue'">{{item.name}}</nz-tag>
+                  </tr>
+                  </tbody>
+                </nz-table>
               </nz-collapse-panel>
             </nz-collapse>
           </ng-template>

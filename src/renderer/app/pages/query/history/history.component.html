@@ -9,26 +9,27 @@
   </nz-empty>
   <ng-template #notHasValues>
     <div class="table-body-flex">
-      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}" nzSize="small">
+      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
+                nzSize="small" nzTableLayout="fixed">
         <thead>
         <tr>
-          <th>{{'common.id' | translate}}</th>
-          <th>{{'common.server' | translate}}</th>
-          <th>{{'common.state' | translate}}</th>
-          <th>{{'common.start' | translate}}{{'common.time' | translate}}</th>
-          <th>{{'common.end' | translate}}{{'common.time' | translate}}</th>
-          <th>{{'common.elapsed' | translate}}{{'common.time' | translate}}</th>
-          <th>{{'common.action' | translate}}</th>
+          <th nzEllipsis>{{'common.id' | translate}}</th>
+          <th nzEllipsis>{{'common.server' | translate}}</th>
+          <th nzEllipsis>{{'common.state' | translate}}</th>
+          <th nzEllipsis>{{'common.start' | translate}}{{'common.time' | translate}}</th>
+          <th nzEllipsis>{{'common.end' | translate}}{{'common.time' | translate}}</th>
+          <th nzEllipsis>{{'common.elapsed' | translate}}{{'common.time' | translate}}</th>
+          <th nzEllipsis>{{'common.action' | translate}}</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let data of basicTable.data">
-          <td>{{data.id}}</td>
-          <td>{{data.server}}</td>
-          <td>{{data.state}}</td>
-          <td>{{data.startTime}}</td>
-          <td>{{data.endTime}}</td>
-          <td>{{data.elapsedTime}}</td>
+        <tr *ngFor="let data of basicTable.data"  style="{{data.state ? 'color: #F50;': ''}}">
+          <td nzEllipsis>{{data.id}}</td>
+          <td nzEllipsis>{{data.server}}</td>
+          <td nzEllipsis>{{data.state}}</td>
+          <td nzEllipsis>{{data.startTime}}</td>
+          <td nzEllipsis>{{data.endTime}}</td>
+          <td nzEllipsis>{{data.elapsedTime}}</td>
           <td>
             <button nz-button nzShape="circle" nzSize="small" nzType="primary"
                     nz-tooltip nzTooltipTitle="{{'common.ddl' | translate}}"

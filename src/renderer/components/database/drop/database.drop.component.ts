@@ -8,6 +8,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { RequestModel } from '@renderer/model/request.model';
 import { MenuModel } from '@renderer/model/menu.model';
 import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
+import { ResponseDataModel } from '@renderer/model/response.model';
+import { DatabaseModel } from '@renderer/model/database.model';
+import { TableService } from '@renderer/services/management/table.service';
 
 @Component({
   selector: 'app-component-database-drop',
@@ -28,11 +31,13 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
   emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
   getTables = false;
-  tables: any[];
+  tables: ResponseDataModel;
+  deleteTable = false;
 
   constructor(private dataSourceService: DatasourceService,
               private metadataService: MetadataService,
               private databaseService: DatabaseService,
+              private tableService: TableService,
               private messageService: NzMessageService) {
     super();
   }
@@ -49,7 +54,7 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
     this.databaseService.getTables(request, this.value).then(response => {
       if (response.status) {
-        this.tables = response.data.columns;
+        this.tables = response.data;
       } else {
         this.messageService.error(response.message);
       }
@@ -63,7 +68,7 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
   }
 
   handlerValidate() {
-    if (this.inputValue === this.value && this.tables?.length <= 0) {
+    if (this.inputValue === this.value && this.tables?.columns?.length <= 0) {
       this.disabled.button = false;
     } else {
       this.disabled.button = true;
@@ -91,5 +96,23 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
   handlerQuicklyEnter() {
     this.inputValue = this.value;
     this.handlerValidate();
+  }
+
+  handlerDeleteTable(table: any) {
+    this.deleteTable = true;
+    const request = new RequestModel();
+    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    const _value = new DatabaseModel();
+    _value.database = this.value;
+    _value.name = table.name;
+    this.tableService.delete(request, _value).then(response => {
+      if (response.status) {
+        this.messageService.success(response.message);
+        this.handlerCheckTables();
+      } else {
+        this.messageService.error(response.message);
+      }
+      this.deleteTable = false;
+    });
   }
 }

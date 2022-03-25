@@ -21,7 +21,7 @@ export class DatabaseService implements BaseService {
     }
 
     getTables(request: RequestModel, database: string): Promise<ResponseModel> {
-        const sql = StringUtils.format(`SELECT name, engine FROM system.tables WHERE database = '{0}'`,
+        const sql = StringUtils.format(`SELECT name, engine, total_rows AS totalRows, formatReadableSize(total_bytes) AS totalSize FROM system.tables WHERE database = '{0}'`,
             [database]);
         return this.getResponse(request, sql);
     }

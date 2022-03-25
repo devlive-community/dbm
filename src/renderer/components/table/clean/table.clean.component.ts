@@ -9,6 +9,7 @@ import { TableService } from '@renderer/services/management/table.service';
 import { ValidateUtils } from '@renderer/utils/validate.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { ResponseDataModel } from '@renderer/model/response.model';
 
 @Component({
   selector: 'app-component-clean-table',
@@ -28,8 +29,9 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     logic: null
   };
   partitions: any[];
-  allowPartitions: any[];
+  allowPartitions: ResponseDataModel;
   logic = LogicEnum;
+  deletePartition = false;
 
   constructor(private dataSourceService: DatasourceService,
               private tableService: TableService,
@@ -63,14 +65,15 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
 
   handlerValidate() {
     if (ValidateUtils.validate(this.allowValue)) {
+      this.deletePartition = true;
       this.tableService.getPartitions(this.handlerGetRequest(),
         this.handlerGetDatabaseModel(),
         StringUtils.appendBackslash(this.allowValue.partition),
         this.allowValue.logic)
       .then(response => {
         if (response.status) {
-          this.allowPartitions = response.data.columns;
-          if (this.allowPartitions?.length > 0) {
+          this.allowPartitions = response.data;
+          if (this.allowPartitions?.columns.length > 0) {
             this.disabled.button = false;
           } else {
             this.disabled.button = false;
@@ -78,6 +81,7 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
         } else {
           this.messageService.error(response.message);
         }
+        this.deletePartition = false;
       });
     } else {
       this.disabled.button = true;
@@ -92,7 +96,8 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     .then(response => {
       if (response.status) {
         this.messageService.success(response.message);
-        this.allowPartitions = this.allowPartitions.filter(v => v.id !== value);
+        this.handlerValidate();
+        // this.allowPartitions = this.allowPartitions?.columns.filter(v => v.id !== value);
       } else {
         this.messageService.error(response.message);
       }

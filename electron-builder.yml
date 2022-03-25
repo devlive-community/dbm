@@ -24,7 +24,7 @@ releaseInfo:
 
     - Optimize metadata management to delete data columns
     - Optimize the query result display table
-    - Optimize the data table arrangement when deleting a database
+    - Optimized data arrangement of deleted data partitions
 
     #### Bug
 

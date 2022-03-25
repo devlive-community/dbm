@@ -55,6 +55,7 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     this.databaseService.getTables(request, this.value).then(response => {
       if (response.status) {
         this.tables = response.data;
+        this.handlerValidate();
       } else {
         this.messageService.error(response.message);
       }

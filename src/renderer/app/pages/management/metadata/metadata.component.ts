@@ -93,8 +93,6 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
-          node.origin.title = StringUtils.format('{0} ({1})',
-            [node.origin.key, response.data.columns.length]);
           // clear old data
           node['children'] = [];
           node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
@@ -176,8 +174,6 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
-          node.origin.title = StringUtils.format('{0} ({1})',
-            [node.origin.title, response.data.columns.length]);
           node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
         } else {
           // this.messageService.error(response.message);

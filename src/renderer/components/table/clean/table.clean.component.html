@@ -43,20 +43,43 @@
         </div>
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item *ngIf="allowPartitions?.length > 0">
+    <nz-form-item *ngIf="allowPartitions?.columns.length > 0">
       <nz-form-control [nzSm]="24" [nzXs]="24">
-        <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
-          <div *ngFor="let item of allowPartitions; let i = index" nz-col nzSpan="4">
-            <nz-tag [nzColor]="'#2db7f5'">
-              {{item.partition}}
-              <button nz-button nzType="text" nzDanger [disabled]="disabled.button"
-                      style="margin-right: -8px;" [nzLoading]="loading.button"
-                      (click)="handlerClean(item.id)">
-                <span *ngIf="!loading.button" class="fa fa-minus-circle"></span>
+        <nz-table #basicTable [nzData]="allowPartitions?.columns" nzSize="small" nzTableLayout="fixed">
+          <thead>
+          <tr>
+            <th *ngFor="let header of allowPartitions?.headers" nzEllipsis>
+              <div nz-popover nzPopoverTrigger="click" nzPopoverContent="{{header?.name}}">
+                {{header?.name}}
+              </div>
+            </th>
+            <th nzEllipsis>{{'common.action' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let column of basicTable.data">
+            <td *ngFor="let header of allowPartitions?.headers" nzEllipsis>
+              <div nz-popover nzPopoverTrigger="click" nzPopoverTitle="{{header.name}}"
+                   nzPopoverContent="{{column[header.name]}}">
+                {{column[header.name]}}
+              </div>
+            </td>
+            <td>
+              <button nz-button nzShape="circle" nzSize="small" nzDanger nz-tooltip
+                      nzTooltipTitle="{{'common.delete'|translate}} {{column.partition}}"
+                      nzTooltipPlacement="bottom"
+                      nz-popconfirm
+                      [disabled]="deletePartition"
+                      nzPopconfirmTitle="Are you sure?"
+                      nzOkText="{{'common.ok' | translate}}"
+                      nzCancelText="{{'common.cancel' | translate}}"
+                      (nzOnConfirm)="handlerClean(column.id)">
+                <i class="fa fa-trash-o"></i>
               </button>
-            </nz-tag>
-          </div>
-        </div>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
       </nz-form-control>
     </nz-form-item>
   </form>

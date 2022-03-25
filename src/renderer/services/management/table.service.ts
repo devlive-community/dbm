@@ -97,32 +97,28 @@ export class TableService implements BaseService {
   getPartitions(request: RequestModel, value: DatabaseModel, partition?: string, logic?: LogicEnum): Promise<ResponseModel> {
     let sql = StringUtils.format(`
       SELECT
-        DISTINCT "partition" AS "partition",
-        partition_id AS id,
-        "database",
-        "table"
+        DISTINCT "partition" AS "partition", partition_id AS id,
+        engine, SUM(rows) AS rows, formatReadableSize(SUM(bytes_on_disk)) AS size
       FROM
         "system".parts
       WHERE
         "database" = '{0}'
         AND "table" = '{1}'
-      ORDER BY
-        modification_time DESC`, [value.database, value.name]);
+      GROUP BY "partition", partition_id, engine
+      ORDER BY "partition" ASC`, [value.database, value.name]);
     if (StringUtils.isNotEmpty(partition) && StringUtils.isNotEmpty(logic)) {
       sql = StringUtils.format(`
       SELECT
-        DISTINCT "partition" AS "partition",
-        partition_id AS id,
-        "database",
-        "table"
+        DISTINCT "partition" AS "partition", partition_id AS id,
+        engine, SUM(rows) AS rows, formatReadableSize(SUM(bytes_on_disk)) AS size
       FROM
         "system".parts
       WHERE
         "database" = '{0}'
         AND "table" = '{1}'
         AND "partition" {2} '{3}'
-      ORDER BY
-        modification_time DESC`, [value.database, value.name, logic, partition]);
+      GROUP BY "partition", partition_id, engine
+      ORDER BY "partition" ASC`, [value.database, value.name, logic, partition]);
     }
     return this.getResponse(request, sql);
   }

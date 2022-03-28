@@ -7,7 +7,7 @@
       <li nz-menu-item (click)="handlerExportToCSV()">{{'common.csv'|translate}}</li>
     </ul>
   </nz-dropdown-menu>
-  <ngx-table [data]="value.columns"
+  <ngx-table [id]="id" [data]="value.columns"
              [configuration]="configuration" [columns]="headers">
   </ngx-table>
 </div>

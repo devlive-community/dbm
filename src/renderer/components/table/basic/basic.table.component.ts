@@ -4,6 +4,7 @@ import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ExportToCsv } from 'export-to-csv';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateService } from '@ngx-translate/core';
+import { Md5 } from 'ts-md5';
 
 const lodash = require('lodash');
 
@@ -16,6 +17,7 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
   value: { headers: { name: string; value: string }[], columns: [] };
   public configuration: Config;
   public headers: Columns[] = new Array();
+  public id: string;
 
   constructor(private translateService: TranslateService) {
     super();
@@ -23,6 +25,7 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
     this.configuration.horizontalScroll = true;
     this.configuration.paginationRangeEnabled = false;
     this.configuration.searchEnabled = true;
+    this.id = Md5.hashStr(new Date().toString());
   }
 
   ngAfterViewInit(): void {

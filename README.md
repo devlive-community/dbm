@@ -35,7 +35,7 @@ Workflow:
 
 [![Test by push](https://github.com/EdurtIO/dbm/actions/workflows/push-compile-test.yml/badge.svg)](https://github.com/EdurtIO/dbm/actions/workflows/push-compile-test.yml)
 
-[![Publish New Release](https://github.com/EdurtIO/dbm/actions/workflows/upload-to-release.yml/badge.svg)](https://github.com/EdurtIO/dbm/actions/workflows/upload-to-release.yml)
+[![Publish New Release](https://github.com/EdurtIO/dbm/actions/workflows/publish-release.yml/badge.svg)](https://github.com/EdurtIO/dbm/actions/workflows/upload-to-release.yml)
 
 [![Publish docs via GitHub Pages](https://github.com/EdurtIO/dbm/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/EdurtIO/dbm/actions/workflows/publish-docs.yml)
 

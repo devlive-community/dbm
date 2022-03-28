@@ -16,7 +16,10 @@ releaseInfo:
     - Support for deleting tables when deleting databases
 
     #### Docs
+
     ---
+
+    - Add install docs
 
     #### Optimize
 

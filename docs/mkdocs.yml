@@ -1,8 +1,8 @@
-site_name: DBM
+site_name: ClickHouse Gui Tools DBM
 site_url: https://dbm.incubator.edurt.io/
 site_author: qinamoQ
 site_description: >-
-  DBM Websites.
+  ClickHouse Database Gui Tools!
 
 repo_name: EdurtIO/dbm
 repo_url: https://github.com/EdurtIO/dbm
@@ -125,6 +125,7 @@ plugins:
         zh:
           Home: 主页
           Getting started: 准备开始
+          Installation: 安装
           Datasource: 数据源
           Query: 查询
           Monitor: 监控
@@ -137,6 +138,7 @@ plugins:
 nav:
   - Home: index.md
   - Getting started:
+      - Installation: reference/get_started/install.md
       - Datasource: reference/get_started_datasource.md
       - Query: reference/2.Get-Started-Query.md
       - Monitor:

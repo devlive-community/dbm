@@ -7,6 +7,7 @@ template: overrides/main.html
 ##### 重定向查询
 
 ---
+
 单击 <img src="http://images.edurt.io/2021/09/26/16326372138778.jpg" width="50" /> 顶部菜单栏中的菜单，出现下一个窗口
 
 ![](http://images.edurt.io/2021/09/26/16326381423772.jpg)

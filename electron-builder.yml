@@ -20,6 +20,7 @@ releaseInfo:
     ---
 
     - Add install docs
+    - Add query history docs
 
     #### Optimize
 
@@ -36,7 +37,6 @@ releaseInfo:
     - Fix the problem of clearing multi-partition data
     - Fix run dev Last few GCs
     - Fixed editor state not resetting after cancel execution
-    - Fix README.md file script pointing error
 
     #### UI
 

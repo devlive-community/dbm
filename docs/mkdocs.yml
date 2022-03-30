@@ -114,6 +114,9 @@ markdown_extensions:
 
 use_directory_urls: false
 
+extra_css:
+  - stylesheets/extra.css
+
 plugins:
   - search
   - i18n:
@@ -147,7 +150,7 @@ nav:
         - Query: reference/query/query_query.md
         - History: reference/query/query_history.md
       - Management:
-        - Datasource: reference/get_started_datasource.md
+        - Datasource: reference/management/management_datasource.md
       - Monitor:
         - Processor: reference/Monitor-Processor.md
   - Release Note:

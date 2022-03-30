@@ -10,43 +10,27 @@ releaseInfo:
 
     ---
 
-    - Metadata management delete database supports quick input of database name
-    - Add `EXPLAIN AST`, `EXPLAIN SYNTAX`, `EXPLAIN PLAN`, `EXPLAIN PIPELINE`, `EXPLAIN ESTIMATE`, `EXPLAIN TABLE OVERRIDE`
-    - Query results can be exported to CSV files
-    - Support for deleting tables when deleting databases
 
     #### Docs
 
     ---
 
-    - Add install docs
-    - Add query history docs
+    - Optimize data source management documentation
 
     #### Optimize
 
     ----
 
-    - Optimize metadata management to delete data columns
-    - Optimize the query result display table
-    - Optimized data arrangement of deleted data partitions
 
     #### Bug
 
     ---
 
-    - Fix the problem of clearing multi-partition data
-    - Fix run dev Last few GCs
-    - Fixed editor state not resetting after cancel execution
-    - Fix README.md file script pointing error
 
     #### UI
 
     ---
 
-    - The status of the metadata management service request failure is red
-    - Metadata Management menu Added the number of submenus to display
-    - Add the total number of rows returned from the query result
-    - Supports highlighting of abnormal data in query history execution
 
 directories:
   output: ./release

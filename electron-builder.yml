@@ -10,6 +10,7 @@ releaseInfo:
 
     ---
 
+    - Support visual build of MongoDB tables
 
     #### Docs
 

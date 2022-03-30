@@ -129,7 +129,8 @@
     "quicklyEnter": "快速输入",
     "export": "导出",
     "csv": "CSV",
-    "result": "结果"
+    "result": "结果",
+    "collection": "Collection"
   },
   "language": {
     "english": "英语",
@@ -159,7 +160,9 @@
     "skipBrokenMessages": "Skip Broken Messages",
     "commitEveryBatch": "Commit Every Batch",
     "threadPerConsumer": "Thread Per Consumer",
-    "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效"
+    "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效",
+    "collection": "Please input collection",
+    "options": "Options"
   },
   "tooltip": {
     "network": "访问远程服务器的时间(以秒为单位)",
@@ -192,7 +195,8 @@
       "hdfs": "允许从HDFS导入数据到ClickHouse",
       "jdbc": "允许ClickHouse通过JDBC连接到外部数据库",
       "sqlite": "The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.",
-      "odbc": "Allows ClickHouse to connect to external databases via ODBC"
+      "odbc": "Allows ClickHouse to connect to external databases via ODBC",
+      "mongodb": "MongoDB engine is read-only table engine which allows to read data (SELECT queries) from remote MongoDB collection. Engine supports only non-nested data types. INSERT queries are not supported."
     },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",
@@ -218,6 +222,14 @@
       "threadPerConsumer": "Provide independent thread for each consumer (default: 0). When enabled, every consumer flush the data independently, in parallel (otherwise — rows from several consumers squashed to form one block).",
       "setting": {
         "odbc": "Name of the section with connection settings in the odbc.ini file"
+      },
+      "mongodb": {
+        "uri": "MongoDB server address",
+        "collection": "Remote collection name",
+        "database": "Remote database name",
+        "username": "MongoDB user",
+        "password": "User password",
+        "options": "MongoDB connection string options (optional parameter)"
       }
     },
     "source": {

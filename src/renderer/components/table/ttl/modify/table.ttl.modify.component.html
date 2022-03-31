@@ -1,0 +1,68 @@
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-control [nzSm]="24" [nzXs]="24">
+        <nz-alert nzType="error" nzDescription="{{'alert.ttl'|translate}}"></nz-alert>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.database'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{database}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.table'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.ttl'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-radio-group name="custom" [(ngModel)]="ttlConfig.custom" (ngModelChange)="handlerSwitch()">
+          <label nz-radio [nzValue]="true">{{'common.custom'|translate}}</label>
+          <label nz-radio [nzValue]="false">{{'common.simple'|translate}}</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.configuration'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <div nz-row [nzGutter]="[8, 8]">
+          <div [nzSpan]="8" nz-col>
+            <nz-select name="column" [(ngModel)]="ttlConfig.column" (ngModelChange)="handlerValidate()">
+              <nz-option *ngFor="let column of columns" nzValue="{{column.name}}" nzLabel="{{column.name}}"></nz-option>
+            </nz-select>
+          </div>
+          <div *ngIf="ttlConfig.custom; else simpleTtlTemplate" [nzSpan]="20" nz-col>
+            <input name="customValue" nz-input [(ngModel)]="ttlConfig.value" (ngModelChange)="handlerValidate()"
+                   placeholder="date_time_column + INTERVAL 15 HOUR"/>
+          </div>
+          <ng-template #simpleTtlTemplate>
+            <div [nzSpan]="16" nz-col>
+              <div nz-row>
+                <nz-input-number name="ranger" [(ngModel)]="ttlConfig.ranger" [nzMin]="1" [nzStep]="1"
+                                 (ngModelChange)="handlerValidate()"></nz-input-number>
+                <div [nzSpan]="12" nz-col style="margin-left: 6px;">
+                  <nz-select name="value" [(ngModel)]="ttlConfig.value" (ngModelChange)="handlerValidate()">
+                    <nz-option *ngFor="let interval of intervals" nzValue="{{interval}}"
+                               nzLabel="{{interval}}"></nz-option>
+                  </nz-select>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" [disabled]="disabled.button" [nzLoading]="loading.button"
+            (click)="handlerSave()">
+      <span>{{'common.save'|translate}}</span>
+    </button>
+  </div>
+</div>

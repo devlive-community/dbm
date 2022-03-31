@@ -1,29 +1,34 @@
 <nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false" [nzFooter]="null"
-    nzTitle="{{'common.table'|translate}}{{'common.action'|translate}}" nzWidth="80%">
-    <div *nzModalContent>
-        <app-component-create-table *ngIf="menu.command === operation.create" [config]="config"
-            [value]="value?.origin?.key" (emitter)="handlerEmitter($event)">
-        </app-component-create-table>
-        <app-component-delete-table *ngIf="menu.command === operation.delete" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-delete-table>
-        <app-component-structure-table *ngIf="menu.command === operation.structure" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-structure-table>
-        <app-component-rename-table *ngIf="menu.command === operation.rename" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-rename-table>
-        <app-component-truncate-table *ngIf="menu.command === operation.truncate" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-truncate-table>
-        <app-component-clean-table *ngIf="menu.command === operation.clean" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-clean-table>
-        <app-component-optimize-table *ngIf="menu.command === operation.optimize" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-optimize-table>
-        <app-component-preview-table *ngIf="menu.command === operation.preview" [config]="config"
-            [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
-        </app-component-preview-table>
-    </div>
+          nzTitle="{{'common.table'|translate}}{{'common.action'|translate}}" nzWidth="80%">
+  <div *nzModalContent>
+    <app-component-create-table *ngIf="menu.command === operation.create" [config]="config"
+                                [value]="value?.origin?.key" (emitter)="handlerEmitter($event)">
+    </app-component-create-table>
+    <app-component-delete-table *ngIf="menu.command === operation.delete" [config]="config"
+                                [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+    </app-component-delete-table>
+    <app-component-structure-table *ngIf="menu.command === operation.structure" [config]="config"
+                                   [value]="value?.origin?.key" [database]="database"
+                                   (emitter)="handlerEmitter($event)">
+    </app-component-structure-table>
+    <app-component-rename-table *ngIf="menu.command === operation.rename" [config]="config"
+                                [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+    </app-component-rename-table>
+    <app-component-truncate-table *ngIf="menu.command === operation.truncate" [config]="config"
+                                  [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+    </app-component-truncate-table>
+    <app-component-clean-table *ngIf="menu.command === operation.clean" [config]="config"
+                               [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+    </app-component-clean-table>
+    <app-component-optimize-table *ngIf="menu.command === operation.optimize" [config]="config"
+                                  [value]="value?.origin?.key" [database]="database" (emitter)="handlerEmitter($event)">
+    </app-component-optimize-table>
+    <app-component-preview-table *ngIf="menu.command === operation.preview" [config]="config"
+                                 [value]="value?.origin?.key" [database]="database">
+    </app-component-preview-table>
+    <app-component-table-ttl-modify *ngIf="menu.command === operation.ttl_modify" [config]="config"
+                                    [value]="value?.origin?.key" [database]="database"
+                                    (emitter)="handlerEmitter($event)">
+    </app-component-table-ttl-modify>
+  </div>
 </nz-modal>

@@ -130,7 +130,11 @@
     "export": "导出",
     "csv": "CSV",
     "result": "结果",
-    "collection": "Collection"
+    "collection": "Collection",
+    "ttl": "TTL",
+    "custom": "自定义",
+    "simple": "简单",
+    "modify": "修改"
   },
   "language": {
     "english": "英语",
@@ -162,7 +166,8 @@
     "threadPerConsumer": "Thread Per Consumer",
     "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效",
     "collection": "Please input collection",
-    "options": "Options"
+    "options": "Options",
+    "ttl": "TTL"
   },
   "tooltip": {
     "network": "访问远程服务器的时间(以秒为单位)",
@@ -242,6 +247,7 @@
     "truncate": "该操作将删除所有数据，但不会删除表",
     "noversion": "当前已经是最新版本",
     "not_support_online": "当前暂不支持在线更新",
-    "table_grate_50": "暂不支持迁移大于50GB数据表"
+    "table_grate_50": "暂不支持迁移大于50GB数据表",
+    "ttl": "达到时间后，系统将根据配置的TTL值，删除整个表中的数据"
   }
 }

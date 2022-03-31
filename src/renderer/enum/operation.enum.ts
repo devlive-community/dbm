@@ -8,5 +8,7 @@ export enum OperationEnum {
   truncate = ('truncate'),
   clean = ('clean'),
   optimize = ('optimize'),
-  structure = ('structure')
+  structure = ('structure'),
+  ttl = ('ttl'),
+  ttl_modify = ('ttl_modify')
 }

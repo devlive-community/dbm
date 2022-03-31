@@ -131,7 +131,11 @@
     "csv": "CSV",
     "result": "Result",
     "collection": "Collection",
-    "options": "Options"
+    "options": "Options",
+    "ttl": "TTL",
+    "custom": "Custom",
+    "simple": "Simple",
+    "modify": "Modify"
   },
   "language": {
     "english": "English",
@@ -242,6 +246,7 @@
     "truncate": "This operation deletes all data, but does not delete the table",
     "noversion": "This is the latest version!",
     "not_support_online": "Currently, online updates are not supported",
-    "table_grate_50": "Data tables larger than 50GB cannot be migrated"
+    "table_grate_50": "Data tables larger than 50GB cannot be migrated",
+    "ttl": "When the time reaches, the system deletes data in the entire table based on the configured TTL"
   }
 }

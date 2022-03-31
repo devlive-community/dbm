@@ -11,6 +11,7 @@ import { HttpService } from '@renderer/services/http.service';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { UrlUtils } from '@renderer/utils/url.utils';
+import { TableTtlModel } from '@renderer/model/table/table.ttl.model';
 
 @Injectable()
 export class TableService implements BaseService {
@@ -125,6 +126,26 @@ export class TableService implements BaseService {
 
   getPreview(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
     const sql = StringUtils.format(`SELECT * FROM {0} LIMIT 10`, [SqlUtils.getTableName(value.database, value.name)]);
+    return this.getResponse(request, sql);
+  }
+
+  getTimeColumns(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`
+      SELECT name FROM "system"."columns"
+      WHERE "database" = '{0}' AND "table" = '{1}' AND type like 'Date%'`,
+      [value.database, value.name]);
+    return this.getResponse(request, sql);
+  }
+
+  modifyTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    let sql;
+    if (value.custom) {
+      sql = StringUtils.format('ALTER TABLE {0} MODIFY TTL `{1}` {2}',
+        [SqlUtils.getTableName(value.database, value.table), value.column, value.value]);
+    } else {
+      sql = StringUtils.format('ALTER TABLE {0} MODIFY TTL `{1}` + INTERVAL {2} {3}',
+        [SqlUtils.getTableName(value.database, value.table), value.column, value.ranger, value.value]);
+    }
     return this.getResponse(request, sql);
   }
 

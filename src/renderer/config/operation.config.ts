@@ -37,7 +37,8 @@ export class OperationConfig {
         type: TypeEnum.table,
         actions: [OperationEnum.ttl],
         children: [
-          {type: TypeEnum.table, actions: [OperationEnum.ttl_modify]}
+          {type: TypeEnum.table, actions: [OperationEnum.ttl_modify]},
+          {type: TypeEnum.table, actions: [OperationEnum.ttl_remove]}
         ]
       }
     ];

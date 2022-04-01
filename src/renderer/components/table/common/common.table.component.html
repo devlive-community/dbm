@@ -30,5 +30,9 @@
                                     [value]="value?.origin?.key" [database]="database"
                                     (emitter)="handlerEmitter($event)">
     </app-component-table-ttl-modify>
+    <app-component-table-ttl-remove *ngIf="menu.command === operation.ttl_remove" [config]="config"
+                                    [value]="value?.origin?.key" [database]="database"
+                                    (emitter)="handlerEmitter($event)">
+    </app-component-table-ttl-remove>
   </div>
 </nz-modal>

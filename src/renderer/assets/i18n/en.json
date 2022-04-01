@@ -135,7 +135,8 @@
     "ttl": "TTL",
     "custom": "Custom",
     "simple": "Simple",
-    "modify": "Modify"
+    "modify": "Modify",
+    "remove": "Remove"
   },
   "language": {
     "english": "English",
@@ -247,6 +248,7 @@
     "noversion": "This is the latest version!",
     "not_support_online": "Currently, online updates are not supported",
     "table_grate_50": "Data tables larger than 50GB cannot be migrated",
-    "ttl": "When the time reaches, the system deletes data in the entire table based on the configured TTL"
+    "ttl": "When the time reaches, the system deletes data in the entire table based on the configured TTL",
+    "ttl_remove": "After the TTL configuration is removed, the system will not delete data"
   }
 }

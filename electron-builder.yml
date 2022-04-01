@@ -13,6 +13,7 @@ releaseInfo:
     - Support visual build of MongoDB tables
     - Supports adding the TTL of the table visually
     - Support data source copy
+    - Supports remove the TTL of the table visually
 
     #### Docs
 

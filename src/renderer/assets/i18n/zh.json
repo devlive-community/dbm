@@ -134,7 +134,8 @@
     "ttl": "TTL",
     "custom": "自定义",
     "simple": "简单",
-    "modify": "修改"
+    "modify": "修改",
+    "remove": "移除"
   },
   "language": {
     "english": "英语",
@@ -248,6 +249,7 @@
     "noversion": "当前已经是最新版本",
     "not_support_online": "当前暂不支持在线更新",
     "table_grate_50": "暂不支持迁移大于50GB数据表",
-    "ttl": "达到时间后，系统将根据配置的TTL值，删除整个表中的数据"
+    "ttl": "达到时间后，系统将根据配置的TTL值，删除整个表中的数据",
+    "ttl_remove": "TTL配置移除后, 系统将不会在对数据进行删除操作"
   }
 }

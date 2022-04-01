@@ -149,6 +149,29 @@ export class TableService implements BaseService {
     return this.getResponse(request, sql);
   }
 
+  getTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`
+    SELECT
+      extract(engine_full, 'TTL [\\s\\S]*ETTINGS') AS full,
+      REPLACE(REPLACE(full, 'TTL', ''), ' SETTINGS', '') AS ttl,
+      splitByString('+', ttl) AS ttlArray,
+      trimBoth(arrayElement(ttlArray, 1)) AS "column",
+      extract(arrayElement(ttlArray, 2), '\\d+') AS value,
+      splitByString('(', replace(arrayElement(ttlArray, 2), 'toInterval', '')) AS rangerArray,
+      upperUTF8(arrayElement(rangerArray, 1)) AS ranger
+    FROM "system"."tables"
+    WHERE "database" = '{0}' AND "name" = '{1}'
+    `,
+      [value.database, value.table]);
+    return this.getResponse(request, sql);
+  }
+
+  removeTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`{0} REMOVE TTL`,
+      [SqlUtils.getAlterTablePrefix(value.database, value.table), ]);
+    return this.getResponse(request, sql);
+  }
+
   builderColumnsToString(columns: ColumnModel[]): string {
     let columnStr = '';
     columns.forEach((value, index) => {

@@ -36,6 +36,8 @@ import { RenameColumnComponent } from '@renderer/components/column/rename/column
 import { DatabaseService } from '@renderer/services/management/database.service';
 import { TableTtlModifyComponent } from '@renderer/components/table/ttl/modify/table.ttl.modify.component';
 import { TableTtlRemoveComponent } from '@renderer/components/table/ttl/remove/table.ttl.remove.component';
+import { CommonDatabaseComponent } from '@renderer/components/database/common/common.database.component';
+import { DatabaseRenameComponent } from '@renderer/components/database/rename/database.rename.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -75,7 +77,9 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     DeleteColumnComponent,
     RenameColumnComponent,
     TableTtlModifyComponent,
-    TableTtlRemoveComponent
+    TableTtlRemoveComponent,
+    CommonDatabaseComponent,
+    DatabaseRenameComponent
   ],
   providers: [
     DatasourceService,

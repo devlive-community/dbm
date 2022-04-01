@@ -136,7 +136,8 @@
     "custom": "Custom",
     "simple": "Simple",
     "modify": "Modify",
-    "remove": "Remove"
+    "remove": "Remove",
+    "status": "Status"
   },
   "language": {
     "english": "English",

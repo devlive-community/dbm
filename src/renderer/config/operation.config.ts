@@ -19,7 +19,8 @@ export class OperationConfig {
     database.operations = [
       {type: TypeEnum.table, actions: [OperationEnum.create]},
       {type: TypeEnum.database, actions: [OperationEnum.delete]},
-      {type: TypeEnum.database, actions: [OperationEnum.structure]}
+      {type: TypeEnum.database, actions: [OperationEnum.structure]},
+      {type: TypeEnum.database, actions: [OperationEnum.rename]}
     ];
     opertions.push(database);
     const table = new OperationModel();

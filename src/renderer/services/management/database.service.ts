@@ -30,7 +30,7 @@ export class DatabaseService implements BaseService {
     const sql = StringUtils.format(`
       SELECT
           name, engine, uuid,
-          if(upperUTF8(engine) == 'ATOMIC', true, false) AS isSupport
+          if(upperUTF8(engine) == 'ATOMIC', 1, 0) AS isSupport
       FROM system.databases
       WHERE name = '{0}'`, [database]);
     return this.getResponse(request, sql);

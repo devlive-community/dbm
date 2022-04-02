@@ -1,0 +1,8 @@
+<nz-modal (nzOnCancel)="handlerCancel()" [(nzVisible)]="visible" nzMaskClosable="false" [nzFooter]="null"
+          nzTitle="{{'common.database'|translate}}{{'common.action'|translate}}" nzWidth="80%">
+  <div *nzModalContent>
+    <app-component-rename-database *ngIf="menu.command === operation.rename" [config]="config"
+                                   [value]="value?.origin?.key" (emitter)="handlerEmitter($event)">
+    </app-component-rename-database>
+  </div>
+</nz-modal>

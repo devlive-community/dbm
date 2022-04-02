@@ -34,9 +34,13 @@ import { ColumnService } from '@renderer/services/management/column.service';
 import { DeleteColumnComponent } from '@renderer/components/column/delete/column.delete.component';
 import { RenameColumnComponent } from '@renderer/components/column/rename/column.rename.component';
 import { DatabaseService } from '@renderer/services/management/database.service';
+import { TableTtlModifyComponent } from '@renderer/components/table/ttl/modify/table.ttl.modify.component';
+import { TableTtlRemoveComponent } from '@renderer/components/table/ttl/remove/table.ttl.remove.component';
+import { CommonDatabaseComponent } from '@renderer/components/database/common/common.database.component';
+import { DatabaseRenameComponent } from '@renderer/components/database/rename/database.rename.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
-  { path: '', component: MetadataComponent }
+  {path: '', component: MetadataComponent}
 ];
 
 @NgModule({
@@ -71,7 +75,11 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     CommonColumnComponent,
     PreviewColumnComponent,
     DeleteColumnComponent,
-    RenameColumnComponent
+    RenameColumnComponent,
+    TableTtlModifyComponent,
+    TableTtlRemoveComponent,
+    CommonDatabaseComponent,
+    DatabaseRenameComponent
   ],
   providers: [
     DatasourceService,

@@ -1,6 +1,6 @@
 export class BaseComponent {
   keys = Object.keys;
-  
+
   loading = {
     button: false
   };

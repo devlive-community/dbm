@@ -12,9 +12,25 @@
     </ng-template>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item *ngFor="let item of contextMenus" (click)="handlerContextMenuClick(item)">
-          <i class="fa fa-{{item.icon}}"></i>&nbsp;{{item.title}}
-        </li>
+        <div *ngFor="let item of contextMenus">
+          <div *ngIf="item?.children; else notHasChildren">
+            <li nz-submenu [nzTitle]="subMenuTitle">
+              <ul>
+                <li *ngFor="let item of item.children" nz-menu-item (click)="handlerContextMenuClick(item)">
+                  <i class="fa fa-{{item.icon}}"></i>&nbsp;{{item.title}}
+                </li>
+              </ul>
+            </li>
+            <ng-template #subMenuTitle>
+              <i class="fa fa-{{item.icon}}"></i>&nbsp;{{item.title}}
+            </ng-template>
+          </div>
+          <ng-template #notHasChildren>
+            <li nz-menu-item (click)="handlerContextMenuClick(item)">
+              <i class="fa fa-{{item.icon}}"></i>&nbsp;{{item.title}}
+            </li>
+          </ng-template>
+        </div>
       </ul>
     </nz-dropdown-menu>
   </div>
@@ -79,6 +95,10 @@
                                   [value]="selectNode?.origin?.key"
                                   (emitter)="handlerContextMenuClose()">
 </app-component-database-structure>
+<app-component-common-database *ngIf="disabledComponent.database" [visible]="disabledComponent.database.common"
+                               [config]="rootNode" [value]="selectNode" [database]="database" [menu]="selectMenu"
+                               (emitter)="handlerContextMenuClosed($event)">
+</app-component-common-database>
 <app-component-common-table *ngIf="disabledComponent.table" [visible]="disabledComponent.table" [config]="rootNode"
                             [value]="selectNode" [database]="database" [menu]="selectMenu"
                             (emitter)="handlerContextMenuClosed($event)">

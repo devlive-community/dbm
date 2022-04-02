@@ -1,0 +1,38 @@
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-control [nzSm]="24" [nzXs]="24">
+        <nz-alert nzType="error" [nzMessage]="message" nzDescription="{{'alert.ttl_remove'|translate}}"></nz-alert>
+        <ng-template #message>
+          <nz-tag [nzColor]="'#f50'">{{'common.no_rollback'|translate}}</nz-tag>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.database'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{database}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.table'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.ttl'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{ttlConfig?.ttl}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" nzDanger [nzLoading]="loading.button"
+            (click)="handlerRemove()">
+      <span>{{'common.remove'|translate}}</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div>
+  <form nz-form>
+    <nz-form-item *ngIf="!checkStatus">
+      <nz-form-control [nzSm]="24" [nzXs]="24">
+        <nz-alert nzType="error" nzMessage="{{'alert.rename'|translate}}"></nz-alert>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.status'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="checkStatus ? '#87d068' : '#f50'">
+          <i class="fa fa-{{checkStatus ? 'check-circle' : 'times-circle'}}"></i>
+        </nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.table'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input [(ngModel)]="inputValue" [disabled]="!checkStatus" name="name" (change)="handlerValidate()"/>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" nzDanger [disabled]="disabled.button" [nzLoading]="loading.button"
+            (click)="handlerRename()">
+      <span>{{'common.rename'|translate}}</span>
+    </button>
+  </div>
+</div>

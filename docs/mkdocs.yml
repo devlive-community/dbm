@@ -137,6 +137,7 @@ plugins:
           Management: 管理
           Monitor: 监控
           Processor: 进程
+          Connection: 连接
           Release Note: 发布日志
           Development: 开发
           Document: 文档
@@ -152,7 +153,8 @@ nav:
       - Management:
         - Datasource: reference/management/management_datasource.md
       - Monitor:
-        - Processor: reference/Monitor-Processor.md
+          - Processor: reference/Monitor-Processor.md
+          - Connection: reference/monitor/monitor_connection.md
   - Release Note:
       - Development Version: development/version/1.14.0-development.md
       - 1.13.0 (latest): release/1.13.0-20220329.md

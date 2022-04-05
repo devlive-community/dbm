@@ -37,6 +37,8 @@ releaseInfo:
 
     ---
 
+    - Unavailable data source disallows click action
+
 
 directories:
   output: ./release

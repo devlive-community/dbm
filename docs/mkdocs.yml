@@ -129,7 +129,7 @@ plugins:
           Home: Home
         zh:
           Home: 主页
-          Getting started: 准备开始
+          Documentation: 文档
           Installation: 安装
           Datasource: 数据源
           Query: 查询
@@ -145,7 +145,7 @@ plugins:
 
 nav:
   - Home: index.md
-  - Getting started:
+  - Documentation:
       - Installation: reference/get_started/install.md
       - Query:
         - Query: reference/query/query_query.md

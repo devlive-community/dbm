@@ -13,5 +13,6 @@ export class ConfigModel extends BaseModel {
   isLeaf: boolean;
   status: boolean;
   menu: MenuModel;
+  disabled: boolean;
   currentNode: NzTreeNode;
 }

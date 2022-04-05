@@ -52,6 +52,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       configModel.value = k.alias;
       configModel.title = k.alias;
       configModel.type = TypeEnum.disk;
+      configModel.disabled = k.status ? false : true;
       return configModel;
     });
     this.nodes = datasourceConfigs;

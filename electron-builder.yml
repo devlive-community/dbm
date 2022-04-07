@@ -16,6 +16,7 @@ releaseInfo:
     - Supports remove the TTL of the table visually
     - Supports metadata management to change database names
     - Query history supports IndexDB storage
+    - Supports deleting a single query history
 
     #### Docs
 

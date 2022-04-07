@@ -26,8 +26,23 @@ export class QueryHistoryService extends PersistenceService implements BaseServi
     return queryHistories;
   }
 
-  clear() {
+  clear(): boolean {
     const db = new DexieDb();
-    db.QueryHistoryTable.clear();
+    try {
+      db.QueryHistoryTable.clear();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  deleteById(id: number): boolean {
+    const db = new DexieDb();
+    try {
+      db.QueryHistoryTable.delete(id);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

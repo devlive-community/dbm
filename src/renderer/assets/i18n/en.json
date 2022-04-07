@@ -137,7 +137,8 @@
     "simple": "Simple",
     "modify": "Modify",
     "remove": "Remove",
-    "status": "Status"
+    "status": "Status",
+    "success": "Success"
   },
   "language": {
     "english": "English",

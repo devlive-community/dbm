@@ -138,6 +138,7 @@ plugins:
           Monitor: 监控
           Processor: 进程
           Connection: 连接
+          Mutations: 变更
           Release Note: 发布日志
           Development: 开发
           Document: 文档
@@ -155,6 +156,7 @@ nav:
       - Monitor:
           - Processor: reference/Monitor-Processor.md
           - Connection: reference/monitor/monitor_connection.md
+          - Mutations: reference/monitor/monitor_mutations.md
   - Release Note:
       - Development Version: development/version/1.14.0-development.md
       - 1.13.0 (latest): release/1.13.0-20220329.md

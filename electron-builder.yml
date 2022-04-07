@@ -24,6 +24,7 @@ releaseInfo:
 
     - Optimize data source management documentation
     - Add Monitor --> Connection docs
+    - Add Monitor --> Mutations docs
 
     #### Optimize
 

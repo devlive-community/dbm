@@ -52,6 +52,7 @@
     "angular-highcharts": "^13.0.1",
     "codemirror": "^5.64.0",
     "conventional-changelog-cli": "^2.1.1",
+    "dexie": "^3.2.1",
     "electron-updater": "^4.6.1",
     "export-to-csv": "^0.2.1",
     "font-awesome": "^4.7.0",

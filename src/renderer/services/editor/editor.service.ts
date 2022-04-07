@@ -36,4 +36,12 @@ export class EditorService extends PersistenceService implements BaseService {
     const cache = JSON.parse(localStorage.getItem(Support.KEY_SYSTEM_SETTING_EDITOR));
     return cache === null ? new SystemEditorModel() : cache;
   }
+
+  clear(): boolean {
+    return false;
+  }
+
+  deleteById(id: number): boolean {
+    return false;
+  }
 }

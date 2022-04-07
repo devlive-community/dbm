@@ -8,5 +8,6 @@ export class QueryHistoryModel extends BaseModel {
   startTime: number;
   endTime: number;
   elapsedTime: number;
+  createdTime: number;
   message: string;
 }

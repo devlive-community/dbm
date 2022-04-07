@@ -1,6 +1,6 @@
-import { BaseModel } from '@renderer/model/base.model';
-
 export abstract class PersistenceService {
-  public abstract save(model: BaseModel): any;
-  public abstract getAll(): BaseModel[];
+  public abstract save(model: any): any;
+  public abstract getAll(): any[];
+  public abstract clear(): boolean;
+  public abstract deleteById(id: number): boolean;
 }

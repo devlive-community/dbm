@@ -3,6 +3,8 @@ import { BaseComponent } from '@renderer/app/base.component';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { BaseModel } from '@renderer/model/base.model';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-query-history',
@@ -14,7 +16,9 @@ export class HistoryComponent extends BaseComponent {
   editorConfig: any;
 
   constructor(private queryHistoryService: QueryHistoryService,
-              private modal: NzModalService) {
+              private modal: NzModalService,
+              private messageService: NzMessageService,
+              private translateService: TranslateService) {
     super();
     this.initialize();
     this.editorConfig = {
@@ -51,5 +55,13 @@ export class HistoryComponent extends BaseComponent {
   handlerClearHistory() {
     this.queryHistoryService.clear();
     this.initialize();
+  }
+
+  handlerDelete(id: number) {
+    const response = this.queryHistoryService.deleteById(id);
+    if (response) {
+      this.messageService.success(this.translateService.instant('common.success'));
+      this.initialize();
+    }
   }
 }

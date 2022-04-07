@@ -87,6 +87,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loading.button = true;
     this.loadingContainers[this.containerSelected].loading = true;
     const queryHistory = new QueryHistoryModel();
+    queryHistory.createdTime = Date.parse(new Date().toString());
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
     let sql = codeMirror.getValue();
     if (StringUtils.isNotEmpty(codeMirror.getSelection())) {
@@ -95,7 +96,6 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     if (command?.name) {
       sql = StringUtils.format(command.format, [sql]);
     }
-    queryHistory.id = Md5.hashStr(sql + new Date());
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
     request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];

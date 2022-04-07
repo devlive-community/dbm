@@ -136,7 +136,8 @@
     "simple": "简单",
     "modify": "修改",
     "remove": "移除",
-    "status": "状态"
+    "status": "状态",
+    "success": "成功"
   },
   "language": {
     "english": "英语",

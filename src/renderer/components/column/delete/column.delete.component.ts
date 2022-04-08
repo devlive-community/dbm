@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { ConfigModel } from '@renderer/model/config.model';
 import { DatabaseModel } from '@renderer/model/database.model';
@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   selector: 'app-component-delete-column',
   templateUrl: './column.delete.component.html'
 })
-export class DeleteColumnComponent extends BaseComponent {
+export class DeleteColumnComponent extends BaseComponent implements AfterViewInit {
   @Input()
   config: ConfigModel;
   @Input()
@@ -23,6 +23,7 @@ export class DeleteColumnComponent extends BaseComponent {
   @Output()
   emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
+  allColumns = new Array<any>();
 
   constructor(private dataSourceService: DatasourceService,
               private columnService: ColumnService,
@@ -61,5 +62,21 @@ export class DeleteColumnComponent extends BaseComponent {
   handlerQuicklyEnter() {
     this.inputValue = this.value;
     this.handlerValidate();
+  }
+
+  ngAfterViewInit(): void {
+    const request = new RequestModel();
+    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    const _value = new DatabaseModel();
+    _value.database = this.database;
+    _value.table = this.table;
+    this.columnService.getAll(request, _value).then(response => {
+      if (response.status) {
+        this.allColumns = response.data.columns;
+      } else {
+        this.messageService.error(response.message);
+      }
+      this.loading.button = false;
+    });
   }
 }

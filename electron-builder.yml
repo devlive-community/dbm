@@ -17,6 +17,7 @@ releaseInfo:
     - Supports metadata management to change database names
     - Query history supports IndexDB storage
     - Supports deleting a single query history
+    - Support metadata management to add columns
 
     #### Docs
 
@@ -30,11 +31,13 @@ releaseInfo:
 
     ----
 
+    - Optimize the prompt message when deleting only one column in the data table
 
     #### Bug
 
     ---
 
+    - Fix the error condition of deleting existing columns
 
     #### UI
 

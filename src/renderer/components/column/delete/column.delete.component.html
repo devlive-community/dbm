@@ -1,5 +1,11 @@
 <div>
   <form nz-form>
+    <nz-form-item *ngIf="allColumns.length <= 1">
+      <nz-form-control [nzSpan]="24">
+        <nz-alert nzBanner nzType="error" nzMessage="{{'alert.only_one_column'|translate}}">
+        </nz-alert>
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
         <nz-alert nzBanner
@@ -27,13 +33,17 @@
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
         <nz-input-group [nzAddOnBefore]="addOnBefore" [nzAddOnAfter]="suffixButton">
-          <input type="text" name="inputValue" nz-input [(ngModel)]="inputValue" (change)="handlerValidate()"/>
+          <input type="text" name="inputValue" nz-input [(ngModel)]="inputValue" [disabled]="allColumns.length <= 1"
+                 (change)="handlerValidate()"/>
         </nz-input-group>
         <ng-template #addOnBefore>
           <button nz-button nzDanger nzType="link">{{value}}</button>
         </ng-template>
         <ng-template #suffixButton>
-          <button nz-button nzType="link" (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
+          <button nz-button nzType="link" (click)="handlerQuicklyEnter()"
+                  [disabled]="allColumns.length <= 1">
+            {{'common.quicklyEnter'|translate}}
+          </button>
         </ng-template>
       </nz-form-control>
     </nz-form-item>
@@ -41,7 +51,8 @@
 </div>
 <div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
   <div class="ng-star-inserted">
-    <button nz-button nzType="primary" nzDanger [disabled]="disabled.button" [nzLoading]="loading.button"
+    <button nz-button nzType="primary" nzDanger [disabled]="disabled.button"
+            [nzLoading]="loading.button"
             (click)="handlerDelete()">
       <span>{{'common.delete'|translate}}</span>
     </button>

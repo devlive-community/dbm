@@ -31,6 +31,7 @@ releaseInfo:
 
     ----
 
+    - Optimize the prompt message when deleting only one column in the data table
 
     #### Bug
 

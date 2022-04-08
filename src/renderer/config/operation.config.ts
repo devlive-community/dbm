@@ -34,7 +34,6 @@ export class OperationConfig {
       {type: TypeEnum.table, actions: [OperationEnum.truncate]},
       {type: TypeEnum.table, actions: [OperationEnum.clean]},
       {type: TypeEnum.table, actions: [OperationEnum.optimize]},
-      {type: TypeEnum.column, actions: [OperationEnum.create]},
       {
         type: TypeEnum.table,
         actions: [OperationEnum.ttl],
@@ -50,6 +49,7 @@ export class OperationConfig {
     column.type = TypeEnum.column;
     column.operations = [
       {type: TypeEnum.column, actions: [OperationEnum.preview]},
+      {type: TypeEnum.column, actions: [OperationEnum.create]},
       {type: TypeEnum.column, actions: [OperationEnum.delete]},
       {type: TypeEnum.column, actions: [OperationEnum.rename]}
     ];

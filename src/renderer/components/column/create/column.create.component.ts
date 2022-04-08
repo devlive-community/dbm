@@ -113,8 +113,8 @@ export class ColumnCreateComponent extends BaseComponent {
     const request = new RequestModel();
     request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
     const _value = new DatabaseModel();
-    _value.database = this.table;
-    _value.table = this.value;
+    _value.database = this.database;
+    _value.table = this.table;
     this.columnService.create(request, _value, this.columns).then(response => {
       if (response.status) {
         this.messageService.success(response.message);

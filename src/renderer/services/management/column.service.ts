@@ -39,4 +39,9 @@ export class ColumnService implements BaseService {
       [SqlUtils.getTableName(value.database, value.table), ColumnUtils.builderColumnsToString(columns)]);
     return this.getResponse(request, sql);
   }
+
+  getAll(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+    const sql = StringUtils.format('DESC {0}', [SqlUtils.getTableName(value.database, value.table)]);
+    return this.getResponse(request, sql);
+  }
 }

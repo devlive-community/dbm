@@ -34,6 +34,7 @@ export class OperationConfig {
       {type: TypeEnum.table, actions: [OperationEnum.truncate]},
       {type: TypeEnum.table, actions: [OperationEnum.clean]},
       {type: TypeEnum.table, actions: [OperationEnum.optimize]},
+      {type: TypeEnum.column, actions: [OperationEnum.create]},
       {
         type: TypeEnum.table,
         actions: [OperationEnum.ttl],

@@ -138,7 +138,8 @@
     "modify": "Modify",
     "remove": "Remove",
     "status": "Status",
-    "success": "Success"
+    "success": "Success",
+    "description": "Description"
   },
   "language": {
     "english": "English",

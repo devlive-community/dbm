@@ -17,6 +17,7 @@ releaseInfo:
     - Supports metadata management to change database names
     - Query history supports IndexDB storage
     - Supports deleting a single query history
+    - Support metadata management to add columns
 
     #### Docs
 

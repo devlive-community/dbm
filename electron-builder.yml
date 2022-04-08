@@ -37,6 +37,7 @@ releaseInfo:
 
     ---
 
+    - Fix the error condition of deleting existing columns
 
     #### UI
 

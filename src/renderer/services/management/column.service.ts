@@ -25,7 +25,7 @@ export class ColumnService implements BaseService {
   }
 
   delete(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
-    const sql = StringUtils.format('ALTER TABLE {0} DROP COLUMN {1}', [SqlUtils.getTableName(value.database, value.table), value.name]);
+    const sql = StringUtils.format('ALTER TABLE {0} DROP COLUMN `{1}`', [SqlUtils.getTableName(value.database, value.table), value.name]);
     return this.getResponse(request, sql);
   }
 

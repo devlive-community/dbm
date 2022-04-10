@@ -114,6 +114,9 @@ markdown_extensions:
 
 use_directory_urls: false
 
+extra_css:
+  - stylesheets/extra.css
+
 plugins:
   - search
   - i18n:
@@ -126,7 +129,7 @@ plugins:
           Home: Home
         zh:
           Home: 主页
-          Getting started: 准备开始
+          Documentation: 文档
           Installation: 安装
           Datasource: 数据源
           Query: 查询
@@ -134,6 +137,8 @@ plugins:
           Management: 管理
           Monitor: 监控
           Processor: 进程
+          Connection: 连接
+          Mutations: 变更
           Release Note: 发布日志
           Development: 开发
           Document: 文档
@@ -141,18 +146,20 @@ plugins:
 
 nav:
   - Home: index.md
-  - Getting started:
+  - Documentation:
       - Installation: reference/get_started/install.md
       - Query:
         - Query: reference/query/query_query.md
         - History: reference/query/query_history.md
       - Management:
-        - Datasource: reference/get_started_datasource.md
+        - Datasource: reference/management/management_datasource.md
       - Monitor:
-        - Processor: reference/Monitor-Processor.md
+          - Processor: reference/Monitor-Processor.md
+          - Connection: reference/monitor/monitor_connection.md
+          - Mutations: reference/monitor/monitor_mutations.md
   - Release Note:
-      - Development Version: development/version/1.14.0-development.md
-      - 1.13.0 (latest): release/1.13.0-20220329.md
+      - 1.14.0 (latest): release/1.14.0-20220410.md
+      - 1.13.0: release/1.13.0-20220329.md
       - 1.12.0: release/1.12.0-20220318.md
       - 1.11.0: release/1.11.0-20220222.md
       - 1.10.0: release/1.10.0-20220127.md
@@ -166,6 +173,7 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
+      - Development Version: development/version/1.15.0-development.md
   - Development:
     - Contribution:
       - Document: development/document.md

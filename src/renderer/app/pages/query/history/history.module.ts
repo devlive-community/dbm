@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HistoryComponent } from './history.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
@@ -30,6 +30,7 @@ const QUERY_ROUTES: Routes = [
     HistoryComponent
   ],
   providers: [
+    TranslateService,
     QueryHistoryService,
     NzModalService,
     EditorService

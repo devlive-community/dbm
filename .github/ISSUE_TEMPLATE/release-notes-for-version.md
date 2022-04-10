@@ -2,7 +2,7 @@
 name: Release notes for Version
 about: New version released
 title: Release notes for XXXX
-labels: release
+labels: Release
 assignees: ''
 
 ---

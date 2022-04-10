@@ -251,6 +251,69 @@
         ],
         "experimental": false,
         "propertyType": "name"
+      },
+      {
+        "name": "MongoDB",
+        "description": "tooltip.table.mongodb",
+        "type": "MongoDB",
+        "properties": [
+          {
+            "name": "uri",
+            "label": "common.uri",
+            "placeholder": "placeholder.uri",
+            "tooltip": "tooltip.property.mongodb.uri",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "database",
+            "label": "common.database",
+            "placeholder": "tooltip.property.mongodb.database",
+            "tooltip": "tooltip.property.mongodb.database",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "collection",
+            "label": "common.collection",
+            "placeholder": "placeholder.collection",
+            "tooltip": "tooltip.property.mongodb.collection",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "username",
+            "label": "common.username",
+            "placeholder": "tooltip.property.mongodb.username",
+            "tooltip": "tooltip.property.mongodb.username",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "password",
+            "label": "common.password",
+            "placeholder": "tooltip.property.mongodb.password",
+            "tooltip": "tooltip.property.mongodb.password",
+            "origin": null,
+            "isSetting": false,
+            "required": true
+          },
+          {
+            "name": "options",
+            "label": "common.options",
+            "placeholder": "tooltip.property.mongodb.options",
+            "tooltip": "tooltip.property.mongodb.options",
+            "origin": null,
+            "isSetting": false,
+            "required": false
+          }
+        ],
+        "experimental": false,
+        "propertyType": "name"
       }
     ]
   }

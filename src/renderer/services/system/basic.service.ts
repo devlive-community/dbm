@@ -22,4 +22,12 @@ export class BasicService extends PersistenceService implements BaseService {
   get(): SystemBasicModel {
     return JSON.parse(localStorage.getItem(RequestUtils.KEY_SYSTEM_SETTING_BASIC));
   }
+
+  clear(): boolean {
+    return false;
+  }
+
+  deleteById(id: number): boolean {
+    return false;
+  }
 }

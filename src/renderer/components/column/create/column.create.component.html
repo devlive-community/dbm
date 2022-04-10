@@ -1,0 +1,57 @@
+<div>
+  <nz-table #multipleColumns [nzData]="columns" nzSize="small" [nzShowPagination]="columns.length > 10">
+    <tbody>
+    <tr *ngFor="let column of multipleColumns.data">
+      <td>
+        <input type="text" nz-input nz-tooltip nzTooltipTitle="{{'common.column'|translate}}{{'common.name'|translate}}"
+               (change)="handlerValidate()"
+               [(ngModel)]="column.name"/>
+      </td>
+      <td>
+        <nz-select [(ngModel)]="column.type" [ngModelOptions]="{standalone: true}" style="width: 100%;"
+                   (ngModelChange)="handlerValidate()"
+                   nz-tooltip nzTooltipTitle="{{'common.column'|translate}}{{'common.type'|translate}}"
+                   [nzDropdownRender]="renderTemplate">
+          <nz-option nzValue="{{type}}" nzLabel="{{type}}" *ngFor="let type of columnTypes"></nz-option>
+        </nz-select>
+        <ng-template #renderTemplate>
+          <div class="container">
+            <input type="text" nz-input nzSize="mini" #inputElement/>
+            <button nz-button nzType="primary" class="add-item"
+                    (click)="handlerAddColumnType(inputElement)">
+              <i class="fa fa-plus-circle"></i>
+            </button>
+          </div>
+        </ng-template>
+      </td>
+      <td>
+        <input type="text" nz-input nz-tooltip
+               nzTooltipTitle="{{'common.column'|translate}}{{'common.description'|translate}}"
+               [(ngModel)]="column.description"/>
+      </td>
+      <td>
+        <nz-switch nz-tooltip nzTooltipTitle="{{'common.nullable'|translate}}?" [(ngModel)]="column.empty"
+                   [ngModelOptions]="{standalone: true}">
+        </nz-switch>
+      </td>
+<!--      <td>-->
+<!--        <button nz-button nzType="primary" nzDanger [disabled]="columns.length <= 1" (click)="handlerDeleteRow(column)">-->
+<!--          <i class="fa fa-trash-o"></i>-->
+<!--        </button>-->
+<!--      </td>-->
+    </tr>
+    </tbody>
+  </nz-table>
+<!--  <button nz-button (click)="handlerAddRow()" nzType="primary"-->
+<!--          style="top: {{(columns.length > 10) ? '-40px;' : '10px;'}}">-->
+<!--    <i class="fa fa-plus-circle"></i>-->
+<!--  </button>-->
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" [disabled]="disabled.button" [nzLoading]="loading.button"
+      (click)="handlerSave()">
+      <span>{{'common.save'|translate}}</span>
+    </button>
+  </div>
+</div>

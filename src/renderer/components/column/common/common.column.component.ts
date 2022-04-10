@@ -31,7 +31,7 @@ export class CommonColumnComponent extends BaseComponent {
     this.emitter.emit(this.config);
   }
 
-  handlerEmitter(event: boolean) {
+  handlerEmitter(event: ConfigModel) {
     this.config.menu = this.menu;
     this.config.currentNode = this.value;
     this.emitter.emit(this.config);

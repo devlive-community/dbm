@@ -12,7 +12,6 @@ import { TreeUtils } from '@renderer/utils/tree.utils';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
-import { StringUtils } from '@renderer/utils/string.utils';
 
 @Component({
   selector: 'app-management-metadata',
@@ -32,7 +31,8 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     database: {
       create: false,
       delete: false,
-      structure: false
+      structure: false,
+      common: false
     },
     table: false,
     column: false
@@ -52,6 +52,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       configModel.value = k.alias;
       configModel.title = k.alias;
       configModel.type = TypeEnum.disk;
+      configModel.disabled = k.status ? false : true;
       return configModel;
     });
     this.nodes = datasourceConfigs;
@@ -82,7 +83,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     this.handlerContextMenuDialog(false);
     if (event.status) {
       let node = event.currentNode;
-      if (event.menu.command === OperationEnum.delete) {
+      if (event.menu.command === OperationEnum.delete
+        || event.menu.command === OperationEnum.rename
+        || event.menu.command === OperationEnum.create) {
         node = node.parentNode;
       }
       const originNode: any = node.origin;
@@ -119,6 +122,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
             break;
           case OperationEnum.structure:
             this.disabledComponent.database.structure = selected;
+            break;
+          case OperationEnum.rename:
+            this.disabledComponent.database.common = selected;
             break;
         }
         break;

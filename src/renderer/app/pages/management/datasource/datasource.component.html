@@ -32,6 +32,14 @@
         <td>{{data.username ? data.username : '-'}}</td>
         <td>{{data.version ? data.version : '-'}}</td>
         <td>
+          <button nz-button nzShape="circle" nzSize="small" nzType="primary"
+                  nz-tooltip nzTooltipTitle="{{'common.edit' | translate}}">
+            <i class="fa fa-edit" (click)="handlerOpenModal(2, data.alias)"></i>
+          </button>
+          <button nz-button nzShape="circle" nzSize="small" nzType="primary" [disabled]="!data.status"
+                  nz-tooltip nzTooltipTitle="{{'common.copy' | translate}}">
+            <i class="fa fa-copy" (click)="handlerOpenModal(3, data.alias)"></i>
+          </button>
           <button nz-button nzShape="circle" nzSize="small" nzDanger
                   nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"
                   nz-tooltip nzTooltipTitle="{{'common.delete' | translate}}"
@@ -39,10 +47,6 @@
                   [nzOkText]="'common.ok'|translate"
                   (nzOnConfirm)="handlerDelete(data.alias)">
             <i class="fa fa-trash"></i>
-          </button>
-          <button nz-button nzShape="circle" nzSize="small" nzType="primary"
-                  nz-tooltip nzTooltipTitle="{{'common.edit' | translate}}">
-            <i class="fa fa-edit" (click)="handlerOpenModal(2, data.alias)"></i>
           </button>
           <button *ngIf="!data.status" nz-button nzShape="circle" nzSize="small" nzType="primary"
                   nzDanger (click)="handlerShowMessage(data.alias, data?.message?.message)">
@@ -211,7 +215,7 @@
         {{'common.test' | translate}}
       </button>
       <button nz-button nzType="primary" [disabled]="disabled.button"
-              (click)="actionType === 0 ? handlerSave() : handlerUpdate()">
+              (click)="handlerProcess()">
         {{'common.ok' | translate}}
       </button>
     </div>

@@ -10,43 +10,41 @@ releaseInfo:
 
     ---
 
-    - Metadata management delete database supports quick input of database name
-    - Add `EXPLAIN AST`, `EXPLAIN SYNTAX`, `EXPLAIN PLAN`, `EXPLAIN PIPELINE`, `EXPLAIN ESTIMATE`, `EXPLAIN TABLE OVERRIDE`
-    - Query results can be exported to CSV files
-    - Support for deleting tables when deleting databases
+    - Support visual build of MongoDB tables
+    - Supports adding the TTL of the table visually
+    - Support data source copy
+    - Supports remove the TTL of the table visually
+    - Supports metadata management to change database names
+    - Query history supports IndexDB storage
+    - Supports deleting a single query history
+    - Support metadata management to add columns
 
     #### Docs
 
     ---
 
-    - Add install docs
-    - Add query history docs
+    - Optimize data source management documentation
+    - Add Monitor --> Connection docs
+    - Add Monitor --> Mutations docs
 
     #### Optimize
 
     ----
 
-    - Optimize metadata management to delete data columns
-    - Optimize the query result display table
-    - Optimized data arrangement of deleted data partitions
+    - Optimize the prompt message when deleting only one column in the data table
 
     #### Bug
 
     ---
 
-    - Fix the problem of clearing multi-partition data
-    - Fix run dev Last few GCs
-    - Fixed editor state not resetting after cancel execution
-    - Fix README.md file script pointing error
+    - Fix the error condition of deleting existing columns
 
     #### UI
 
     ---
 
-    - The status of the metadata management service request failure is red
-    - Metadata Management menu Added the number of submenus to display
-    - Add the total number of rows returned from the query result
-    - Supports highlighting of abnormal data in query history execution
+    - Unavailable data source disallows click action
+
 
 directories:
   output: ./release

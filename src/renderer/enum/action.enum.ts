@@ -1,5 +1,6 @@
 export enum ActionEnum {
   create,
   delete,
-  update
+  update,
+  copy
 }

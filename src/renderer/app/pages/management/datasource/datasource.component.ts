@@ -11,8 +11,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { SourceTypeConfig } from '@renderer/config/source.type.config';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { BaseModel } from '@renderer/model/base.model';
 import { TranslateService } from '@ngx-translate/core';
+import { StringUtils } from '@renderer/utils/string.utils';
 
 @Component({
   selector: 'app-management-datasource',
@@ -89,6 +89,12 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       case ActionEnum.create:
         this.formInfo = new DatasourceModel();
         break;
+      case ActionEnum.copy:
+        this.formInfo = this.service.getAll(unique)?.data?.columns[0];
+        this.formInfo.alias = StringUtils.format('{0} {1}',
+          [this.translateService.instant('common.copy'), this.formInfo.alias]);
+        this.handlerResetButton();
+        break;
       case ActionEnum.update:
         this.formInfo = this.service.getAll(unique)?.data?.columns[0];
         this.showButton.next = false;
@@ -158,6 +164,18 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       this.messageService.success(response.message);
       this.handlerCloseModal();
       this.handlerGetAll();
+    }
+  }
+
+  handlerProcess() {
+    switch (this.actionType) {
+      case ActionEnum.create:
+      case ActionEnum.copy:
+        this.handlerSave();
+        break;
+      case ActionEnum.update:
+        this.handlerUpdate();
+        break;
     }
   }
 

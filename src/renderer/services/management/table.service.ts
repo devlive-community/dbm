@@ -11,6 +11,7 @@ import { HttpService } from '@renderer/services/http.service';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { UrlUtils } from '@renderer/utils/url.utils';
+import { TableTtlModel } from '@renderer/model/table/table.ttl.model';
 
 @Injectable()
 export class TableService implements BaseService {
@@ -125,6 +126,49 @@ export class TableService implements BaseService {
 
   getPreview(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
     const sql = StringUtils.format(`SELECT * FROM {0} LIMIT 10`, [SqlUtils.getTableName(value.database, value.name)]);
+    return this.getResponse(request, sql);
+  }
+
+  getTimeColumns(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`
+      SELECT name FROM "system"."columns"
+      WHERE "database" = '{0}' AND "table" = '{1}' AND type like 'Date%'`,
+      [value.database, value.name]);
+    return this.getResponse(request, sql);
+  }
+
+  modifyTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    let sql;
+    if (value.custom) {
+      sql = StringUtils.format('ALTER TABLE {0} MODIFY TTL `{1}` {2}',
+        [SqlUtils.getTableName(value.database, value.table), value.column, value.value]);
+    } else {
+      sql = StringUtils.format('ALTER TABLE {0} MODIFY TTL `{1}` + INTERVAL {2} {3}',
+        [SqlUtils.getTableName(value.database, value.table), value.column, value.ranger, value.value]);
+    }
+    return this.getResponse(request, sql);
+  }
+
+  getTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`
+    SELECT
+      extract(engine_full, 'TTL [\\s\\S]*ETTINGS') AS full,
+      REPLACE(REPLACE(full, 'TTL', ''), ' SETTINGS', '') AS ttl,
+      splitByString('+', ttl) AS ttlArray,
+      trimBoth(arrayElement(ttlArray, 1)) AS "column",
+      extract(arrayElement(ttlArray, 2), '\\d+') AS value,
+      splitByString('(', replace(arrayElement(ttlArray, 2), 'toInterval', '')) AS rangerArray,
+      upperUTF8(arrayElement(rangerArray, 1)) AS ranger
+    FROM "system"."tables"
+    WHERE "database" = '{0}' AND "name" = '{1}'
+    `,
+      [value.database, value.table]);
+    return this.getResponse(request, sql);
+  }
+
+  removeTTL(request: RequestModel, value: TableTtlModel): Promise<ResponseModel> {
+    const sql = StringUtils.format(`{0} REMOVE TTL`,
+      [SqlUtils.getAlterTablePrefix(value.database, value.table), ]);
     return this.getResponse(request, sql);
   }
 

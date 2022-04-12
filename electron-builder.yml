@@ -10,40 +10,28 @@ releaseInfo:
 
     ---
 
-    - Support visual build of MongoDB tables
-    - Supports adding the TTL of the table visually
-    - Support data source copy
-    - Supports remove the TTL of the table visually
-    - Supports metadata management to change database names
-    - Query history supports IndexDB storage
-    - Supports deleting a single query history
-    - Support metadata management to add columns
+    - Support metadata management, add column description information
 
     #### Docs
 
     ---
 
-    - Optimize data source management documentation
-    - Add Monitor --> Connection docs
-    - Add Monitor --> Mutations docs
+
 
     #### Optimize
 
     ----
 
-    - Optimize the prompt message when deleting only one column in the data table
 
     #### Bug
 
     ---
 
-    - Fix the error condition of deleting existing columns
 
     #### UI
 
     ---
 
-    - Unavailable data source disallows click action
 
 
 directories:

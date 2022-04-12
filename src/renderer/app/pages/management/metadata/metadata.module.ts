@@ -39,6 +39,7 @@ import { TableTtlRemoveComponent } from '@renderer/components/table/ttl/remove/t
 import { CommonDatabaseComponent } from '@renderer/components/database/common/common.database.component';
 import { DatabaseRenameComponent } from '@renderer/components/database/rename/database.rename.component';
 import { ColumnCreateComponent } from '@renderer/components/column/create/column.create.component';
+import { CommentColumnComponent } from '@renderer/components/column/comment/column.comment.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -81,7 +82,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     TableTtlRemoveComponent,
     CommonDatabaseComponent,
     DatabaseRenameComponent,
-    ColumnCreateComponent
+    ColumnCreateComponent,
+    CommentColumnComponent
   ],
   providers: [
     DatasourceService,

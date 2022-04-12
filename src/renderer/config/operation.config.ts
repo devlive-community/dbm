@@ -51,7 +51,8 @@ export class OperationConfig {
       {type: TypeEnum.column, actions: [OperationEnum.preview]},
       {type: TypeEnum.column, actions: [OperationEnum.create]},
       {type: TypeEnum.column, actions: [OperationEnum.delete]},
-      {type: TypeEnum.column, actions: [OperationEnum.rename]}
+      {type: TypeEnum.column, actions: [OperationEnum.rename]},
+      {type: TypeEnum.column, actions: [OperationEnum.comment]}
     ];
     opertions.push(column);
     return opertions;

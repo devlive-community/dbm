@@ -1,0 +1,22 @@
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="24">
+        <textarea nz-input name="inputValue" [(ngModel)]="inputValue"
+                  placeholder="{{'common.column' | translate}} {{'common.comment' | translate}}"
+                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+                  (change)="handlerValidate()">
+        </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" [disabled]="disabled.button"
+            [nzLoading]="loading.button"
+            (click)="handlerAddComment()">
+      <span>{{'common.add'|translate}} {{'common.comment' | translate}}</span>
+    </button>
+  </div>
+</div>

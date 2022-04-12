@@ -138,7 +138,8 @@
     "remove": "移除",
     "status": "状态",
     "success": "成功",
-    "description": "描述"
+    "description": "描述",
+    "comment": "评论"
   },
   "language": {
     "english": "英语",

@@ -139,7 +139,8 @@
     "remove": "Remove",
     "status": "Status",
     "success": "Success",
-    "description": "Description"
+    "description": "Description",
+    "comment": "Comment"
   },
   "language": {
     "english": "English",

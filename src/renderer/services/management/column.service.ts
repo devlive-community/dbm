@@ -29,6 +29,12 @@ export class ColumnService implements BaseService {
     return this.getResponse(request, sql);
   }
 
+  comment(request: RequestModel, value: DatabaseModel, comment: string): Promise<ResponseModel> {
+    const sql = StringUtils.format(`ALTER TABLE {0} COMMENT COLUMN {1} '{2}'`,
+      [SqlUtils.getTableName(value.database, value.table), value.name, StringUtils.appendBackslash(comment)]);
+    return this.getResponse(request, sql);
+  }
+
   rename(request: RequestModel, value: DatabaseModel, newName: string): Promise<ResponseModel> {
     const sql = StringUtils.format('ALTER TABLE {0} RENAME COLUMN {1} TO {2}', [SqlUtils.getTableName(value.database, value.table), value.name, newName]);
     return this.getResponse(request, sql);

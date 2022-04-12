@@ -53,6 +53,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       configModel.title = k.alias;
       configModel.type = TypeEnum.disk;
       configModel.disabled = k.status ? false : true;
+      if (configModel.disabled) {
+        configModel.isLeaf = true;
+      }
       return configModel;
     });
     this.nodes = datasourceConfigs;
@@ -66,8 +69,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     if (!origin.level) {
       this.rootNode = origin;
     }
-    this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
-    this.nzContextMenuService.create($event, menu);
+    if (!origin.disabled) {
+      this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
+      this.nzContextMenuService.create($event, menu);
+    }
   }
 
   handlerContextMenuClick(menu: MenuModel): void {
@@ -141,6 +146,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   }
 
   handlerNodeClick(event: NzFormatEmitEvent): void {
+    // Invalid node disables click function
+    if (event.node.origin.disabled) {
+      return;
+    }
     // if (event.node.isSelected) {
     this.loading.button = true;
     if (event.node?.level === 0) {
@@ -169,6 +178,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   }
 
   handlerNodeLoad(event: NzFormatEmitEvent): void {
+    // Invalid node disables click function
+    if (event.node.origin.disabled) {
+      return;
+    }
     const node = event.node;
     this.handlerLevel(node);
     const originNode: any = event.node.origin;

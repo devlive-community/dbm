@@ -27,6 +27,7 @@ releaseInfo:
 
     ---
 
+    - Fix the problem that invalid metadata management nodes can be clicked
 
     #### UI
 

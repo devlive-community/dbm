@@ -35,7 +35,7 @@ releaseInfo:
     ---
 
     - Add multiple editor themes
-
+    - Quick query unavailable nodes prohibit operations
 
 directories:
   output: ./release

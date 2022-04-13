@@ -11,6 +11,7 @@ releaseInfo:
     ---
 
     - Support metadata management, add column description information
+    - Support code snippet management
 
     #### Docs
 
@@ -33,6 +34,7 @@ releaseInfo:
 
     ---
 
+    - Add multiple editor themes
 
 
 directories:

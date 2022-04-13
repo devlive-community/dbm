@@ -139,7 +139,14 @@
     "status": "状态",
     "success": "成功",
     "description": "描述",
-    "comment": "评论"
+    "comment": "评论",
+    "snippet": "片段",
+    "id": "标记",
+    "name": "名称",
+    "description": "描述",
+    "code": "代码",
+    "created": "创建",
+    "updated": "更新"
   },
   "language": {
     "english": "英语",
@@ -172,7 +179,8 @@
     "maxTotal": "返回查询最大行数,用户手动填写limit将覆盖该配置,如果设置0则该配置不生效",
     "collection": "Please input collection",
     "options": "Options",
-    "ttl": "TTL"
+    "ttl": "TTL",
+    "required": "该值不能为空, 请输入"
   },
   "tooltip": {
     "network": "访问远程服务器的时间(以秒为单位)",

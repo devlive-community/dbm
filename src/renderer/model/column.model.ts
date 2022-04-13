@@ -1,6 +1,6 @@
 export class ColumnModel {
   name: string;
-  type: string;
+  type = 'String';
   description: string;
   empty: boolean = false;
 }

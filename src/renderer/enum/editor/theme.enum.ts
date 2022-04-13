@@ -27,5 +27,13 @@ export enum EditorThemeEnum {
   juejin = ('juejin'),
   'lesser-dark' = ('lesser-dark'),
   liquibyte = ('liquibyte'),
-  lucario = ('lucario')
+  lucario = ('lucario'),
+  'material-darker' = ('material-darker'),
+  'material-ocean' = ('material-ocean'),
+  'material-palenight' = ('material-palenight'),
+  material = ('material'),
+  mbo = ('mbo'),
+  'mdn-like' = ('mdn-like'),
+  midnight = ('midnight'),
+  moxer = ('moxer')
 }

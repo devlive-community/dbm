@@ -13,6 +13,7 @@ import { ChartModule } from 'angular-highcharts';
 import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.component';
 import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
 import { TableModule } from 'ngx-easy-table';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { TableModule } from 'ngx-easy-table';
     CommonModule,
     ServiceModule,
     ChartModule,
-    TableModule
+    TableModule,
+    MomentModule
   ],
   declarations: [
     DdlQueryComponent,

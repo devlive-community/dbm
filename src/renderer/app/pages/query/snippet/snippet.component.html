@@ -3,7 +3,7 @@
             [nzNotFoundContent]="contentTemplate"
             [nzNotFoundFooter]="footerTemplate">
     <ng-template #contentTemplate>
-      <button nz-button nzType="primary" (click)="handlerShowDrawer(action.create)">
+      <button nz-button nzType="primary" (click)="handlerShowCreateSnippet(actionComponent.create)">
         {{'common.add'|translate}}
       </button>
     </ng-template>
@@ -15,10 +15,10 @@
       <ng-template let-row>
         <td>{{row.id}}</td>
         <td>
-          <p nz-typography nzEllipsis nzCopyable [nzEllipsisRows]="1" nzCopyText="{{row.name}}">{{row.name}}</p>
+          <em nz-typography nzEllipsis nzCopyable [nzEllipsisRows]="1" nzCopyText="{{row.name}}">{{row.name}}</em>
         </td>
         <td>
-          <p nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="1">{{row.description}}</p>
+          <em nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="1">{{row.description}}</em>
         </td>
         <td>
           <button nz-button nzType="link" nz-tooltip nzTooltipTitle="{{'common.ddl'|translate}}"
@@ -37,61 +37,14 @@
   </ng-template>
 </nz-card>
 <ng-template #titleTemplate>
-  <button nz-button nzType="primary" (click)="handlerShowDrawer(action.create)">
+  <button nz-button nzType="primary" (click)="handlerShowCreateSnippet(actionComponent.create)">
     <i class="fa fa-plus-circle"></i>
   </button>
 </ng-template>
-<nz-drawer *ngIf="snippet"
-           [nzBodyStyle]="{ overflow: 'auto' }"
-           [nzMaskClosable]="false"
-           [nzWidth]="'60%'"
-           [nzClosable]="false"
-           [nzVisible]="dialog.create"
-           nzTitle="{{'common.snippet' | translate}}{{'common.action' | translate}}"
-           [nzFooter]="footerTpl"
-           (nzOnClose)="handlerCloseDrawer()">
-  <form nz-form [formGroup]="validateForm"
-        (ngSubmit)="handlerSave()" *nzDrawerContent>
-    <div nz-row [nzGutter]="8">
-      <div nz-col nzSpan="24">
-        <nz-form-item>
-          <nz-form-label nz-col nzSpan="4" nzRequired nzFor="name">{{'common.name'|translate}}</nz-form-label>
-          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
-            <input nz-input [(ngModel)]="snippet.name" formControlName="name" id="name" name="name"
-                   placeholder="{{'placeholder.required'|translate}}"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="24">
-        <nz-form-item>
-          <nz-form-label nz-col nzSpan="4" nzRequired>{{'common.description'|translate}}</nz-form-label>
-          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
-            <textarea nz-input [(ngModel)]="snippet.description" formControlName="description" name="description"
-                      placeholder="{{'placeholder.required'|translate}}" rows="2">
-            </textarea>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="24">
-        <nz-form-item>
-          <nz-form-label nz-col nzSpan="4" nzRequired>{{'common.snippet' | translate}}</nz-form-label>
-          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
-            <ngx-codemirror [(ngModel)]="snippet.code" formControlName="code" name="code"
-                            [options]="editorConfig">
-            </ngx-codemirror>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-  </form>
-  <ng-template #footerTpl>
-    <div style="float: right">
-      <button nz-button nzType="primary" nzDanger (click)="handlerCloseDrawer()">{{'common.cancel'|translate}}</button>
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid"
-              (click)="handlerSave()">{{'common.save'|translate}}</button>
-    </div>
-  </ng-template>
-</nz-drawer>
+<app-component-create-snippet *ngIf="dialog.create" [visible]="dialog.create" [action]="action"
+                              (emitter)="handlerCloseCreateSnippet($event)">
+</app-component-create-snippet>
 <app-component-ddl-query *ngIf="dialog.select" [visible]="dialog.select" [text]="selectRow.code"
                          (emitter)="handlerCloseModal()">
 </app-component-ddl-query>
+

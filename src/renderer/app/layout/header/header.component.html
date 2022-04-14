@@ -14,13 +14,13 @@
           </a>
         </li>
         <li nz-menu-item>
-          <a [routerLink]="['/query/snippet']">
-            <i class="fa fa-code"> {{ 'common.snippet' | translate }}</i>
+          <a [routerLink]="['/query/history']">
+            <i class="fa fa-history"> {{ 'common.history' | translate }}</i>
           </a>
         </li>
         <li nz-menu-item>
-          <a [routerLink]="['/query/history']">
-            <i class="fa fa-history"> {{ 'common.history' | translate }}</i>
+          <a [routerLink]="['/query/snippet']">
+            <i class="fa fa-code"> {{ 'common.snippet' | translate }}</i>
           </a>
         </li>
       </ul>
@@ -115,9 +115,8 @@
     <nz-tag [nzColor]="'#f50'" nzSize="mini">{{version}}</nz-tag>
   </ng-template>
 </nz-header>
-
 <nz-modal [(nzVisible)]="dialog.update" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
-  (nzOnCancel)="handlerUpdate(false)" [nzMaskClosable]="false" [nzClosable]="false" nzWidth="80%">
+          (nzOnCancel)="handlerUpdate(false)" [nzMaskClosable]="false" [nzClosable]="false" nzWidth="80%">
   <ng-template #modalTitle>{{'common.update'|translate}}</ng-template>
   <ng-template #modalContent>
     <form nz-form nzSize="mini">
@@ -188,6 +187,6 @@
   </ng-template>
   <ng-template #modalFooter>
     <button nz-button nzType="default" (click)="handlerUpdate(false)"
-      [disabled]="!disabled.button">{{'common.cancel'|translate}}</button>
+            [disabled]="!disabled.button">{{'common.cancel'|translate}}</button>
   </ng-template>
 </nz-modal>

@@ -1,0 +1,36 @@
+<nz-drawer [nzClosable]="true" [nzVisible]="visible"
+           nzKeyboard="false" nzMaskClosable="false" nzPlacement="right"
+           nzTitle="{{'common.code' | translate}}{{'common.snippet' | translate}}" nzWidth="60%"
+           (nzOnClose)="handlerCancel()">
+  <ng-container *nzDrawerContent>
+    <ngx-table [data]="columns" [configuration]="configuration" [columns]="headers" #table
+               [detailsTemplate]="detailsTemplate">
+      <ng-template let-row let-index="index">
+        <td> {{row.id}}</td>
+        <td>
+          <em nz-typography nzEllipsis [nzEllipsisRows]="1">{{row.name}}</em>
+        </td>
+        <td>
+          <em nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="1">{{row.description}}</em>
+        </td>
+        <td>
+          <button nz-button nz-tooltip nzTooltipTitle="{{'common.preview'|translate}}{{'common.ddl'|translate}}"
+                  nzType="text" id="expandButton-{{index}}" (click)="handlerRowToggled($event, index)">
+            <i class="fa fa-{{toggledRows.has(index) ? 'toggle-on' : 'toggle-off'}}"></i>
+          </button>
+        </td>
+        <td>
+          <button nz-button nz-tooltip nzTooltipTitle="{{'common.quote'|translate}}{{'common.ddl'|translate}}"
+                  nzType="text" (click)="handlerRowSelectedQuote(row)">
+            <i class="fa fa-reply"></i>
+          </button>
+        </td>
+      </ng-template>
+    </ngx-table>
+    <ng-template #detailsTemplate let-row>
+      <div style="width: {{tableWidth}}">
+        <ngx-codemirror [(ngModel)]="row.code" [options]="editorConfig"></ngx-codemirror>
+      </div>
+    </ng-template>
+  </ng-container>
+</nz-drawer>

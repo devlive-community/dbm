@@ -147,7 +147,8 @@
     "description": "Description",
     "code": "Code",
     "created": "Created",
-    "updated": "Updated"
+    "updated": "Updated",
+    "quote": "Quote"
   },
   "language": {
     "english": "English",

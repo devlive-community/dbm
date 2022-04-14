@@ -7,7 +7,6 @@ import { QueryService } from '@renderer/services/query/query.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { QueryHistoryModel } from '@renderer/model/query.history.model';
-import { Md5 } from 'ts-md5';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StateEnum } from '@renderer/enum/state.enum';
@@ -15,6 +14,8 @@ import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
 import { CommandModel } from '@renderer/model/command.model';
+import { SnippetModel } from '@renderer/model/snippet.model';
+import { ActionEnum } from '@renderer/enum/action.enum';
 
 @Component({
   selector: 'app-query',
@@ -37,6 +38,13 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   loadingContainers = [];
   processorContainers = [];
   containerSelected = 0;
+  codeSnippet = {
+    disabled: false,
+    value: SnippetModel
+  };
+  action: ActionEnum;
+  actionComponent = ActionEnum;
+  snippetValue: string;
 
   constructor(private editorService: EditorService,
               private datasourceService: DatasourceService,
@@ -177,5 +185,28 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
 
   handlerExecuteCommand(command: CommandModel) {
     this.handlerExecute(command);
+  }
+
+  handlerCodeSnippet(close?: boolean) {
+    if (close) {
+      this.codeSnippet.disabled = false;
+    } else {
+      this.codeSnippet.disabled = true;
+    }
+  }
+
+  handlerCodeSnippetProcessor(sql?: string) {
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    codeMirror.setValue(sql);
+  }
+
+  handlerShowCreateSnippet(type: ActionEnum): void {
+    this.dialog.create = true;
+    this.action = type;
+    this.snippetValue = this.codeEditors.get(this.containerSelected)['codeMirror'].getValue();
+  }
+
+  handlerCloseCreateSnippet(event: boolean) {
+    this.dialog.create = false;
   }
 }

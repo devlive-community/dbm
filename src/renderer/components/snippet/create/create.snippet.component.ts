@@ -20,6 +20,8 @@ export class CreateSnippetComponent extends BaseComponent implements AfterViewIn
   visible: boolean;
   @Input()
   action: ActionEnum;
+  @Input()
+  snippetValue?: string;
   @Output()
   emitter = new EventEmitter<boolean>();
   snippet: SnippetModel;
@@ -60,6 +62,9 @@ export class CreateSnippetComponent extends BaseComponent implements AfterViewIn
     switch (type) {
       case ActionEnum.create:
         this.snippet = new SnippetModel();
+        if (this.snippetValue) {
+          this.snippet.code = this.snippetValue;
+        }
         break;
     }
   }

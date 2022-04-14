@@ -60,6 +60,13 @@
   <button nz-button nzType="primary" nzSize="small" [disabled]="disabledButton.execute" (click)="handlerAddContainer()">
     <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
   </button>
+  <button *ngIf="processorContainers[containerSelected]?.icon === 'check-circle'" nz-button nzType="primary"
+          nzSize="small" nz-tooltip
+          nzTooltipTitle="{{'common.add'|translate}}{{'common.snippet'|translate}}"
+          [disabled]="disabledButton.execute"
+          (click)="handlerShowCreateSnippet(actionComponent.create)">
+    <i class="fa fa-plus-circle"></i>&nbsp;{{'common.snippet'|translate}}
+  </button>
   <button style="float: right;" nz-button nz-dropdown nzType="primary" nzSize="small"
           [nzDropdownMenu]="actionMenus">
     {{'common.action' | translate}}&nbsp;<i class="fa fa-chevron-down"></i>
@@ -118,3 +125,7 @@
                              (emitter)="handlerCodeSnippet(true)"
                              (emitterValue)="handlerCodeSnippetProcessor($event)">
 </app-component-quote-snippet>
+<app-component-create-snippet *ngIf="dialog.create" [visible]="dialog.create" [action]="action"
+                              [snippetValue]="snippetValue"
+                              (emitter)="handlerCloseCreateSnippet($event)">
+</app-component-create-snippet>

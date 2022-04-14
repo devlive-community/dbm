@@ -3,7 +3,7 @@ import { DdlQueryComponent } from '@renderer/components/query/ddl/ddl.query.comp
 import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
 import { BasicTableComponent } from '@renderer/components/table/basic/basic.table.component';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ import { EmptyAntdComponent } from '@renderer/components/antd/empty/empty.antd.c
 import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivider.antd.component';
 import { TableModule } from 'ngx-easy-table';
 import { MomentModule } from 'ngx-moment';
+import { CreateSnippetComponent } from '@renderer/components/snippet/create/create.snippet.component';
 
 @NgModule({
   imports: [
@@ -25,14 +26,16 @@ import { MomentModule } from 'ngx-moment';
     ServiceModule,
     ChartModule,
     TableModule,
-    MomentModule
+    MomentModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DdlQueryComponent,
     BasicTableComponent,
     LineChartsComponent,
     EmptyAntdComponent,
-    DrividerAntdComponent
+    DrividerAntdComponent,
+    CreateSnippetComponent
   ],
   providers: [
     ClipboardComService
@@ -42,7 +45,8 @@ import { MomentModule } from 'ngx-moment';
     BasicTableComponent,
     LineChartsComponent,
     EmptyAntdComponent,
-    DrividerAntdComponent
+    DrividerAntdComponent,
+    CreateSnippetComponent
   ]
 })
 export class CommonShareModule {

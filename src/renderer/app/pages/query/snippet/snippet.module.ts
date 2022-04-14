@@ -13,6 +13,7 @@ import { TableModule } from 'ngx-easy-table';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { SnippetService } from '@renderer/services/snippet/snippet.service';
 import { MomentModule } from 'ngx-moment';
+import { CreateSnippetComponent } from '@renderer/components/snippet/create/create.snippet.component';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: SnippetComponent}
@@ -33,7 +34,8 @@ const QUERY_ROUTES: Routes = [
   ],
   exports: [],
   declarations: [
-    SnippetComponent
+    SnippetComponent,
+    CreateSnippetComponent
   ],
   providers: [
     TranslateService,

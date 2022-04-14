@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
-import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,7 +8,7 @@ import { ActionEnum } from '@renderer/enum/action.enum';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
 import { EditorService } from '@renderer/services/editor/editor.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { SnippetService } from '@renderer/services/snippet/snippet.service';
 
 @Component({
@@ -20,10 +19,9 @@ export class SnippetComponent extends BaseComponent {
   configuration: Config;
   columns: any[] = new Array();
   headers: Columns[] = new Array();
-  action = ActionEnum;
-  snippet: SnippetModel;
+  action: ActionEnum;
+  actionComponent = ActionEnum;
   editorConfig: any;
-  validateForm!: FormGroup;
   selectRow: SnippetModel;
 
   constructor(private editorService: EditorService,
@@ -51,7 +49,6 @@ export class SnippetComponent extends BaseComponent {
     this.configuration.paginationRangeEnabled = false;
     const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
     this.editorConfig = Object.assign(this.editorService.getDefault(), cache);
-    this.handlerRestValidator();
     this.initialize();
   }
 
@@ -68,48 +65,15 @@ export class SnippetComponent extends BaseComponent {
     ;
   }
 
-  handlerRestValidator(): void {
-    this.validateForm = this.formBuilder.group({
-      name: [null, [Validators.required]],
-      description: [null, [Validators.required]],
-      code: [null, [Validators.required]]
-    });
-  }
-
-  handlerShowDrawer(type: ActionEnum): void {
+  handlerShowCreateSnippet(type: ActionEnum): void {
     this.dialog.create = true;
-    this.handlerRestValidator();
-    switch (type) {
-      case ActionEnum.create:
-        this.snippet = new SnippetModel();
-        break;
-    }
+    this.action = type;
   }
 
-  handlerCloseDrawer(): void {
+  handlerCloseCreateSnippet(close?: boolean): void {
     this.dialog.create = false;
-    this.snippet = null;
-    this.validateForm = null;
-  }
-
-  handlerSave(): void {
-    if (this.validateForm.valid) {
-      this.snippetService.save(this.snippet)
-      .then(() => {
-        this.messageService.success(this.translateService.instant('common.success'));
-        this.handlerCloseDrawer();
-        this.initialize();
-      })
-      .catch(() => {
-        this.messageService.error(this.translateService.instant('common.error'));
-      });
-    } else {
-      Object.values(this.validateForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
+    if (close) {
+      this.initialize();
     }
   }
 

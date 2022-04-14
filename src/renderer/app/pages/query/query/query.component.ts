@@ -15,6 +15,7 @@ import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
 import { CommandModel } from '@renderer/model/command.model';
+import { SnippetModel } from '@renderer/model/snippet.model';
 
 @Component({
   selector: 'app-query',
@@ -37,6 +38,10 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   loadingContainers = [];
   processorContainers = [];
   containerSelected = 0;
+  codeSnippet = {
+    disabled: false,
+    value: SnippetModel
+  };
 
   constructor(private editorService: EditorService,
               private datasourceService: DatasourceService,
@@ -177,5 +182,18 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
 
   handlerExecuteCommand(command: CommandModel) {
     this.handlerExecute(command);
+  }
+
+  handlerCodeSnippet(close?: boolean) {
+    if (close) {
+      this.codeSnippet.disabled = false;
+    } else {
+      this.codeSnippet.disabled = true;
+    }
+  }
+
+  handlerCodeSnippetProcessor(sql?: string) {
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    codeMirror.setValue(sql);
   }
 }

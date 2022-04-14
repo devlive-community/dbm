@@ -146,7 +146,8 @@
     "description": "描述",
     "code": "代码",
     "created": "创建",
-    "updated": "更新"
+    "updated": "更新",
+    "quote": "引用"
   },
   "language": {
     "english": "英语",

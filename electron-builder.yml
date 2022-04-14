@@ -12,6 +12,7 @@ releaseInfo:
 
     - Support metadata management, add column description information
     - Support code snippet management
+    - Support query reference code snippet
 
     #### Docs
 

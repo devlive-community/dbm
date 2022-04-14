@@ -5,6 +5,8 @@ import { SnippetService } from '@renderer/services/snippet/snippet.service';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { TranslateService } from '@ngx-translate/core';
 import { API, APIDefinition, Columns, Config, DefaultConfig } from 'ngx-easy-table';
+import { SystemEditorModel } from '@renderer/model/system.model';
+import { EditorService } from '@renderer/services/editor/editor.service';
 
 @Component({
   selector: 'app-component-quote-snippet',
@@ -24,9 +26,11 @@ export class QuoteSnippetComponent extends BaseComponent {
   headers: Columns[] = new Array();
   toggledRows = new Set<number>();
   tableWidth = '100%';
+  editorConfig: any;
 
   constructor(private snippetService: SnippetService,
               private messageService: NzMessageService,
+              private editorService: EditorService,
               private translateService: TranslateService) {
     super();
     const id = this.translateService.instant('common.id');
@@ -44,6 +48,9 @@ export class QuoteSnippetComponent extends BaseComponent {
     this.configuration.orderEnabled = false;
     this.configuration.paginationRangeEnabled = false;
     this.configuration.detailsTemplate = true;
+    const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
+    this.editorConfig = Object.assign(this.editorService.getDefault(), cache);
+    this.editorConfig.readOnly = true;
     this.initialize();
   }
 

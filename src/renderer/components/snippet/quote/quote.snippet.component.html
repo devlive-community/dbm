@@ -29,7 +29,7 @@
     </ngx-table>
     <ng-template #detailsTemplate let-row>
       <div style="width: {{tableWidth}}">
-        <ngx-codemirror [(ngModel)]="row.code"></ngx-codemirror>
+        <ngx-codemirror [(ngModel)]="row.code" [options]="editorConfig"></ngx-codemirror>
       </div>
     </ng-template>
   </ng-container>

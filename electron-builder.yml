@@ -25,6 +25,7 @@ releaseInfo:
 
     ----
 
+    - Add data sheet deletion prompt greater than 50GB
 
     #### Bug
 

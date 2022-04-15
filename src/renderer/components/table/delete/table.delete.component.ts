@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { ConfigModel } from '@renderer/model/config.model';
 import { DatabaseModel } from '@renderer/model/database.model';
@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   selector: 'app-component-delete-table',
   templateUrl: './table.delete.component.html'
 })
-export class DeleteTableComponent extends BaseComponent {
+export class DeleteTableComponent extends BaseComponent implements AfterViewInit {
   @Input()
   config: ConfigModel;
   @Input()
@@ -21,12 +21,29 @@ export class DeleteTableComponent extends BaseComponent {
   @Output()
   emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
+  tableInfo: any;
 
   constructor(private dataSourceService: DatasourceService,
               private tableService: TableService,
+              private datasourceService: DatasourceService,
               private messageService: NzMessageService) {
     super();
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const request = new RequestModel();
+      request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+      this.tableService.getSize(request, this.database, this.value)
+        .then(response => {
+          if (response.status) {
+            this.tableInfo = response.data?.columns[0];
+          } else {
+            this.messageService.error(response.message);
+          }
+        });
+    }, 0);
+    }
 
   handlerValidate() {
     if (this.inputValue === this.value) {

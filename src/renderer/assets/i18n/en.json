@@ -261,8 +261,10 @@
     "noversion": "This is the latest version!",
     "not_support_online": "Currently, online updates are not supported",
     "table_grate_50": "Data tables larger than 50GB cannot be migrated",
+    "table_delete_grate_50": "Data tables larger than 50GB cannot be deleted",
     "ttl": "When the time reaches, the system deletes data in the entire table based on the configured TTL",
     "ttl_remove": "After the TTL configuration is removed, the system will not delete data",
-    "only_one_column": "You cannot delete all columns in a data table, the table must contain at least one column"
+    "only_one_column": "You cannot delete all columns in a data table, the table must contain at least one column",
+    "delete_it": "We don't recommend that you delete it? This operation produces the following?"
   }
 }

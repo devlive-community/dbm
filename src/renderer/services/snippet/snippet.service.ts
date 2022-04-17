@@ -42,7 +42,11 @@ export class SnippetService extends PersistenceService implements BaseService {
     return false;
   }
 
+  delete(id: number): PromiseExtended {
+    return this.db.SnippetTable.delete(id);
+  }
+
   deleteById(id: number): boolean {
-    return false;
+      return false;
   }
 }

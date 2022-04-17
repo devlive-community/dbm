@@ -47,6 +47,14 @@
                     nz-tooltip nzTooltipTitle="{{'common.edit'|translate}}">
               <i class="fa fa-edit" (click)="handlerShowCreateSnippet(actionComponent.update, data)"></i>
             </button>
+            <button nz-button nzShape="circle" nzSize="small" nzDanger
+                    nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"
+                    nz-tooltip nzTooltipTitle="{{'common.delete' | translate}}"
+                    [nzCancelText]="'common.cancel'|translate"
+                    [nzOkText]="'common.ok'|translate"
+                    (nzOnConfirm)="handlerDelete(data.id)">
+              <i class="fa fa-trash"></i>
+            </button>
           </td>
         </tr>
       </ng-container>

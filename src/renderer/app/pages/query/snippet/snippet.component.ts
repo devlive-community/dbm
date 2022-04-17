@@ -43,14 +43,11 @@ export class SnippetComponent extends BaseComponent {
   initialize() {
     this.snippetService.getAll()
     .then(response => {
-      if (response.length > 0) {
-        this.columns = response;
-      }
+      this.columns = response;
     })
     .catch(() => {
       this.messageService.error(this.translateService.instant('common.error'));
     });
-    ;
   }
 
   handlerShowCreateSnippet(type: ActionEnum, data?: SnippetModel): void {
@@ -73,5 +70,16 @@ export class SnippetComponent extends BaseComponent {
 
   handlerCloseModal(): void {
     this.dialog.select = false;
+  }
+
+  handlerDelete(id: number) {
+    this.snippetService.delete(id)
+    .then(() => {
+      this.messageService.success(this.translateService.instant('common.success'));
+      this.initialize();
+    })
+    .catch(() => {
+      this.messageService.error(this.translateService.instant('common.error'));
+    });
   }
 }

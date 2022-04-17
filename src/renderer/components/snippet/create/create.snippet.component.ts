@@ -22,6 +22,8 @@ export class CreateSnippetComponent extends BaseComponent implements AfterViewIn
   action: ActionEnum;
   @Input()
   snippetValue?: string;
+  @Input()
+  snippetComponent?: SnippetModel;
   @Output()
   emitter = new EventEmitter<boolean>();
   snippet: SnippetModel;
@@ -66,6 +68,8 @@ export class CreateSnippetComponent extends BaseComponent implements AfterViewIn
           this.snippet.code = this.snippetValue;
         }
         break;
+      case ActionEnum.update:
+        this.snippet = this.snippetComponent;
     }
   }
 
@@ -80,14 +84,25 @@ export class CreateSnippetComponent extends BaseComponent implements AfterViewIn
 
   handlerSave(): void {
     if (this.validateForm.valid) {
-      this.snippetService.save(this.snippet)
-      .then(() => {
-        this.messageService.success(this.translateService.instant('common.success'));
-        this.handlerCloseDrawer(true);
-      })
-      .catch(() => {
-        this.messageService.error(this.translateService.instant('common.error'));
-      });
+      if (this.action === ActionEnum.create) {
+        this.snippetService.save(this.snippet)
+        .then(() => {
+          this.messageService.success(this.translateService.instant('common.success'));
+          this.handlerCloseDrawer(true);
+        })
+        .catch(() => {
+          this.messageService.error(this.translateService.instant('common.error'));
+        });
+      } else {
+        this.snippetService.update(this.snippet)
+        .then(() => {
+          this.messageService.success(this.translateService.instant('common.success'));
+          this.handlerCloseDrawer(true);
+        })
+        .catch(error => {
+          this.messageService.error(error);
+        });
+      }
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {

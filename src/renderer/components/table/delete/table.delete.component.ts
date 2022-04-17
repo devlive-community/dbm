@@ -21,7 +21,7 @@ export class DeleteTableComponent extends BaseComponent implements AfterViewInit
   @Output()
   emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
-  tableInfo: any;
+  tableInfo = {flag: 1};
 
   constructor(private dataSourceService: DatasourceService,
               private tableService: TableService,
@@ -35,15 +35,15 @@ export class DeleteTableComponent extends BaseComponent implements AfterViewInit
       const request = new RequestModel();
       request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
       this.tableService.getSize(request, this.database, this.value)
-        .then(response => {
-          if (response.status) {
-            this.tableInfo = response.data?.columns[0];
-          } else {
-            this.messageService.error(response.message);
-          }
-        });
+      .then(response => {
+        if (response.status) {
+          this.tableInfo = response.data?.columns[0];
+        } else {
+          this.messageService.error(response.message);
+        }
+      });
     }, 0);
-    }
+  }
 
   handlerValidate() {
     if (this.inputValue === this.value) {

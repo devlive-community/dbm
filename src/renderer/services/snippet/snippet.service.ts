@@ -6,6 +6,7 @@ import { DexieDb } from '@renderer/db/dexiedb';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { PromiseExtended } from 'dexie';
 import { Injectable } from '@angular/core';
+import { toNumber } from 'ng-zorro-antd/core/util';
 
 @Injectable()
 export class SnippetService extends PersistenceService implements BaseService {
@@ -24,6 +25,10 @@ export class SnippetService extends PersistenceService implements BaseService {
     model.created = new Date();
     model.updated = new Date();
     return this.db.SnippetTable.add(model);
+  }
+
+  update(model: SnippetModel): PromiseExtended {
+    return this.db.SnippetTable.update(model.id, model);
   }
 
   getAll(): PromiseExtended<SnippetModel[]> {

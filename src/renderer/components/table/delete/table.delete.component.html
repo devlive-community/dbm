@@ -32,14 +32,14 @@
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
         <nz-input-group [nzAddOnBefore]="addOnBefore" [nzAddOnAfter]="suffixButton">
-          <input type="text" name="inputValue" nz-input [disabled]="tableInfo?.flag" [(ngModel)]="inputValue"
+          <input type="text" name="inputValue" nz-input [disabled]="tableInfo?.flag === 1" [(ngModel)]="inputValue"
                  (change)="handlerValidate()"/>
         </nz-input-group>
         <ng-template #addOnBefore>
           <button nz-button nzDanger nzType="link">{{value}}</button>
         </ng-template>
         <ng-template #suffixButton>
-          <button nz-button nzType="link" [disabled]="tableInfo?.flag"
+          <button nz-button nzType="link" [disabled]="tableInfo?.flag === 1"
                   (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
         </ng-template>
       </nz-form-control>

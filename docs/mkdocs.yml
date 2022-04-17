@@ -134,6 +134,7 @@ plugins:
           Datasource: 数据源
           Query: 查询
           History: 历史
+          Snippet: 片段
           Management: 管理
           Monitor: 监控
           Processor: 进程
@@ -151,6 +152,7 @@ nav:
       - Query:
         - Query: reference/query/query_query.md
         - History: reference/query/query_history.md
+        - Snippet: reference/query/snippet/snippet.md
       - Management:
         - Datasource: reference/management/management_datasource.md
       - Monitor:

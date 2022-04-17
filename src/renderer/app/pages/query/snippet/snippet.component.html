@@ -11,29 +11,55 @@
     </ng-template>
   </nz-empty>
   <ng-template #notHasValues>
-    <ngx-table [data]="columns" [configuration]="configuration" [columns]="headers">
-      <ng-template let-row>
-        <td>{{row.id}}</td>
-        <td>
-          <em nz-typography nzEllipsis nzCopyable [nzEllipsisRows]="1" nzCopyText="{{row.name}}">{{row.name}}</em>
-        </td>
-        <td>
-          <em nz-typography nzEllipsis nzExpandable [nzEllipsisRows]="1">{{row.description}}</em>
-        </td>
-        <td>
-          <button nz-button nzType="link" nz-tooltip nzTooltipTitle="{{'common.ddl'|translate}}"
-                  (click)="handlerShowModal(row)">
-            <i class="fa fa-eye"></i>
-          </button>
-        </td>
-        <td>
-          <p nz-typography>{{row.created|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}</p>
-        </td>
-        <td>
-          <p nz-typography>{{row.updated|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}</p>
-        </td>
-      </ng-template>
-    </ngx-table>
+    <nz-table #snippetTable [nzData]="columns" nzTableLayout="fixed">
+      <thead>
+      <tr>
+        <th>{{'common.id'|translate}}</th>
+        <th>{{'common.name'|translate}}</th>
+        <th>{{'common.description'|translate}}</th>
+        <th>{{'common.code'|translate}}</th>
+        <th>{{'common.created'|translate}}</th>
+        <th>{{'common.updated'|translate}}</th>
+        <th>{{'common.action'|translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngFor="let data of snippetTable.data">
+        <tr>
+          <td>{{data.id}}</td>
+          <td nzEllipsis>
+            <span nz-tooltip nzTooltipPlacement="topLeft" nzTooltipTitle="{{data.name}}">{{data.name}}</span>
+          </td>
+          <td nzEllipsis>
+            <span nz-tooltip nzTooltipPlacement="topLeft"
+                  nzTooltipTitle="{{data.description}}">{{data.description}}</span>
+          </td>
+          <td>
+            <button nz-button nzType="link" nz-tooltip nzTooltipTitle="{{'common.ddl'|translate}}"
+                    (click)="handlerShowModal(data)">
+              <i class="fa fa-eye"></i>
+            </button>
+          </td>
+          <td>{{data.created|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td>{{data.updated|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}</td>
+          <td>
+            <button nz-button nzShape="circle" nzSize="small" nzType="primary"
+                    nz-tooltip nzTooltipTitle="{{'common.edit'|translate}}">
+              <i class="fa fa-edit" (click)="handlerShowCreateSnippet(actionComponent.update, data)"></i>
+            </button>
+            <button nz-button nzShape="circle" nzSize="small" nzDanger
+                    nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"
+                    nz-tooltip nzTooltipTitle="{{'common.delete' | translate}}"
+                    [nzCancelText]="'common.cancel'|translate"
+                    [nzOkText]="'common.ok'|translate"
+                    (nzOnConfirm)="handlerDelete(data.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </nz-table>
   </ng-template>
 </nz-card>
 <ng-template #titleTemplate>
@@ -42,6 +68,7 @@
   </button>
 </ng-template>
 <app-component-create-snippet *ngIf="dialog.create" [visible]="dialog.create" [action]="action"
+                              [snippetComponent]="selectRow"
                               (emitter)="handlerCloseCreateSnippet($event)">
 </app-component-create-snippet>
 <app-component-ddl-query *ngIf="dialog.select" [visible]="dialog.select" [text]="selectRow.code"

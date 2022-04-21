@@ -39,6 +39,7 @@ releaseInfo:
 
     - Add multiple editor themes
     - Quick query unavailable nodes prohibit operations
+    - It is forbidden to use functions such as quick query if the data source is not selected
 
 directories:
   output: ./release

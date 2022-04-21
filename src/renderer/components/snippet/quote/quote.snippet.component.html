@@ -25,10 +25,12 @@
                   nzTooltipTitle="{{data.description}}">{{data.description}}</span>
           </td>
           <td [nzExpand]="toggledRows.has(data.id)" [nzShowExpand]="false">
-            <button nz-button nz-tooltip nzTooltipTitle="{{'common.preview'|translate}}{{'common.ddl'|translate}}"
-                    nzType="text" id="expandButton-{{data.id}}" (click)="handlerRowToggled($event, data.id)">
-              <i class="fa fa-{{toggledRows.has(data.id) ? 'toggle-on' : 'toggle-off'}}"></i>
-            </button>
+            <nz-switch [ngModel]="false" nz-tooltip
+                       nzTooltipTitle="{{'common.preview'|translate}}{{'common.ddl'|translate}}"
+                       nzSize="small" nzCheckedChildren="{{'common.open'|translate}}"
+                       nzUnCheckedChildren="{{'common.close'|translate}}"
+                       (click)="handlerRowToggled($event, data.id)">
+            </nz-switch>
           </td>
           <td>
             <button nz-button nz-tooltip nzTooltipTitle="{{'common.quote'|translate}}{{'common.ddl'|translate}}"

@@ -33,6 +33,7 @@ releaseInfo:
     ---
 
     - Fix the problem that invalid metadata management nodes can be clicked
+    - Fix the exception that the optional parameters of the metadata management creation of the MongoDB data table cannot be constructed
 
     #### UI
 

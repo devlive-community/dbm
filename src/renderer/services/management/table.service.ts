@@ -236,6 +236,7 @@ export class TableService implements BaseService {
         break;
       case PropertyEnum.name:
         const substr = configure.properties
+        .filter(element => StringUtils.isNotEmpty(element.value))
         .flatMap(element => StringUtils.format('\'{0}\'', [element.value]))
         .join(', ');
         sql = StringUtils.format('{0} {1}({2})', [prefix, configure.type, substr]);

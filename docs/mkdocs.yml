@@ -159,6 +159,7 @@ nav:
           - Processor: reference/Monitor-Processor.md
           - Connection: reference/monitor/monitor_connection.md
           - Mutations: reference/monitor/monitor_mutations.md
+          - Query: reference/monitor/monitor_query.md
   - Release Note:
       - 1.14.0 (latest): release/1.14.0-20220410.md
       - 1.13.0: release/1.13.0-20220329.md

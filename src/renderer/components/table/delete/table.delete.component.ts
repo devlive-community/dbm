@@ -30,10 +30,10 @@ export class DeleteTableComponent extends BaseComponent implements AfterViewInit
     super();
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
+  ngAfterViewInit() {
+    setTimeout(async () => {
       const request = new RequestModel();
-      request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+      request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
       this.tableService.getSize(request, this.database, this.value)
       .then(response => {
         if (response.status) {
@@ -53,10 +53,10 @@ export class DeleteTableComponent extends BaseComponent implements AfterViewInit
     }
   }
 
-  handlerDelete() {
+  async handlerDelete() {
     this.loading.button = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     const _value = new DatabaseModel();
     _value.database = this.database;
     _value.name = this.value;

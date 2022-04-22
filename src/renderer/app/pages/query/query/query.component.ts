@@ -54,7 +54,9 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     super();
     const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
     this.editorConfig = Object.assign(this.editorService.getDefault(), cache);
-    this.dataSources = this.datasourceService.getAll()?.data?.columns;
+    this.datasourceService.getAll().then(response => {
+      this.dataSources = response;
+    });
     this.editorContainers.push('Editor ' + 1);
     this.resultContainers.push('Editor ' + 1 + ' Result');
     this.loadingContainers.push({loading: false});
@@ -106,35 +108,37 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     }
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
-    request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];
-    queryHistory.server = this.datasource;
-    queryHistory.query = sql;
-    this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
-    this.processorContainers[this.containerSelected].color = 'cyan';
-    this.queryService.getResponse(request, sql).then(response => {
-      if (response.status) {
-        queryHistory.state = StateEnum.success;
-        this.processorContainers[this.containerSelected].icon = 'check-circle';
-        this.processorContainers[this.containerSelected].color = '#87d068';
-        if (response.data) {
-          this.responseTableData[this.containerSelected] = response.data;
+    this.datasourceService.findByAlias(this.datasource).then(response => {
+      request.config = response;
+      queryHistory.server = this.datasource;
+      queryHistory.query = sql;
+      this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
+      this.processorContainers[this.containerSelected].color = 'cyan';
+      this.queryService.getResponse(request, sql).then(response => {
+        if (response.status) {
+          queryHistory.state = StateEnum.success;
+          this.processorContainers[this.containerSelected].icon = 'check-circle';
+          this.processorContainers[this.containerSelected].color = '#87d068';
+          if (response.data) {
+            this.responseTableData[this.containerSelected] = response.data;
+          } else {
+            this.messageService.success('Operation is successful!');
+          }
         } else {
-          this.messageService.success('Operation is successful!');
+          this.messageService.error(response.message);
+          queryHistory.message = response.message;
+          queryHistory.state = StateEnum.failure;
+          this.processorContainers[this.containerSelected].icon = 'times-circle';
+          this.processorContainers[this.containerSelected].color = '#f50';
         }
-      } else {
-        this.messageService.error(response.message);
-        queryHistory.message = response.message;
-        queryHistory.state = StateEnum.failure;
-        this.processorContainers[this.containerSelected].icon = 'times-circle';
-        this.processorContainers[this.containerSelected].color = '#f50';
-      }
-      this.disabledButton.execute = false;
-      this.loadingContainers[this.containerSelected].loading = false;
-      this.loading.button = false;
-      this.disabledButton.cancel = true;
-      queryHistory.endTime = Date.parse(new Date().toString());
-      queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
-      this.queryHistoryService.save(queryHistory);
+        this.disabledButton.execute = false;
+        this.loadingContainers[this.containerSelected].loading = false;
+        this.loading.button = false;
+        this.disabledButton.cancel = true;
+        queryHistory.endTime = Date.parse(new Date().toString());
+        queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
+        this.queryHistoryService.save(queryHistory);
+      });
     });
   }
 

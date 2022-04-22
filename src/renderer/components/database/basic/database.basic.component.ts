@@ -84,9 +84,9 @@ export class DatabaseBasicComponent extends BaseComponent {
     this.handlerValidate();
   }
 
-  handlerComplete(): void {
+  async handlerComplete() {
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.metadataService.createDatabase(request, this.configure).then(response => {
       if (response.status) {
         this.messageService.success(response.message);

@@ -105,9 +105,9 @@ export class CreateTableComponent extends BaseComponent {
     this.columns.length = 0;
   }
 
-  handlerComplete(): void {
+  async handlerComplete() {
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.configure.database = this.value;
     this.tableService.createTable(request, this.configure, this.columns).then(response => {
       if (response.status) {

@@ -39,7 +39,9 @@ export class QuickQueryComponent extends BaseComponent {
               private queryQuickService: QueryQuickService) {
     super();
     this.quickCommands = this.queryQuickService.getQuickAll();
-    this.dataSourceSet = this.dataSourceService.getAll()?.data?.columns;
+    this.dataSourceService.getAll().then(response => {
+      this.dataSourceSet = response;
+    });
   }
 
   handlerCancel() {
@@ -50,35 +52,36 @@ export class QuickQueryComponent extends BaseComponent {
   handlerChangeValue(quick: QuickEnum) {
     this.table = null;
     const request = new RequestModel();
-    const datasourceInfo = this.dataSourceService.getAll(this.dataSource)?.data?.columns[0];
-    request.config = datasourceInfo;
-    switch (quick) {
-      case QuickEnum.database:
-        this.disabled.dialog = true;
-        this.loading.database = true;
-        this.databaseSet = [];
-        this.queryService.getResponse(request, 'SHOW DATABASES').then(response => {
-          if (response.status) {
-            this.databaseSet = response.data.columns;
-          } else {
-            this.messageService.error(response.message);
-          }
-          this.loading.database = false;
-          this.disabled.dialog = false;
-        });
-        break;
-      case QuickEnum.table:
-        this.tableSet = [];
-        this.queryService.getResponse(request, 'SHOW TABLES FROM ' + this.database).then(response => {
-          if (response.status) {
-            this.tableSet = response.data.columns;
-          } else {
-            this.messageService.error(response.message);
-          }
-          this.loading.table = false;
-        });
-        break;
-    }
+    this.dataSourceService.findByAlias(this.dataSource).then(response => {
+      request.config = response;
+      switch (quick) {
+        case QuickEnum.database:
+          this.disabled.dialog = true;
+          this.loading.database = true;
+          this.databaseSet = [];
+          this.queryService.getResponse(request, 'SHOW DATABASES').then(response => {
+            if (response.status) {
+              this.databaseSet = response.data.columns;
+            } else {
+              this.messageService.error(response.message);
+            }
+            this.loading.database = false;
+            this.disabled.dialog = false;
+          });
+          break;
+        case QuickEnum.table:
+          this.tableSet = [];
+          this.queryService.getResponse(request, 'SHOW TABLES FROM ' + this.database).then(response => {
+            if (response.status) {
+              this.tableSet = response.data.columns;
+            } else {
+              this.messageService.error(response.message);
+            }
+            this.loading.table = false;
+          });
+          break;
+      }
+    });
   }
 
   handlerQuickCommand(command: { name: string, value: string }) {

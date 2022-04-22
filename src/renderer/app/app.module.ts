@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 
 const ngZorroConfig: NzConfig = {
   card: {
@@ -13,6 +13,12 @@ const ngZorroConfig: NzConfig = {
   },
   button: {
     nzSize: 'small'
+  },
+  table: {
+    nzSize: 'small'
+  },
+  modal: {
+    nzMaskClosable: false
   }
 };
 
@@ -32,8 +38,8 @@ const ngZorroConfig: NzConfig = {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
-    { provide: NZ_CONFIG, useValue:  ngZorroConfig  }
-],
+    {provide: NZ_CONFIG, useValue: ngZorroConfig}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

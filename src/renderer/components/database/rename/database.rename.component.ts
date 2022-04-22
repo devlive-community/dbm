@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { ConfigModel } from '@renderer/model/config.model';
-import { DatabaseModel } from '@renderer/model/database.model';
 import { RequestModel } from '@renderer/model/request.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
-import { TableService } from '@renderer/services/management/table.service';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseService } from '@renderer/services/management/database.service';
@@ -35,10 +33,10 @@ export class DatabaseRenameComponent extends BaseComponent implements AfterViewI
     }, 0);
   }
 
-  handlerCheckDatabaseStatus() {
+  async handlerCheckDatabaseStatus() {
     this.checkStatus = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.databaseService.getDatabase(request, this.value)
     .then(response => {
       if (response.status) {
@@ -57,10 +55,10 @@ export class DatabaseRenameComponent extends BaseComponent implements AfterViewI
     }
   }
 
-  handlerRename() {
+  async handlerRename() {
     this.loading.button = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.databaseService.rename(request, this.value, this.inputValue)
     .then(response => {
       if (response.status) {

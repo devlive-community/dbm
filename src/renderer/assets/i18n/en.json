@@ -265,6 +265,11 @@
     "ttl": "When the time reaches, the system deletes data in the entire table based on the configured TTL",
     "ttl_remove": "After the TTL configuration is removed, the system will not delete data",
     "only_one_column": "You cannot delete all columns in a data table, the table must contain at least one column",
-    "delete_it": "We don't recommend that you delete it? This operation produces the following?"
+    "delete_it": "We don't recommend that you delete it? This operation produces the following?",
+    "migrate_datasource": "The storage method of the data source has been modified. Please continue to use the original storage content after migrating the data.",
+    "migrate_data_success": "After the migration is successful, the source data will be cleaned up!"
+  },
+  "formatter": {
+    "migrate_data": "Need to migrate {0} data, please confirm whether to migrate?"
   }
 }

@@ -14,12 +14,14 @@ releaseInfo:
     - Support code snippet management
     - Support query reference code snippet
     - Support to quickly add code snippets after successful query
+    - The data source supports IndexDB storage
 
     #### Docs
 
     ---
 
     - Add snippet docs
+    - Add monitor --> query docs
 
     #### Optimize
 
@@ -32,6 +34,7 @@ releaseInfo:
     ---
 
     - Fix the problem that invalid metadata management nodes can be clicked
+    - Fix the exception that the optional parameters of the metadata management creation of the MongoDB data table cannot be constructed
 
     #### UI
 
@@ -39,6 +42,7 @@ releaseInfo:
 
     - Add multiple editor themes
     - Quick query unavailable nodes prohibit operations
+    - It is forbidden to use functions such as quick query if the data source is not selected
 
 directories:
   output: ./release

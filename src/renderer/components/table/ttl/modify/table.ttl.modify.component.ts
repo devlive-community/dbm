@@ -33,8 +33,8 @@ export class TableTtlModifyComponent extends BaseComponent implements AfterViewI
     this.ttlConfig = new TableTtlModel();
   }
 
-  ngAfterViewInit(): void {
-    this.tableService.getTimeColumns(this.handlerGetRequest(), this.handlerGetDatabaseModel())
+  async ngAfterViewInit() {
+    this.tableService.getTimeColumns(await this.handlerGetRequest(), this.handlerGetDatabaseModel())
     .then(response => {
       if (response.status) {
         this.columns = response.data.columns;
@@ -44,9 +44,9 @@ export class TableTtlModifyComponent extends BaseComponent implements AfterViewI
     });
   }
 
-  handlerGetRequest(): RequestModel {
+  async handlerGetRequest(): Promise<RequestModel> {
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     return request;
   }
 
@@ -79,11 +79,11 @@ export class TableTtlModifyComponent extends BaseComponent implements AfterViewI
     }
   }
 
-  handlerSave() {
+  async handlerSave() {
     this.loading.button = true;
     this.ttlConfig.database = this.database;
     this.ttlConfig.table = this.value;
-    this.tableService.modifyTTL(this.handlerGetRequest(), this.ttlConfig)
+    this.tableService.modifyTTL(await this.handlerGetRequest(), this.ttlConfig)
     .then(response => {
       if (response.status) {
         this.messageService.success(response.message);

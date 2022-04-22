@@ -25,7 +25,9 @@ export class TrackComponent extends BaseComponent {
               private messageService: NzMessageService,
               private modal: NzModalService) {
     super();
-    this.dataSources = this.datasourceService.getAll()?.data?.columns;
+    this.datasourceService.getAll().then(response => {
+      this.dataSources = response;
+    });
   }
 
   handlerSearch(value: string) {

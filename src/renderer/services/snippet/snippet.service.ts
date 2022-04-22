@@ -6,7 +6,6 @@ import { DexieDb } from '@renderer/db/dexiedb';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { PromiseExtended } from 'dexie';
 import { Injectable } from '@angular/core';
-import { toNumber } from 'ng-zorro-antd/core/util';
 
 @Injectable()
 export class SnippetService extends PersistenceService implements BaseService {

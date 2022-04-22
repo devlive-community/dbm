@@ -5,6 +5,7 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { QueryService } from '@renderer/services/query/query.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { ClickhousePluginService } from '@renderer/services/plugin/clickhouse.plugin.service';
+import { DatasourceModel } from '@renderer/model/datasource.model';
 
 @Component({
   selector: 'app-home',
@@ -12,21 +13,23 @@ import { ClickhousePluginService } from '@renderer/services/plugin/clickhouse.pl
 })
 export class HomeComponent implements OnInit {
   version: string = PackageUtils.get('version');
-  dataSources: any[];
+  dataSources: DatasourceModel[] = new Array();
   chartsConfig: ChartsModel[] = new Array();
   chartsSkeleton: boolean[] = new Array();
 
   constructor(private datasourceService: DatasourceService,
               private queryService: QueryService,
               private clickhousePluginService: ClickhousePluginService) {
-    this.dataSources = this.datasourceService.getAll()?.data?.columns;
     for (let i = 0; i < this.chartsConfig.length; i++) {
       this.chartsSkeleton[i] = true;
     }
   }
 
   ngOnInit() {
-    this.handlerInitChart();
+    this.datasourceService.getAll().then(response => {
+      this.dataSources = response;
+      this.handlerInitChart();
+    });
   }
 
   handlerInitChart() {

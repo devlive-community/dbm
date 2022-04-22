@@ -37,7 +37,7 @@ export class DatabaseStructureComponent extends BaseComponent implements AfterVi
 
   ngAfterViewInit(): void {
     // eslint-disable-next-line max-len
-    // Fix ERROR Error: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'false'. Current value: 'true'
+    // Fix Error: NG0100: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value: 'false'. Current value: 'true'
     setTimeout(() => {
       this.handlerInitialize();
     }, 0);
@@ -48,10 +48,10 @@ export class DatabaseStructureComponent extends BaseComponent implements AfterVi
     this.emitter.emit(this.visible);
   }
 
-  handlerInitialize() {
+  async handlerInitialize() {
     this.loading.button = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.metadataService.getDatabaseDDL(request, this.value).then(response => {
       if (response.status) {
         this.structure = response?.data?.columns[0]?.statement;

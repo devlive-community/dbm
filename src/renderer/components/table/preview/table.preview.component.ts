@@ -9,36 +9,36 @@ import { TableService } from '@renderer/services/management/table.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-    selector: 'app-component-preview-table',
-    templateUrl: './table.preview.component.html'
+  selector: 'app-component-preview-table',
+  templateUrl: './table.preview.component.html'
 })
 export class PreviewTableComponent extends BaseComponent implements AfterViewInit {
-    @Input()
-    config: ConfigModel;
-    @Input()
-    value: string;
-    @Input()
-    database: string;
-    tableData: ResponseDataModel;
+  @Input()
+  config: ConfigModel;
+  @Input()
+  value: string;
+  @Input()
+  database: string;
+  tableData: ResponseDataModel;
 
-    constructor(private dataSourceService: DatasourceService,
-        private tableService: TableService,
-        private messageService: NzMessageService) {
-        super();
-    }
+  constructor(private dataSourceService: DatasourceService,
+              private tableService: TableService,
+              private messageService: NzMessageService) {
+    super();
+  }
 
-    ngAfterViewInit(): void {
-        const request = new RequestModel();
-        request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
-        const _value = new DatabaseModel();
-        _value.database = this.database;
-        _value.name = this.value;
-        this.tableService.getPreview(request, _value).then(response => {
-            if (response.status) {
-                this.tableData = response.data;
-            } else {
-                this.messageService.error(response.message);
-            }
-        });
-    }
+  async ngAfterViewInit() {
+    const request = new RequestModel();
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
+    const _value = new DatabaseModel();
+    _value.database = this.database;
+    _value.name = this.value;
+    this.tableService.getPreview(request, _value).then(response => {
+      if (response.status) {
+        this.tableData = response.data;
+      } else {
+        this.messageService.error(response.message);
+      }
+    });
+  }
 }

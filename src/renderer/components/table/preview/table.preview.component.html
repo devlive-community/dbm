@@ -1,17 +1,17 @@
 <div>
-    <form nz-form>
-        <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.database'|translate}}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-                <nz-tag [nzColor]="'#2db7f5'">{{database}}</nz-tag>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.table'|translate}}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-                <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
-            </nz-form-control>
-        </nz-form-item>
-    </form>
-    <app-component-basic-table [value]="tableData"></app-component-basic-table>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.database'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{database}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.table'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-tag [nzColor]="'#2db7f5'">{{value}}</nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <app-component-basic-table *ngIf="tableData?.columns.length > 0" [value]="tableData"></app-component-basic-table>
 </div>

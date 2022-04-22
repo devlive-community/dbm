@@ -14,6 +14,7 @@ releaseInfo:
     - Support code snippet management
     - Support query reference code snippet
     - Support to quickly add code snippets after successful query
+    - The data source supports IndexDB storage
 
     #### Docs
 

@@ -48,10 +48,10 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     }, 0);
   }
 
-  handlerCheckTables() {
+  async handlerCheckTables() {
     this.getTables = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.databaseService.getTables(request, this.value).then(response => {
       if (response.status) {
         this.tables = response.data;
@@ -76,10 +76,10 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     }
   }
 
-  handlerDelete() {
+  async handlerDelete() {
     this.loading.button = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.metadataService.delete(request, this.value).then(response => {
       if (response.status) {
         this.messageService.success(response.message);
@@ -99,10 +99,10 @@ export class DatabaseDropComponent extends BaseComponent implements AfterViewIni
     this.handlerValidate();
   }
 
-  handlerDeleteTable(table: any) {
+  async handlerDeleteTable(table: any) {
     this.deleteTable = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     const _value = new DatabaseModel();
     _value.database = this.value;
     _value.name = table.name;

@@ -23,17 +23,19 @@ export class MonitorQueryComponent extends BaseComponent {
   queryDDL: string;
 
   constructor(private datasourceService: DatasourceService,
-    private monitorService: MonitorService,
-    private messageService: NzMessageService) {
+              private monitorService: MonitorService,
+              private messageService: NzMessageService) {
     super();
-    this.dataSources = this.datasourceService.getAll()?.data?.columns;
+    this.datasourceService.getAll().then(response => {
+      this.dataSources = response;
+    });
   }
 
-  handlerSwitch() {
+  async handlerSwitch() {
     this.loading.button = true;
     this.processors = null;
     const request = new RequestModel();
-    request.config = this.datasourceService.getAll(this.threshold.datasource)?.data?.columns[0];
+    request.config = await this.datasourceService.getByAliasAsync(this.threshold.datasource);
     this.monitorService.getSlowQuery(request, this.threshold.ranger).then(response => {
       if (response.status) {
         this.processors = response.data;

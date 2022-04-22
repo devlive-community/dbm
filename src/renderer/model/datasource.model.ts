@@ -13,4 +13,6 @@ export class DatasourceModel {
   type: string;
   version: string;
   maxTotal = 0;
+  created: Date;
+  updated: Date;
 }

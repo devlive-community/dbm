@@ -7,8 +7,29 @@
       <nz-breadcrumb-item>App</nz-breadcrumb-item>
     </nz-breadcrumb>
     <div class="inner-content">
+      <nz-alert *ngIf="dataSources?.length > 0" nzType="error" nzBanner [nzMessage]="alertTemplate"></nz-alert>
+      <ng-template #alertTemplate>
+        {{'alert.migrate_datasource'|translate}}&nbsp;
+        <button nz-button nzType="link" nzSize="small" (click)="handlerMigrateShow(true)">
+          {{'common.migrte'|translate}}
+        </button>
+      </ng-template>
+      <br/>
       <router-outlet></router-outlet>
     </div>
   </nz-content>
-<!--  <nz-footer>Design ©2021 Implement By Angular and Electron</nz-footer>-->
+  <nz-footer>Design ©2021 Implement By EdurtIO</nz-footer>
 </nz-layout>
+<nz-modal *ngIf="visible" [(nzVisible)]="visible" nzTitle="{{'common.migrte'|translate}}"
+          nzWidth="70%" (nzOnCancel)="handlerMigrateShow(false)">
+  <ng-container *nzModalContent>
+    <nz-alert nzType="error" nzBanner nzMessage="{{'alert.migrate_data_success'|translate}}"></nz-alert>
+    <br/>
+    <p>{{migrateConfirmMessage}}</p>
+  </ng-container>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="handlerMigrate()"
+            [nzLoading]="migrateLoading">{{'common.migrte'|translate}}</button>
+  </div>
+</nz-modal>
+

@@ -31,16 +31,18 @@ export class InfoServerComponent extends BaseComponent implements AfterViewInit 
   }
 
   async ngAfterViewInit() {
-    const request = new RequestModel();
-    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
-    this.disabled.dialog = true;
-    this.metadataService.getInfo(request).then(response => {
-      if (response.status) {
-        this.items = response.data;
-      } else {
-        this.messageService.error(response.message);
-      }
-      this.disabled.dialog = false;
-    });
+    setTimeout(async () => {
+      const request = new RequestModel();
+      request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
+      this.disabled.dialog = true;
+      this.metadataService.getInfo(request).then(response => {
+        if (response.status) {
+          this.items = response.data;
+        } else {
+          this.messageService.error(response.message);
+        }
+        this.disabled.dialog = false;
+      });
+    }, 0);
   }
 }

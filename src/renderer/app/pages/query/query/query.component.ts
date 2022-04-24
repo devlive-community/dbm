@@ -7,7 +7,6 @@ import { QueryService } from '@renderer/services/query/query.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { QueryHistoryModel } from '@renderer/model/query.history.model';
-import { Md5 } from 'ts-md5';
 import { QueryHistoryService } from '@renderer/services/query/query.history.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StateEnum } from '@renderer/enum/state.enum';
@@ -15,6 +14,8 @@ import { SqlUtils } from '@renderer/utils/sql.utils';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { SystemEditorModel } from '@renderer/model/system.model';
 import { CommandModel } from '@renderer/model/command.model';
+import { SnippetModel } from '@renderer/model/snippet.model';
+import { ActionEnum } from '@renderer/enum/action.enum';
 
 @Component({
   selector: 'app-query',
@@ -37,6 +38,13 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   loadingContainers = [];
   processorContainers = [];
   containerSelected = 0;
+  codeSnippet = {
+    disabled: false,
+    value: SnippetModel
+  };
+  action: ActionEnum;
+  actionComponent = ActionEnum;
+  snippetValue: string;
 
   constructor(private editorService: EditorService,
               private datasourceService: DatasourceService,
@@ -46,7 +54,9 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     super();
     const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
     this.editorConfig = Object.assign(this.editorService.getDefault(), cache);
-    this.dataSources = this.datasourceService.getAll()?.data?.columns;
+    this.datasourceService.getAll().then(response => {
+      this.dataSources = response;
+    });
     this.editorContainers.push('Editor ' + 1);
     this.resultContainers.push('Editor ' + 1 + ' Result');
     this.loadingContainers.push({loading: false});
@@ -98,35 +108,37 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     }
     queryHistory.startTime = Date.parse(new Date().toString());
     const request = new RequestModel();
-    request.config = this.datasourceService.getAll(this.datasource)?.data?.columns[0];
-    queryHistory.server = this.datasource;
-    queryHistory.query = sql;
-    this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
-    this.processorContainers[this.containerSelected].color = 'cyan';
-    this.queryService.getResponse(request, sql).then(response => {
-      if (response.status) {
-        queryHistory.state = StateEnum.success;
-        this.processorContainers[this.containerSelected].icon = 'check-circle';
-        this.processorContainers[this.containerSelected].color = '#87d068';
-        if (response.data) {
-          this.responseTableData[this.containerSelected] = response.data;
+    this.datasourceService.findByAlias(this.datasource).then(response => {
+      request.config = response;
+      queryHistory.server = this.datasource;
+      queryHistory.query = sql;
+      this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
+      this.processorContainers[this.containerSelected].color = 'cyan';
+      this.queryService.getResponse(request, sql).then(response => {
+        if (response.status) {
+          queryHistory.state = StateEnum.success;
+          this.processorContainers[this.containerSelected].icon = 'check-circle';
+          this.processorContainers[this.containerSelected].color = '#87d068';
+          if (response.data) {
+            this.responseTableData[this.containerSelected] = response.data;
+          } else {
+            this.messageService.success('Operation is successful!');
+          }
         } else {
-          this.messageService.success('Operation is successful!');
+          this.messageService.error(response.message);
+          queryHistory.message = response.message;
+          queryHistory.state = StateEnum.failure;
+          this.processorContainers[this.containerSelected].icon = 'times-circle';
+          this.processorContainers[this.containerSelected].color = '#f50';
         }
-      } else {
-        this.messageService.error(response.message);
-        queryHistory.message = response.message;
-        queryHistory.state = StateEnum.failure;
-        this.processorContainers[this.containerSelected].icon = 'times-circle';
-        this.processorContainers[this.containerSelected].color = '#f50';
-      }
-      this.disabledButton.execute = false;
-      this.loadingContainers[this.containerSelected].loading = false;
-      this.loading.button = false;
-      this.disabledButton.cancel = true;
-      queryHistory.endTime = Date.parse(new Date().toString());
-      queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
-      this.queryHistoryService.save(queryHistory);
+        this.disabledButton.execute = false;
+        this.loadingContainers[this.containerSelected].loading = false;
+        this.loading.button = false;
+        this.disabledButton.cancel = true;
+        queryHistory.endTime = Date.parse(new Date().toString());
+        queryHistory.elapsedTime = queryHistory.endTime - queryHistory.startTime;
+        this.queryHistoryService.save(queryHistory);
+      });
     });
   }
 
@@ -177,5 +189,28 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
 
   handlerExecuteCommand(command: CommandModel) {
     this.handlerExecute(command);
+  }
+
+  handlerCodeSnippet(close?: boolean) {
+    if (close) {
+      this.codeSnippet.disabled = false;
+    } else {
+      this.codeSnippet.disabled = true;
+    }
+  }
+
+  handlerCodeSnippetProcessor(sql?: string) {
+    const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
+    codeMirror.setValue(sql);
+  }
+
+  handlerShowCreateSnippet(type: ActionEnum): void {
+    this.dialog.create = true;
+    this.action = type;
+    this.snippetValue = this.codeEditors.get(this.containerSelected)['codeMirror'].getValue();
+  }
+
+  handlerCloseCreateSnippet(event: boolean) {
+    this.dialog.create = false;
   }
 }

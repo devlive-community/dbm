@@ -39,8 +39,8 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     super();
   }
 
-  ngAfterViewInit(): void {
-    this.tableService.getPartitions(this.handlerGetRequest(), this.handlerGetDatabaseModel())
+  async ngAfterViewInit() {
+    this.tableService.getPartitions(await this.handlerGetRequest(), this.handlerGetDatabaseModel())
     .then(response => {
       if (response.status) {
         this.partitions = response.data.columns;
@@ -50,9 +50,9 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     });
   }
 
-  handlerGetRequest(): RequestModel {
+  async handlerGetRequest(): Promise<RequestModel> {
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     return request;
   }
 
@@ -63,10 +63,10 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     return _value;
   }
 
-  handlerValidate() {
+  async handlerValidate() {
     if (ValidateUtils.validate(this.allowValue)) {
       this.deletePartition = true;
-      this.tableService.getPartitions(this.handlerGetRequest(),
+      this.tableService.getPartitions(await this.handlerGetRequest(),
         this.handlerGetDatabaseModel(),
         StringUtils.appendBackslash(this.allowValue.partition),
         this.allowValue.logic)
@@ -88,9 +88,9 @@ export class CleanTableComponent extends BaseComponent implements AfterViewInit 
     }
   }
 
-  handlerClean(value: string) {
+  async handlerClean(value: string) {
     this.loading.button = true;
-    this.tableService.clean(this.handlerGetRequest(),
+    this.tableService.clean(await this.handlerGetRequest(),
       this.handlerGetDatabaseModel(),
       StringUtils.appendBackslash(value))
     .then(response => {

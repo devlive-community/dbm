@@ -21,6 +21,10 @@ const LAYOUT_ROUTES: Routes = [
             loadChildren: () => import('../pages/query/query/query.module').then(m => m.QueryModule)
           },
           {
+            path: 'snippet',
+            loadChildren: () => import('../pages/query/snippet/snippet.module').then(m => m.SnippetModule)
+          },
+          {
             path: 'history',
             loadChildren: () => import('../pages/query/history/history.module').then(m => m.HistoryModule)
           }

@@ -46,16 +46,24 @@ export class MetadataComponent extends BaseComponent implements OnInit {
               private messageService: NzMessageService,
               private contextMenuService: ContextMenuService) {
     super();
-    const datasourceConfigs = this.dataSourceService.getAll()?.data?.columns.map(k => {
-      const configModel = new ConfigModel();
-      configModel.key = k.alias;
-      configModel.value = k.alias;
-      configModel.title = k.alias;
-      configModel.type = TypeEnum.disk;
-      configModel.disabled = k.status ? false : true;
-      return configModel;
+    this.dataSourceService.getAll().then(response => {
+      const datasourceConfigs = response.map(k => {
+        const configModel = new ConfigModel();
+        configModel.key = k.alias;
+        configModel.value = k.alias;
+        configModel.title = k.alias;
+        configModel.type = TypeEnum.disk;
+        configModel.disabled = k.status ? false : true;
+        if (configModel.disabled) {
+          configModel.isLeaf = true;
+        }
+        return configModel;
+      });
+      this.nodes = datasourceConfigs;
+    })
+    .catch(error => {
+      this.messageService.error(error.message);
     });
-    this.nodes = datasourceConfigs;
     this.outerHeight = window.outerHeight;
   }
 
@@ -66,8 +74,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     if (!origin.level) {
       this.rootNode = origin;
     }
-    this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
-    this.nzContextMenuService.create($event, menu);
+    if (!origin.disabled) {
+      this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
+      this.nzContextMenuService.create($event, menu);
+    }
   }
 
   handlerContextMenuClick(menu: MenuModel): void {
@@ -79,7 +89,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     this.handlerContextMenuDialog(false);
   }
 
-  handlerContextMenuClosed(event: ConfigModel) {
+  async handlerContextMenuClosed(event: ConfigModel) {
     this.handlerContextMenuDialog(false);
     if (event.status) {
       let node = event.currentNode;
@@ -93,7 +103,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         originNode.type = TypeEnum.server;
       }
       const request = new RequestModel();
-      request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
+      request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
           // clear old data
@@ -140,7 +150,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     }
   }
 
-  handlerNodeClick(event: NzFormatEmitEvent): void {
+  async handlerNodeClick(event: NzFormatEmitEvent) {
+    // Invalid node disables click function
+    if (event.node.origin.disabled) {
+      return;
+    }
     // if (event.node.isSelected) {
     this.loading.button = true;
     if (event.node?.level === 0) {
@@ -156,7 +170,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     }
     this.handlerLevel(this.selectNode);
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
     this.metadataService.getDiskUsedAndRatio(request, this.selectNode.origin).then(response => {
       if (response.status) {
         this.items = response.data.columns;
@@ -168,7 +182,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     // }
   }
 
-  handlerNodeLoad(event: NzFormatEmitEvent): void {
+  async handlerNodeLoad(event: NzFormatEmitEvent) {
+    // Invalid node disables click function
+    if (event.node.origin.disabled) {
+      return;
+    }
     const node = event.node;
     this.handlerLevel(node);
     const originNode: any = event.node.origin;
@@ -177,7 +195,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     }
     if (node?.getChildren().length === 0 && node?.isExpanded) {
       const request = new RequestModel();
-      request.config = this.dataSourceService.getAll(this.rootNode.value)?.data?.columns[0];
+      request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
           node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));

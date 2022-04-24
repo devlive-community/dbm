@@ -3,7 +3,6 @@ import { DatasourceModel } from '@renderer/model/datasource.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { BaseComponent } from '@renderer/app/base.component';
-import { ResponseDataModel } from '@renderer/model/response.model';
 import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -32,7 +31,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 })
 export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
-  tableDetails: ResponseDataModel;
+  tableDetails: DatasourceModel[] = new Array<DatasourceModel>();
   actionType: ActionEnum;
   actionSource: string;
   validateForm!: FormGroup;
@@ -90,15 +89,19 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
         this.formInfo = new DatasourceModel();
         break;
       case ActionEnum.copy:
-        this.formInfo = this.service.getAll(unique)?.data?.columns[0];
-        this.formInfo.alias = StringUtils.format('{0} {1}',
-          [this.translateService.instant('common.copy'), this.formInfo.alias]);
-        this.handlerResetButton();
+        this.service.findByAlias(unique).then(response => {
+          this.formInfo = response;
+          this.formInfo.alias = StringUtils.format('{0} {1}',
+            [this.translateService.instant('common.copy'), this.formInfo.alias]);
+          this.handlerResetButton();
+        });
         break;
       case ActionEnum.update:
-        this.formInfo = this.service.getAll(unique)?.data?.columns[0];
-        this.showButton.next = false;
-        this.handlerResetButton();
+        this.service.findByAlias(unique).then(response => {
+          this.formInfo = response;
+          this.showButton.next = false;
+          this.handlerResetButton();
+        });
     }
   }
 
@@ -132,39 +135,46 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   }
 
   handlerSave() {
-    const request = new RequestModel();
-    request.config = this.formInfo;
-    const response = this.service.save(request);
-    if (!response.status) {
-      this.messageService.error(response.message);
-      this.disabled.button = false;
-    } else {
-      this.messageService.success(response.message);
+    this.service.save(this.formInfo)
+    .then(() => {
+      this.messageService.success(this.translateService.instant('common.success'));
       this.handlerCloseModal();
       this.handlerGetAll();
-    }
+    })
+    .catch(() => {
+      this.messageService.error(this.translateService.instant('common.error'));
+      this.disabled.button = false;
+    });
     this.loading.button = false;
   }
 
   handlerGetAll() {
-    this.tableDetails = this.service.getAll().data;
+    this.service.getAll()
+    .then(response => {
+      this.tableDetails = response;
+    })
+    .catch(() => {
+      this.messageService.error(this.translateService.instant('common.error'));
+    });
   }
 
-  handlerDelete(unique: string) {
-    const response = this.service.delete(unique);
-    this.messageService.success(response.message);
-    this.handlerGetAll();
+  handlerDelete(id: number) {
+    this.service.delete(id).then(() => {
+      this.messageService.success(this.translateService.instant('common.success'));
+      this.handlerGetAll();
+    }).catch(error => {
+      this.messageService.error(error);
+    });
   }
 
   handlerUpdate() {
-    const response = this.service.update(this.actionSource, this.formInfo);
-    if (!response.status) {
-      this.messageService.error(response.message);
-    } else {
-      this.messageService.success(response.message);
+    this.service.update(this.formInfo).then(() => {
+      this.messageService.success(this.translateService.instant('common.success'));
       this.handlerCloseModal();
       this.handlerGetAll();
-    }
+    }).catch(error => {
+      this.messageService.error(error);
+    });
   }
 
   handlerProcess() {

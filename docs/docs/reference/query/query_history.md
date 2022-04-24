@@ -4,10 +4,6 @@ template: overrides/main.html
 
 The query history function is mainly used to mark some of our query records for each data source.
 
-!!! warning
-
-    Currently supports up to `100` query history, we will expand this function to support more data storage in the future!
-
 Move the mouse to the top menu `Query` and wait for the drop-down options to appear, click `History` to enter the query history interface, which is similar to the following page
 
 ![Query History](/assets/images/query/query_history.png)
@@ -31,10 +27,24 @@ On the top right side of the page we can see the <img src="/assets/images/query/
 
     In the list, we can see that we use special colors to highlight the records that failed to query
 
-:octicons-search-16: The button is used to view the SQL statement of this query
+### Action
+
+---
+
+#### Get query ddl
+
+:octicons-search-16:{ .blue } The button is used to view the SQL statement of this query
 
 ![Query DDL](/assets/images/query/query_ddl.png)
 
-:warning: The button is used to view the error information after this execution fails, it only takes effect after the query fails
+#### Query error
+
+:warning:{ .red } The button is used to view the error information after this execution fails, it only takes effect after the query fails
 
 ![Query Error](/assets/images/query/query_error.png)
+
+#### Delete
+
+:material-delete-circle-outline:{.red} The button is used to delete this query record
+
+![img.png](../../assets/images/query/img.png)

@@ -1,21 +1,26 @@
 <div>
   <form nz-form>
-    <nz-form-item>
+    <nz-form-item *ngIf="tableInfo?.flag">
       <nz-form-control [nzSpan]="24">
-        <nz-alert nzBanner
-                  nzMessage="We don't recommend that you delete the data table? This operation produces the following?">
+        <nz-alert nzBanner nzType="error" nzMessage="{{'alert.table_delete_grate_50'|translate}}">
         </nz-alert>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
-        <nz-tag [nzColor]="'#f50'">No rollback</nz-tag>
+        <nz-alert nzBanner nzMessage="{{'alert.delete_it'|translate}}">
+        </nz-alert>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="24">
+        <nz-tag [nzColor]="'#f50'">{{'common.no_rollback'|translate}}</nz-tag>
         The metadata will be removed from the Clickhouse metadata
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
-        <nz-tag [nzColor]="'#f50'">No rollback</nz-tag>
+        <nz-tag [nzColor]="'#f50'">{{'common.no_rollback'|translate}}</nz-tag>
         All data files generated in this table will be removed from the relevant Clickhouse server file system
       </nz-form-control>
     </nz-form-item>
@@ -27,13 +32,15 @@
     <nz-form-item>
       <nz-form-control [nzSpan]="24">
         <nz-input-group [nzAddOnBefore]="addOnBefore" [nzAddOnAfter]="suffixButton">
-          <input type="text" name="inputValue" nz-input [(ngModel)]="inputValue" (change)="handlerValidate()"/>
+          <input type="text" name="inputValue" nz-input [disabled]="tableInfo?.flag === 1" [(ngModel)]="inputValue"
+                 (change)="handlerValidate()"/>
         </nz-input-group>
         <ng-template #addOnBefore>
           <button nz-button nzDanger nzType="link">{{value}}</button>
         </ng-template>
         <ng-template #suffixButton>
-          <button nz-button nzType="link" (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
+          <button nz-button nzType="link" [disabled]="tableInfo?.flag === 1"
+                  (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
         </ng-template>
       </nz-form-control>
     </nz-form-item>

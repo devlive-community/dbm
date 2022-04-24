@@ -17,7 +17,7 @@ export class TrackService implements BaseService {
     return this.httpService.post(UrlUtils.formatUrl(request), sql);
   }
 
-  getTrackInfo(aliasServerName: string, trackId: string) {
+ async getTrackInfo(aliasServerName: string, trackId: string) {
     const sql = StringUtils.format(`
 SELECT
   query_id AS id,
@@ -45,11 +45,11 @@ ORDER BY
   type DESC
   `, [trackId]);
     const request = new RequestModel();
-    request.config = this.datasourceService.getAll(aliasServerName)?.data?.columns[0];
+    request.config = await this.datasourceService.getByAliasAsync(aliasServerName);
     return this.getResponse(request, sql);
   }
 
-  getTrackTop(aliasServerName: string, top?: number) {
+  async getTrackTop(aliasServerName: string, top?: number) {
     if (StringUtils.isEmpty(top)) {
       top = 100;
     }
@@ -65,7 +65,7 @@ LIMIT
   {0}
   `, [top]);
     const request = new RequestModel();
-    request.config = this.datasourceService.getAll(aliasServerName)?.data?.columns[0];
+    request.config = await this.datasourceService.getByAliasAsync(aliasServerName);
     return this.getResponse(request, sql);
   }
 }

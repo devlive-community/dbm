@@ -108,10 +108,10 @@ export class ColumnCreateComponent extends BaseComponent {
     }
   }
 
-  handlerSave() {
+  async handlerSave() {
     this.loading.button = true;
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     const _value = new DatabaseModel();
     _value.database = this.database;
     _value.table = this.table;

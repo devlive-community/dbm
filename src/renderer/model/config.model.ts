@@ -5,7 +5,7 @@ import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 
 export class ConfigModel extends BaseModel {
   title: string;
-  key: ConfigModel;
+  key: any;
   value: string;
   type: TypeEnum;
   database: string;

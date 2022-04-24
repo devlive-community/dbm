@@ -6,7 +6,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TableService } from '@renderer/services/management/table.service';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { RequestModel } from '@renderer/model/request.model';
-import { StringUtils } from '@renderer/utils/string.utils';
 import { TableTtlModel } from '@renderer/model/table/table.ttl.model';
 
 @Component({
@@ -32,10 +31,10 @@ export class TableTtlRemoveComponent extends BaseComponent implements AfterViewI
     this.ttlInstance = new TableTtlModel();
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit() {
     this.ttlInstance.database = this.database;
     this.ttlInstance.table = this.value;
-    this.tableService.getTTL(this.handlerGetRequest(), this.ttlInstance)
+    this.tableService.getTTL(await this.handlerGetRequest(), this.ttlInstance)
     .then(response => {
       if (response.status) {
         this.ttlConfig = response.data.columns[0];
@@ -45,9 +44,9 @@ export class TableTtlRemoveComponent extends BaseComponent implements AfterViewI
     });
   }
 
-  handlerGetRequest(): RequestModel {
+  async handlerGetRequest(): Promise<RequestModel> {
     const request = new RequestModel();
-    request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     return request;
   }
 
@@ -58,9 +57,9 @@ export class TableTtlRemoveComponent extends BaseComponent implements AfterViewI
     return _value;
   }
 
-  handlerRemove() {
+  async handlerRemove() {
     this.loading.button = true;
-    this.tableService.removeTTL(this.handlerGetRequest(), this.ttlInstance)
+    this.tableService.removeTTL(await this.handlerGetRequest(), this.ttlInstance)
     .then(response => {
       if (response.status) {
         this.messageService.success(response.message);

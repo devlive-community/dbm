@@ -1,0 +1,45 @@
+<nz-drawer *ngIf="snippet" [nzBodyStyle]="{ overflow: 'auto' }" [nzMaskClosable]="false"
+           [nzWidth]="'60%'" [nzClosable]="false" [nzVisible]="visible"
+           nzTitle="{{'common.snippet' | translate}}{{'common.action' | translate}}"
+           nzKeyboard="false" [nzFooter]="footerTpl" (nzOnClose)="handlerCloseDrawer()">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="handlerSave()" *nzDrawerContent>
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label nz-col nzSpan="4" nzRequired nzFor="name">{{'common.name'|translate}}</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
+            <input nz-input [(ngModel)]="snippet.name" formControlName="name" id="name" name="name"
+                   placeholder="{{'placeholder.required'|translate}}"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label nz-col nzSpan="4" nzRequired>{{'common.description'|translate}}</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
+            <textarea nz-input [(ngModel)]="snippet.description" formControlName="description" name="description"
+                      placeholder="{{'placeholder.required'|translate}}" rows="2">
+            </textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label nz-col nzSpan="4" nzRequired>{{'common.snippet' | translate}}</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.required'|translate}}">
+            <ngx-codemirror [(ngModel)]="snippet.code" formControlName="code" name="code"
+                            [options]="editorConfig">
+            </ngx-codemirror>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button nz-button nzType="primary" nzDanger (click)="handlerCloseDrawer()">{{'common.cancel'|translate}}</button>
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+              (click)="handlerSave()">{{'common.save'|translate}}</button>
+    </div>
+  </ng-template>
+</nz-drawer>

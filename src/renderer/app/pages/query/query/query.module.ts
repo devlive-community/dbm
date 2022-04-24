@@ -14,6 +14,9 @@ import { QuickQueryComponent } from '@renderer/components/query/quick/quick.quer
 import { QueryQuickService } from '@renderer/services/query/query.quick.service';
 import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
+import { QuoteSnippetComponent } from '@renderer/components/snippet/quote/quote.snippet.component';
+import { SnippetService } from '@renderer/services/snippet/snippet.service';
+import { TableModule } from 'ngx-easy-table';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -28,19 +31,22 @@ const QUERY_ROUTES: Routes = [
     NgZorroAntdModule,
     ServiceModule,
     RouterModule.forChild(QUERY_ROUTES),
-    CommonShareModule
+    CommonShareModule,
+    TableModule
   ],
   exports: [],
   declarations: [
     QueryComponent,
-    QuickQueryComponent
+    QuickQueryComponent,
+    QuoteSnippetComponent
   ],
   providers: [
     EditorService,
     DatasourceService,
     QueryService,
     QueryHistoryService,
-    QueryQuickService
+    QueryQuickService,
+    SnippetService
   ]
 })
 export class QueryModule {

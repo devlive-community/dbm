@@ -1,5 +1,5 @@
 <nz-card [nzTitle]="titleTemplate">
-  <nz-empty *ngIf="tableDetails.columns.length <= 0; else notHasValues"
+  <nz-empty *ngIf="tableDetails.length <= 0; else notHasValues"
             [nzNotFoundContent]="contentTemplate"
             [nzNotFoundFooter]="footerTemplate">
     <ng-template #contentTemplate>
@@ -11,7 +11,7 @@
     </ng-template>
   </nz-empty>
   <ng-template #notHasValues>
-    <nz-table #basicTable [nzData]="tableDetails.columns">
+    <nz-table #basicTable [nzData]="tableDetails">
       <thead>
       <tr>
         <th>{{'common.alias' | translate}}</th>
@@ -45,7 +45,7 @@
                   nz-tooltip nzTooltipTitle="{{'common.delete' | translate}}"
                   [nzCancelText]="'common.cancel'|translate"
                   [nzOkText]="'common.ok'|translate"
-                  (nzOnConfirm)="handlerDelete(data.alias)">
+                  (nzOnConfirm)="handlerDelete(data.id)">
             <i class="fa fa-trash"></i>
           </button>
           <button *ngIf="!data.status" nz-button nzShape="circle" nzSize="small" nzType="primary"

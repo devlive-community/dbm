@@ -10,41 +10,40 @@ releaseInfo:
 
     ---
 
-    - Support visual build of MongoDB tables
-    - Supports adding the TTL of the table visually
-    - Support data source copy
-    - Supports remove the TTL of the table visually
-    - Supports metadata management to change database names
-    - Query history supports IndexDB storage
-    - Supports deleting a single query history
-    - Support metadata management to add columns
+    - Support metadata management, add column description information
+    - Support code snippet management
+    - Support query reference code snippet
+    - Support to quickly add code snippets after successful query
+    - The data source supports IndexDB storage
 
     #### Docs
 
     ---
 
-    - Optimize data source management documentation
-    - Add Monitor --> Connection docs
-    - Add Monitor --> Mutations docs
+    - Add snippet docs
+    - Add monitor --> query docs
 
     #### Optimize
 
     ----
 
-    - Optimize the prompt message when deleting only one column in the data table
+    - Add data sheet deletion prompt greater than 50GB
 
     #### Bug
 
     ---
 
-    - Fix the error condition of deleting existing columns
+    - Fix the problem that invalid metadata management nodes can be clicked
+    - Fix the exception that the optional parameters of the metadata management creation of the MongoDB data table cannot be constructed
+    - Fix the error reported by the metadata management data table console
 
     #### UI
 
     ---
 
-    - Unavailable data source disallows click action
-
+    - Add multiple editor themes
+    - Quick query unavailable nodes prohibit operations
+    - It is forbidden to use functions such as quick query if the data source is not selected
 
 directories:
   output: ./release

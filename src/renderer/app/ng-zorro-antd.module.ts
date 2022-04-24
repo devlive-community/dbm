@@ -35,6 +35,8 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @NgModule({
   declarations: [],
@@ -74,7 +76,9 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzResultModule,
     NzCollapseModule,
     NzBadgeModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzDrawerModule,
+    NzTypographyModule
   ]
 })
 export class NgZorroAntdModule {

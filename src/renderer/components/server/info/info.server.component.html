@@ -1,5 +1,5 @@
 <nz-modal [(nzVisible)]="visible" nzMaskClosable="false" (nzOnCancel)="handlerCancel()"
-          nzWidth="60%"
+          nzWidth="70%"
           nzTitle="{{'common.query'|translate}} {{'common.ddl'|translate}}">
   <div *nzModalContent>
     <nz-skeleton *ngIf="disabled.dialog; else hasValues" nzActive="true">

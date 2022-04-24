@@ -9,39 +9,39 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-    selector: 'app-component-preview-column',
-    templateUrl: './column.preview.component.html'
+  selector: 'app-component-preview-column',
+  templateUrl: './column.preview.component.html'
 })
 export class PreviewColumnComponent extends BaseComponent implements AfterViewInit {
-    @Input()
-    config: ConfigModel;
-    @Input()
-    value: string;
-    @Input()
-    database: string;
-    @Input()
-    table: string;
-    tableData: ResponseDataModel;
+  @Input()
+  config: ConfigModel;
+  @Input()
+  value: string;
+  @Input()
+  database: string;
+  @Input()
+  table: string;
+  tableData: ResponseDataModel;
 
-    constructor(private dataSourceService: DatasourceService,
-        private columnService: ColumnService,
-        private messageService: NzMessageService) {
-        super();
-    }
+  constructor(private dataSourceService: DatasourceService,
+              private columnService: ColumnService,
+              private messageService: NzMessageService) {
+    super();
+  }
 
-    ngAfterViewInit(): void {
-        const request = new RequestModel();
-        request.config = this.dataSourceService.getAll(this.config.value)?.data?.columns[0];
-        const _value = new DatabaseModel();
-        _value.database = this.database;
-        _value.table = this.table;
-        _value.name = this.value;
-        this.columnService.getPreview(request, _value).then(response => {
-            if (response.status) {
-                this.tableData = response.data;
-            } else {
-                this.messageService.error(response.message);
-            }
-        });
-    }
+  async ngAfterViewInit() {
+    const request = new RequestModel();
+    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
+    const _value = new DatabaseModel();
+    _value.database = this.database;
+    _value.table = this.table;
+    _value.name = this.value;
+    this.columnService.getPreview(request, _value).then(response => {
+      if (response.status) {
+        this.tableData = response.data;
+      } else {
+        this.messageService.error(response.message);
+      }
+    });
+  }
 }

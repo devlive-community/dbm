@@ -9,7 +9,7 @@
               <tbody>
               <tr *ngFor="let obj of databaseTable.data">
                 <td nzEllipsis>
-                  <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.alias}}">{{obj.alias}}</label>
+                  <label nz-radio [nzDisabled]="!obj.status" nzValue="{{obj.alias}}">{{obj.alias}}</label>
                 </td>
               </tr>
               </tbody>

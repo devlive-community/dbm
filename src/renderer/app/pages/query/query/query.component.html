@@ -40,6 +40,13 @@
       <i class="fa fa-ellipsis-h"></i>
     </button>
   </nz-button-group>
+  <nz-dropdown-menu #executeMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item *ngFor="let command of executeCommands" (click)="handlerExecuteCommand(command)">
+        {{command.name}}
+      </li>
+    </ul>
+  </nz-dropdown-menu>
   <button nz-button nzType="dashed" nzSize="small"
           [disabled]="disabledButton.execute"
           (click)="handlerFormatter()">
@@ -53,13 +60,24 @@
   <button nz-button nzType="primary" nzSize="small" [disabled]="disabledButton.execute" (click)="handlerAddContainer()">
     <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
   </button>
-  <button style="float: right;" nz-button nzType="primary" nzSize="small" (click)="handlerQuickQuery()">
-    <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}} {{'common.query' | translate}}
+  <button *ngIf="processorContainers[containerSelected]?.icon === 'check-circle'" nz-button nzType="primary"
+          nzSize="small" nz-tooltip
+          nzTooltipTitle="{{'common.add'|translate}}{{'common.snippet'|translate}}"
+          [disabled]="disabledButton.execute"
+          (click)="handlerShowCreateSnippet(actionComponent.create)">
+    <i class="fa fa-plus-circle"></i>&nbsp;{{'common.snippet'|translate}}
   </button>
-  <nz-dropdown-menu #executeMenu="nzDropdownMenu">
+  <button style="float: right;" nz-button nz-dropdown nzType="primary" nzSize="small"
+          [nzDropdownMenu]="actionMenus" [disabled]="disabledButton.execute">
+    {{'common.action' | translate}}&nbsp;<i class="fa fa-chevron-down"></i>
+  </button>
+  <nz-dropdown-menu #actionMenus="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item *ngFor="let command of executeCommands" (click)="handlerExecuteCommand(command)">
-        {{command.name}}
+      <li nz-menu-item (click)="handlerQuickQuery()">
+        <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}}{{'common.query' | translate}}
+      </li>
+      <li nz-menu-item (click)="handlerCodeSnippet()">
+        <i class="fa fa-code"></i>&nbsp;{{'common.code' | translate}}{{'common.snippet' | translate}}
       </li>
     </ul>
   </nz-dropdown-menu>
@@ -103,3 +121,11 @@
                            (emitter)="handlerQuickQuery(true)"
                            (emitterValue)="handlerQuickQueryProcessor($event)">
 </app-component-quick-query>
+<app-component-quote-snippet *ngIf="codeSnippet.disabled" [visible]="codeSnippet.disabled"
+                             (emitter)="handlerCodeSnippet(true)"
+                             (emitterValue)="handlerCodeSnippetProcessor($event)">
+</app-component-quote-snippet>
+<app-component-create-snippet *ngIf="dialog.create" [visible]="dialog.create" [action]="action"
+                              [snippetValue]="snippetValue"
+                              (emitter)="handlerCloseCreateSnippet($event)">
+</app-component-create-snippet>

@@ -30,7 +30,7 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.value.headers.forEach(column => {
+      this.value?.headers.forEach(column => {
         this.headers.push({key: column.name, title: column.name});
       });
     }, 0);

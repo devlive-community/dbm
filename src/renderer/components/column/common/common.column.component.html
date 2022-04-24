@@ -16,5 +16,9 @@
                                  [value]="value?.origin?.key" [database]="database" [table]="table"
                                  (emitter)="handlerEmitter($event)">
     </app-component-create-column>
+    <app-component-comment-column *ngIf="menu.command === operation.comment" [config]="config"
+                                  [value]="value?.origin?.key" [database]="database" [table]="table"
+                                  (emitter)="handlerEmitter($event)">
+    </app-component-comment-column>
   </div>
 </nz-modal>

@@ -27,6 +27,7 @@ releaseInfo:
     ---
 
     - Optimize query history display list
+    - Migrate the software update function to the system menu
 
 directories:
   output: ./release

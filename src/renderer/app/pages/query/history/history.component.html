@@ -9,8 +9,7 @@
   </nz-empty>
   <ng-template #notHasValues>
     <div class="table-body-flex">
-      <nz-table #basicTable [nzData]="tableDetails" [nzScroll]="{x: handlerAnalysisWidth() + 'px'}"
-                nzSize="small" nzTableLayout="fixed">
+      <nz-table #basicTable [nzData]="tableDetails" nzSize="small" nzTableLayout="fixed">
         <thead>
         <tr>
           <th nzEllipsis>{{'common.id' | translate}}</th>
@@ -18,17 +17,27 @@
           <th nzEllipsis>{{'common.state' | translate}}</th>
           <th nzEllipsis>{{'common.start' | translate}}{{'common.time' | translate}}</th>
           <th nzEllipsis>{{'common.end' | translate}}{{'common.time' | translate}}</th>
-          <th nzEllipsis>{{'common.elapsed' | translate}}{{'common.time' | translate}}</th>
+          <th nzEllipsis>{{'common.elapsed' | translate}}{{'common.time' | translate}} (ms)</th>
           <th nzEllipsis>{{'common.action' | translate}}</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let data of basicTable.data"  style="{{data.state ? 'color: #F50;': ''}}">
+        <tr *ngFor="let data of basicTable.data" style="{{data.state ? 'color: #F50;': ''}}">
           <td nzEllipsis>{{data.id}}</td>
           <td nzEllipsis>{{data.server}}</td>
           <td nzEllipsis>{{data.state}}</td>
-          <td nzEllipsis>{{data.startTime}}</td>
-          <td nzEllipsis>{{data.endTime}}</td>
+          <td nzEllipsis>
+            <span nz-tooltip nzTooltipPlacement="topLeft"
+                  nzTooltipTitle="{{data.startTime|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}">
+              {{data.startTime|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}
+            </span>
+          </td>
+          <td nzEllipsis>
+            <span nz-tooltip nzTooltipPlacement="topLeft"
+                  nzTooltipTitle="{{data.endTime|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}">
+              {{data.endTime|amDateFormat:'YYYY-MM-DD HH:mm:ss'}}
+            </span>
+          </td>
           <td nzEllipsis>{{data.elapsedTime}}</td>
           <td>
             <button nz-button nzShape="circle" nzSize="small" nzType="primary"

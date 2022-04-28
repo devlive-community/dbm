@@ -10,6 +10,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonShareModule } from '@renderer/app/common-share.module';
 import { EditorService } from '@renderer/services/editor/editor.service';
+import { MomentModule } from 'ngx-moment';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: HistoryComponent}
@@ -23,7 +24,8 @@ const QUERY_ROUTES: Routes = [
     NgZorroAntdModule,
     RouterModule.forChild(QUERY_ROUTES),
     CodemirrorModule,
-    CommonShareModule
+    CommonShareModule,
+    MomentModule
   ],
   exports: [],
   declarations: [

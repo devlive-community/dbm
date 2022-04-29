@@ -4,15 +4,20 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { BaseService } from '@renderer/services/base.service';
 import { HttpService } from '@renderer/services/http.service';
 import { StringUtils } from '@renderer/utils/string.utils';
-import { UrlUtils } from '@renderer/utils/url.utils';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
 
 @Injectable()
-export class DatabaseService implements BaseService {
-  constructor(private httpService: HttpService) {
+export class DatabaseService extends ForwardService implements BaseService {
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   getAll(request: RequestModel): Promise<ResponseModel> {
@@ -37,7 +42,7 @@ export class DatabaseService implements BaseService {
   }
 
   rename(request: RequestModel, source: string, target: string): Promise<ResponseModel> {
-    const sql = StringUtils.format("RENAME DATABASE `{0}` TO `{1}`", [source, target]);
+    const sql = StringUtils.format('RENAME DATABASE `{0}` TO `{1}`', [source, target]);
     return this.getResponse(request, sql);
   }
 }

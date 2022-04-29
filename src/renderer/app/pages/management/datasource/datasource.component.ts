@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatasourceModel } from '@renderer/model/datasource.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
-import { RequestModel } from '@renderer/model/request.model';
 import { BaseComponent } from '@renderer/app/base.component';
 import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
@@ -12,6 +11,7 @@ import { SourceTypeConfig } from '@renderer/config/source.type.config';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { TranslateService } from '@ngx-translate/core';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { RequestModel } from '@renderer/model/request.model';
 
 @Component({
   selector: 'app-management-datasource',
@@ -56,7 +56,11 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       port: [null, [Validators.required]],
       username: [null, []],
       password: [null, []],
-      maxTotal: [null, []]
+      maxTotal: [null, []],
+      sshHost: [null, []],
+      sshPort: [null, []],
+      sshUsername: [null, []],
+      sshPassword: [null, []]
     });
     this.sourceTypes = new SourceTypeConfig().getConfig();
     this.handlerGetAll();

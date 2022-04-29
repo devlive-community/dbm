@@ -10,6 +10,10 @@ export class DatasourceModel {
   message: string;
   delivery = false;
   protocol = 'HTTP';
+  sshHost: string;
+  sshPort: number = 22;
+  sshUsername: string = 'root';
+  sshPassword: string = '123456';
   type: string;
   version: string;
   maxTotal = 0;

@@ -147,7 +147,11 @@
     "code": "代码",
     "created": "创建",
     "updated": "更新",
-    "quote": "引用"
+    "quote": "引用",
+    "sshHost": "SSH 主机",
+    "sshPort": "SSH 端口",
+    "sshUsername": "SSH 用户名",
+    "sshPassword": "SSH 密码"
   },
   "language": {
     "english": "英语",

@@ -3,7 +3,6 @@ import { HttpService } from '@renderer/services/http.service';
 import { Injectable } from '@angular/core';
 import { ResponseModel } from '@renderer/model/response.model';
 import { RequestModel } from '@renderer/model/request.model';
-import { UrlUtils } from '@renderer/utils/url.utils';
 import { ConfigModel } from '@renderer/model/config.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
 import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
@@ -12,18 +11,24 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
 import { PropertyModel } from '@renderer/model/property.model';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
 
 @Injectable()
-export class MetadataService implements BaseService {
+export class MetadataService extends ForwardService implements BaseService {
   baseConfig: any;
   WORD = 'ENGINE';
 
-  constructor(private httpService: HttpService) {
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
     this.baseConfig = Factory.create(ClickhouseConfig);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   getDiskUsedAndRatio(request: RequestModel, config: ConfigModel): Promise<ResponseModel> {

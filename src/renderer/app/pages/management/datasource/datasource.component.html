@@ -140,12 +140,14 @@
               <nz-form-control nzErrorTip="{{'placeholder.protocol'|translate}}">
                 <nz-radio-group formControlName="protocol" [(ngModel)]="formInfo.protocol">
                   <label nz-radio nzValue="HTTP">HTTP</label>
+                  <label nz-radio nzValue="SSH">SSH</label>
                   <label nz-radio nzValue="HTTPS" nzDisabled>HTTPS</label>
                 </nz-radio-group>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="host">{{'common.host'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired
+                             nzFor="host">{{'common.host'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.host'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="host" [(ngModel)]="formInfo.host"/>
@@ -153,7 +155,8 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="port">{{'common.port'| translate}}</nz-form-label>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired
+                             nzFor="port">{{'common.port'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.port'|translate}}">
                 <nz-input-group>
                   <input type="text" nz-input formControlName="port" [(ngModel)]="formInfo.port"/>
@@ -172,7 +175,7 @@
               <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="password">{{'common.password'| translate}}</nz-form-label>
               <nz-form-control nzErrorTip="{{'placeholder.password'|translate}}">
                 <nz-input-group>
-                  <input type="text" nz-input formControlName="password" [(ngModel)]="formInfo.password"/>
+                  <input nz-input type="password" formControlName="password" [(ngModel)]="formInfo.password"/>
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
@@ -180,6 +183,51 @@
           <div [nzSpan]="3" nz-col>
           </div>
         </div>
+        <ng-container *ngIf="formInfo.protocol === 'SSH'">
+          <app-component-antd-drivider title="SSH {{'common.configuration'|translate}}">
+          </app-component-antd-drivider>
+          <div [nzGutter]="[8, 8]" nz-row>
+            <div [nzSpan]="3" nz-col>
+            </div>
+            <div [nzSpan]="18" nz-col>
+              <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">
+                  <span>{{'common.sshHost'| translate}}</span>
+                </nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="sshHost" formControlName="sshHost" [(ngModel)]="formInfo.sshHost"/>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">
+                  <span>{{'common.sshPort'| translate}}</span>
+                </nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="sshPort" formControlName="sshPort" [(ngModel)]="formInfo.sshPort"/>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">
+                  <span>{{'common.sshUsername'| translate}}</span>
+                </nz-form-label>
+                <nz-form-control>
+                  <input nz-input id="sshUsername" formControlName="sshUsername" [(ngModel)]="formInfo.sshUsername"/>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">
+                  <span>{{'common.sshPassword'| translate}}</span>
+                </nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="password" id="sshPassword" formControlName="sshPassword"
+                         [(ngModel)]="formInfo.sshPassword"/>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div [nzSpan]="3" nz-col>
+            </div>
+          </div>
+        </ng-container>
         <app-component-antd-drivider title="{{'common.experimental'|translate}}">
         </app-component-antd-drivider>
         <div [nzGutter]="[8, 8]" nz-row>

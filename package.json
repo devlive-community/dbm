@@ -1,6 +1,6 @@
 {
   "name": "dbm",
-  "version": "1.15.0",
+  "version": "1.16.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "ClickHouse DataBase GUI",
   "github": "https://github.com/EdurtIO/dbm.git",
@@ -53,6 +53,7 @@
     "codemirror": "^5.64.0",
     "conventional-changelog-cli": "^2.1.1",
     "dexie": "^3.2.1",
+    "electron-ssh2": "^0.1.2",
     "electron-updater": "^4.6.1",
     "export-to-csv": "^0.2.1",
     "font-awesome": "^4.7.0",

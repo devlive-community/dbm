@@ -10,40 +10,26 @@ releaseInfo:
 
     ---
 
-    - Support metadata management, add column description information
-    - Support code snippet management
-    - Support query reference code snippet
-    - Support to quickly add code snippets after successful query
-    - The data source supports IndexDB storage
+    - SSH login is supported #40
 
     #### Docs
 
     ---
 
-    - Add snippet docs
-    - Add monitor --> query docs
-
     #### Optimize
 
     ----
-
-    - Add data sheet deletion prompt greater than 50GB
 
     #### Bug
 
     ---
 
-    - Fix the problem that invalid metadata management nodes can be clicked
-    - Fix the exception that the optional parameters of the metadata management creation of the MongoDB data table cannot be constructed
-    - Fix the error reported by the metadata management data table console
-
     #### UI
 
     ---
 
-    - Add multiple editor themes
-    - Quick query unavailable nodes prohibit operations
-    - It is forbidden to use functions such as quick query if the data source is not selected
+    - Optimize query history display list
+    - Migrate the software update function to the system menu
 
 directories:
   output: ./release

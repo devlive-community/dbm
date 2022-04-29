@@ -3,16 +3,21 @@ import { RequestModel } from '@renderer/model/request.model';
 import { ResponseModel } from '@renderer/model/response.model';
 import { Injectable } from '@angular/core';
 import { HttpService } from '@renderer/services/http.service';
-import { UrlUtils } from '@renderer/utils/url.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
 
 @Injectable()
-export class MonitorService implements BaseService {
-  constructor(private httpService: HttpService) {
+export class MonitorService extends ForwardService implements BaseService {
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   getProcesses(request: RequestModel): Promise<ResponseModel> {
@@ -39,19 +44,19 @@ WHERE
 
   getSlowQuery(request: RequestModel, threshold: number): Promise<ResponseModel> {
     const sql = StringUtils.format(`
-    SELECT 
-        user, 
-        client_hostname AS host, 
-        client_name AS hash, 
+    SELECT
+        user,
+        client_hostname AS host,
+        client_name AS hash,
         query AS query,
-        query_start_time AS time, 
-        query_duration_ms AS elapsed, 
-        round(memory_usage / 1048576) AS memoryUsage, 
-        result_rows AS rows, 
-        result_bytes / 1048576 AS bytes, 
-        read_rows AS readRows, 
-        round(read_bytes / 1048576) AS bytesRead, 
-        written_rows AS writtenRows, 
+        query_start_time AS time,
+        query_duration_ms AS elapsed,
+        round(memory_usage / 1048576) AS memoryUsage,
+        result_rows AS rows,
+        result_bytes / 1048576 AS bytes,
+        read_rows AS readRows,
+        round(read_bytes / 1048576) AS bytesRead,
+        written_rows AS writtenRows,
         round(written_bytes / 1048576) AS bytesWritten
     FROM system.query_log
     WHERE type = 2

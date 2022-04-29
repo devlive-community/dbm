@@ -148,7 +148,11 @@
     "code": "Code",
     "created": "Created",
     "updated": "Updated",
-    "quote": "Quote"
+    "quote": "Quote",
+    "sshHost": "SSH Host",
+    "sshPort": "SSH Port",
+    "sshUsername": "SSH User",
+    "sshPassword": "SSH Password"
   },
   "language": {
     "english": "English",

@@ -48,10 +48,6 @@ export class HistoryComponent extends BaseComponent {
     });
   }
 
-  handlerAnalysisWidth(): number {
-    return this.tableDetails?.length + 360;
-  }
-
   handlerClearHistory() {
     this.queryHistoryService.clear();
     this.initialize();

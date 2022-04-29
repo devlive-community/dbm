@@ -5,7 +5,6 @@
     </a>
   </div>
   <ul nz-menu nzMode="horizontal">
-    <li nz-submenu [nzTitle]="versionItemTitle" (click)="handlerUpdate(true)"></li>
     <li nz-submenu [nzTitle]="queryMenuItemTitle">
       <ul>
         <li nz-menu-item>
@@ -81,6 +80,11 @@
     <li nz-submenu [nzTitle]="systemMenuItemTitle" style="float: right;">
       <ul>
         <li nz-menu-item>
+          <a nzSize="mini" (click)="handlerUpdate(true)">
+            <i class="fa fa-refresh"> {{'common.update'|translate}}</i>
+          </a>
+        </li>
+        <li nz-menu-item>
           <a [routerLink]="['/system/basic']" class="dropdown-item">
             <i class="fa fa-bandcamp"> {{'common.basic'|translate}}</i>
           </a>
@@ -110,9 +114,6 @@
   </ng-template>
   <ng-template #githubItemTitle>
     <i class="fa fa-github"></i>&nbsp;{{'common.github'|translate}}
-  </ng-template>
-  <ng-template #versionItemTitle>
-    <nz-tag [nzColor]="'#f50'" nzSize="mini">{{version}}</nz-tag>
   </ng-template>
 </nz-header>
 <nz-modal [(nzVisible)]="dialog.update" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"

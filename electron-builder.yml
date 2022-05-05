@@ -20,6 +20,8 @@ releaseInfo:
 
     ----
 
+    - Optimize error reporting pop-up window #148
+
     #### Bug
 
     ---

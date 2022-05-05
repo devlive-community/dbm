@@ -64,6 +64,7 @@
     "ng-zorro-antd": "^12.1.0",
     "ngx-clipboard": "^14.0.2",
     "ngx-easy-table": "^15.2.0",
+    "ngx-ellipsis": "^3.1.6",
     "ngx-markdown": "^13.1.0",
     "ngx-moment": "^6.0.2",
     "node-sql-parser": "^4.1.1",

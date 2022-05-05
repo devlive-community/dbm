@@ -15,6 +15,7 @@ import { DrividerAntdComponent } from '@renderer/components/antd/drivider/drivid
 import { TableModule } from 'ngx-easy-table';
 import { MomentModule } from 'ngx-moment';
 import { CreateSnippetComponent } from '@renderer/components/snippet/create/create.snippet.component';
+import { EllipsisModule } from 'ngx-ellipsis';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CreateSnippetComponent } from '@renderer/components/snippet/create/crea
     ChartModule,
     TableModule,
     MomentModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EllipsisModule
   ],
   declarations: [
     DdlQueryComponent,

@@ -17,6 +17,7 @@ import { CommonShareModule } from '@renderer/app/common-share.module';
 import { QuoteSnippetComponent } from '@renderer/components/snippet/quote/quote.snippet.component';
 import { SnippetService } from '@renderer/services/snippet/snippet.service';
 import { TableModule } from 'ngx-easy-table';
+import { EllipsisModule } from 'ngx-ellipsis';
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -32,7 +33,8 @@ const QUERY_ROUTES: Routes = [
     ServiceModule,
     RouterModule.forChild(QUERY_ROUTES),
     CommonShareModule,
-    TableModule
+    TableModule,
+    EllipsisModule
   ],
   exports: [],
   declarations: [

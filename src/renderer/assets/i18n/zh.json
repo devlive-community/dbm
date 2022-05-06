@@ -151,7 +151,8 @@
     "sshHost": "SSH 主机",
     "sshPort": "SSH 端口",
     "sshUsername": "SSH 用户名",
-    "sshPassword": "SSH 密码"
+    "sshPassword": "SSH 密码",
+    "more": "更多"
   },
   "language": {
     "english": "英语",

@@ -16,6 +16,8 @@ import { SystemEditorModel } from '@renderer/model/system.model';
 import { CommandModel } from '@renderer/model/command.model';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { ActionEnum } from '@renderer/enum/action.enum';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-query',
@@ -45,11 +47,14 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   action: ActionEnum;
   actionComponent = ActionEnum;
   snippetValue: string;
+  warningMessage: string;
 
   constructor(private editorService: EditorService,
               private datasourceService: DatasourceService,
               private queryService: QueryService,
               private messageService: NzMessageService,
+              private modelService: NzModalService,
+              private transactionService: TranslateService,
               private queryHistoryService: QueryHistoryService) {
     super();
     const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
@@ -92,6 +97,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   }
 
   handlerExecute(command?: CommandModel) {
+    this.warningMessage = null;
     this.disabledButton.execute = true;
     this.disabledButton.cancel = false;
     this.loading.button = true;
@@ -125,7 +131,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
             this.messageService.success('Operation is successful!');
           }
         } else {
-          this.messageService.error(response.message);
+          this.warningMessage = response.message;
           queryHistory.message = response.message;
           queryHistory.state = StateEnum.failure;
           this.processorContainers[this.containerSelected].icon = 'times-circle';
@@ -212,5 +218,19 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
 
   handlerCloseCreateSnippet(event: boolean) {
     this.dialog.create = false;
+  }
+
+  handlerCloseAlert() {
+    this.warningMessage = null;
+  }
+
+  handlerShowMoreEllipsis() {
+    this.modelService.error({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.transactionService.instant('common.ok'),
+      nzContent: this.warningMessage
+    });
   }
 }

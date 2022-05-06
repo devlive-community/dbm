@@ -152,7 +152,8 @@
     "sshHost": "SSH Host",
     "sshPort": "SSH Port",
     "sshUsername": "SSH User",
-    "sshPassword": "SSH Password"
+    "sshPassword": "SSH Password",
+    "more": "More"
   },
   "language": {
     "english": "English",

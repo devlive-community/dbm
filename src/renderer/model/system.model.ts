@@ -14,4 +14,5 @@ export class SystemEditorModel extends BaseModel {
   public lineNumbers = true;
   public language = 'mysql';
   public uppercase = true;
+  public matchBrackets = false;
 }

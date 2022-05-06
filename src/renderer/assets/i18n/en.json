@@ -153,7 +153,8 @@
     "sshPort": "SSH Port",
     "sshUsername": "SSH User",
     "sshPassword": "SSH Password",
-    "more": "More"
+    "more": "More",
+    "matchBrackets": "Match Brackets"
   },
   "language": {
     "english": "English",

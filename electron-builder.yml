@@ -32,6 +32,7 @@ releaseInfo:
 
     - Optimize query history display list
     - Migrate the software update function to the system menu
+    - Support editor bracket matching
 
 directories:
   output: ./release

@@ -81,6 +81,9 @@
         <li nz-menu-item (click)="handlerCodeSnippet()">
           <i class="fa fa-code"></i>&nbsp;{{'common.code' | translate}}{{'common.snippet' | translate}}
         </li>
+        <li nz-menu-item (click)="handlerAdvancedConfiguration()">
+          <i class="fa fa-cogs"></i>&nbsp;{{'common.advanced'|translate}}{{'common.configuration'|translate}}
+        </li>
       </ul>
     </nz-dropdown-menu>
   </div>
@@ -139,3 +142,36 @@
                               [snippetValue]="snippetValue"
                               (emitter)="handlerCloseCreateSnippet($event)">
 </app-component-create-snippet>
+<nz-modal [(nzVisible)]="advancedConfiguration.disabled"
+          nzTitle="{{'common.advanced'|translate}}{{'common.configuration'|translate}}"
+          (nzOnCancel)="handlerAdvancedConfiguration(true)">
+  <ng-container *nzModalContent>
+    <nz-table [nzData]="advancedConfiguration.value" [nzShowPagination]="false">
+      <tbody>
+      <tr *ngFor="let control of advancedConfiguration.value; let i = index">
+        <td><input [(ngModel)]="control.key" nz-input placeholder="Key"/></td>
+        <td><input [(ngModel)]="control.value" nz-input placeholder="Value"/></td>
+        <td>
+          <button nz-button nzType="link" nzDanger [disabled]="advancedConfiguration.value.length <= 1"
+                  nz-tooltip nzTooltipTitle="{{'common.remove'|translate}}{{'common.configuration'|translate}}"
+                  (click)="handlerRemoveAdvancedConfiguration(i)">
+            <i class="fa fa-minus-circle"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <button nz-button nzType="primary" style="margin-top: 15px;"
+                nz-tooltip nzTooltipTitle="{{'common.add'|translate}}{{'common.configuration'|translate}}"
+                (click)="handlerAddAdvancedConfiguration()">
+          <i class="fa fa-plus-circle"></i>
+        </button>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+  <div *nzModalFooter>
+    <button nz-button nzType="dashed" nzDanger (click)="handlerAdvancedConfiguration(true)">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</nz-modal>

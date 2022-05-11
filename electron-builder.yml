@@ -11,6 +11,7 @@ releaseInfo:
     ---
 
     - SSH login is supported #40
+    - Support query ClickHouse to dynamically add configuration
 
     #### Docs
 

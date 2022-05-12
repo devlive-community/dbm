@@ -154,7 +154,9 @@
     "sshUsername": "SSH User",
     "sshPassword": "SSH Password",
     "more": "More",
-    "matchBrackets": "Match Brackets"
+    "matchBrackets": "Match Brackets",
+    "filter": "Filter",
+    "precise": "Precise"
   },
   "language": {
     "english": "English",

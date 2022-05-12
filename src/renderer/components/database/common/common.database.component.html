@@ -4,5 +4,8 @@
     <app-component-rename-database *ngIf="menu.command === operation.rename" [config]="config"
                                    [value]="value?.origin?.key" (emitter)="handlerEmitter($event)">
     </app-component-rename-database>
+    <app-component-filter-database *ngIf="menu.command === operation.filter" [config]="config"
+                                   (emitter)="handlerEmitter($event)">
+    </app-component-filter-database>
   </div>
 </nz-modal>

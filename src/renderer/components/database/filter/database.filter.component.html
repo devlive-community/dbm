@@ -1,0 +1,27 @@
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input nz-input [(ngModel)]="filter.value" name="name" (change)="handlerValidate()"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.precise'|translate}}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <nz-switch [(ngModel)]="filter.precise" name="precise"
+                   nzCheckedChildren="{{'common.open'|translate}}"
+                   nzUnCheckedChildren="{{'common.close'|translate}}">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="ant-modal-footer" style="padding: 10px;margin-bottom: -20px;margin-top: 20px;">
+  <div class="ng-star-inserted">
+    <button nz-button nzType="primary" [disabled]="disabled.button" [nzLoading]="loading.button"
+            (click)="handlerFilter()">
+      <span>{{'common.filter'|translate}}</span>
+    </button>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { PropertyModel } from '@renderer/model/property.model';
 import { SshService } from '@renderer/services/ssh.service';
 import { BasicService } from '@renderer/services/system/basic.service';
 import { ForwardService } from '@renderer/services/forward.service';
+import { FilterModel } from '@renderer/model/filter.model';
 
 @Injectable()
 export class MetadataService extends ForwardService implements BaseService {
@@ -52,11 +53,19 @@ export class MetadataService extends ForwardService implements BaseService {
     return this.getResponse(request, sql);
   }
 
-  getChild(request: RequestModel, config: ConfigModel): Promise<ResponseModel> {
+  getChild(request: RequestModel, config: ConfigModel, filter?: FilterModel): Promise<ResponseModel> {
     let sql;
     switch (config.type) {
       case TypeEnum.server:
-        sql = this.baseConfig.databaseItems;
+        if (filter) {
+          if (filter.precise) {
+            sql = StringUtils.format(this.baseConfig.databaseItemsFilterPrecise, [filter.value]);
+          } else {
+            sql = StringUtils.format(this.baseConfig.databaseItemsFilterFuzzy, [filter.value]);
+          }
+        } else {
+          sql = this.baseConfig.databaseItems;
+        }
         break;
       case TypeEnum.database:
         sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);

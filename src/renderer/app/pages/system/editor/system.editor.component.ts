@@ -19,12 +19,20 @@ export class SystemEditorComponent extends BaseComponent implements DoCheck {
   };
   themes: string[] = new Array();
   languages: string[] = new Array();
+  sqlTemplate = 'select name as `Name` \n' +
+    'from (\n' +
+    '  select name \n' +
+    '  from db.tb\n' +
+    ') where id > 1 \n' +
+    'group by name \n' +
+    'order by name \n' +
+    'limit 10';
 
   constructor(private editorService: EditorService,
               private messageService: NzMessageService) {
     super();
     this.model = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
-    this.editor.context = SqlUtils.formatter('select id as `ID`, name as `Name` from db.tb where id > 1 group by name order by name limit 10',
+    this.editor.context = SqlUtils.formatter(this.sqlTemplate,
       this.editor.config = Object.assign(this.editor.config, this.model));
     Object.keys(EditorThemeEnum).forEach(value => {
       this.themes.push(value);

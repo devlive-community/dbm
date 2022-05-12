@@ -148,7 +148,15 @@
     "code": "Code",
     "created": "Created",
     "updated": "Updated",
-    "quote": "Quote"
+    "quote": "Quote",
+    "sshHost": "SSH Host",
+    "sshPort": "SSH Port",
+    "sshUsername": "SSH User",
+    "sshPassword": "SSH Password",
+    "more": "More",
+    "matchBrackets": "Match Brackets",
+    "filter": "Filter",
+    "precise": "Precise"
   },
   "language": {
     "english": "English",

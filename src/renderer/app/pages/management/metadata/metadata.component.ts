@@ -104,7 +104,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       }
       const request = new RequestModel();
       request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
-      this.metadataService.getChild(request, originNode).then(response => {
+      this.metadataService.getChild(request, originNode, event.filter).then(response => {
         if (response.status) {
           // clear old data
           node['children'] = [];
@@ -134,6 +134,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
             this.disabledComponent.database.structure = selected;
             break;
           case OperationEnum.rename:
+          case OperationEnum.filter:
             this.disabledComponent.database.common = selected;
             break;
         }

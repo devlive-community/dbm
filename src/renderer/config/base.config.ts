@@ -4,6 +4,8 @@ export interface BaseConfig {
   tableDiskUsedRatio: string;
   columnDiskUsedRatio: string;
   databaseItems: string;
+  databaseItemsFilterPrecise: string;
+  databaseItemsFilterFuzzy: string;
   tableItems: string;
   columnItems: string;
 }

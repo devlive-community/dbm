@@ -12,6 +12,7 @@ import { BasicService } from '@renderer/services/system/basic.service';
 import { MarkdownModule } from 'ngx-markdown';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { HttpService } from '@renderer/services/http.service';
+import { SshService } from '@renderer/services/ssh.service';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -38,7 +39,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   providers: [
     BasicService,
     DatasourceService,
-    HttpService
+    HttpService,
+    SshService
   ]
 })
 export class LayoutModule {

@@ -16,6 +16,9 @@ import { SystemEditorModel } from '@renderer/model/system.model';
 import { CommandModel } from '@renderer/model/command.model';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { ActionEnum } from '@renderer/enum/action.enum';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { TranslateService } from '@ngx-translate/core';
+import { KvModel } from '@renderer/model/kv.model';
 
 @Component({
   selector: 'app-query',
@@ -45,11 +48,18 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   action: ActionEnum;
   actionComponent = ActionEnum;
   snippetValue: string;
+  warningMessage: string;
+  advancedConfiguration = {
+    disabled: false,
+    value: Array<KvModel>()
+  };
 
   constructor(private editorService: EditorService,
               private datasourceService: DatasourceService,
               private queryService: QueryService,
               private messageService: NzMessageService,
+              private modelService: NzModalService,
+              private transactionService: TranslateService,
               private queryHistoryService: QueryHistoryService) {
     super();
     const cache = this.editorService.get() === null ? new SystemEditorModel() : this.editorService.get();
@@ -69,12 +79,16 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
       new CommandModel('EXPLAIN PIPELINE ...', 'EXPLAIN PIPELINE {0}'),
       new CommandModel('EXPLAIN ESTIMATE ...', 'EXPLAIN ESTIMATE {0}'),
       new CommandModel('EXPLAIN TABLE OVERRIDE ...', 'EXPLAIN TABLE OVERRIDE {0}'));
+    this.advancedConfiguration.value.push(new KvModel());
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
       // const queryInstance = this;
+      codeMirror.on('inputRead', () => {
+        codeMirror.showHint();
+      })
       codeMirror.addKeyMap({
         'Ctrl-Enter': function(cm) {
           // queryInstance.handlerExecute(null);
@@ -92,6 +106,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
   }
 
   handlerExecute(command?: CommandModel) {
+    this.warningMessage = null;
     this.disabledButton.execute = true;
     this.disabledButton.cancel = false;
     this.loading.button = true;
@@ -114,6 +129,11 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
       queryHistory.query = sql;
       this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
       this.processorContainers[this.containerSelected].color = 'cyan';
+      const applyParams = this.advancedConfiguration.value
+      .filter(item => StringUtils.isNotEmpty(item.key) || StringUtils.isNotEmpty(item.value));
+      if (applyParams.length > 0) {
+        request.params = applyParams;
+      }
       this.queryService.getResponse(request, sql).then(response => {
         if (response.status) {
           queryHistory.state = StateEnum.success;
@@ -125,7 +145,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
             this.messageService.success('Operation is successful!');
           }
         } else {
-          this.messageService.error(response.message);
+          this.warningMessage = response.message;
           queryHistory.message = response.message;
           queryHistory.state = StateEnum.failure;
           this.processorContainers[this.containerSelected].icon = 'times-circle';
@@ -199,6 +219,22 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     }
   }
 
+  handlerAdvancedConfiguration(close?: boolean) {
+    if (close) {
+      this.advancedConfiguration.disabled = false;
+    } else {
+      this.advancedConfiguration.disabled = true;
+    }
+  }
+
+  handlerAddAdvancedConfiguration() {
+    this.advancedConfiguration.value.push(new KvModel());
+  }
+
+  handlerRemoveAdvancedConfiguration(index: number) {
+    this.advancedConfiguration.value.splice(index, 1);
+  }
+
   handlerCodeSnippetProcessor(sql?: string) {
     const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
     codeMirror.setValue(sql);
@@ -212,5 +248,19 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
 
   handlerCloseCreateSnippet(event: boolean) {
     this.dialog.create = false;
+  }
+
+  handlerCloseAlert() {
+    this.warningMessage = null;
+  }
+
+  handlerShowMoreEllipsis() {
+    this.modelService.error({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.transactionService.instant('common.ok'),
+      nzContent: this.warningMessage
+    });
   }
 }

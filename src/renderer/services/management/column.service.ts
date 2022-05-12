@@ -6,17 +6,22 @@ import { BaseService } from '@renderer/services/base.service';
 import { HttpService } from '@renderer/services/http.service';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { StringUtils } from '@renderer/utils/string.utils';
-import { UrlUtils } from '@renderer/utils/url.utils';
 import { ColumnModel } from '@renderer/model/column.model';
 import { ColumnUtils } from '@renderer/utils/column.utils';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
 
 @Injectable()
-export class ColumnService implements BaseService {
-  constructor(private httpService: HttpService) {
+export class ColumnService extends ForwardService implements BaseService {
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   getPreview(request: RequestModel, value: DatabaseModel): Promise<ResponseModel> {

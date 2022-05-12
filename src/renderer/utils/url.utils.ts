@@ -13,6 +13,16 @@ export class UrlUtils {
       remoteUrl = StringUtils.format('{0}://{1}:{2}',
         [protocol, request.config.host, request.config.port]);
     }
+    if (request.params) {
+      const params = request.params
+      .map(param => StringUtils.format('{0}={1}', [param.key, param.value]))
+      .join('&');
+      if (hasAuthentication) {
+        remoteUrl = StringUtils.format('{0}&{1}', [remoteUrl, params]);
+      } else {
+        remoteUrl = StringUtils.format('{0}?{1}', [remoteUrl, params]);
+      }
+    }
     return remoteUrl;
   }
 }

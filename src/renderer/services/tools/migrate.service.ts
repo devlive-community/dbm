@@ -4,19 +4,24 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { BaseService } from '@renderer/services/base.service';
 import { HttpService } from '@renderer/services/http.service';
 import { StringUtils } from '@renderer/utils/string.utils';
-import { UrlUtils } from '@renderer/utils/url.utils';
 import { DatasourceService } from '../management/datasource.service';
 import { TableService } from '../management/table.service';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
 
 @Injectable()
-export class MigrateService implements BaseService {
-  constructor(private httpService: HttpService,
-              private tableService: TableService,
-              private datasourceService: DatasourceService) {
+export class MigrateService extends ForwardService implements BaseService {
+  constructor(private tableService: TableService,
+              private datasourceService: DatasourceService,
+              httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   async migrate(source, target): Promise<ResponseModel> {

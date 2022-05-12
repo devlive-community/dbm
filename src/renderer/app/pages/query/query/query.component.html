@@ -18,69 +18,82 @@
   </nz-tabset>
 </nz-card>
 <ng-template #titleTemplate>
-  <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
-             style="width: 150px; margin-right: 8px;"
-             [disabled]="loading.button"
-             (ngModelChange)="handlerCheckStatus()">
-    <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
-               nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
-  </nz-select>
-  <nz-button-group>
-    <button id="executeButton" nz-button nzType="primary" nzSize="small"
-            nzTooltipTitle="{{'tooltip.execute'|translate}}" nzTooltipPlacement="bottom" nz-tooltip
+  <div>
+    <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
+               style="width: 150px; margin-right: 8px;"
+               [disabled]="loading.button"
+               (ngModelChange)="handlerCheckStatus()">
+      <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
+                 nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
+    </nz-select>
+    <nz-button-group>
+      <button id="executeButton" nz-button nzType="primary" nzSize="small"
+              nzTooltipTitle="{{'tooltip.execute'|translate}}" nzTooltipPlacement="bottom" nz-tooltip
+              [disabled]="disabledButton.execute"
+              [nzLoading]="loading.button"
+              (click)="handlerExecute()">
+        <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
+      </button>
+      <button nz-button nz-dropdown nzType="primary" nzPlacement="bottomRight"
+              [disabled]="disabledButton.execute"
+              [nzDropdownMenu]="executeMenu"
+              style="margin-left: -10px;">
+        <i class="fa fa-ellipsis-h"></i>
+      </button>
+    </nz-button-group>
+    <nz-dropdown-menu #executeMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item *ngFor="let command of executeCommands" (click)="handlerExecuteCommand(command)">
+          {{command.name}}
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+    <button nz-button nzType="dashed" nzSize="small"
             [disabled]="disabledButton.execute"
-            [nzLoading]="loading.button"
-            (click)="handlerExecute()">
-      <i class="fa fa-flash"></i>&nbsp;{{'common.execute'|translate}}
+            (click)="handlerFormatter()">
+      <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
     </button>
-    <button nz-button nz-dropdown nzType="primary" nzPlacement="bottomRight"
+    <button nz-button nzType="primary" nzSize="small" nzDanger
+            [disabled]="disabledButton.cancel"
+            (click)="handlerCancel()">
+      <i class="fa fa-close"></i>&nbsp;{{'common.cancel'|translate}}
+    </button>
+    <button nz-button nzType="primary" nzSize="small" [disabled]="disabledButton.execute"
+            (click)="handlerAddContainer()">
+      <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
+    </button>
+    <button *ngIf="processorContainers[containerSelected]?.icon === 'check-circle'" nz-button nzType="primary"
+            nzSize="small" nz-tooltip
+            nzTooltipTitle="{{'common.add'|translate}}{{'common.snippet'|translate}}"
             [disabled]="disabledButton.execute"
-            [nzDropdownMenu]="executeMenu"
-            style="margin-left: -10px;">
-      <i class="fa fa-ellipsis-h"></i>
+            (click)="handlerShowCreateSnippet(actionComponent.create)">
+      <i class="fa fa-plus-circle"></i>&nbsp;{{'common.snippet'|translate}}
     </button>
-  </nz-button-group>
-  <nz-dropdown-menu #executeMenu="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item *ngFor="let command of executeCommands" (click)="handlerExecuteCommand(command)">
-        {{command.name}}
-      </li>
-    </ul>
-  </nz-dropdown-menu>
-  <button nz-button nzType="dashed" nzSize="small"
-          [disabled]="disabledButton.execute"
-          (click)="handlerFormatter()">
-    <i class="fa fa-code"></i>&nbsp;{{ 'common.format' | translate }}
-  </button>
-  <button nz-button nzType="primary" nzSize="small" nzDanger
-          [disabled]="disabledButton.cancel"
-          (click)="handlerCancel()">
-    <i class="fa fa-close"></i>&nbsp;{{'common.cancel'|translate}}
-  </button>
-  <button nz-button nzType="primary" nzSize="small" [disabled]="disabledButton.execute" (click)="handlerAddContainer()">
-    <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
-  </button>
-  <button *ngIf="processorContainers[containerSelected]?.icon === 'check-circle'" nz-button nzType="primary"
-          nzSize="small" nz-tooltip
-          nzTooltipTitle="{{'common.add'|translate}}{{'common.snippet'|translate}}"
-          [disabled]="disabledButton.execute"
-          (click)="handlerShowCreateSnippet(actionComponent.create)">
-    <i class="fa fa-plus-circle"></i>&nbsp;{{'common.snippet'|translate}}
-  </button>
-  <button style="float: right;" nz-button nz-dropdown nzType="primary" nzSize="small"
-          [nzDropdownMenu]="actionMenus" [disabled]="disabledButton.execute">
-    {{'common.action' | translate}}&nbsp;<i class="fa fa-chevron-down"></i>
-  </button>
-  <nz-dropdown-menu #actionMenus="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item (click)="handlerQuickQuery()">
-        <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}}{{'common.query' | translate}}
-      </li>
-      <li nz-menu-item (click)="handlerCodeSnippet()">
-        <i class="fa fa-code"></i>&nbsp;{{'common.code' | translate}}{{'common.snippet' | translate}}
-      </li>
-    </ul>
-  </nz-dropdown-menu>
+    <button style="float: right;" nz-button nz-dropdown nzType="primary" nzSize="small"
+            [nzDropdownMenu]="actionMenus" [disabled]="disabledButton.execute">
+      {{'common.action' | translate}}&nbsp;<i class="fa fa-chevron-down"></i>
+    </button>
+    <nz-dropdown-menu #actionMenus="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="handlerQuickQuery()">
+          <i class="fa fa-modx"></i>&nbsp;{{'common.quick' | translate}}{{'common.query' | translate}}
+        </li>
+        <li nz-menu-item (click)="handlerCodeSnippet()">
+          <i class="fa fa-code"></i>&nbsp;{{'common.code' | translate}}{{'common.snippet' | translate}}
+        </li>
+        <li nz-menu-item (click)="handlerAdvancedConfiguration()">
+          <i class="fa fa-cogs"></i>&nbsp;{{'common.advanced'|translate}}{{'common.configuration'|translate}}
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+  <nz-alert *ngIf="warningMessage" nzType="error" nzBanner nzCloseable style="margin-top: 10px;"
+            [nzDescription]="descriptionTemplate" (nzOnClose)="handlerCloseAlert()">
+  </nz-alert>
+  <ng-template #descriptionTemplate>
+    <div ellipsis="  ... {{'common.more'|translate}}" [ellipsis-content]="warningMessage"
+         (ellipsis-click-more)="handlerShowMoreEllipsis()"></div>
+  </ng-template>
 </ng-template>
 <!-- Query result container -->
 <nz-card style="margin-top: 10px;" nzTitle="{{'common.result'|translate}}">
@@ -129,3 +142,36 @@
                               [snippetValue]="snippetValue"
                               (emitter)="handlerCloseCreateSnippet($event)">
 </app-component-create-snippet>
+<nz-modal [(nzVisible)]="advancedConfiguration.disabled"
+          nzTitle="{{'common.advanced'|translate}}{{'common.configuration'|translate}}"
+          (nzOnCancel)="handlerAdvancedConfiguration(true)">
+  <ng-container *nzModalContent>
+    <nz-table [nzData]="advancedConfiguration.value" [nzShowPagination]="false">
+      <tbody>
+      <tr *ngFor="let control of advancedConfiguration.value; let i = index">
+        <td><input [(ngModel)]="control.key" nz-input placeholder="Key"/></td>
+        <td><input [(ngModel)]="control.value" nz-input placeholder="Value"/></td>
+        <td>
+          <button nz-button nzType="link" nzDanger [disabled]="advancedConfiguration.value.length <= 1"
+                  nz-tooltip nzTooltipTitle="{{'common.remove'|translate}}{{'common.configuration'|translate}}"
+                  (click)="handlerRemoveAdvancedConfiguration(i)">
+            <i class="fa fa-minus-circle"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <button nz-button nzType="primary" style="margin-top: 15px;"
+                nz-tooltip nzTooltipTitle="{{'common.add'|translate}}{{'common.configuration'|translate}}"
+                (click)="handlerAddAdvancedConfiguration()">
+          <i class="fa fa-plus-circle"></i>
+        </button>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+  <div *nzModalFooter>
+    <button nz-button nzType="dashed" nzDanger (click)="handlerAdvancedConfiguration(true)">
+      {{'common.close'|translate}}
+    </button>
+  </div>
+</nz-modal>

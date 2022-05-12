@@ -1,26 +1,29 @@
 import { BaseService } from '@renderer/services/base.service';
 import { ResponseModel } from '@renderer/model/response.model';
 import { RequestModel } from '@renderer/model/request.model';
-import { UrlUtils } from '@renderer/utils/url.utils';
 import { DatasourceModel } from '@renderer/model/datasource.model';
 import { HttpService } from '@renderer/services/http.service';
 import { Injectable } from '@angular/core';
 import { PromiseExtended } from 'dexie';
 import { PersistenceService } from '@renderer/services/persistence.service';
 import { DexieDb } from '@renderer/db/dexiedb';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
 
 @Injectable()
 export class DatasourceService extends PersistenceService implements BaseService {
   private db: DexieDb;
 
-  constructor(private httpService: HttpService) {
-    super();
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
     this.db = new DexieDb();
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
     sql = 'SELECT version() AS version';
-    return this.httpService.post(UrlUtils.formatUrl(request), sql);
+    return this.forward(request, sql);
   }
 
   /**

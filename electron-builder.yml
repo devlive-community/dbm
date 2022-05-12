@@ -10,40 +10,36 @@ releaseInfo:
 
     ---
 
-    - Support metadata management, add column description information
-    - Support code snippet management
-    - Support query reference code snippet
-    - Support to quickly add code snippets after successful query
-    - The data source supports IndexDB storage
+    - SSH login is supported #40
+    - Support query ClickHouse to dynamically add configuration
+    - Support metadata management to filter the database
+    - Support automatic prompt function of code editor
 
     #### Docs
 
     ---
 
-    - Add snippet docs
-    - Add monitor --> query docs
+    - Fix Monitor --> Processor document image pointing error
 
     #### Optimize
 
     ----
 
-    - Add data sheet deletion prompt greater than 50GB
+    - Optimize error reporting pop-up window #148
 
     #### Bug
 
     ---
 
-    - Fix the problem that invalid metadata management nodes can be clicked
-    - Fix the exception that the optional parameters of the metadata management creation of the MongoDB data table cannot be constructed
-    - Fix the error reported by the metadata management data table console
+    - Fix the release error that the new version of the CI tool was not merged with the code release error
 
     #### UI
 
     ---
 
-    - Add multiple editor themes
-    - Quick query unavailable nodes prohibit operations
-    - It is forbidden to use functions such as quick query if the data source is not selected
+    - Optimize query history display list
+    - Migrate the software update function to the system menu
+    - Support editor bracket matching
 
 directories:
   output: ./release

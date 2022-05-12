@@ -10,6 +10,7 @@ export class OperationConfig {
     server.type = TypeEnum.disk;
     server.operations = [
       {type: TypeEnum.server, actions: [OperationEnum.info]},
+      {type: TypeEnum.database, actions: [OperationEnum.filter]},
       {type: TypeEnum.database, actions: [OperationEnum.create]}
     ];
     opertions.push(server);

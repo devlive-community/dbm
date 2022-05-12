@@ -4,6 +4,7 @@ on:
   pull_request:
     branch:
       - 'master'
+    types: [ closed ]
 
 jobs:
   release:
@@ -79,7 +80,7 @@ jobs:
           asset_path: ./release/latest-mac.yml
           asset_name: latest-mac-inter.yml
           asset_content_type: application/x-yaml
-      
+
       - name: Download and upload to qiniu
         run: |
           wget https://devtools.qiniu.com/qshell-v2.6.2-darwin-amd64.tar.gz
@@ -129,4 +130,4 @@ jobs:
           # echo '--------- End ---------'
           ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
           ./qshell fput edurtio-other dbm/releases/windows/x64/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
-          
+

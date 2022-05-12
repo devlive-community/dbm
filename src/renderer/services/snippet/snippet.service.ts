@@ -6,13 +6,18 @@ import { DexieDb } from '@renderer/db/dexiedb';
 import { SnippetModel } from '@renderer/model/snippet.model';
 import { PromiseExtended } from 'dexie';
 import { Injectable } from '@angular/core';
+import { HttpService } from '@renderer/services/http.service';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
 
 @Injectable()
 export class SnippetService extends PersistenceService implements BaseService {
   private db: DexieDb;
 
-  constructor() {
-    super();
+  constructor(httpService: HttpService,
+              sshService: SshService,
+              basicService: BasicService) {
+    super(httpService, sshService, basicService);
     this.db = new DexieDb();
   }
 
@@ -46,6 +51,6 @@ export class SnippetService extends PersistenceService implements BaseService {
   }
 
   deleteById(id: number): boolean {
-      return false;
+    return false;
   }
 }

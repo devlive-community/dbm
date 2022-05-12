@@ -25,6 +25,15 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="matchBrackets">
+        {{'common.matchBrackets'|translate}}
+      </nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-switch [(ngModel)]="model.matchBrackets" name="matchBrackets" id="matchBrackets">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-label [nzSpan]="4" nzFor="theme"
                      nzTooltipTitle="{{'tooltip.editor.theme'|translate}}">{{'common.theme'|translate}}
       </nz-form-label>

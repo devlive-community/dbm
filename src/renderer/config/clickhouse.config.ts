@@ -74,6 +74,16 @@ LIMIT {2}
 SELECT name, engine AS value
 FROM "system".databases
   `;
+  databaseItemsFilterPrecise = `
+SELECT name, engine AS value
+FROM "system".databases
+WHERE name = '{0}'
+`;
+  databaseItemsFilterFuzzy = `
+SELECT name, engine AS value
+FROM "system".databases
+WHERE name LIKE '%{0}%'
+`;
   tableItems = `
 SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
 FROM system.tables

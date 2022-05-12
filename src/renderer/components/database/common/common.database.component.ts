@@ -3,7 +3,6 @@ import { BaseComponent } from '@renderer/app/base.component';
 import { OperationEnum } from '@renderer/enum/operation.enum';
 import { ConfigModel } from '@renderer/model/config.model';
 import { MenuModel } from '@renderer/model/menu.model';
-import { visible } from 'chalk';
 
 @Component({
   selector: 'app-component-common-database',

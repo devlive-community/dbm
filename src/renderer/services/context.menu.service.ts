@@ -68,6 +68,9 @@ export class ContextMenuService {
       case OperationEnum.ttl_modify:
         icon = 'pencil-square-o';
         break;
+      case OperationEnum.filter:
+        icon = 'filter';
+        break;
       default:
         icon = 'info-circle';
     }

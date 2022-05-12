@@ -3,7 +3,7 @@ export class DatasourceModel {
   name: string;
   alias: string;
   host: string;
-  port: number;
+  port: number = 8123;
   username: string;
   password: string;
   status = false;

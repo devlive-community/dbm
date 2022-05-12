@@ -12,6 +12,7 @@ releaseInfo:
 
     - SSH login is supported #40
     - Support query ClickHouse to dynamically add configuration
+    - Support metadata management to filter the database
 
     #### Docs
 

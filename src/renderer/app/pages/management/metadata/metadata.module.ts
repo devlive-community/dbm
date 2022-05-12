@@ -40,6 +40,7 @@ import { CommonDatabaseComponent } from '@renderer/components/database/common/co
 import { DatabaseRenameComponent } from '@renderer/components/database/rename/database.rename.component';
 import { ColumnCreateComponent } from '@renderer/components/column/create/column.create.component';
 import { CommentColumnComponent } from '@renderer/components/column/comment/column.comment.component';
+import { DatabaseFilterComponent } from '@renderer/components/database/filter/database.filter.component';
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -83,7 +84,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     CommonDatabaseComponent,
     DatabaseRenameComponent,
     ColumnCreateComponent,
-    CommentColumnComponent
+    CommentColumnComponent,
+    DatabaseFilterComponent
   ],
   providers: [
     DatasourceService,

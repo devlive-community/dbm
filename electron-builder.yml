@@ -29,6 +29,8 @@ releaseInfo:
 
     ---
 
+    - Fix the release error that the new version of the CI tool was not merged with the code release error
+
     #### UI
 
     ---

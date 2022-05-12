@@ -86,6 +86,9 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     setTimeout(() => {
       const codeMirror = this.codeEditors.get(this.containerSelected)['codeMirror'];
       // const queryInstance = this;
+      codeMirror.on('inputRead', () => {
+        codeMirror.showHint();
+      })
       codeMirror.addKeyMap({
         'Ctrl-Enter': function(cm) {
           // queryInstance.handlerExecute(null);

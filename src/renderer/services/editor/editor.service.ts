@@ -18,6 +18,9 @@ export class EditorService extends PersistenceService implements BaseService {
       lineWrapping: true,
       styleActiveLine: true,
       foldGutter: true,
+      hintOptions: {
+        completeSingle: false
+      },
       lineComment: ['\/\/'],
       keyMap: 'sublime',
       gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter', 'CodeMirror-lint-markers']

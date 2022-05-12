@@ -37,3 +37,6 @@
 @import "~codemirror/theme/monokai.css";
 @import "~codemirror/theme/moxer.css";
 //@import "~codemirror/theme/";
+
+// Wait for all themes to load after loading, load the hint style to prevent style confusion
+@import './editor.hints.css';

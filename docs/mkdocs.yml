@@ -161,7 +161,8 @@ nav:
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md
   - Release Note:
-      - 1.15.0 (latest): release/1.15.0-20220425.md
+      - 1.16.0 (latest): release/1.16.0-20220513.md
+      - 1.15.0: release/1.15.0-20220425.md
       - 1.14.0: release/1.14.0-20220410.md
       - 1.13.0: release/1.13.0-20220329.md
       - 1.12.0: release/1.12.0-20220318.md
@@ -177,7 +178,7 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
-      - Development Version: development/version/1.16.0-development.md
+      - Development Version: development/version/1.17.0-development.md
   - Development:
     - Contribution:
       - Document: development/document.md

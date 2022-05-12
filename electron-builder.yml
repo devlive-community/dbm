@@ -17,6 +17,8 @@ releaseInfo:
 
     ---
 
+    - Fix Monitor --> Processor document image pointing error
+
     #### Optimize
 
     ----
@@ -26,6 +28,8 @@ releaseInfo:
     #### Bug
 
     ---
+
+    - Fix the release error that the new version of the CI tool was not merged with the code release error
 
     #### UI
 

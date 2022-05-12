@@ -156,7 +156,7 @@ nav:
       - Management:
         - Datasource: reference/management/management_datasource.md
       - Monitor:
-          - Processor: reference/Monitor-Processor.md
+          - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md

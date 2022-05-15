@@ -68,7 +68,15 @@ export class MetadataService extends ForwardService implements BaseService {
         }
         break;
       case TypeEnum.database:
-        sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);
+        if (filter) {
+          if (filter.precise) {
+            sql = StringUtils.format(this.baseConfig.tableItemsFilterPrecise, [config.key, filter.value]);
+          } else {
+            sql = StringUtils.format(this.baseConfig.tableItemsFilterFuzzy, [config.key, filter.value]);
+          }
+        } else {
+          sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);
+        }
         break;
       case TypeEnum.table:
         sql = StringUtils.format(this.baseConfig.columnItems, [config.database, config.key]);

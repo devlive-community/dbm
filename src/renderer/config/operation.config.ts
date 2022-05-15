@@ -19,6 +19,7 @@ export class OperationConfig {
     database.type = TypeEnum.database;
     database.operations = [
       {type: TypeEnum.table, actions: [OperationEnum.create]},
+      {type: TypeEnum.table, actions: [OperationEnum.filter]},
       {type: TypeEnum.database, actions: [OperationEnum.delete]},
       {type: TypeEnum.database, actions: [OperationEnum.structure]},
       {type: TypeEnum.database, actions: [OperationEnum.rename]}

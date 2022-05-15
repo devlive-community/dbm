@@ -7,5 +7,7 @@ export interface BaseConfig {
   databaseItemsFilterPrecise: string;
   databaseItemsFilterFuzzy: string;
   tableItems: string;
+  tableItemsFilterPrecise: string;
+  tableItemsFilterFuzzy: string;
   columnItems: string;
 }

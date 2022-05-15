@@ -34,5 +34,9 @@
                                     [value]="value?.origin?.key" [database]="database"
                                     (emitter)="handlerEmitter($event)">
     </app-component-table-ttl-remove>
+    <app-component-filter-table *ngIf="menu.command === operation.filter" [config]="config"
+                                [database]="value?.origin?.key"
+                                (emitter)="handlerEmitter($event)">
+    </app-component-filter-table>
   </div>
 </nz-modal>

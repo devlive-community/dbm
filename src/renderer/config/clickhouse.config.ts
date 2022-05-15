@@ -89,6 +89,18 @@ SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, tota
 FROM system.tables
 WHERE database = '{0}'
   `;
+  tableItemsFilterPrecise = `
+SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
+FROM system.tables
+WHERE database = '{0}'
+AND name = '{1}'
+  `;
+  tableItemsFilterFuzzy = `
+SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
+FROM system.tables
+WHERE database = '{0}'
+AND name LIKE '%{1}%'
+  `;
   columnItems = `
 DESC {0}.{1}
   `;

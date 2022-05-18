@@ -8,6 +8,7 @@ import { TableService } from '@renderer/services/management/table.service';
 import { MigrateService } from '@renderer/services/tools/migrate.service';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-tools-migrte',
@@ -26,7 +27,12 @@ export class MigrteComponent extends BaseComponent {
               private migrateService: MigrateService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response;
+      this.dataSources = response.map(item => {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
+          item.status = false;
+        }
+        return item;
+      });
     });
   }
 

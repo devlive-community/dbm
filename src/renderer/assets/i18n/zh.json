@@ -155,7 +155,9 @@
     "more": "更多",
     "matchBrackets": "匹配括号",
     "filter": "过滤",
-    "precise": "精确"
+    "precise": "精确",
+    "trino": "Trino",
+    "presto": "Presto"
   },
   "language": {
     "english": "英语",
@@ -261,7 +263,9 @@
     },
     "source": {
       "basic": "基本数据源",
-      "clickhouse": "整合ClickHouse数据源"
+      "clickhouse": "整合ClickHouse数据源",
+      "trino": "整合Trino数据源",
+      "presto": "整合Presto数据源"
     }
   },
   "alert": {
@@ -276,7 +280,9 @@
     "only_one_column": "不能删除数据表中的所有列, 该数据表必须至少包含一列",
     "delete_it": "我们不建议你删除它?这个操作会产生以下结果?",
     "migrate_datasource": "数据源存储方式已经修改请迁移数据后继续使用原有存储内容",
-    "migrate_data_success": "迁移成功后源数据将被清理!"
+    "migrate_data_success": "迁移成功后源数据将被清理!",
+    "not_support_data_source_type": "不支持的数据源类型",
+    "get_analysis_failed": "获取远程数据失败"
   },
   "formatter": {
     "migrate_data": "需要迁移{0}条数据, 请确认是否迁移?"

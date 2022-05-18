@@ -1,6 +1,9 @@
-import { BaseConfig } from '@renderer/config/base.config';
+import {BaseConfig} from '@renderer/config/base.config';
 
 export class ClickhouseConfig implements BaseConfig {
+  version = `
+SELECT version() AS version
+`;
   diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,

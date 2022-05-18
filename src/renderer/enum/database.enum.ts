@@ -16,5 +16,7 @@ export enum DatabaseEnum {
   odbc = 'ODBC',
 
   // DataSource Type
-  clickhosue = 'ClickHouse'
+  clickhosue = 'ClickHouse',
+  trino = 'Trino',
+  presto = 'Presto'
 }

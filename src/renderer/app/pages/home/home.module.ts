@@ -10,6 +10,7 @@ import { NgZorroAntdModule } from '@renderer/app/ng-zorro-antd.module';
 import { QueryService } from '@renderer/services/query/query.service';
 import { ClickhousePluginService } from '@renderer/services/plugin/clickhouse.plugin.service';
 import { CommonShareModule } from '@renderer/app/common-share.module';
+import { TranslateModule } from "@ngx-translate/core";
 
 const HOME_ROUTES: Routes = [
   {path: '', component: HomeComponent}
@@ -23,10 +24,10 @@ const HOME_ROUTES: Routes = [
     ServiceModule,
     NgZorroAntdModule,
     CommonShareModule,
-    RouterModule.forChild(HOME_ROUTES)
+    RouterModule.forChild(HOME_ROUTES),
+    TranslateModule
   ],
-  exports: [
-  ],
+  exports: [],
   declarations: [
     HomeComponent
   ],

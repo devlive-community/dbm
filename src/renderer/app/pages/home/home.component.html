@@ -5,10 +5,19 @@
   <div nz-row nzJustify="space-around" [nzGutter]="[16, 16]">
     <div *ngFor="let datasource of dataSources; let i = index" nz-col nzSpan="12">
       <nz-card nzTitle="{{datasource.alias}}">
-        <nz-skeleton *ngIf="chartsSkeleton[i]; else visibilityChart" [nzActive]="true"></nz-skeleton>
-        <ng-template #visibilityChart>
-          <app-component-charts-line *ngIf="chartsConfig[i]" [config]="chartsConfig[i]">
-          </app-component-charts-line>
+        <nz-result *ngIf="datasource.type !== dataSourceType.clickhosue; else supportSourceTypeTemplate"
+                   nzStatus="warning" nzTitle="{{'alert.not_support_data_source_type'|translate}}">
+        </nz-result>
+        <ng-template #supportSourceTypeTemplate>
+          <nz-skeleton *ngIf="chartsSkeleton[i]; else visibilityChart" [nzActive]="true"></nz-skeleton>
+          <ng-template #visibilityChart>
+            <app-component-charts-line *ngIf="chartsConfig[i]; else getAnalysisFailed" [config]="chartsConfig[i]">
+            </app-component-charts-line>
+            <ng-template #getAnalysisFailed>
+              <nz-result nzStatus="error" nzTitle="{{'alert.get_analysis_failed'|translate}}">
+              </nz-result>
+            </ng-template>
+          </ng-template>
         </ng-template>
       </nz-card>
     </div>

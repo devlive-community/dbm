@@ -156,7 +156,9 @@
     "more": "More",
     "matchBrackets": "Match Brackets",
     "filter": "Filter",
-    "precise": "Precise"
+    "precise": "Precise",
+    "trino": "Trino",
+    "presto": "Presto"
   },
   "language": {
     "english": "English",
@@ -260,7 +262,9 @@
     },
     "source": {
       "basic": "Basic DataSource Type",
-      "clickhouse": "Integrate ClickHouse data sources"
+      "clickhouse": "Integrate ClickHouse data sources",
+      "trino": "Integrate Trino data sources",
+      "presto": "Integrate Presto data sources"
     }
   },
   "alert": {
@@ -275,7 +279,9 @@
     "only_one_column": "You cannot delete all columns in a data table, the table must contain at least one column",
     "delete_it": "We don't recommend that you delete it? This operation produces the following?",
     "migrate_datasource": "The storage method of the data source has been modified. Please continue to use the original storage content after migrating the data.",
-    "migrate_data_success": "After the migration is successful, the source data will be cleaned up!"
+    "migrate_data_success": "After the migration is successful, the source data will be cleaned up!",
+    "not_support_data_source_type": "The data source type is not supported",
+    "get_analysis_failed": "Failed to get the analysis data"
   },
   "formatter": {
     "migrate_data": "Need to migrate {0} data, please confirm whether to migrate?"

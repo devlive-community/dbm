@@ -18,6 +18,7 @@
         <th>{{'common.name' | translate}}</th>
         <th>{{'common.host' | translate}}</th>
         <th>{{'common.protocol' | translate}}</th>
+        <th>{{'common.type' | translate}}</th>
         <th>{{'common.username' | translate}}</th>
         <th>{{'common.version' | translate}}</th>
         <th>{{'common.action' | translate}}</th>
@@ -29,6 +30,7 @@
         <td>{{data.name ? data.name : '-'}}</td>
         <td>{{data.host}}</td>
         <td>{{data.protocol}}</td>
+        <td>{{data.type}}</td>
         <td>{{data.username ? data.username : '-'}}</td>
         <td>{{data.version ? data.version : '-'}}</td>
         <td>
@@ -99,10 +101,17 @@
               <div class="">
                 <nz-radio-group [(ngModel)]="formInfo.type" (ngModelChange)="handlerChange(value)">
                   <label [nzValue]="value.name" nz-radio-button>
-                    <nz-badge nzDot [nzTooltipTitle]="value.description" nz-tooltip>
-                      <nz-avatar [nzShape]="'square'" [nzSize]="64" [nzSrc]="value.icon">
+                    <div *ngIf="value.experimental; else prodTemplate">
+                      <nz-badge nzDot [nzTooltipTitle]="value.description" nz-tooltip>
+                        <nz-avatar [nzShape]="'square'" [nzSize]="64" [nzSrc]="value.icon">
+                        </nz-avatar>
+                      </nz-badge>
+                    </div>
+                    <ng-template #prodTemplate>
+                      <nz-avatar [nzShape]="'square'" [nzSize]="64" [nzSrc]="value.icon"
+                                 [nzTooltipTitle]="value.description" nz-tooltip>
                       </nz-avatar>
-                    </nz-badge>
+                    </ng-template>
                   </label>
                 </nz-radio-group>
               </div>
@@ -140,7 +149,7 @@
               <nz-form-control nzErrorTip="{{'placeholder.protocol'|translate}}">
                 <nz-radio-group formControlName="protocol" [(ngModel)]="formInfo.protocol">
                   <label nz-radio nzValue="HTTP">HTTP</label>
-                  <label nz-radio nzValue="SSH">SSH</label>
+                  <label nz-radio nzValue="SSH" [nzDisabled]="formInfo.type !== dataSourceType.clickhosue">SSH</label>
                   <label nz-radio nzValue="HTTPS" nzDisabled>HTTPS</label>
                 </nz-radio-group>
               </nz-form-control>

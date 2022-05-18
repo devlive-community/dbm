@@ -11,6 +11,7 @@ releaseInfo:
     ---
 
     - Support metadata management to filter the table
+    - Support trino and presto (only custom query and data source management)
 
     #### Docs
 

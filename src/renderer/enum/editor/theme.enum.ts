@@ -35,5 +35,14 @@ export enum EditorThemeEnum {
   mbo = ('mbo'),
   'mdn-like' = ('mdn-like'),
   midnight = ('midnight'),
-  moxer = ('moxer')
+  moxer = ('moxer'),
+  neat = ('neat'),
+  neo = ('neo'),
+  night = ('night'),
+  nord = ('nord'),
+  'oceanic-next' = ('oceanic-next'),
+  'panda-syntax' = ('panda-syntax'),
+  'paraiso-dark' = ('paraiso-dark'),
+  'paraiso-light' = ('paraiso-light'),
+  'pastel-on-dark' = ('pastel-on-dark')
 }

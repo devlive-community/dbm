@@ -14,7 +14,9 @@
     "mac",
     "linux",
     "dbm",
-    "clickhouse"
+    "clickhouse",
+    "trino",
+    "presto"
   ],
   "publish": [
     {

@@ -32,6 +32,8 @@ releaseInfo:
 
     ---
 
+    - Add multiple editor themes
+
 directories:
   output: ./release
 files:

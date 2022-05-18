@@ -11,6 +11,7 @@ import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SshService } from '@renderer/services/ssh.service';
+import {PrestoService} from "@renderer/services/presto.service";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -35,7 +36,8 @@ const DATASOURCE_ROUTES: Routes = [
     DatasourceService,
     DatasourceJob,
     NzModalService,
-    SshService
+    SshService,
+    PrestoService
   ]
 })
 export class DatasourceModule {

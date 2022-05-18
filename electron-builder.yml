@@ -11,6 +11,7 @@ releaseInfo:
     ---
 
     - Support metadata management to filter the table
+    - Support trino and presto (only custom query and data source management)
 
     #### Docs
 
@@ -21,6 +22,7 @@ releaseInfo:
     ----
 
     - Optimize project description and introduction
+    - Optimize the homepage is not available & does not support data source charts
 
     #### Bug
 

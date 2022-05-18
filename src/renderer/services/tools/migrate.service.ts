@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import { RequestModel } from '@renderer/model/request.model';
-import { ResponseModel } from '@renderer/model/response.model';
-import { BaseService } from '@renderer/services/base.service';
-import { HttpService } from '@renderer/services/http.service';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { DatasourceService } from '../management/datasource.service';
-import { TableService } from '../management/table.service';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
-import { ForwardService } from '@renderer/services/forward.service';
+import {Injectable} from '@angular/core';
+import {RequestModel} from '@renderer/model/request.model';
+import {ResponseModel} from '@renderer/model/response.model';
+import {BaseService} from '@renderer/services/base.service';
+import {HttpService} from '@renderer/services/http.service';
+import {StringUtils} from '@renderer/utils/string.utils';
+import {DatasourceService} from '../management/datasource.service';
+import {TableService} from '../management/table.service';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {ForwardService} from '@renderer/services/forward.service';
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class MigrateService extends ForwardService implements BaseService {
   constructor(private tableService: TableService,
               private datasourceService: DatasourceService,
+              basicService: BasicService,
+              factoryService: FactoryService,
               httpService: HttpService,
-              sshService: SshService,
-              basicService: BasicService) {
-    super(httpService, sshService, basicService);
+              sshService: SshService) {
+    super(basicService, factoryService, httpService, sshService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

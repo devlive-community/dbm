@@ -1,17 +1,22 @@
-import { HttpService } from '@renderer/services/http.service';
-import { SshService } from '@renderer/services/ssh.service';
-import { ResponseModel } from '@renderer/model/response.model';
-import { UrlUtils } from '@renderer/utils/url.utils';
-import { SshModel } from '@renderer/model/ssh.model';
-import { RequestModel } from '@renderer/model/request.model';
-import { SystemBasicModel } from '@renderer/model/system.model';
-import { BasicService } from '@renderer/services/system/basic.service';
+import {HttpService} from '@renderer/services/http.service';
+import {SshService} from '@renderer/services/ssh.service';
+import {ResponseModel} from '@renderer/model/response.model';
+import {UrlUtils} from '@renderer/utils/url.utils';
+import {SshModel} from '@renderer/model/ssh.model';
+import {RequestModel} from '@renderer/model/request.model';
+import {SystemBasicModel} from '@renderer/model/system.model';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {PrestoService} from "@renderer/services/presto.service";
+import {DatabaseEnum} from "@renderer/enum/database.enum";
+import {FactoryService} from "@renderer/services/factory.service";
 
 export class ForwardService {
   constructor(
-    private httpService: HttpService,
-    private sshService: SshService,
-    private basicService: BasicService
+    protected basicService: BasicService,
+    protected factoryService: FactoryService,
+    protected httpService: HttpService,
+    protected sshService: SshService,
+    protected prestoService?: PrestoService,
   ) {
   }
 
@@ -23,7 +28,17 @@ export class ForwardService {
     const configure = request.config;
     switch (configure.protocol) {
       case 'HTTP':
-        return this.httpService.post(UrlUtils.formatUrl(request), sql);
+        let response;
+        switch (configure.type) {
+          case DatabaseEnum.clickhosue:
+            response = this.httpService.post(UrlUtils.formatUrl(request), sql);
+            break
+          case DatabaseEnum.trino:
+          case DatabaseEnum.presto:
+            response = this.prestoService.execute(configure, sql);
+            break
+        }
+        return response;
       case 'SSH':
         const basicConfig = this.getConfig();
         const network = basicConfig.network * 1000;

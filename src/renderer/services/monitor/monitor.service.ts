@@ -1,19 +1,21 @@
-import { BaseService } from '@renderer/services/base.service';
-import { RequestModel } from '@renderer/model/request.model';
-import { ResponseModel } from '@renderer/model/response.model';
-import { Injectable } from '@angular/core';
-import { HttpService } from '@renderer/services/http.service';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
-import { ForwardService } from '@renderer/services/forward.service';
+import {BaseService} from '@renderer/services/base.service';
+import {RequestModel} from '@renderer/model/request.model';
+import {ResponseModel} from '@renderer/model/response.model';
+import {Injectable} from '@angular/core';
+import {HttpService} from '@renderer/services/http.service';
+import {StringUtils} from '@renderer/utils/string.utils';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {ForwardService} from '@renderer/services/forward.service';
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class MonitorService extends ForwardService implements BaseService {
   constructor(httpService: HttpService,
               sshService: SshService,
-              basicService: BasicService) {
-    super(httpService, sshService, basicService);
+              basicService: BasicService,
+              factoryService: FactoryService) {
+    super(basicService, factoryService, httpService, sshService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

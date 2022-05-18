@@ -7,6 +7,7 @@ import { RequestModel } from '@renderer/model/request.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { ChartsModel, ChartsSeriesModel } from '@renderer/model/charts.model';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-monitor-connection',
@@ -28,7 +29,12 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
               private messageService: NzMessageService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response;
+      this.dataSources = response.map(item => {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
+          item.status = false;
+        }
+        return item;
+      });
     });
   }
 

@@ -1,4 +1,5 @@
 export interface BaseConfig {
+  version: string;
   diskUsedRatio: string;
   databaseDiskUsedRatio: string;
   tableDiskUsedRatio: string;

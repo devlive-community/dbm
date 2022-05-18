@@ -11,3 +11,10 @@
 .table-body-flex {
   overflow: hidden;
 }
+
+.ant-avatar>img {
+  width: 85%;
+  height: 85%;
+  display: unset;
+  object-fit: cover;
+}

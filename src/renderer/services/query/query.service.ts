@@ -7,6 +7,8 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { ForwardService } from '@renderer/services/forward.service';
 import { SshService } from '@renderer/services/ssh.service';
 import { BasicService } from '@renderer/services/system/basic.service';
+import { FactoryService } from "@renderer/services/factory.service";
+import { PrestoService } from "@renderer/services/presto.service";
 
 const {Parser} = require('node-sql-parser');
 
@@ -14,8 +16,10 @@ const {Parser} = require('node-sql-parser');
 export class QueryService extends ForwardService implements BaseService {
   constructor(httpService: HttpService,
               sshService: SshService,
-              basicService: BasicService) {
-    super(httpService, sshService, basicService);
+              basicService: BasicService,
+              factoryService: FactoryService,
+              prestoService: PrestoService) {
+    super(basicService, factoryService, httpService, sshService, prestoService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

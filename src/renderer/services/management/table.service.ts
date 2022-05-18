@@ -1,26 +1,28 @@
-import { Injectable } from '@angular/core';
-import { LogicEnum } from '@renderer/enum/logic.enum';
-import { PropertyEnum } from '@renderer/enum/property.enum';
-import { ColumnModel } from '@renderer/model/column.model';
-import { DatabaseModel } from '@renderer/model/database.model';
-import { PropertyModel } from '@renderer/model/property.model';
-import { RequestModel } from '@renderer/model/request.model';
-import { ResponseModel } from '@renderer/model/response.model';
-import { BaseService } from '@renderer/services/base.service';
-import { HttpService } from '@renderer/services/http.service';
-import { SqlUtils } from '@renderer/utils/sql.utils';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { TableTtlModel } from '@renderer/model/table/table.ttl.model';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
-import { ForwardService } from '@renderer/services/forward.service';
+import {Injectable} from '@angular/core';
+import {LogicEnum} from '@renderer/enum/logic.enum';
+import {PropertyEnum} from '@renderer/enum/property.enum';
+import {ColumnModel} from '@renderer/model/column.model';
+import {DatabaseModel} from '@renderer/model/database.model';
+import {PropertyModel} from '@renderer/model/property.model';
+import {RequestModel} from '@renderer/model/request.model';
+import {ResponseModel} from '@renderer/model/response.model';
+import {BaseService} from '@renderer/services/base.service';
+import {HttpService} from '@renderer/services/http.service';
+import {SqlUtils} from '@renderer/utils/sql.utils';
+import {StringUtils} from '@renderer/utils/string.utils';
+import {TableTtlModel} from '@renderer/model/table/table.ttl.model';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {ForwardService} from '@renderer/services/forward.service';
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class TableService extends ForwardService implements BaseService {
   constructor(httpService: HttpService,
+              factoryService: FactoryService,
               sshService: SshService,
               basicService: BasicService) {
-    super(httpService, sshService, basicService);
+    super(basicService, factoryService, httpService, sshService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -220,11 +222,11 @@ export class TableService extends ForwardService implements BaseService {
     //     }
     // });
     properties
-    .filter(p => p.origin !== undefined && StringUtils.isNotEmpty(p.origin))
-    .filter(p => p.value !== undefined)
-    .forEach(p => {
-      substr += StringUtils.format('\n  {0} = \'{1}\',', [p.origin, p.value]);
-    });
+      .filter(p => p.origin !== undefined && StringUtils.isNotEmpty(p.origin))
+      .filter(p => p.value !== undefined)
+      .forEach(p => {
+        substr += StringUtils.format('\n  {0} = \'{1}\',', [p.origin, p.value]);
+      });
     if (StringUtils.isNotEmpty(substr)) {
       substr = StringUtils.format('SETTINGS {0}', [substr.substring(0, substr.length - 1)]);
     }
@@ -241,9 +243,9 @@ export class TableService extends ForwardService implements BaseService {
         break;
       case PropertyEnum.name:
         const substr = configure.properties
-        .filter(element => StringUtils.isNotEmpty(element.value))
-        .flatMap(element => StringUtils.format('\'{0}\'', [element.value]))
-        .join(', ');
+          .filter(element => StringUtils.isNotEmpty(element.value))
+          .flatMap(element => StringUtils.format('\'{0}\'', [element.value]))
+          .join(', ');
         sql = StringUtils.format('{0} {1}({2})', [prefix, configure.type, substr]);
         break;
     }
@@ -253,16 +255,16 @@ export class TableService extends ForwardService implements BaseService {
   private flatProperties(properties: PropertyModel[]): Map<string, string> {
     const map = new Map<string, string>();
     properties
-    .filter(p => p.isSetting === undefined || p.isSetting)
-    .forEach(p => {
-      if (StringUtils.isNotEmpty(p.origin)) {
-        map.set('type', PropertyEnum.key);
-        map.set(p.origin, p.value);
-      } else {
-        map.set('type', PropertyEnum.name);
-        map.set(p.name, p.value);
-      }
-    });
+      .filter(p => p.isSetting === undefined || p.isSetting)
+      .forEach(p => {
+        if (StringUtils.isNotEmpty(p.origin)) {
+          map.set('type', PropertyEnum.key);
+          map.set(p.origin, p.value);
+        } else {
+          map.set('type', PropertyEnum.name);
+          map.set(p.name, p.value);
+        }
+      });
     return map;
   }
 

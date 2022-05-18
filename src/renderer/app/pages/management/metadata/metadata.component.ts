@@ -12,6 +12,7 @@ import { TreeUtils } from '@renderer/utils/tree.utils';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-management-metadata',
@@ -54,6 +55,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         configModel.title = k.alias;
         configModel.type = TypeEnum.disk;
         configModel.disabled = k.status ? false : true;
+        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino) {
+          configModel.disabled = true;
+        }
         if (configModel.disabled) {
           configModel.isLeaf = true;
         }
@@ -61,9 +65,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       });
       this.nodes = datasourceConfigs;
     })
-    .catch(error => {
-      this.messageService.error(error.message);
-    });
+      .catch(error => {
+        this.messageService.error(error.message);
+      });
     this.outerHeight = window.outerHeight;
   }
 

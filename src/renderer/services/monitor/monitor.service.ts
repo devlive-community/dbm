@@ -8,14 +8,16 @@ import {SshService} from '@renderer/services/ssh.service';
 import {BasicService} from '@renderer/services/system/basic.service';
 import {ForwardService} from '@renderer/services/forward.service';
 import {FactoryService} from "@renderer/services/factory.service";
+import { PrestoService } from "@renderer/services/presto.service";
 
 @Injectable()
 export class MonitorService extends ForwardService implements BaseService {
   constructor(httpService: HttpService,
               sshService: SshService,
               basicService: BasicService,
-              factoryService: FactoryService) {
-    super(basicService, factoryService, httpService, sshService);
+              factoryService: FactoryService,
+              prestoService: PrestoService) {
+    super(basicService, factoryService, httpService, sshService, prestoService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -23,24 +25,7 @@ export class MonitorService extends ForwardService implements BaseService {
   }
 
   getProcesses(request: RequestModel): Promise<ResponseModel> {
-    const sql = `
-SELECT
-  query_id AS id,
-  now() AS time,
-  query AS query,
-  toUInt64(toUInt64(read_rows) + toUInt64(written_rows)) AS rows,
-  round(elapsed, 1) AS elapsed,
-  formatReadableSize(toUInt64(read_bytes) + toUInt64(written_bytes)) AS bytes,
-  formatReadableSize(memory_usage) AS memoryUsage,
-  formatReadableSize(read_bytes) AS bytesRead,
-  formatReadableSize(written_bytes) AS bytesWritten,
-  cityHash64(query) AS hash,
-  hostName() AS host
-FROM
-  system.processes
-WHERE
-  round(elapsed, 1) > 0
-  `;
+    const sql = this.factoryService.forward(request.config.type).processesFetchAll;
     return this.getResponse(request, sql);
   }
 

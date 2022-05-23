@@ -6,6 +6,24 @@ SELECT node_version AS version
 FROM system.runtime.nodes
 LIMIT 1
   `;
+  processesFetchAll = `
+SELECT
+  query_id AS id,
+  now() AS time,
+  query AS query,
+  '0' AS rows,
+  analysis_time_ms + planning_time_ms + queued_time_ms AS elapsed,
+  '0' AS bytes,
+  '0' AS memoryUsage,
+  '0' AS bytesRead,
+  '0' AS bytesWritten,
+  '' AS hash,
+  '' AS host
+FROM
+  system.runtime.queries
+WHERE
+  state = 'RUNNING'
+`;
   columnDiskUsedRatio: string;
   columnItems: string;
   databaseDiskUsedRatio: string;

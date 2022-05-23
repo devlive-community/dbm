@@ -4,6 +4,24 @@ export class ClickhouseConfig implements BaseConfig {
   version = `
 SELECT version() AS version
 `;
+  processesFetchAll = `
+SELECT
+  query_id AS id,
+  now() AS time,
+  query AS query,
+  toUInt64(toUInt64(read_rows) + toUInt64(written_rows)) AS rows,
+  round(elapsed, 1) AS elapsed,
+  formatReadableSize(toUInt64(read_bytes) + toUInt64(written_bytes)) AS bytes,
+  formatReadableSize(memory_usage) AS memoryUsage,
+  formatReadableSize(read_bytes) AS bytesRead,
+  formatReadableSize(written_bytes) AS bytesWritten,
+  cityHash64(query) AS hash,
+  hostName() AS host
+FROM
+  system.processes
+WHERE
+  round(elapsed, 1) > 0
+  `;
   diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,

@@ -24,6 +24,15 @@ FROM
 WHERE
   state = 'RUNNING'
 `;
+  connectionFetchAll = `
+SELECT
+  source AS categories,
+  COUNT(1) AS value
+FROM system.runtime.queries
+WHERE state = 'RUNNING'
+GROUP BY source
+ORDER BY source DESC
+`;
   columnDiskUsedRatio: string;
   columnItems: string;
   databaseDiskUsedRatio: string;

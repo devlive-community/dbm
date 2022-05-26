@@ -6,6 +6,10 @@
   color: #1890ff;
 }
 
+.success {
+  color: #52c41a;
+}
+
 .md-typeset .grid {
   grid-gap: .4rem;
   display: grid;

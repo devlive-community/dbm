@@ -154,7 +154,8 @@ nav:
         - History: reference/query/query_history.md
         - Snippet: reference/query/snippet/snippet.md
       - Management:
-        - Datasource: reference/management/management_datasource.md
+        - Datasource:
+            - ClickHouse: reference/management/datasource/clickhouse.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md

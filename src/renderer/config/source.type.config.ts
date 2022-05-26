@@ -20,7 +20,7 @@ export class SourceTypeConfig {
       null,
       false,
       null,
-      './renderer/assets/icon/source/clickhouse.svg'));
+      './renderer/assets/icon/source/ClickHouse.svg'));
     basicType.engines = basicEngines;
 
     // -------------- Experimental ----------------
@@ -31,12 +31,12 @@ export class SourceTypeConfig {
     experimentalType.description = TranslateUtils.getValue('tooltip.experimental');
     // Presto
     experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.presto'),
-      TranslateUtils.getValue('tooltip.source.presto'),
+      TranslateUtils.getValue('tooltip.source.resto'),
       DatabaseEnum.presto,
       null,
       true,
       null,
-      './renderer/assets/icon/source/presto.svg'));
+      './renderer/assets/icon/source/Presto.svg'));
     // Trino
     experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.trino'),
       TranslateUtils.getValue('tooltip.source.trino'),
@@ -44,7 +44,7 @@ export class SourceTypeConfig {
       null,
       true,
       null,
-      './renderer/assets/icon/source/trino.svg'));
+      './renderer/assets/icon/source/Trino.svg'));
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

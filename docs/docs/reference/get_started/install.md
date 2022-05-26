@@ -2,7 +2,7 @@
 template: overrides/main.html
 ---
 
-DBM is a cross-platform ClickHouse GUI desktop tool.
+DBM is a cross-platform Database GUI desktop tool.
 
 #### System requirements
 

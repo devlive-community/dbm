@@ -1,8 +1,8 @@
-site_name: ClickHouse Gui Tools DBM
+site_name: DBM - Database GUI
 site_url: https://dbm.incubator.edurt.io/
 site_author: qinamoQ
 site_description: >-
-  ClickHouse Database Gui Tools!
+  Database Gui!
 
 repo_name: EdurtIO/dbm
 repo_url: https://github.com/EdurtIO/dbm

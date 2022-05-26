@@ -20,11 +20,17 @@
 <ng-template #titleTemplate>
   <div>
     <nz-select [(ngModel)]="datasource" nzShowSearch nzAllowClear nzSize="small"
-               style="width: 150px; margin-right: 8px;"
+               style="width: 180px; margin-right: 8px;"
                [disabled]="loading.button"
                (ngModelChange)="handlerCheckStatus()">
       <nz-option *ngFor="let detail of dataSources" [nzDisabled]="!detail.status"
-                 nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
+                 nzCustomContent
+                 nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}">
+        <nz-avatar nzSize="small"
+                   nzSrc="./renderer/assets/icon/source/{{detail.type}}.svg">
+        </nz-avatar>
+        {{detail.alias}}
+      </nz-option>
     </nz-select>
     <nz-button-group>
       <button id="executeButton" nz-button nzType="primary" nzSize="small"

@@ -11,11 +11,15 @@ releaseInfo:
     ---
 
     - Support metadata management to filter the table
-    - Support trino and presto (only custom query and data source management)
+    - Support trino and presto for query
+    - Support trino and presto for monitor --> processors <br />
+    - Support trino and presto for monitor --> connection <br />
 
     #### Docs
 
     ---
+
+    - Refactoring software homepage
 
     #### Optimize
 
@@ -33,6 +37,7 @@ releaseInfo:
     ---
 
     - Add multiple editor themes
+    - Query the list of data sources on the page, support the display of logo
 
 directories:
   output: ./release

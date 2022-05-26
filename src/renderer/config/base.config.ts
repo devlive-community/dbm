@@ -1,6 +1,7 @@
 export interface BaseConfig {
   version: string;
   processesFetchAll: string;
+  connectionFetchAll: string;
   diskUsedRatio: string;
   databaseDiskUsedRatio: string;
   tableDiskUsedRatio: string;

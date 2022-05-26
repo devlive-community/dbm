@@ -22,6 +22,15 @@ FROM
 WHERE
   round(elapsed, 1) > 0
   `;
+  connectionFetchAll = `
+SELECT
+  metric AS categories,
+  toUInt32(SUM(value)) AS value
+FROM system.metrics
+WHERE metric LIKE '%Connection'
+GROUP BY metric
+ORDER BY metric DESC
+  `;
   diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,

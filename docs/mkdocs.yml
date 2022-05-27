@@ -156,6 +156,8 @@ nav:
       - Management:
         - Datasource:
             - ClickHouse: reference/management/datasource/clickhouse.md
+            - Presto: reference/management/datasource/presto_trino.md
+            - Trino: reference/management/datasource/presto_trino.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md

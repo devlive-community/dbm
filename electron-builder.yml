@@ -20,6 +20,8 @@ releaseInfo:
     ---
 
     - Refactoring software homepage
+    - Add clickhouse datasource docs
+    - Add presto & trino datasource docs
 
     #### Optimize
 

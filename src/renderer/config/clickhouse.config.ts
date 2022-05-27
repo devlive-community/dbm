@@ -22,6 +22,21 @@ FROM
 WHERE
   round(elapsed, 1) > 0
   `;
+  slowQueryFetchAll = `
+SELECT
+    user, client_hostname AS host,
+    client_name AS hash, query AS query,
+    query_start_time AS time, query_duration_ms AS elapsed,
+    round(memory_usage / 1048576) AS memoryUsage,
+    result_rows AS rows, result_bytes / 1048576 AS bytes,
+    read_rows AS readRows, round(read_bytes / 1048576) AS bytesRead,
+    written_rows AS writtenRows, round(written_bytes / 1048576) AS bytesWritten
+FROM system.query_log
+WHERE type = 2
+AND query_duration_ms >= {0}
+ORDER BY query_duration_ms DESC
+LIMIT 100
+  `;
   connectionFetchAll = `
 SELECT
   metric AS categories,

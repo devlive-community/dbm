@@ -35,6 +35,8 @@ releaseInfo:
 
     ---
 
+    - Fix the exception that the data source is not selected in the track, the Track list can be selected
+
     #### UI
 
     ---

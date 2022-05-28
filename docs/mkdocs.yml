@@ -156,13 +156,16 @@ nav:
       - Management:
         - Datasource:
             - ClickHouse: reference/management/datasource/clickhouse.md
+            - Presto: reference/management/datasource/presto_trino.md
+            - Trino: reference/management/datasource/presto_trino.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md
   - Release Note:
-      - 1.16.0 (latest): release/1.16.0-20220513.md
+      - 1.17.0 (latest): release/1.17.0-20220529.md
+      - 1.16.0: release/1.16.0-20220513.md
       - 1.15.0: release/1.15.0-20220425.md
       - 1.14.0: release/1.14.0-20220410.md
       - 1.13.0: release/1.13.0-20220329.md

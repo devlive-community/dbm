@@ -7,7 +7,6 @@ import { ResponseDataModel } from '@renderer/model/response.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { MonitorService } from '@renderer/services/monitor/monitor.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-monitor-query',
@@ -28,12 +27,7 @@ export class MonitorQueryComponent extends BaseComponent {
               private messageService: NzMessageService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
-          item.status = false;
-        }
-        return item;
-      });
+      this.dataSources = response;
     });
   }
 

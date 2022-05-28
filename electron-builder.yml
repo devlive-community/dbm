@@ -12,14 +12,17 @@ releaseInfo:
 
     - Support metadata management to filter the table
     - Support trino and presto for query
-    - Support trino and presto for monitor --> processors <br />
-    - Support trino and presto for monitor --> connection <br />
+    - Support trino and presto for monitor --> processors
+    - Support trino and presto for monitor --> connection
+    - Support trino and presto for monitor --> slow query
 
     #### Docs
 
     ---
 
     - Refactoring software homepage
+    - Add clickhouse datasource docs
+    - Add presto & trino datasource docs
 
     #### Optimize
 
@@ -31,6 +34,8 @@ releaseInfo:
     #### Bug
 
     ---
+
+    - Fix the exception that the data source is not selected in the track, the Track list can be selected
 
     #### UI
 

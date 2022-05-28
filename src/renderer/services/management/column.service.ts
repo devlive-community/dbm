@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import { DatabaseModel } from '@renderer/model/database.model';
-import { RequestModel } from '@renderer/model/request.model';
-import { ResponseModel } from '@renderer/model/response.model';
-import { BaseService } from '@renderer/services/base.service';
-import { HttpService } from '@renderer/services/http.service';
-import { SqlUtils } from '@renderer/utils/sql.utils';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { ColumnModel } from '@renderer/model/column.model';
-import { ColumnUtils } from '@renderer/utils/column.utils';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
-import { ForwardService } from '@renderer/services/forward.service';
+import {Injectable} from '@angular/core';
+import {DatabaseModel} from '@renderer/model/database.model';
+import {RequestModel} from '@renderer/model/request.model';
+import {ResponseModel} from '@renderer/model/response.model';
+import {BaseService} from '@renderer/services/base.service';
+import {HttpService} from '@renderer/services/http.service';
+import {SqlUtils} from '@renderer/utils/sql.utils';
+import {StringUtils} from '@renderer/utils/string.utils';
+import {ColumnModel} from '@renderer/model/column.model';
+import {ColumnUtils} from '@renderer/utils/column.utils';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {ForwardService} from '@renderer/services/forward.service';
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class ColumnService extends ForwardService implements BaseService {
   constructor(httpService: HttpService,
+              factoryService: FactoryService,
               sshService: SshService,
               basicService: BasicService) {
-    super(httpService, sshService, basicService);
+    super(basicService, factoryService, httpService, sshService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

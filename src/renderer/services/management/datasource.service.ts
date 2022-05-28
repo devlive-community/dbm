@@ -1,28 +1,33 @@
-import { BaseService } from '@renderer/services/base.service';
-import { ResponseModel } from '@renderer/model/response.model';
-import { RequestModel } from '@renderer/model/request.model';
-import { DatasourceModel } from '@renderer/model/datasource.model';
-import { HttpService } from '@renderer/services/http.service';
-import { Injectable } from '@angular/core';
-import { PromiseExtended } from 'dexie';
-import { PersistenceService } from '@renderer/services/persistence.service';
-import { DexieDb } from '@renderer/db/dexiedb';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
+import {BaseService} from '@renderer/services/base.service';
+import {ResponseModel} from '@renderer/model/response.model';
+import {RequestModel} from '@renderer/model/request.model';
+import {DatasourceModel} from '@renderer/model/datasource.model';
+import {HttpService} from '@renderer/services/http.service';
+import {Injectable} from '@angular/core';
+import {PromiseExtended} from 'dexie';
+import {PersistenceService} from '@renderer/services/persistence.service';
+import {DexieDb} from '@renderer/db/dexiedb';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {PrestoService} from "@renderer/services/presto.service";
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class DatasourceService extends PersistenceService implements BaseService {
   private db: DexieDb;
 
-  constructor(httpService: HttpService,
-              sshService: SshService,
-              basicService: BasicService) {
-    super(httpService, sshService, basicService);
+  constructor(
+    basicService: BasicService,
+    factoryService: FactoryService,
+    httpService: HttpService,
+    sshService: SshService,
+    prestoService: PrestoService) {
+    super(basicService, factoryService, httpService, sshService, prestoService);
     this.db = new DexieDb();
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    sql = 'SELECT version() AS version';
+    sql = this.factoryService.forward(request.config.type).version;
     return this.forward(request, sql);
   }
 
@@ -33,9 +38,9 @@ export class DatasourceService extends PersistenceService implements BaseService
    */
   getAll(): PromiseExtended<DatasourceModel[]> {
     return this.db.DataSourceTable
-    .orderBy('created')
-    .reverse()
-    .toArray();
+      .orderBy('created')
+      .reverse()
+      .toArray();
   }
 
   delete(id: number): PromiseExtended {
@@ -69,8 +74,8 @@ export class DatasourceService extends PersistenceService implements BaseService
   async getByAliasAsync(alias: string): Promise<DatasourceModel> {
     let dataSource;
     dataSource = await this.db.DataSourceTable.where('alias')
-    .equals(alias)
-    .toArray();
+      .equals(alias)
+      .toArray();
     return dataSource.length > 0 ? dataSource[0] : new DatasourceModel();
   }
 }

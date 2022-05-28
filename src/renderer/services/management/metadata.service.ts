@@ -1,20 +1,21 @@
-import { BaseService } from '@renderer/services/base.service';
-import { HttpService } from '@renderer/services/http.service';
-import { Injectable } from '@angular/core';
-import { ResponseModel } from '@renderer/model/response.model';
-import { RequestModel } from '@renderer/model/request.model';
-import { ConfigModel } from '@renderer/model/config.model';
-import { TypeEnum } from '@renderer/enum/type.enum';
-import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
-import { Factory } from '@renderer/factory';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { DatabaseModel } from '@renderer/model/database.model';
-import { DatabaseEnum } from '@renderer/enum/database.enum';
-import { PropertyModel } from '@renderer/model/property.model';
-import { SshService } from '@renderer/services/ssh.service';
-import { BasicService } from '@renderer/services/system/basic.service';
-import { ForwardService } from '@renderer/services/forward.service';
-import { FilterModel } from '@renderer/model/filter.model';
+import {BaseService} from '@renderer/services/base.service';
+import {HttpService} from '@renderer/services/http.service';
+import {Injectable} from '@angular/core';
+import {ResponseModel} from '@renderer/model/response.model';
+import {RequestModel} from '@renderer/model/request.model';
+import {ConfigModel} from '@renderer/model/config.model';
+import {TypeEnum} from '@renderer/enum/type.enum';
+import {ClickhouseConfig} from '@renderer/config/clickhouse.config';
+import {Factory} from '@renderer/factory';
+import {StringUtils} from '@renderer/utils/string.utils';
+import {DatabaseModel} from '@renderer/model/database.model';
+import {DatabaseEnum} from '@renderer/enum/database.enum';
+import {PropertyModel} from '@renderer/model/property.model';
+import {SshService} from '@renderer/services/ssh.service';
+import {BasicService} from '@renderer/services/system/basic.service';
+import {ForwardService} from '@renderer/services/forward.service';
+import {FilterModel} from '@renderer/model/filter.model';
+import {FactoryService} from "@renderer/services/factory.service";
 
 @Injectable()
 export class MetadataService extends ForwardService implements BaseService {
@@ -22,9 +23,10 @@ export class MetadataService extends ForwardService implements BaseService {
   WORD = 'ENGINE';
 
   constructor(httpService: HttpService,
+              factoryService: FactoryService,
               sshService: SshService,
               basicService: BasicService) {
-    super(httpService, sshService, basicService);
+    super(basicService, factoryService, httpService, sshService);
     this.baseConfig = Factory.create(ClickhouseConfig);
   }
 
@@ -68,7 +70,15 @@ export class MetadataService extends ForwardService implements BaseService {
         }
         break;
       case TypeEnum.database:
-        sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);
+        if (filter) {
+          if (filter.precise) {
+            sql = StringUtils.format(this.baseConfig.tableItemsFilterPrecise, [config.key, filter.value]);
+          } else {
+            sql = StringUtils.format(this.baseConfig.tableItemsFilterFuzzy, [config.key, filter.value]);
+          }
+        } else {
+          sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);
+        }
         break;
       case TypeEnum.table:
         sql = StringUtils.format(this.baseConfig.columnItems, [config.database, config.key]);

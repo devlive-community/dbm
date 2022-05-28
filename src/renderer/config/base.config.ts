@@ -1,4 +1,8 @@
 export interface BaseConfig {
+  version: string;
+  processesFetchAll: string;
+  connectionFetchAll: string;
+  slowQueryFetchAll: string;
   diskUsedRatio: string;
   databaseDiskUsedRatio: string;
   tableDiskUsedRatio: string;
@@ -7,5 +11,7 @@ export interface BaseConfig {
   databaseItemsFilterPrecise: string;
   databaseItemsFilterFuzzy: string;
   tableItems: string;
+  tableItemsFilterPrecise: string;
+  tableItemsFilterFuzzy: string;
   columnItems: string;
 }

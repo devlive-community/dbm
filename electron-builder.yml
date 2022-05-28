@@ -10,36 +10,39 @@ releaseInfo:
 
     ---
 
-    - SSH login is supported #40
-    - Support query ClickHouse to dynamically add configuration
-    - Support metadata management to filter the database
-    - Support automatic prompt function of code editor
+    - Support metadata management to filter the table
+    - Support trino and presto for query
+    - Support trino and presto for monitor --> processors
+    - Support trino and presto for monitor --> connection
+    - Support trino and presto for monitor --> slow query
 
     #### Docs
 
     ---
 
-    - Fix Monitor --> Processor document image pointing error
+    - Refactoring software homepage
+    - Add clickhouse datasource docs
+    - Add presto & trino datasource docs
 
     #### Optimize
 
     ----
 
-    - Optimize error reporting pop-up window #148
+    - Optimize project description and introduction
+    - Optimize the homepage is not available & does not support data source charts
 
     #### Bug
 
     ---
 
-    - Fix the release error that the new version of the CI tool was not merged with the code release error
+    - Fix the exception that the data source is not selected in the track, the Track list can be selected
 
     #### UI
 
     ---
 
-    - Optimize query history display list
-    - Migrate the software update function to the system menu
-    - Support editor bracket matching
+    - Add multiple editor themes
+    - Query the list of data sources on the page, support the display of logo
 
 directories:
   output: ./release

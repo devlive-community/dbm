@@ -52,7 +52,7 @@
                nzValue="{{detail.alias}}" nzLabel="{{detail.alias}}"></nz-option>
   </nz-select>
   {{'common.track'|translate}}&nbsp;
-  <nz-select [(ngModel)]="trackId" nzAllowClear nzShowSearch nzServerSearch nzSize="small"
+  <nz-select [(ngModel)]="trackId" [disabled]="!datasource" nzAllowClear nzShowSearch nzServerSearch nzSize="small"
              style="width: 300px;" (nzOnSearch)="handlerSearch($event)">
     <ng-container *ngFor="let o of tracks">
       <nz-option *ngIf="!loading.button" [nzValue]="o.value" [nzLabel]="o.value"></nz-option>

@@ -8,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ResponseDataModel } from '@renderer/model/response.model';
 import { BaseModel } from '@renderer/model/base.model';
 import { ChartsModel, ChartsSeriesModel } from '@renderer/model/charts.model';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-monitor-processor',

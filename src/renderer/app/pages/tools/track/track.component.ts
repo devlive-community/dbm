@@ -7,6 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { TrackEnum } from '@renderer/enum/track.enum';
 import { ColorEnum } from '@renderer/enum/color.enum';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-tools-track',
@@ -26,7 +27,12 @@ export class TrackComponent extends BaseComponent {
               private modal: NzModalService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response;
+      this.dataSources = response.map(item => {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
+          item.status = false;
+        }
+        return item;
+      });
     });
   }
 

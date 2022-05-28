@@ -12,6 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { TranslateService } from '@ngx-translate/core';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { RequestModel } from '@renderer/model/request.model';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-management-datasource',
@@ -41,6 +42,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     next: false
   };
   sourceTypes: DatabaseModel[];
+  dataSourceType = DatabaseEnum;
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,

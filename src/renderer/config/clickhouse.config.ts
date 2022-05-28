@@ -1,6 +1,51 @@
-import { BaseConfig } from '@renderer/config/base.config';
+import {BaseConfig} from '@renderer/config/base.config';
 
 export class ClickhouseConfig implements BaseConfig {
+  version = `
+SELECT version() AS version
+`;
+  processesFetchAll = `
+SELECT
+  query_id AS id,
+  now() AS time,
+  query AS query,
+  toUInt64(toUInt64(read_rows) + toUInt64(written_rows)) AS rows,
+  round(elapsed, 1) AS elapsed,
+  formatReadableSize(toUInt64(read_bytes) + toUInt64(written_bytes)) AS bytes,
+  formatReadableSize(memory_usage) AS memoryUsage,
+  formatReadableSize(read_bytes) AS bytesRead,
+  formatReadableSize(written_bytes) AS bytesWritten,
+  cityHash64(query) AS hash,
+  hostName() AS host
+FROM
+  system.processes
+WHERE
+  round(elapsed, 1) > 0
+  `;
+  slowQueryFetchAll = `
+SELECT
+    user, client_hostname AS host,
+    client_name AS hash, query AS query,
+    query_start_time AS time, query_duration_ms AS elapsed,
+    round(memory_usage / 1048576) AS memoryUsage,
+    result_rows AS rows, result_bytes / 1048576 AS bytes,
+    read_rows AS readRows, round(read_bytes / 1048576) AS bytesRead,
+    written_rows AS writtenRows, round(written_bytes / 1048576) AS bytesWritten
+FROM system.query_log
+WHERE type = 2
+AND query_duration_ms >= {0}
+ORDER BY query_duration_ms DESC
+LIMIT 100
+  `;
+  connectionFetchAll = `
+SELECT
+  metric AS categories,
+  toUInt32(SUM(value)) AS value
+FROM system.metrics
+WHERE metric LIKE '%Connection'
+GROUP BY metric
+ORDER BY metric DESC
+  `;
   diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,
@@ -88,6 +133,18 @@ WHERE name LIKE '%{0}%'
 SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
 FROM system.tables
 WHERE database = '{0}'
+  `;
+  tableItemsFilterPrecise = `
+SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
+FROM system.tables
+WHERE database = '{0}'
+AND name = '{1}'
+  `;
+  tableItemsFilterFuzzy = `
+SELECT uuid, name, engine AS value, partition_key, sorting_key, total_rows, total_bytes, database
+FROM system.tables
+WHERE database = '{0}'
+AND name LIKE '%{1}%'
   `;
   columnItems = `
 DESC {0}.{1}

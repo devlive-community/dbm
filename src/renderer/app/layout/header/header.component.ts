@@ -74,7 +74,6 @@ export class HeaderComponent extends BaseComponent implements OnInit {
 
   handlerUpdateState() {
     ipcRenderer.on('updater', (event, arg) => {
-      console.log('update status ', arg);
       this.loading.button = false;
       this.ref.markForCheck();
       this.ref.detectChanges();
@@ -86,7 +85,6 @@ export class HeaderComponent extends BaseComponent implements OnInit {
           this.releaseNotes = arg?.message?.releaseNotes;
           break;
         case UpdateEnum.downloading:
-          console.log(arg)
           this.disabled.button = false;
           this.percentage = arg.message.percent.toFixed(2);
           break;
@@ -105,7 +103,6 @@ export class HeaderComponent extends BaseComponent implements OnInit {
           this.disabled.button = true;
           break;
         default:
-          console.log('default', arg)
           this.updateResponse = arg;
           this.disabled.button = true;
           break;

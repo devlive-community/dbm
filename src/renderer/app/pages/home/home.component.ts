@@ -6,6 +6,7 @@ import { QueryService } from '@renderer/services/query/query.service';
 import { RequestModel } from '@renderer/model/request.model';
 import { ClickhousePluginService } from '@renderer/services/plugin/clickhouse.plugin.service';
 import { DatasourceModel } from '@renderer/model/datasource.model';
+import {DatabaseEnum} from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   dataSources: DatasourceModel[] = new Array();
   chartsConfig: ChartsModel[] = new Array();
   chartsSkeleton: boolean[] = new Array();
+  dataSourceType = DatabaseEnum;
 
   constructor(private datasourceService: DatasourceService,
               private queryService: QueryService,
@@ -34,21 +36,23 @@ export class HomeComponent implements OnInit {
 
   handlerInitChart() {
     this.dataSources.forEach((value, index) => {
-      const request = new RequestModel();
-      request.config = value;
-      this.clickhousePluginService.getQueryCount(request).then(response => {
-        if (response.status) {
-          const config = new ChartsModel();
-          config.type = 'area';
-          const series = new ChartsSeriesModel();
-          config.xAxis.categories = response.data.columns.map(v => v.categories);
-          series.data = response.data.columns.map(v => v.value);
-          series.name = 'Count';
-          config.series.push(series);
-          this.chartsConfig[index] = config;
-        }
-        this.chartsSkeleton[index] = false;
-      });
+      if (value.type === DatabaseEnum.clickhosue) {
+        const request = new RequestModel();
+        request.config = value;
+        this.clickhousePluginService.getQueryCount(request).then(response => {
+          if (response.status) {
+            const config = new ChartsModel();
+            config.type = 'area';
+            const series = new ChartsSeriesModel();
+            config.xAxis.categories = response.data.columns.map(v => v.categories);
+            series.data = response.data.columns.map(v => v.value);
+            series.name = 'Count';
+            config.series.push(series);
+            this.chartsConfig[index] = config;
+          }
+          this.chartsSkeleton[index] = false;
+        });
+      }
     });
   }
 }

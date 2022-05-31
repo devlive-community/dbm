@@ -158,7 +158,10 @@
     "filter": "Filter",
     "precise": "Precise",
     "trino": "Trino",
-    "presto": "Presto"
+    "presto": "Presto",
+    "yes": "Yes",
+    "no": "No",
+    "authorization": "Authorization"
   },
   "language": {
     "english": "English",

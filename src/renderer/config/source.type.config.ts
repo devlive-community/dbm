@@ -31,7 +31,7 @@ export class SourceTypeConfig {
     experimentalType.description = TranslateUtils.getValue('tooltip.experimental');
     // Presto
     experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.presto'),
-      TranslateUtils.getValue('tooltip.source.resto'),
+      TranslateUtils.getValue('tooltip.source.presto'),
       DatabaseEnum.presto,
       null,
       true,

@@ -1,6 +1,6 @@
 {
   "name": "dbm",
-  "version": "1.17.0",
+  "version": "1.18.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "ClickHouse DataBase GUI",
   "github": "https://github.com/EdurtIO/dbm.git",
@@ -100,7 +100,7 @@
     "cfonts": "^2.9.3",
     "chalk": "^4.1.1",
     "cross-env": "^7.0.3",
-    "electron": "13.1.2",
+    "electron": "13.6.6",
     "electron-builder": "22.11.7",
     "electron-reload": "1.5.0",
     "eslint": "7.29.0",

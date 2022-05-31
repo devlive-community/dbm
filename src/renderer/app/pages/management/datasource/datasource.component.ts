@@ -4,7 +4,6 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { BaseComponent } from '@renderer/app/base.component';
 import { ActionEnum } from '@renderer/enum/action.enum';
 import { DatasourceJob } from '@renderer/job/datasource.job';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { SourceTypeConfig } from '@renderer/config/source.type.config';
@@ -13,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { RequestModel } from '@renderer/model/request.model';
 import { DatabaseEnum } from "@renderer/enum/database.enum";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-management-datasource',
@@ -35,7 +35,6 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   tableDetails: DatasourceModel[] = new Array<DatasourceModel>();
   actionType: ActionEnum;
   actionSource: string;
-  validateForm!: FormGroup;
   currentStep: number = 1;
   showButton = {
     previous: false,
@@ -43,6 +42,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   };
   sourceTypes: DatabaseModel[];
   dataSourceType = DatabaseEnum;
+  validateForm!: FormGroup;
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -51,22 +51,12 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
               private datasourceJob: DatasourceJob,
               private formBuilder: FormBuilder) {
     super();
-    this.validateForm = this.formBuilder.group({
-      alias: [null, [Validators.required]],
-      protocol: [null, [Validators.required]],
-      host: [null, [Validators.required]],
-      port: [null, [Validators.required]],
-      username: [null, []],
-      password: [null, []],
-      maxTotal: [null, []],
-      sshHost: [null, []],
-      sshPort: [null, []],
-      sshUsername: [null, []],
-      sshPassword: [null, []]
-    });
     this.sourceTypes = new SourceTypeConfig().getConfig();
     this.handlerGetAll();
     this.handlerResetButton();
+    this.validateForm = this.formBuilder.group({
+      maxTotal: [null, []]
+    });
   }
 
   ngOnInit() {
@@ -119,7 +109,6 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     this.showButton.next = false;
     this.showButton.previous = false;
     this.handlerResetButton();
-    this.validateForm.clearValidators();
   }
 
   handlerTest() {
@@ -142,26 +131,26 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerSave() {
     this.service.save(this.formInfo)
-    .then(() => {
-      this.messageService.success(this.translateService.instant('common.success'));
-      this.handlerCloseModal();
-      this.handlerGetAll();
-    })
-    .catch(() => {
-      this.messageService.error(this.translateService.instant('common.error'));
-      this.disabled.button = false;
-    });
+      .then(() => {
+        this.messageService.success(this.translateService.instant('common.success'));
+        this.handlerCloseModal();
+        this.handlerGetAll();
+      })
+      .catch(() => {
+        this.messageService.error(this.translateService.instant('common.error'));
+        this.disabled.button = false;
+      });
     this.loading.button = false;
   }
 
   handlerGetAll() {
     this.service.getAll()
-    .then(response => {
-      this.tableDetails = response;
-    })
-    .catch(() => {
-      this.messageService.error(this.translateService.instant('common.error'));
-    });
+      .then(response => {
+        this.tableDetails = response;
+      })
+      .catch(() => {
+        this.messageService.error(this.translateService.instant('common.error'));
+      });
   }
 
   handlerDelete(id: number) {
@@ -200,19 +189,6 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     this.handlerGetAll();
   }
 
-  handlerSubmitForm(): void {
-    if (this.validateForm.valid) {
-      this.handlerTest();
-    } else {
-      Object.values(this.validateForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
-    }
-  }
-
   handlerNext() {
     this.currentStep++;
     this.handlerResetButton();
@@ -229,5 +205,9 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       nzContent: message,
       nzOkText: this.translateService.instant('common.ok')
     });
+  }
+
+  handlerEmitterValue(value: DatasourceModel) {
+    this.formInfo = value;
   }
 }

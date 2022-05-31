@@ -182,7 +182,6 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
-      - Development Version: development/version/1.18.0-development.md
   - Development:
     - Contribution:
       - Document: development/document.md

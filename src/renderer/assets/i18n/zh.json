@@ -157,7 +157,10 @@
     "filter": "过滤",
     "precise": "精确",
     "trino": "Trino",
-    "presto": "Presto"
+    "presto": "Presto",
+    "yes": "是",
+    "no": "否",
+    "authorization": "授权"
   },
   "language": {
     "english": "英语",

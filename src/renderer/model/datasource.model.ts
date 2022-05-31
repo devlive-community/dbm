@@ -19,4 +19,6 @@ export class DatasourceModel {
   maxTotal = 0;
   created: Date;
   updated: Date;
+  validate: boolean = false;
+  authorization: boolean = false;
 }

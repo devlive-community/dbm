@@ -21,7 +21,8 @@ export class DatasourceClickHouseComponent extends BaseComponent {
       protocol: [null, [Validators.required]],
       host: [null, [Validators.required]],
       port: [null, [Validators.required]],
-      authorization: [null, [Validators.required]]
+      authorization: [null, [Validators.required]],
+      database: [null, []]
     });
   }
 

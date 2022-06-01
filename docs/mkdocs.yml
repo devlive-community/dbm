@@ -1,8 +1,8 @@
-site_name: DBM - Database GUI
+site_name: Database GUI
 site_url: https://dbm.incubator.edurt.io/
 site_author: qinamoQ
 site_description: >-
-  Database Gui!
+  Full platform database management tool, supports ClickHouse, Presto, Trino
 
 repo_name: EdurtIO/dbm
 repo_url: https://github.com/EdurtIO/dbm
@@ -127,6 +127,7 @@ plugins:
       nav_translations:
         en:
           Home: Home
+          Download: Get started with dbm
         zh:
           Home: 主页
           Documentation: 文档
@@ -144,6 +145,10 @@ plugins:
           Development: 开发
           Document: 文档
           Contribution: 贡献
+          Download: Get started with dbm
+  - redirects:
+      redirect_maps:
+        release-latest.md: release/1.17.0-20220529.md
 
 nav:
   - Home: index.md

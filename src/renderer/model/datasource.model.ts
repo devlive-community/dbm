@@ -21,4 +21,5 @@ export class DatasourceModel {
   updated: Date;
   validate: boolean = false;
   authorization: boolean = false;
+  database: string;
 }

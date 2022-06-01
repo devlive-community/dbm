@@ -52,6 +52,7 @@ export class ForwardService {
         sshConfigure.localPort = configure.port;
         sshConfigure.localUsername = configure.username;
         sshConfigure.localPassword = configure.password;
+        sshConfigure.database = configure.database;
         return this.sshService.post(sql + '\n FORMAT ' + basicConfig.format, sshConfigure);
       default:
         return Promise.reject(new Error('Unsupported protocol'));

@@ -80,6 +80,22 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">
+          <span>{{'common.catalog'| translate}}</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="catalog" [(ngModel)]="configure.catalog"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24">
+          <span>{{'common.database'| translate}}</span>
+        </nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="database" [(ngModel)]="configure.database"/>
+        </nz-form-control>
+      </nz-form-item>
     </div>
     <div [nzSpan]="3" nz-col>
     </div>

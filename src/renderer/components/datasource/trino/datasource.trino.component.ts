@@ -21,7 +21,9 @@ export class DatasourceTrinoComponent extends BaseComponent {
       protocol: [null, [Validators.required]],
       host: [null, [Validators.required]],
       port: [null, [Validators.required]],
-      authorization: [null, [Validators.required]]
+      authorization: [null, [Validators.required]],
+      catalog: [null, []],
+      database: [null, []]
     });
   }
 

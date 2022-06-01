@@ -22,4 +22,5 @@ export class DatasourceModel {
   validate: boolean = false;
   authorization: boolean = false;
   database: string;
+  catalog: string;
 }

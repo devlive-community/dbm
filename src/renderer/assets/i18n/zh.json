@@ -160,7 +160,8 @@
     "presto": "Presto",
     "yes": "是",
     "no": "否",
-    "authorization": "授权"
+    "authorization": "授权",
+    "catalog": "Catalog"
   },
   "language": {
     "english": "英语",

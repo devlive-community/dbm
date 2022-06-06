@@ -6,6 +6,7 @@ import { TypeEnum } from '@renderer/enum/type.enum';
 import { OperationConfig } from '@renderer/config/operation.config';
 import { OperationEnum } from '@renderer/enum/operation.enum';
 import { StringUtils } from '@renderer/utils/string.utils';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Injectable()
 export class ContextMenuService {
@@ -15,20 +16,23 @@ export class ContextMenuService {
     this.commonConfig = new OperationConfig().getConfig();
   }
 
-  getContextMenu(type: TypeEnum, configs?: OperationModel[]): MenuModel[] {
+  getContextMenu(type: TypeEnum, dataSourceType: DatabaseEnum, configs?: OperationModel[]): MenuModel[] {
     const menus = new Array();
     this.commonConfig.filter(v => v.type === type).forEach(operation => {
       operation.operations.forEach(operationNode => {
-        operationNode.actions.forEach(action => {
-          const menu = this.getMenu(operation, operationNode, action);
-          if (operationNode?.children) {
-            menu['children'] = new Array();
-            operationNode.children.forEach(operationNodeChild => {
-              menu['children'].push(this.getMenu(operation, operationNodeChild, operationNodeChild.actions[0]));
-            });
-          }
-          menus.push(menu);
-        });
+        const supported = operationNode.supportedSource.find(value => value === dataSourceType);
+        if (supported !== undefined) {
+          operationNode.actions.forEach(action => {
+            const menu = this.getMenu(operation, operationNode, action);
+            if (operationNode?.children) {
+              menu['children'] = new Array();
+              operationNode.children.forEach(operationNodeChild => {
+                menu['children'].push(this.getMenu(operation, operationNodeChild, operationNodeChild.actions[0]));
+              });
+            }
+            menus.push(menu);
+          });
+        }
       });
     });
     return menus;

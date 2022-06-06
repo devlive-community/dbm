@@ -1,6 +1,7 @@
 import { OperationModel } from '@renderer/model/operation.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
 import { OperationEnum } from '@renderer/enum/operation.enum';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 export class OperationConfig {
   getConfig(): OperationModel[] {
@@ -9,39 +10,44 @@ export class OperationConfig {
     server.name = TypeEnum.disk.toString();
     server.type = TypeEnum.disk;
     server.operations = [
-      {type: TypeEnum.server, actions: [OperationEnum.info]},
-      {type: TypeEnum.database, actions: [OperationEnum.filter]},
-      {type: TypeEnum.database, actions: [OperationEnum.create]}
+      {
+        type: TypeEnum.server,
+        actions: [OperationEnum.info],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto]
+      },
+      {type: TypeEnum.database, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.database, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(server);
     const database = new OperationModel();
     database.name = TypeEnum.database.toString();
     database.type = TypeEnum.database;
     database.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.create]},
-      {type: TypeEnum.table, actions: [OperationEnum.filter]},
-      {type: TypeEnum.database, actions: [OperationEnum.delete]},
-      {type: TypeEnum.database, actions: [OperationEnum.structure]},
-      {type: TypeEnum.database, actions: [OperationEnum.rename]}
+      {type: TypeEnum.table, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.database, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.database, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.database, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(database);
     const table = new OperationModel();
     table.name = TypeEnum.table.toString();
     table.type = TypeEnum.table;
     table.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.preview]},
-      {type: TypeEnum.table, actions: [OperationEnum.delete]},
-      {type: TypeEnum.table, actions: [OperationEnum.structure]},
-      {type: TypeEnum.table, actions: [OperationEnum.rename]},
-      {type: TypeEnum.table, actions: [OperationEnum.truncate]},
-      {type: TypeEnum.table, actions: [OperationEnum.clean]},
-      {type: TypeEnum.table, actions: [OperationEnum.optimize]},
+      {type: TypeEnum.table, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.truncate], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.clean], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.table, actions: [OperationEnum.optimize], supportedSource: [DatabaseEnum.clickhosue]},
       {
         type: TypeEnum.table,
         actions: [OperationEnum.ttl],
+        supportedSource: [DatabaseEnum.clickhosue],
         children: [
-          {type: TypeEnum.table, actions: [OperationEnum.ttl_modify]},
-          {type: TypeEnum.table, actions: [OperationEnum.ttl_remove]}
+          {type: TypeEnum.table, actions: [OperationEnum.ttl_modify], supportedSource: [DatabaseEnum.clickhosue]},
+          {type: TypeEnum.table, actions: [OperationEnum.ttl_remove], supportedSource: [DatabaseEnum.clickhosue]}
         ]
       }
     ];
@@ -50,11 +56,11 @@ export class OperationConfig {
     column.name = TypeEnum.column.toString();
     column.type = TypeEnum.column;
     column.operations = [
-      {type: TypeEnum.column, actions: [OperationEnum.preview]},
-      {type: TypeEnum.column, actions: [OperationEnum.create]},
-      {type: TypeEnum.column, actions: [OperationEnum.delete]},
-      {type: TypeEnum.column, actions: [OperationEnum.rename]},
-      {type: TypeEnum.column, actions: [OperationEnum.comment]}
+      {type: TypeEnum.column, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.column, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.column, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.column, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
+      {type: TypeEnum.column, actions: [OperationEnum.comment], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(column);
     return opertions;

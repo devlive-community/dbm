@@ -10,7 +10,7 @@ export class DexieDb extends Dexie {
 
   constructor() {
     super('dbm_db');
-    this.version(5)
+    this.version(10)
     .stores({
       QueryHistoryTable: '++id,createdTime,startTime,endTime',
       SnippetTable: '++id,name,created,updated',

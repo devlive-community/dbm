@@ -46,6 +46,10 @@ WHERE metric LIKE '%Connection'
 GROUP BY metric
 ORDER BY metric DESC
   `;
+  databaseFetchAll = `SHOW DATABASES`;
+  schemaFetchAll: string;
+  tableFetchAll = `SHOW TABLES FROM {0}`;
+  tableSchemaFetchAll = ``;
   diskUsedRatio = `
 SELECT
     name, path, formatReadableSize(free_space) AS freeSize, formatReadableSize(total_space) AS totalSize,

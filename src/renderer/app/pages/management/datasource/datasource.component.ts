@@ -27,6 +27,24 @@ import { FormBuilder, FormGroup } from "@angular/forms";
       .gutter-row {
         margin-top: 10px;
       }
+
+      .search-box {
+        padding: 8px;
+      }
+
+      .search-box input {
+        width: 188px;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .search-box button {
+        width: 90px;
+      }
+
+      .search-button {
+        margin-right: 8px;
+      }
     `
   ]
 })
@@ -43,6 +61,12 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   sourceTypes: DatabaseModel[];
   dataSourceType = DatabaseEnum;
   validateForm!: FormGroup;
+  search = {
+    host: {
+      visible: false,
+      value: null
+    }
+  }
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -209,5 +233,15 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
 
   handlerEmitterValue(value: DatasourceModel) {
     this.formInfo = value;
+  }
+
+  handlerSearch() {
+    this.search.host.visible = false;
+    this.tableDetails = this.tableDetails.filter(item => item.host.indexOf(this.search.host.value) !== -1);
+  }
+
+  handlerSearchReset() {
+    this.search.host.value = '';
+    this.handlerGetAll();
   }
 }

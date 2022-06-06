@@ -3,6 +3,10 @@ export interface BaseConfig {
   processesFetchAll: string;
   connectionFetchAll: string;
   slowQueryFetchAll: string;
+  databaseFetchAll: string;
+  schemaFetchAll: string;
+  tableFetchAll: string;
+  tableSchemaFetchAll: string;
   diskUsedRatio: string;
   databaseDiskUsedRatio: string;
   tableDiskUsedRatio: string;

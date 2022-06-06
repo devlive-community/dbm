@@ -1,5 +1,6 @@
 export enum QuickEnum {
   server,
   database,
-  table
+  table,
+  table_schema
 }

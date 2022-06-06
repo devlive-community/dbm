@@ -162,7 +162,9 @@
     "yes": "Yes",
     "no": "No",
     "authorization": "Authorization",
-    "catalog": "Catalog"
+    "catalog": "Catalog",
+    "search": "Search",
+    "reset": "Reset"
   },
   "language": {
     "english": "English",

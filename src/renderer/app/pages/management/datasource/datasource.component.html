@@ -16,7 +16,12 @@
       <tr>
         <th>{{'common.alias' | translate}}</th>
         <th>{{'common.name' | translate}}</th>
-        <th>{{'common.host' | translate}}</th>
+        <th nzCustomFilter>{{'common.host' | translate}}
+          <nz-filter-trigger [(nzVisible)]="search.host.visible" [nzActive]="search.host.value"
+                             [nzDropdownMenu]="searchHostMenu">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
         <th>{{'common.protocol' | translate}}</th>
         <th>{{'common.type' | translate}}</th>
         <th>{{'common.username' | translate}}</th>
@@ -58,6 +63,17 @@
       </tr>
       </tbody>
     </nz-table>
+    <nz-dropdown-menu #searchHostMenu="nzDropdownMenu">
+      <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+          <input type="text" nz-input placeholder="{{'common.search'|translate}}" [(ngModel)]="search.host.value"/>
+          <button nz-button nzSize="small" nzType="primary" class="search-button" (click)="handlerSearch()">
+            {{'common.search'|translate}}
+          </button>
+          <button nz-button nzSize="small" (click)="handlerSearchReset()">{{'common.reset'|translate}}</button>
+        </div>
+      </div>
+    </nz-dropdown-menu>
   </ng-template>
 </nz-card>
 <ng-template #titleTemplate>

@@ -45,6 +45,10 @@ WHERE (analysis_time_ms + planning_time_ms + queued_time_ms) >= {0}
 ORDER BY (analysis_time_ms + planning_time_ms + queued_time_ms) DESC
 LIMIT 100
   `;
+  databaseFetchAll = `SHOW CATALOGS`;
+  schemaFetchAll = 'SHOW SCHEMAS FROM {0}';
+  tableFetchAll = 'SHOW TABLES FROM {0}.{1}';
+  tableSchemaFetchAll = `SELECT table_name AS name FROM {0}.information_schema.tables WHERE table_schema='{1}'`;
   columnDiskUsedRatio: string;
   columnItems: string;
   databaseDiskUsedRatio: string;

@@ -18,4 +18,5 @@ export interface BaseConfig {
   tableItemsFilterPrecise: string;
   tableItemsFilterFuzzy: string;
   columnItems: string;
+  serverInfo: string;
 }

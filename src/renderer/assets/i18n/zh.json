@@ -161,7 +161,9 @@
     "yes": "是",
     "no": "否",
     "authorization": "授权",
-    "catalog": "Catalog"
+    "catalog": "Catalog",
+    "search": "搜索",
+    "reset": "重置"
   },
   "language": {
     "english": "英语",

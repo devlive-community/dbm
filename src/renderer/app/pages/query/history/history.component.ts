@@ -42,7 +42,7 @@ export class HistoryComponent extends BaseComponent {
 
   handlerShowMessage(item: BaseModel) {
     this.modal.error({
-      nzTitle: item.id,
+      nzTitle: item.id.toString(),
       nzContent: item['message'],
       nzOkText: 'OK'
     });

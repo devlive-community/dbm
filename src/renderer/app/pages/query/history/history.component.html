@@ -45,6 +45,11 @@
                     (click)="handlerShowDDL(data)">
               <i class="fa fa-search"></i>
             </button>
+            <button nz-button nzShape="circle" nzSize="small" nzType="dashed"
+                    nz-tooltip nzTooltipTitle="{{'common.quote' | translate}}"
+                    [routerLink]="['/query/query']" [queryParams]="{id: data.id}">
+              <i class="fa fa-reply-all"></i>
+            </button>
             <button nz-button nzShape="circle" nzSize="small" nzType="dashed" nzDanger
                     nz-tooltip nzTooltipTitle="{{'common.error' | translate}}"
                     [disabled]="data?.state !== 1"

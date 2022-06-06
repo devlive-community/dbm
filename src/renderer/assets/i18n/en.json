@@ -161,7 +161,8 @@
     "presto": "Presto",
     "yes": "Yes",
     "no": "No",
-    "authorization": "Authorization"
+    "authorization": "Authorization",
+    "catalog": "Catalog"
   },
   "language": {
     "english": "English",

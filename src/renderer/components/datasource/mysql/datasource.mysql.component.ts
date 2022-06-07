@@ -21,6 +21,8 @@ export class DatasourceMysqlComponent extends BaseComponent implements AfterView
       host: [null, [Validators.required]],
       port: [null, [Validators.required]],
       authorization: [null, [Validators.required]],
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]],
       database: [null, [Validators.required]]
     });
   }
@@ -29,7 +31,6 @@ export class DatasourceMysqlComponent extends BaseComponent implements AfterView
     setTimeout(() => {
       this.configure.authorization = true;
       this.configure.port = 3306;
-      this.handlerAuthorization();
     }, 0);
   }
 
@@ -46,12 +47,6 @@ export class DatasourceMysqlComponent extends BaseComponent implements AfterView
         }
       });
     }
-  }
-
-  handlerAuthorization() {
-    this.validateForm.addControl('username', new FormControl(null, [Validators.required]));
-    this.validateForm.addControl('password', new FormControl(null, [Validators.required]));
-    this.handlerValidate();
   }
 
   handlerEmitterValue() {

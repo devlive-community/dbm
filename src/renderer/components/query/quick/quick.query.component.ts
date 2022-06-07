@@ -47,7 +47,12 @@ export class QuickQueryComponent extends BaseComponent {
     super();
     this.quickCommands = this.queryQuickService.getQuickAll();
     this.dataSourceService.getAll().then(response => {
-      this.dataSourceSet = response;
+      this.dataSourceSet = response.map(item => {
+        if (item.type === DatabaseEnum.mysql) {
+          item.status = false;
+        }
+        return item;
+      });
     });
   }
 

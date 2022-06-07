@@ -74,9 +74,10 @@ DBM can query data from any SQL-speaking datastore or data engine (ClickHouse an
 Here are some of the major database solutions that are supported:
 
 <p align="center">
-  <img src="./src/shared/assets/integrate/clickhouse.png" alt="clickhouse" border="0" width="133" height="34" />
-  <img src="./src/shared/assets/integrate/trino.png" alt="trino" border="0" width="46" height="46"/>
-  <img src="./src/shared/assets/integrate/presto.png" alt="presto" border="0" width="152" height="46"/>
+  <img src="./src/shared/assets/integrate/clickhouse.png" alt="ClickHouse" border="0" width="133" height="34" />
+  <img src="./src/shared/assets/integrate/trino.png" alt="Trino" border="0" width="46" height="46"/>
+  <img src="./src/shared/assets/integrate/presto.png" alt="Presto" border="0" width="152" height="46"/>
+  <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" border="0" width="auto" height="50"/>
 </p>
 
 ## Features

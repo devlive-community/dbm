@@ -163,7 +163,8 @@
     "authorization": "授权",
     "catalog": "Catalog",
     "search": "搜索",
-    "reset": "重置"
+    "reset": "重置",
+    "mysql": "MySQL"
   },
   "language": {
     "english": "英语",
@@ -176,7 +177,7 @@
     "port": "请输入端口",
     "username": "请输入用户名",
     "password": "请输入密码",
-    "database": "请输入数据库[可选]",
+    "database": "请输入数据库",
     "broker": "请输入kafka代理列表",
     "topic": "请输入Kafka消费主题",
     "group": "请输入消费的Kafka消息主题所属组",
@@ -271,7 +272,8 @@
       "basic": "基本数据源",
       "clickhouse": "整合ClickHouse数据源",
       "trino": "整合Trino数据源",
-      "presto": "整合Presto数据源"
+      "presto": "整合Presto数据源",
+      "mysql": "整合MySQL数据源"
     }
   },
   "alert": {

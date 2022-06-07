@@ -28,7 +28,7 @@ export class TrackComponent extends BaseComponent {
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto || item.type === DatabaseEnum.mysql) {
           item.status = false;
         }
         return item;
@@ -78,8 +78,8 @@ export class TrackComponent extends BaseComponent {
 
   handlerGetKeys(track: any) {
     return Object.keys(track).filter(value => value !== 'query')
-    .filter(value => value !== 'exception')
-    .filter(value => value !== 'stack');
+      .filter(value => value !== 'exception')
+      .filter(value => value !== 'stack');
   }
 
   handlerShowMessage(item: any, key: string) {

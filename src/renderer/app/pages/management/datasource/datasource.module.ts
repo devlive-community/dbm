@@ -11,13 +11,17 @@ import { ServiceModule } from '@renderer/app/service.module';
 import { CommonShareModule } from '@renderer/app/common-share.module';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SshService } from '@renderer/services/ssh.service';
-import {PrestoService} from "@renderer/services/presto.service";
+import { PrestoService } from "@renderer/services/presto.service";
 import { DatasourceCommonComponent } from "@renderer/components/datasource/common/datasource.common.component";
-import { DatasourceClickHouseComponent } from "@renderer/components/datasource/clickhouse/datasource.clickhouse.component";
 import {
-    DatasourceProtocolSshComponent
+  DatasourceClickHouseComponent
+} from "@renderer/components/datasource/clickhouse/datasource.clickhouse.component";
+import {
+  DatasourceProtocolSshComponent
 } from "@renderer/components/datasource/protocol/ssh/datasource.protocol.ssh.component";
 import { DatasourceTrinoComponent } from "@renderer/components/datasource/trino/datasource.trino.component";
+import { DatasourceMysqlComponent } from "@renderer/components/datasource/mysql/datasource.mysql.component";
+import { MySQLService } from "@renderer/services/plugin/mysql.service";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -40,14 +44,16 @@ const DATASOURCE_ROUTES: Routes = [
     DatasourceCommonComponent,
     DatasourceClickHouseComponent,
     DatasourceProtocolSshComponent,
-    DatasourceTrinoComponent
+    DatasourceTrinoComponent,
+    DatasourceMysqlComponent
   ],
   providers: [
     DatasourceService,
     DatasourceJob,
     NzModalService,
     SshService,
-    PrestoService
+    PrestoService,
+    MySQLService
   ]
 })
 export class DatasourceModule {

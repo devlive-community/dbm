@@ -17,10 +17,12 @@ export class DatabaseConfig {
       [TranslateUtils.getValue('common.database'), TranslateUtils.getValue('common.engine')]);
     basicDatabase.description = basicDatabase.name;
     const defaultEngines = new Array();
-    defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.default'),
+    const defaultEngine = DatabaseModel.builder(TranslateUtils.getValue('common.default'),
       TranslateUtils.getValue('tooltip.database.default'),
       DatabaseEnum.none,
-      null));
+      null);
+    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino);
+    defaultEngines.push(defaultEngine);
     defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.atomic'),
       TranslateUtils.getValue('tooltip.database.atomic'),
       DatabaseEnum.atomic,

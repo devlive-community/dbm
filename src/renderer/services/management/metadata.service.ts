@@ -95,7 +95,8 @@ export class MetadataService extends ForwardService implements BaseService {
   }
 
   createDatabase(request: RequestModel, database: DatabaseModel): Promise<ResponseModel> {
-    const prefix = StringUtils.format('CREATE DATABASE {0}', [database.name]);
+    const sql = this.factoryService.forward(request.config.type).databaseCreate;
+    const prefix = StringUtils.format(sql, [database.name]);
     let suffix;
     switch (database.type) {
       case DatabaseEnum.none:

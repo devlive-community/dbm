@@ -16,7 +16,11 @@ export class OperationConfig {
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto]
       },
       {type: TypeEnum.database, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.database, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]}
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.create],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto]
+      }
     ];
     opertions.push(server);
     const database = new OperationModel();

@@ -28,6 +28,7 @@ export class DatabaseModel {
    * Optional parameter. The user can customize the processing based on whether the user enters a value
    */
   optionalProperties: PropertyModel[];
+  supportedSource: DatabaseEnum[] = [DatabaseEnum.clickhosue];
 
   public static builder(name: string,
                         description: string,

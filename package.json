@@ -65,6 +65,7 @@
     "jsstore": "^4.3.8",
     "lodash": "^4.17.21",
     "moment": "^2.29.2",
+    "mysql": "^2.18.1",
     "ng-zorro-antd": "^12.1.0",
     "ngx-clipboard": "^14.0.2",
     "ngx-easy-table": "^15.2.0",

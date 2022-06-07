@@ -4,3 +4,6 @@
 <app-component-datasource-trino [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
                                 *ngIf="configure.type === datasourceType.trino || configure.type === datasourceType.presto">
 </app-component-datasource-trino>
+<app-component-datasource-mysql [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
+                                *ngIf="configure.type === datasourceType.mysql">
+</app-component-datasource-mysql>

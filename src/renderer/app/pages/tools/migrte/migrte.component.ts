@@ -28,7 +28,7 @@ export class MigrteComponent extends BaseComponent {
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto) {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto || item.type === DatabaseEnum.mysql) {
           item.status = false;
         }
         return item;

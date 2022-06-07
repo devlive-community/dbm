@@ -39,8 +39,7 @@
           {{'common.authorization'|translate}}
         </nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip>
-          <nz-radio-group formControlName="authorization" [(ngModel)]="configure.authorization"
-                          (ngModelChange)="handlerAuthorization()">
+          <nz-radio-group formControlName="authorization" [(ngModel)]="configure.authorization">
             <label nz-radio [nzValue]="true">{{'common.yes'|translate}}</label>
           </nz-radio-group>
         </nz-form-control>
@@ -74,7 +73,7 @@
           <span>{{'common.database'| translate}}</span>
         </nz-form-label>
         <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.database'|translate}}">
-          <input nz-input formControlName="database" [(ngModel)]="configure.database"/>
+          <input nz-input formControlName="database" [(ngModel)]="configure.database" (blur)="handlerValidate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>

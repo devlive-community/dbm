@@ -4,6 +4,7 @@ export interface BaseConfig {
   connectionFetchAll: string;
   slowQueryFetchAll: string;
   databaseFetchAll: string;
+  databaseCreate: string;
   schemaFetchAll: string;
   tableFetchAll: string;
   tableSchemaFetchAll: string;

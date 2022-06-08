@@ -87,7 +87,7 @@
     "@angular-devkit/build-angular": "12.1.2",
     "@angular-eslint/builder": "12.3.1",
     "@angular-eslint/eslint-plugin": "13.2.1",
-    "@angular-eslint/eslint-plugin-template": "12.3.1",
+    "@angular-eslint/eslint-plugin-template": "13.2.1",
     "@angular-eslint/schematics": "12.3.1",
     "@angular-eslint/template-parser": "12.3.1",
     "@angular/cli": "12.1.2",

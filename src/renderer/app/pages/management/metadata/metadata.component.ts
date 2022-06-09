@@ -55,8 +55,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         configModel.title = k.alias;
         configModel.type = TypeEnum.disk;
         configModel.disabled = k.status ? false : true;
-        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino) {
+        if (k.type === DatabaseEnum.mysql) {
           configModel.disabled = true;
+        }
+        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino) {
+          configModel.isLeaf = true;
         }
         if (configModel.disabled) {
           configModel.isLeaf = true;
@@ -79,8 +82,10 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       this.rootNode = origin;
     }
     if (!origin.disabled) {
-      this.contextMenus = this.contextMenuService.getContextMenu(origin.type);
-      this.nzContextMenuService.create($event, menu);
+      this.dataSourceService.findByAlias(this.rootNode.key).then(response => {
+        this.contextMenus = this.contextMenuService.getContextMenu(origin.type, response.type);
+        this.nzContextMenuService.create($event, menu);
+      });
     }
   }
 
@@ -175,15 +180,21 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     }
     this.handlerLevel(this.selectNode);
     const request = new RequestModel();
-    request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
-    this.metadataService.getDiskUsedAndRatio(request, this.selectNode.origin).then(response => {
-      if (response.status) {
-        this.items = response.data.columns;
-      } else {
-        this.messageService.error(response.message);
-      }
+    const dataSource = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
+    request.config = dataSource;
+    if (dataSource.type === DatabaseEnum.trino || dataSource.type === DatabaseEnum.presto) {
+      this.items = [];
       this.loading.button = false;
-    });
+    } else {
+      this.metadataService.getDiskUsedAndRatio(request, this.selectNode.origin).then(response => {
+        if (response.status) {
+          this.items = response.data.columns;
+        } else {
+          this.messageService.error(response.message);
+        }
+        this.loading.button = false;
+      });
+    }
     // }
   }
 

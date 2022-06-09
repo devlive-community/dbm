@@ -1,0 +1,87 @@
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <app-component-antd-drivider title="{{'common.basic'|translate}}">
+  </app-component-antd-drivider>
+  <div [nzGutter]="[8, 8]" nz-row>
+    <div [nzSpan]="3" nz-col>
+    </div>
+    <div [nzSpan]="18" nz-col>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="alias">
+          {{'common.alias'|translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.alias'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="alias" [(ngModel)]="configure.alias"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="host">{{'common.host'| translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.host'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="host" [(ngModel)]="configure.host"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="port">{{'common.port'| translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.port'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="port" [(ngModel)]="configure.port"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="protocol">
+          {{'common.authorization'|translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip>
+          <nz-radio-group formControlName="authorization" [(ngModel)]="configure.authorization">
+            <label nz-radio [nzValue]="true">{{'common.yes'|translate}}</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div *ngIf="configure.authorization">
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="username">
+            {{'common.username'| translate}}
+          </nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.username'|translate}}">
+            <nz-input-group>
+              <input type="text" nz-input formControlName="username" [(ngModel)]="configure.username"
+                     (blur)="handlerValidate()"/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="password">
+            {{'common.password'| translate}}
+          </nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.password'|translate}}">
+            <nz-input-group>
+              <input nz-input type="password" formControlName="password" [(ngModel)]="configure.password"
+                     (blur)="handlerValidate()"/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="database">
+          <span>{{'common.database'| translate}}</span>
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.database'|translate}}">
+          <input nz-input formControlName="database" [(ngModel)]="configure.database" (blur)="handlerValidate()"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div [nzSpan]="3" nz-col>
+    </div>
+  </div>
+  <ng-container *ngIf="configure.protocol === 'SSH'">
+    <app-component-datasource-protocol-ssh [configure]="configure" (emitterValue)="handlerEmitterValue()">
+    </app-component-datasource-protocol-ssh>
+  </ng-container>
+</form>

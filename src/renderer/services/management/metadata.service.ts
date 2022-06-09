@@ -1,32 +1,34 @@
-import {BaseService} from '@renderer/services/base.service';
-import {HttpService} from '@renderer/services/http.service';
-import {Injectable} from '@angular/core';
-import {ResponseModel} from '@renderer/model/response.model';
-import {RequestModel} from '@renderer/model/request.model';
-import {ConfigModel} from '@renderer/model/config.model';
-import {TypeEnum} from '@renderer/enum/type.enum';
-import {ClickhouseConfig} from '@renderer/config/clickhouse.config';
-import {Factory} from '@renderer/factory';
-import {StringUtils} from '@renderer/utils/string.utils';
-import {DatabaseModel} from '@renderer/model/database.model';
-import {DatabaseEnum} from '@renderer/enum/database.enum';
-import {PropertyModel} from '@renderer/model/property.model';
-import {SshService} from '@renderer/services/ssh.service';
-import {BasicService} from '@renderer/services/system/basic.service';
-import {ForwardService} from '@renderer/services/forward.service';
-import {FilterModel} from '@renderer/model/filter.model';
-import {FactoryService} from "@renderer/services/factory.service";
+import { BaseService } from '@renderer/services/base.service';
+import { HttpService } from '@renderer/services/http.service';
+import { Injectable } from '@angular/core';
+import { ResponseModel } from '@renderer/model/response.model';
+import { RequestModel } from '@renderer/model/request.model';
+import { ConfigModel } from '@renderer/model/config.model';
+import { TypeEnum } from '@renderer/enum/type.enum';
+import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
+import { Factory } from '@renderer/factory';
+import { StringUtils } from '@renderer/utils/string.utils';
+import { DatabaseModel } from '@renderer/model/database.model';
+import { DatabaseEnum } from '@renderer/enum/database.enum';
+import { PropertyModel } from '@renderer/model/property.model';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { ForwardService } from '@renderer/services/forward.service';
+import { FilterModel } from '@renderer/model/filter.model';
+import { FactoryService } from "@renderer/services/factory.service";
+import { PrestoService } from "@renderer/services/presto.service";
 
 @Injectable()
 export class MetadataService extends ForwardService implements BaseService {
   baseConfig: any;
   WORD = 'ENGINE';
 
-  constructor(httpService: HttpService,
+  constructor(basicService: BasicService,
               factoryService: FactoryService,
+              httpService: HttpService,
               sshService: SshService,
-              basicService: BasicService) {
-    super(basicService, factoryService, httpService, sshService);
+              prestoService: PrestoService) {
+    super(basicService, factoryService, httpService, sshService, prestoService);
     this.baseConfig = Factory.create(ClickhouseConfig);
   }
 
@@ -88,12 +90,13 @@ export class MetadataService extends ForwardService implements BaseService {
   }
 
   getInfo(request: RequestModel) {
-    const sql = this.baseConfig.serverInfo;
+    const sql = this.factoryService.forward(request.config.type).serverInfo;
     return this.getResponse(request, sql);
   }
 
   createDatabase(request: RequestModel, database: DatabaseModel): Promise<ResponseModel> {
-    const prefix = StringUtils.format('CREATE DATABASE {0}', [database.name]);
+    const sql = this.factoryService.forward(request.config.type).databaseCreate;
+    const prefix = StringUtils.format(sql, [database.name]);
     let suffix;
     switch (database.type) {
       case DatabaseEnum.none:

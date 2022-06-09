@@ -1,3 +1,5 @@
+import { DatabaseEnum } from "@renderer/enum/database.enum";
+
 export class DatasourceModel {
   id: number;
   name: string;
@@ -14,9 +16,13 @@ export class DatasourceModel {
   sshPort: number = 22;
   sshUsername: string = 'root';
   sshPassword: string = '123456';
-  type: string;
+  type: DatabaseEnum;
   version: string;
   maxTotal = 0;
   created: Date;
   updated: Date;
+  validate: boolean = false;
+  authorization: boolean = false;
+  database: string;
+  catalog: string;
 }

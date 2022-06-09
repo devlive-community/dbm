@@ -1,13 +1,22 @@
-import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron';
+import { app, BrowserWindow, globalShortcut, ipcMain, nativeImage, Tray } from 'electron';
 import * as path from 'path';
 import { createAbout } from './about';
 import { createMenu } from './menu';
 import { handlerUpdater } from './update';
+import { handlerTray } from "./tray";
 
 let win: BrowserWindow = null;
 const isDevelopment = process.env.NODE_ENV === 'development';
 
+let tray: Tray = null;
+const image = nativeImage.createFromPath(
+  path.join(__dirname, '../shared/assets/icons/favicon.png')
+);
+
 function createWindow(): BrowserWindow {
+  if (win !== null) {
+    win = null;
+  }
   win = new BrowserWindow({
     center: true,
     width: 800,
@@ -41,6 +50,10 @@ function createWindow(): BrowserWindow {
     app.dock.setIcon(path.join(__dirname, '../shared/assets/icons/favicon.png'));
   }
   handlerUpdater(win);
+  if (tray === null) {
+    tray = new Tray(image.resize({width: 16, height: 16}));
+    handlerTray(tray, app, win);
+  }
   return win;
 }
 
@@ -72,3 +85,5 @@ try {
   console.warn('Err: ', e);
   process.exit(0);
 }
+
+export { createWindow };

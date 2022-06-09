@@ -19,6 +19,7 @@ import { ActionEnum } from '@renderer/enum/action.enum';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { TranslateService } from '@ngx-translate/core';
 import { KvModel } from '@renderer/model/kv.model';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-query',
@@ -53,8 +54,10 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     disabled: false,
     value: Array<KvModel>()
   };
+  addNewQuery = true;
 
-  constructor(private editorService: EditorService,
+  constructor(private router: ActivatedRoute,
+              private editorService: EditorService,
               private datasourceService: DatasourceService,
               private queryService: QueryService,
               private messageService: NzMessageService,
@@ -90,12 +93,22 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
         codeMirror.showHint();
       })
       codeMirror.addKeyMap({
-        'Ctrl-Enter': function(cm) {
+        'Ctrl-Enter': function (cm) {
           // queryInstance.handlerExecute(null);
           // Call the click method with the fetch element tag
           document.getElementById('executeButton').click();
         }
       });
+      if (this.addNewQuery) {
+        const historyId = this.router.snapshot.queryParams['id'];
+        if (historyId) {
+          this.queryHistoryService.getById(historyId).then(response => {
+            codeMirror.setValue(response.query);
+            this.datasource = response.server;
+            this.handlerCheckStatus();
+          });
+        }
+      }
     }, 0);
   }
 
@@ -130,7 +143,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
       this.processorContainers[this.containerSelected].icon = 'spinner fa-spin';
       this.processorContainers[this.containerSelected].color = 'cyan';
       const applyParams = this.advancedConfiguration.value
-      .filter(item => StringUtils.isNotEmpty(item.key) || StringUtils.isNotEmpty(item.value));
+        .filter(item => StringUtils.isNotEmpty(item.key) || StringUtils.isNotEmpty(item.value));
       if (applyParams.length > 0) {
         request.params = applyParams;
       }
@@ -183,6 +196,7 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
     this.loadingContainers.push({loading: false});
     this.responseTableData.push(new ResponseDataModel());
     this.processorContainers.push({icon: 'tint', color: '#2db7f5'});
+    this.addNewQuery = false;
     this.ngAfterViewInit();
   }
 

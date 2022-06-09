@@ -31,7 +31,7 @@ export class SourceTypeConfig {
     experimentalType.description = TranslateUtils.getValue('tooltip.experimental');
     // Presto
     experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.presto'),
-      TranslateUtils.getValue('tooltip.source.resto'),
+      TranslateUtils.getValue('tooltip.source.presto'),
       DatabaseEnum.presto,
       null,
       true,
@@ -45,6 +45,14 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/Trino.svg'));
+    // MySQL
+    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.mysql'),
+      TranslateUtils.getValue('tooltip.source.mysql'),
+      DatabaseEnum.mysql,
+      null,
+      true,
+      null,
+      './renderer/assets/icon/source/MySQL.svg'));
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

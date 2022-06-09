@@ -4,6 +4,7 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { PersistenceService } from '@renderer/services/persistence.service';
 import { DexieDb } from '@renderer/db/dexiedb';
 import { QueryHistoryModel } from '@renderer/model/query.history.model';
+import { PromiseExtended } from "dexie";
 
 export class QueryHistoryService extends PersistenceService implements BaseService {
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -19,11 +20,19 @@ export class QueryHistoryService extends PersistenceService implements BaseServi
     const db = new DexieDb();
     const queryHistories = new Array();
     db.QueryHistoryTable
-    .orderBy('createdTime')
-    .reverse()
-    .toArray()
-    .then(result => result.forEach(item => queryHistories.push(item)));
+      .orderBy('createdTime')
+      .reverse()
+      .toArray()
+      .then(result => result.forEach(item => queryHistories.push(item)));
     return queryHistories;
+  }
+
+  getById(id: number): PromiseExtended<QueryHistoryModel> {
+    const db = new DexieDb();
+    return db.QueryHistoryTable
+      .orderBy('createdTime')
+      .filter(value => id.toString() === value.id.toString())
+      .first();
   }
 
   clear(): boolean {

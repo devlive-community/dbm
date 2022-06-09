@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {SystemBasicModel} from "@renderer/model/system.model";
-import {BasicService} from "@renderer/services/system/basic.service";
-import {DatasourceModel} from "@renderer/model/datasource.model";
-import {ResponseDataModel, ResponseModel} from "@renderer/model/response.model";
-import {StringUtils} from "@renderer/utils/string.utils";
-import {timeout, TimeoutError} from 'promise-timeout';
+import { Injectable } from "@angular/core";
+import { SystemBasicModel } from "@renderer/model/system.model";
+import { BasicService } from "@renderer/services/system/basic.service";
+import { DatasourceModel } from "@renderer/model/datasource.model";
+import { ResponseDataModel, ResponseModel } from "@renderer/model/response.model";
+import { StringUtils } from "@renderer/utils/string.utils";
+import { timeout, TimeoutError } from 'promise-timeout';
 
 @Injectable()
 export class PrestoService {
@@ -38,8 +38,8 @@ export class PrestoService {
     const somePromise = new Promise((resolve) => {
       client.execute({
         query: sql,
-        catalog: 'hive',
-        schema: 'default',
+        catalog: StringUtils.isNotEmpty(configure.catalog) ? configure.catalog : 'hive',
+        schema: StringUtils.isNotEmpty(configure.database) ? configure.database : 'default',
         objectMode: true
       }).then((statement) => {
         statement.on('columns', (columns) => {

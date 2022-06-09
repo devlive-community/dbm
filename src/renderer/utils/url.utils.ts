@@ -15,12 +15,19 @@ export class UrlUtils {
     }
     if (request.params) {
       const params = request.params
-      .map(param => StringUtils.format('{0}={1}', [param.key, param.value]))
-      .join('&');
+        .map(param => StringUtils.format('{0}={1}', [param.key, param.value]))
+        .join('&');
       if (hasAuthentication) {
         remoteUrl = StringUtils.format('{0}&{1}', [remoteUrl, params]);
       } else {
         remoteUrl = StringUtils.format('{0}?{1}', [remoteUrl, params]);
+      }
+    }
+    if (StringUtils.isNotEmpty(request.config.database)) {
+      if (remoteUrl.indexOf('?') === -1) {
+        remoteUrl = StringUtils.format('{0}?database={1}', [remoteUrl, request.config.database]);
+      } else {
+        remoteUrl = StringUtils.format('{0}&database={1}', [remoteUrl, request.config.database]);
       }
     }
     return remoteUrl;

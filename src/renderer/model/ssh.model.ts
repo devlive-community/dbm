@@ -8,4 +8,5 @@ export class SshModel {
   localPort: number = 8123;
   localUsername: string;
   localPassword: string;
+  database: string;
 }

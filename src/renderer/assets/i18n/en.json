@@ -158,7 +158,14 @@
     "filter": "Filter",
     "precise": "Precise",
     "trino": "Trino",
-    "presto": "Presto"
+    "presto": "Presto",
+    "yes": "Yes",
+    "no": "No",
+    "authorization": "Authorization",
+    "catalog": "Catalog",
+    "search": "Search",
+    "reset": "Reset",
+    "mysql": "MySQL"
   },
   "language": {
     "english": "English",
@@ -171,7 +178,7 @@
     "port": "Please input port!",
     "username": "Please input username!",
     "password": "Please input password!",
-    "database": "Please input database [Optional]",
+    "database": "Please input database",
     "broker": "Please input kafka broker list",
     "topic": "Please enter Kafka consumption topic for consumption",
     "group": "Please enter the consuming Kafka message topic owning group",
@@ -264,7 +271,8 @@
       "basic": "Basic DataSource Type",
       "clickhouse": "Integrate ClickHouse data sources",
       "trino": "Integrate Trino data sources",
-      "presto": "Integrate Presto data sources"
+      "presto": "Integrate Presto data sources",
+      "mysql": "Integrate MySQL data sources"
     }
   },
   "alert": {

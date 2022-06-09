@@ -7,14 +7,59 @@
   <link rel="stylesheet" href="{{ 'overrides/assets/stylesheets/main.82a6bf04.min.css' | url }}" />
 {% endblock %}
 {% block announce %}
-  <a href="https://twitter.com/qianmoQ">
-    For updates follow <strong>@qianmoQ</strong> on
-    <span class="twemoji twitter">
-      {% include ".icons/fontawesome/brands/twitter.svg" %}
-    </span>
-    <strong>Twitter</strong>
+  <a href="/release-latest.html">
+    The new version has been released, please go to check. <i class="fa fa-heart" style="color: red;"></i>
   </a>
 {% endblock %}
+
+{% block content %}
+{{ super() }}
+<!-- Giscus -->
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<!-- Replace with generated snippet -->
+<script src="https://giscus.app/client.js"
+        data-repo="EdurtIO/dbm"
+        data-repo-id="MDEwOlJlcG9zaXRvcnkzNjg4NDA1NDE="
+        data-category="Q&A"
+        data-category-id="DIC_kwDOFfwPXc4B-Xwx"
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+<!-- Reload on palette change -->
+<script>
+  var palette = __md_get("__palette")
+  if (palette && typeof palette.color === "object")
+    if (palette.color.scheme === "slate") {
+      var giscus = document.querySelector("script[src*=giscus]")
+      giscus.setAttribute("data-theme", "dark")
+    }
+
+  /* Register event handlers after documented loaded */
+  document.addEventListener("DOMContentLoaded", function() {
+    var ref = document.querySelector("[data-md-component=palette]")
+    ref.addEventListener("change", function() {
+      var palette = __md_get("__palette")
+      if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+        /* Instruct Giscus to change theme */
+        var frame = document.querySelector(".giscus-frame")
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme } } },
+          "https://giscus.app"
+        )
+      }
+    })
+  })
+</script>
+{% endblock %}
+
 {% block scripts %}
   {{ super() }}
   <script src="{{ 'overrides/assets/javascripts/bundle.5c8bd0f7.min.js' | url }}"></script>

@@ -2,9 +2,9 @@
           nzTitle="{{'common.quick'|translate}} {{'common.query'|translate}}">
   <div *nzModalContent>
     <div nz-row [nzGutter]="16">
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="spanSize">
         <nz-list nzGrid nzBordered nzSize="small" [nzHeader]="databaseTemplate">
-          <nz-radio-group [(ngModel)]="dataSource" (ngModelChange)="handlerChangeValue(1)">
+          <nz-radio-group [(ngModel)]="dataSource" (ngModelChange)="handlerChangeValue(quickType.database)">
             <nz-table #databaseTable [nzData]="dataSourceSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
               <tbody>
               <tr *ngFor="let obj of databaseTable.data">
@@ -20,7 +20,7 @@
           <i class="fa fa-server"></i>&nbsp;{{'common.server'|translate}}
         </ng-template>
       </div>
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="spanSize">
         <nz-list nzGrid nzBordered nzSize="small" [nzHeader]="serverTemplate">
           <nz-skeleton [nzActive]="true" *ngIf="loading.database; else loadSuccess" style="padding: 10px;">
           </nz-skeleton>
@@ -34,12 +34,14 @@
               </nz-empty>
             </nz-list-item>
             <ng-template #hasValues>
-              <nz-radio-group [(ngModel)]="database" (ngModelChange)="handlerChangeValue(2)">
+              <nz-radio-group [(ngModel)]="database" (ngModelChange)="handlerChangeValue(quickType.table)">
                 <nz-table #databaseTable [nzData]="databaseSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
                   <tr *ngFor="let obj of databaseTable.data">
                     <td nzEllipsis>
-                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}">{{obj.name}}</label>
+                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name ? obj.name : obj.Catalog}}">
+                        {{obj.name ? obj.name : obj.Catalog}}
+                      </label>
                     </td>
                   </tr>
                   </tbody>
@@ -49,10 +51,15 @@
           </ng-template>
         </nz-list>
         <ng-template #serverTemplate>
-          <i class="fa fa-database"></i>&nbsp;{{'common.database'|translate}}
+          <span *ngIf="spanSize === 8; else otherTemplate">
+            <i class="fa fa-database"></i>&nbsp;{{'common.database'|translate}}
+          </span>
+          <ng-template #otherTemplate>
+            <i class="fa fa-cubes"></i>&nbsp;{{'common.catalog'|translate}}
+          </ng-template>
         </ng-template>
       </div>
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="spanSize">
         <nz-list nzGrid nzBordered nzSize="small" [nzHeader]="tableTemplate">
           <nz-skeleton [nzActive]="true" *ngIf="loading.table; else loadTableSuccess" style="padding: 10px;">
           </nz-skeleton>
@@ -66,13 +73,55 @@
               </nz-empty>
             </nz-list-item>
             <ng-template #hasTableValues>
-              <nz-radio-group [(ngModel)]="table">
+              <nz-radio-group [(ngModel)]="table" (ngModelChange)="handlerChangeValue(quickType.table_schema, $event)">
                 <nz-table #tableTable [nzData]="tableSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
                   <tbody>
                   <tr *ngFor="let obj of tableTable.data">
                     <td nzEllipsis>
-                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}" nz-tooltip
-                             nzTooltipTitle="{{obj.name}}">{{obj.name}}</label>
+                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name ? obj.name : obj.Schema}}"
+                             nz-tooltip nzTooltipTitle="{{obj.name ? obj.name : obj.Schema}}">
+                        {{obj.name ? obj.name : obj.Schema}}
+                      </label>
+                    </td>
+                  </tr>
+                  </tbody>
+                </nz-table>
+              </nz-radio-group>
+            </ng-template>
+          </ng-template>
+        </nz-list>
+        <ng-template #tableTemplate>
+          <span *ngIf="spanSize === 8; else otherTemplate">
+            <i class="fa fa-table"></i>&nbsp;{{'common.table'|translate}}
+          </span>
+          <ng-template #otherTemplate>
+            <i class="fa fa-database"></i>&nbsp;{{'common.database'|translate}}
+          </ng-template>
+        </ng-template>
+      </div>
+      <div *ngIf="spanSize === 6" nz-col [nzSpan]="spanSize">
+        <nz-list nzGrid nzBordered nzSize="small" [nzHeader]="tableTemplate">
+          <nz-skeleton [nzActive]="true" *ngIf="loading.table; else loadTableSuccess" style="padding: 10px;">
+          </nz-skeleton>
+          <ng-template #loadTableSuccess>
+            <nz-list-item *ngIf="tableSet?.length <= 0; else hasTableValues">
+              <nz-empty [nzNotFoundContent]="contentTemplate" [nzNotFoundFooter]="footerTemplate">
+                <ng-template #contentTemplate>
+                </ng-template>
+                <ng-template #footerTemplate>
+                </ng-template>
+              </nz-empty>
+            </nz-list-item>
+            <ng-template #hasTableValues>
+              <nz-radio-group [(ngModel)]="tableSchema">
+                <nz-table #tableSchemaTable [nzData]="tableSchemaSet" nzSimple="true" nzTableLayout="fixed" nzSize="small">
+                  <tbody>
+                  <tr *ngFor="let obj of tableSchemaTable.data">
+                    <td nzEllipsis>
+                      <label nz-radio [nzDisabled]="disabled.dialog" nzValue="{{obj.name}}"
+                             nz-tooltip nzTooltipTitle="{{obj.name}}">
+                        {{obj.name}}
+                      </label>
                     </td>
                   </tr>
                   </tbody>
@@ -91,9 +140,14 @@
     <button nz-button nzType="dashed" nzDanger (click)="handlerCancel()">
       {{'common.close'|translate}}
     </button>
-    <button [disabled]="table === null" nz-button nz-dropdown nzPlacement="topCenter" [nzDropdownMenu]="quick">
+    <button *ngIf="spanSize === 8; else otherButtonTemplate" [disabled]="table === null" nz-button nz-dropdown nzPlacement="topCenter" [nzDropdownMenu]="quick">
       {{'common.quick'|translate}}&nbsp;<i class="fa fa-arrow-up"></i>
     </button>
+    <ng-template #otherButtonTemplate>
+      <button [disabled]="tableSchema === null" nz-button nz-dropdown nzPlacement="topCenter" [nzDropdownMenu]="quick">
+        {{'common.quick'|translate}}&nbsp;<i class="fa fa-arrow-up"></i>
+      </button>
+    </ng-template>
     <nz-dropdown-menu #quick="nzDropdownMenu">
       <ul nz-menu>
         <li nz-menu-item *ngFor="let command of quickCommands" (click)="handlerQuickCommand(command)">

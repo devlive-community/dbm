@@ -1,14 +1,15 @@
-import {HttpService} from '@renderer/services/http.service';
-import {SshService} from '@renderer/services/ssh.service';
-import {ResponseModel} from '@renderer/model/response.model';
-import {UrlUtils} from '@renderer/utils/url.utils';
-import {SshModel} from '@renderer/model/ssh.model';
-import {RequestModel} from '@renderer/model/request.model';
-import {SystemBasicModel} from '@renderer/model/system.model';
-import {BasicService} from '@renderer/services/system/basic.service';
-import {PrestoService} from "@renderer/services/presto.service";
-import {DatabaseEnum} from "@renderer/enum/database.enum";
-import {FactoryService} from "@renderer/services/factory.service";
+import { HttpService } from '@renderer/services/http.service';
+import { SshService } from '@renderer/services/ssh.service';
+import { ResponseModel } from '@renderer/model/response.model';
+import { UrlUtils } from '@renderer/utils/url.utils';
+import { SshModel } from '@renderer/model/ssh.model';
+import { RequestModel } from '@renderer/model/request.model';
+import { SystemBasicModel } from '@renderer/model/system.model';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { PrestoService } from "@renderer/services/presto.service";
+import { DatabaseEnum } from "@renderer/enum/database.enum";
+import { FactoryService } from "@renderer/services/factory.service";
+import { MySQLService } from "@renderer/services/plugin/mysql.service";
 
 export class ForwardService {
   constructor(
@@ -17,6 +18,7 @@ export class ForwardService {
     protected httpService: HttpService,
     protected sshService: SshService,
     protected prestoService?: PrestoService,
+    protected mysqlService?: MySQLService
   ) {
   }
 
@@ -37,6 +39,9 @@ export class ForwardService {
           case DatabaseEnum.presto:
             response = this.prestoService.execute(configure, sql);
             break
+          case DatabaseEnum.mysql:
+            response = this.mysqlService.execute(configure, sql);
+            break
         }
         return response;
       case 'SSH':
@@ -52,6 +57,7 @@ export class ForwardService {
         sshConfigure.localPort = configure.port;
         sshConfigure.localUsername = configure.username;
         sshConfigure.localPassword = configure.password;
+        sshConfigure.database = configure.database;
         return this.sshService.post(sql + '\n FORMAT ' + basicConfig.format, sshConfigure);
       default:
         return Promise.reject(new Error('Unsupported protocol'));

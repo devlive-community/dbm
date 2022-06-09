@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { DatabaseConfig } from '@renderer/config/database.config';
 import { ConfigModel } from '@renderer/model/config.model';
@@ -18,7 +18,7 @@ import { MenuModel } from '@renderer/model/menu.model';
   selector: 'app-component-database',
   templateUrl: './database.basic.component.html'
 })
-export class DatabaseBasicComponent extends BaseComponent {
+export class DatabaseBasicComponent extends BaseComponent implements AfterViewInit {
   @Input()
   visible: boolean;
   @Input()
@@ -31,7 +31,7 @@ export class DatabaseBasicComponent extends BaseComponent {
   emitter = new EventEmitter<ConfigModel>();
   current = 0;
   databaseSelectValue: string;
-  databaseEngines: DatabaseModel[];
+  databaseEngines: DatabaseModel[] = new Array();
   configure: DatabaseModel;
   databaseType = DatabaseEnum;
   properties: PropertyModel[];
@@ -40,8 +40,21 @@ export class DatabaseBasicComponent extends BaseComponent {
               private metadataService: MetadataService,
               private messageService: NzMessageService) {
     super();
-    this.databaseEngines = new DatabaseConfig().getConfig();
     this.configure = new DatabaseModel();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dataSourceService.getByAliasAsync(this.config.value).then(response => {
+        new DatabaseConfig().getConfig()
+          .forEach(item => {
+            item.engines = item.engines.filter(engine => engine.supportedSource.find(value => value === response.type) !== undefined)
+            if (item.engines.length > 0) {
+              this.databaseEngines.push(item);
+            }
+          });
+      });
+    }, 0);
   }
 
   handlerCancel() {

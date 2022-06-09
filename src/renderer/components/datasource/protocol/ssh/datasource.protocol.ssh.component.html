@@ -1,0 +1,50 @@
+<form nz-form [formGroup]="validateSSHForm">
+  <app-component-antd-drivider title="SSH {{'common.configuration'|translate}}">
+  </app-component-antd-drivider>
+  <div [nzGutter]="[8, 8]" nz-row>
+    <div [nzSpan]="3" nz-col>
+    </div>
+    <div [nzSpan]="18" nz-col>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="sshHost">
+          {{'common.sshHost'| translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip>
+          <nz-input-group>
+            <input type="text" nz-input formControlName="sshHost" [(ngModel)]="configure.sshHost"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="sshPort">
+          {{'common.sshPort'| translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip>
+          <input nz-input formControlName="sshPort" [(ngModel)]="configure.sshPort"
+                 (blur)="handlerValidate()"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="sshUsername">
+          {{'common.sshUsername'| translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip>
+          <input nz-input formControlName="sshUsername" [(ngModel)]="configure.sshUsername"
+                 (blur)="handlerValidate()"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="sshPassword">
+          {{'common.sshPassword'| translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip>
+          <input nz-input type="password" formControlName="sshPassword" [(ngModel)]="configure.sshPassword"
+                 (blur)="handlerValidate()"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div [nzSpan]="3" nz-col>
+    </div>
+  </div>
+</form>

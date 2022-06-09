@@ -1,12 +1,12 @@
-site_name: DBM - Database GUI
+site_name: Database GUI
 site_url: https://dbm.incubator.edurt.io/
 site_author: qinamoQ
 site_description: >-
-  Database Gui!
+  Full platform database management tool, supports ClickHouse, Presto, Trino
 
 repo_name: EdurtIO/dbm
 repo_url: https://github.com/EdurtIO/dbm
-edit_uri: ""
+edit_uri: "https://github.com/EdurtIO/dbm/blob/master/docs/docs"
 
 copyright: Copyright &copy; 2021 EdurtIO
 
@@ -127,6 +127,10 @@ plugins:
       nav_translations:
         en:
           Home: Home
+          Download: Get started with dbm
+          Datasource_MySQL: MySQL (Experimental 1.18.0)
+          Datasource_Presto_Trino: Presto & Trino (Experimental 1.17.0)
+          Datasource_ClickHouse: ClickHouse (1.0.0-SNAPSHOT)
         zh:
           Home: 主页
           Documentation: 文档
@@ -144,6 +148,13 @@ plugins:
           Development: 开发
           Document: 文档
           Contribution: 贡献
+          Download: Get started with dbm
+          Datasource_MySQL: MySQL (Experimental 1.18.0)
+          Datasource_Presto_Trino: Presto & Trino (Experimental 1.17.0)
+          Datasource_ClickHouse: ClickHouse (1.0.0-SNAPSHOT)
+  - redirects:
+      redirect_maps:
+        release-latest.md: release/1.18.0-20220610.md
 
 nav:
   - Home: index.md
@@ -155,16 +166,17 @@ nav:
         - Snippet: reference/query/snippet/snippet.md
       - Management:
         - Datasource:
-            - ClickHouse: reference/management/datasource/clickhouse.md
-            - Presto: reference/management/datasource/presto_trino.md
-            - Trino: reference/management/datasource/presto_trino.md
+            - Datasource_ClickHouse: reference/management/datasource/clickhouse.md
+            - Datasource_Presto_Trino: reference/management/datasource/presto_trino.md
+            - Datasource_MySQL: reference/management/datasource/mysql.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md
   - Release Note:
-      - 1.17.0 (latest): release/1.17.0-20220529.md
+      - 1.18.0 (latest): release/1.18.0-20220610.md
+      - 1.17.0: release/1.17.0-20220529.md
       - 1.16.0: release/1.16.0-20220513.md
       - 1.15.0: release/1.15.0-20220425.md
       - 1.14.0: release/1.14.0-20220410.md
@@ -182,7 +194,7 @@ nav:
       - 1.2.0-SNAPSHOT: release/1.2.0-SNAPSHOT.md
       - 1.1.0-SNAPSHOT: release/1.1.0-SNAPSHOT.md
       - 1.0.0-SNAPSHOT: release/1.0.0-SNAPSHOT.md
-      - Development Version: development/version/1.17.0-development.md
   - Development:
     - Contribution:
       - Document: development/document.md
+  - Powered By: powered_by.md

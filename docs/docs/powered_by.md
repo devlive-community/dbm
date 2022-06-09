@@ -39,4 +39,12 @@ hide:
 
     [:octicons-arrow-right-24: Visit me](https://github.com/qianmoQ)
 
+- <span class="twemoji"><img src="./assets/powered_by/ClickVisual.png" width="30"></span> __ClickVisual__
+
+    ---
+
+    ClickVisual is a lightweight browser-based data analytics and data search platform for ClickHouse.
+
+    [:octicons-arrow-right-24: Getting started](https://github.com/clickvisual/clickvisual)
+
 </div>

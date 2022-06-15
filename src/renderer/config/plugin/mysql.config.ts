@@ -6,7 +6,10 @@ export class MySQLConfig implements BaseConfig {
   connectionFetchAll: string;
   databaseCreate: string;
   databaseDiskUsedRatio: string;
-  databaseFetchAll: string;
+  databaseFetchAll = `
+SELECT schema_name AS name
+FROM information_schema.schemata
+`;
   databaseItems: string;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
@@ -16,7 +19,11 @@ export class MySQLConfig implements BaseConfig {
   serverInfo: string;
   slowQueryFetchAll: string;
   tableDiskUsedRatio: string;
-  tableFetchAll: string;
+  tableFetchAll = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}'
+  `;
   tableItems: string;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;

@@ -9,7 +9,6 @@ import 'codemirror/addon/hint/show-hint';
 import 'codemirror/addon/hint/sql-hint';
 import 'codemirror/addon/comment/comment';
 import 'codemirror/keymap/sublime';
-import 'codemirror/addon/fold/foldgutter.css';
 import 'codemirror/addon/fold/foldcode';
 import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';

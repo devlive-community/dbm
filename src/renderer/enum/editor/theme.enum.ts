@@ -44,5 +44,16 @@ export enum EditorThemeEnum {
   'panda-syntax' = ('panda-syntax'),
   'paraiso-dark' = ('paraiso-dark'),
   'paraiso-light' = ('paraiso-light'),
-  'pastel-on-dark' = ('pastel-on-dark')
+  'pastel-on-dark' = ('pastel-on-dark'),
+  'railscasts' = ('railscasts'),
+  'rubyblue' = ('rubyblue'),
+  'seti' = ('seti'),
+  'shadowfox' = ('shadowfox'),
+  'solarized' = ('solarized'),
+  'ssms' = ('ssms'),
+  'the-matrix' = ('the-matrix'),
+  'tomorrow-night-bright' = ('tomorrow-night-bright'),
+  'tomorrow-night-eighties' = ('tomorrow-night-eighties'),
+  'ttcn' = ('ttcn'),
+  'twilight' = ('twilight')
 }

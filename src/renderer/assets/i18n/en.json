@@ -289,7 +289,9 @@
     "migrate_datasource": "The storage method of the data source has been modified. Please continue to use the original storage content after migrating the data.",
     "migrate_data_success": "After the migration is successful, the source data will be cleaned up!",
     "not_support_data_source_type": "The data source type is not supported",
-    "get_analysis_failed": "Failed to get the analysis data"
+    "get_analysis_failed": "Failed to get the analysis data",
+    "delete_data_recommend_operation": "We don't recommend that you delete the data? This operation produces the following?",
+    "datasource_delete_following": "After the data source is deleted, all operations based on it will not be available"
   },
   "formatter": {
     "migrate_data": "Need to migrate {0} data, please confirm whether to migrate?"

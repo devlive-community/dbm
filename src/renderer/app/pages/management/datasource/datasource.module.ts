@@ -22,6 +22,7 @@ import {
 import { DatasourceTrinoComponent } from "@renderer/components/datasource/trino/datasource.trino.component";
 import { DatasourceMysqlComponent } from "@renderer/components/datasource/mysql/datasource.mysql.component";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { DatasourceDeleteComponent } from "@renderer/components/datasource/delete/datasource.delete.component";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -39,14 +40,15 @@ const DATASOURCE_ROUTES: Routes = [
     RouterModule.forChild(DATASOURCE_ROUTES)
   ],
   exports: [],
-  declarations: [
-    DatasourceComponent,
-    DatasourceCommonComponent,
-    DatasourceClickHouseComponent,
-    DatasourceProtocolSshComponent,
-    DatasourceTrinoComponent,
-    DatasourceMysqlComponent
-  ],
+    declarations: [
+        DatasourceComponent,
+        DatasourceCommonComponent,
+        DatasourceClickHouseComponent,
+        DatasourceProtocolSshComponent,
+        DatasourceTrinoComponent,
+        DatasourceMysqlComponent,
+        DatasourceDeleteComponent
+    ],
   providers: [
     DatasourceService,
     DatasourceJob,

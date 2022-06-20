@@ -1,5 +1,5 @@
 site_name: Database GUI
-site_url: https://dbm.incubator.edurt.io/
+site_url: https://dbm.edurt.io/
 site_author: qinamoQ
 site_description: >-
   Full platform database management tool, supports ClickHouse, Presto, Trino

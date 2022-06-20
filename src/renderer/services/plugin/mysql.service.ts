@@ -16,6 +16,7 @@ export class MySQLService {
   }
 
   execute(configure: DatasourceModel, sql: string): Promise<any> {
+    const start = new Date().getTime();
     const network = this.getConfig().network * 1000;
     const mysql = require('mysql');
     const connection = mysql.createConnection({
@@ -37,6 +38,12 @@ export class MySQLService {
         } else {
           responseData.headers = fields;
           responseData.columns = results;
+          const end = new Date().getTime();
+          const statistics = {
+            elapsed: end - start
+          };
+          responseData.statistics = statistics;
+          responseData.rows = results.length;
           response.status = true;
           response.data = responseData;
           resolve(response);

@@ -14,7 +14,12 @@ FROM information_schema.schemata
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
   diskUsedRatio: string;
-  processesFetchAll: string;
+  processesFetchAll = `
+SELECT
+    id, now() AS time, info AS query, time AS elapsed,
+    db, host, user, state, command
+FROM information_schema.PROCESSLIST
+`;
   schemaFetchAll: string;
   serverInfo: string;
   slowQueryFetchAll: string;

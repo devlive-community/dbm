@@ -3,7 +3,13 @@ import { BaseConfig } from "@renderer/config/base.config";
 export class MySQLConfig implements BaseConfig {
   columnDiskUsedRatio: string;
   columnItems: string;
-  connectionFetchAll: string;
+  connectionFetchAll = `
+SELECT
+  substring_index(host, ':', 1) AS categories,
+  count(1) AS value
+FROM information_schema.processlist
+GROUP BY state, categories
+`;
   databaseCreate: string;
   databaseDiskUsedRatio: string;
   databaseFetchAll = `

@@ -100,13 +100,21 @@ export class QueryComponent extends BaseComponent implements AfterViewInit {
         }
       });
       if (this.addNewQuery) {
-        const historyId = this.router.snapshot.queryParams['id'];
-        if (historyId) {
-          this.queryHistoryService.getById(historyId).then(response => {
-            codeMirror.setValue(response.query);
-            this.datasource = response.server;
+        const fromType = this.router.snapshot.queryParams['type'];
+        const id = this.router.snapshot.queryParams['id'];
+        if (fromType === 'datasource') {
+          this.datasourceService.findById(id).then(response => {
+            this.datasource = response.alias;
             this.handlerCheckStatus();
           });
+        } else {
+          if (id) {
+            this.queryHistoryService.getById(id).then(response => {
+              codeMirror.setValue(response.query);
+              this.datasource = response.server;
+              this.handlerCheckStatus();
+            });
+          }
         }
       }
     }, 0);

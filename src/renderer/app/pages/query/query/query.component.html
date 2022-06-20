@@ -66,7 +66,7 @@
     </button>
     <button nz-button nzType="primary" nzSize="small" [disabled]="disabledButton.execute"
             (click)="handlerAddContainer()">
-      <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}} {{'common.editor' | translate}}
+      <i class="fa fa-plus"></i>&nbsp;{{'common.add' | translate}}{{'common.query' | translate}}
     </button>
     <button *ngIf="processorContainers[containerSelected]?.icon === 'check-circle'" nz-button nzType="primary"
             nzSize="small" nz-tooltip

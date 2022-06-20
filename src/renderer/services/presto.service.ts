@@ -35,6 +35,7 @@ export class PrestoService {
     }
     const response = new ResponseModel();
     const responseData = new ResponseDataModel();
+    const start = new Date().getTime();
     const somePromise = new Promise((resolve) => {
       client.execute({
         query: sql,
@@ -51,6 +52,12 @@ export class PrestoService {
         statement.on('end', () => {
           response.status = true;
           response.data = responseData;
+          const end = new Date().getTime();
+          const statistics = {
+            elapsed: end - start
+          };
+          responseData.statistics = statistics;
+          responseData.rows = responseData.columns.length;
           resolve(response);
         });
         statement.on('error', (err) => {

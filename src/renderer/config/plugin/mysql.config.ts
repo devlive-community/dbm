@@ -3,20 +3,38 @@ import { BaseConfig } from "@renderer/config/base.config";
 export class MySQLConfig implements BaseConfig {
   columnDiskUsedRatio: string;
   columnItems: string;
-  connectionFetchAll: string;
+  connectionFetchAll = `
+SELECT
+  substring_index(host, ':', 1) AS categories,
+  count(1) AS value
+FROM information_schema.processlist
+GROUP BY state, categories
+`;
   databaseCreate: string;
   databaseDiskUsedRatio: string;
-  databaseFetchAll: string;
+  databaseFetchAll = `
+SELECT schema_name AS name
+FROM information_schema.schemata
+`;
   databaseItems: string;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
   diskUsedRatio: string;
-  processesFetchAll: string;
+  processesFetchAll = `
+SELECT
+    id, now() AS time, info AS query, time AS elapsed,
+    db, host, user, state, command
+FROM information_schema.PROCESSLIST
+`;
   schemaFetchAll: string;
   serverInfo: string;
   slowQueryFetchAll: string;
   tableDiskUsedRatio: string;
-  tableFetchAll: string;
+  tableFetchAll = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}'
+  `;
   tableItems: string;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;

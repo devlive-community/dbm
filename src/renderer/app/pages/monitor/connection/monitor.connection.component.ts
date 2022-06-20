@@ -29,12 +29,7 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
               private messageService: NzMessageService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.mysql) {
-          item.status = false;
-        }
-        return item;
-      });
+      this.dataSources = response;
     });
   }
 

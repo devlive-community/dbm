@@ -53,6 +53,14 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/MySQL.svg'));
+    // PostgreSQL
+    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.postgresql'),
+      TranslateUtils.getValue('tooltip.source.postgresql'),
+      DatabaseEnum.postgresql,
+      null,
+      true,
+      null,
+      './renderer/assets/icon/source/PostgreSQL.svg'));
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

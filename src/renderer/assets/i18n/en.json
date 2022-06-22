@@ -165,7 +165,8 @@
     "catalog": "Catalog",
     "search": "Search",
     "reset": "Reset",
-    "mysql": "MySQL"
+    "mysql": "MySQL",
+    "postgresql": "PostgreSQL"
   },
   "language": {
     "english": "English",
@@ -272,7 +273,8 @@
       "clickhouse": "Integrate ClickHouse data sources",
       "trino": "Integrate Trino data sources",
       "presto": "Integrate Presto data sources",
-      "mysql": "Integrate MySQL data sources"
+      "mysql": "Integrate MySQL data sources",
+      "postgresql": "Integrate PostgreSQL data sources"
     }
   },
   "alert": {

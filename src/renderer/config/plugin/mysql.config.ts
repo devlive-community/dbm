@@ -90,7 +90,7 @@ SELECT
   table_schema AS "database", TABLE_NAME AS name,
   ENGINE AS value, MAX_DATA_LENGTH AS total_rows
 FROM information_schema.tables
-WHERE table_schema = 'dataworks'
+WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
 `;
   tableItemsFilterFuzzy: string;

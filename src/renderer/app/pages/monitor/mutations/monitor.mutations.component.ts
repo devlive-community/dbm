@@ -32,7 +32,9 @@ export class MonitorMutationsComponent extends BaseComponent implements OnDestro
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto || item.type === DatabaseEnum.mysql) {
+        if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto
+          || item.type === DatabaseEnum.mysql
+          || item.type === DatabaseEnum.postgresql) {
           item.status = false;
         }
         return item;

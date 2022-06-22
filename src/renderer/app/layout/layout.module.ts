@@ -16,6 +16,7 @@ import { SshService } from '@renderer/services/ssh.service';
 import { PrestoService } from "@renderer/services/presto.service";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -46,7 +47,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     SshService,
     PrestoService,
     FactoryService,
-    MySQLService
+    MySQLService,
+    PostgresqlService
   ]
 })
 export class LayoutModule {

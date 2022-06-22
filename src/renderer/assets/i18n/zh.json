@@ -164,7 +164,8 @@
     "catalog": "Catalog",
     "search": "搜索",
     "reset": "重置",
-    "mysql": "MySQL"
+    "mysql": "MySQL",
+    "postgresql": "PostgreSQL"
   },
   "language": {
     "english": "英语",
@@ -273,7 +274,8 @@
       "clickhouse": "整合ClickHouse数据源",
       "trino": "整合Trino数据源",
       "presto": "整合Presto数据源",
-      "mysql": "整合MySQL数据源"
+      "mysql": "整合MySQL数据源",
+      "postgresql": "整合PostgreSQL数据源"
     }
   },
   "alert": {

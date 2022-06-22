@@ -23,6 +23,9 @@ import { DatasourceTrinoComponent } from "@renderer/components/datasource/trino/
 import { DatasourceMysqlComponent } from "@renderer/components/datasource/mysql/datasource.mysql.component";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { DatasourceDeleteComponent } from "@renderer/components/datasource/delete/datasource.delete.component";
+import {
+    DatasourcePostgresqlComponent
+} from "@renderer/components/datasource/postgresql/datasource.postgresql.component";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -47,7 +50,8 @@ const DATASOURCE_ROUTES: Routes = [
         DatasourceProtocolSshComponent,
         DatasourceTrinoComponent,
         DatasourceMysqlComponent,
-        DatasourceDeleteComponent
+        DatasourceDeleteComponent,
+        DatasourcePostgresqlComponent
     ],
   providers: [
     DatasourceService,

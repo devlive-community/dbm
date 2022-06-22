@@ -18,5 +18,6 @@ export enum DatabaseEnum {
   // DataSource Type
   clickhosue = 'ClickHouse',
   trino = 'Trino',
-  presto = 'Presto'
+  presto = 'Presto',
+  postgresql = 'PostgreSQL'
 }

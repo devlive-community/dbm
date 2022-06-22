@@ -31,7 +31,12 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
               private messageService: NzMessageService) {
     super();
     this.datasourceService.getAll().then(response => {
-      this.dataSources = response;
+      this.dataSources = response.map(item => {
+        if (item.type === DatabaseEnum.postgresql) {
+          item.status = false;
+        }
+        return item;
+      });
     });
   }
 

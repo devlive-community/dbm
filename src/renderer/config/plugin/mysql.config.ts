@@ -17,7 +17,7 @@ SELECT
 FROM information_schema.processlist
 GROUP BY state, categories
 `;
-  databaseCreate: string;
+  databaseCreate = `CREATE DATABASE {0}`;
   databaseDiskUsedRatio = `
 SELECT
   table_schema AS name, '/' AS path,
@@ -34,12 +34,22 @@ SELECT schema_name AS name
 FROM information_schema.schemata
 `;
   databaseItems = `
-SELECT TABLE_SCHEMA AS name, engine AS value
-FROM information_schema.tables
-GROUP BY TABLE_SCHEMA
+SELECT schema_name AS name
+FROM information_schema.schemata
+GROUP BY schema_name
 `;
-  databaseItemsFilterFuzzy: string;
-  databaseItemsFilterPrecise: string;
+  databaseItemsFilterFuzzy = `
+SELECT schema_name AS name
+FROM information_schema.schemata
+WHERE schema_name LIKE '%{0}%'
+GROUP BY schema_name
+`;
+  databaseItemsFilterPrecise = `
+SELECT schema_name AS name
+FROM information_schema.schemata
+WHERE schema_name = '{0}'
+GROUP BY schema_name
+`;
   diskUsedRatio = `
 SELECT
   'default' AS name, '/' AS path,
@@ -56,7 +66,7 @@ SELECT
 FROM information_schema.PROCESSLIST
 `;
   schemaFetchAll: string;
-  serverInfo: string;
+  serverInfo = `SHOW STATUS`;
   slowQueryFetchAll: string;
   tableDiskUsedRatio = `
 SELECT
@@ -80,7 +90,7 @@ SELECT
   table_schema AS "database", TABLE_NAME AS name,
   ENGINE AS value, MAX_DATA_LENGTH AS total_rows
 FROM information_schema.tables
-WHERE table_schema = 'dataworks'
+WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
 `;
   tableItemsFilterFuzzy: string;

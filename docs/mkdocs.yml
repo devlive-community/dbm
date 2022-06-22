@@ -128,9 +128,10 @@ plugins:
         en:
           Home: Home
           Download: Get started with dbm
-          Datasource_MySQL: MySQL (Experimental 1.18.0)
-          Datasource_Presto_Trino: Presto & Trino (Experimental 1.17.0)
-          Datasource_ClickHouse: ClickHouse (1.0.0-SNAPSHOT)
+          Datasource_MySQL: MySQL (Experimental)
+          Datasource_Presto_Trino: Presto & Trino (Experimental)
+          Datasource_ClickHouse: ClickHouse
+          Datasource_PostgreSQL: PostgreSQL (Experimental)
         zh:
           Home: 主页
           Documentation: 文档
@@ -149,9 +150,10 @@ plugins:
           Document: 文档
           Contribution: 贡献
           Download: Get started with dbm
-          Datasource_MySQL: MySQL (Experimental 1.18.0)
-          Datasource_Presto_Trino: Presto & Trino (Experimental 1.17.0)
-          Datasource_ClickHouse: ClickHouse (1.0.0-SNAPSHOT)
+          Datasource_MySQL: MySQL (Experimental)
+          Datasource_Presto_Trino: Presto & Trino (Experimental)
+          Datasource_ClickHouse: ClickHouse
+          Datasource_PostgreSQL: PostgreSQL (Experimental)
   - redirects:
       redirect_maps:
         release-latest.md: release/1.18.0-20220610.md
@@ -169,6 +171,7 @@ nav:
             - Datasource_ClickHouse: reference/management/datasource/clickhouse.md
             - Datasource_Presto_Trino: reference/management/datasource/presto_trino.md
             - Datasource_MySQL: reference/management/datasource/mysql.md
+            - Datasource_PostgreSQL: reference/management/datasource/postgresql.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md

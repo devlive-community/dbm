@@ -89,6 +89,7 @@ Here are some of the major database solutions that are supported:
   <img src="./src/shared/assets/integrate/trino.png" alt="Trino" border="0" width="46" height="46"/>
   <img src="./src/shared/assets/integrate/presto.png" alt="Presto" border="0" width="152" height="46"/>
   <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" border="0" width="auto" height="50"/>
+  <img src="./src/shared/assets/integrate/postgresql.png" alt="MySQL" border="0" width="auto" height="50"/>
 </p>
 
 ## Features

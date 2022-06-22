@@ -7,3 +7,6 @@
 <app-component-datasource-mysql [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
                                 *ngIf="configure.type === datasourceType.mysql">
 </app-component-datasource-mysql>
+<app-component-datasource-postgresql [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
+                                     *ngIf="configure.type === datasourceType.postgresql">
+</app-component-datasource-postgresql>

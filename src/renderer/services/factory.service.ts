@@ -3,6 +3,7 @@ import { Factory } from "@renderer/factory";
 import { ClickhouseConfig } from "@renderer/config/clickhouse.config";
 import { PrestoConfig } from "@renderer/config/presto.config";
 import { MySQLConfig } from "@renderer/config/plugin/mysql.config";
+import { PostgresqlConfig } from "@renderer/config/plugin/postgresql.config";
 
 export class FactoryService {
   public forward(type: string) {
@@ -14,6 +15,8 @@ export class FactoryService {
         return Factory.create(PrestoConfig);
       case DatabaseEnum.mysql:
         return Factory.create(MySQLConfig);
+      case DatabaseEnum.postgresql:
+        return Factory.create(PostgresqlConfig);
       default:
         new Error("Unsupported database type");
         return null;

@@ -291,7 +291,8 @@
     "not_support_data_source_type": "The data source type is not supported",
     "get_analysis_failed": "Failed to get the analysis data",
     "delete_data_recommend_operation": "We don't recommend that you delete the data? This operation produces the following?",
-    "datasource_delete_following": "After the data source is deleted, all operations based on it will not be available"
+    "datasource_delete_following": "After the data source is deleted, all operations based on it will not be available",
+    "supported_engine_total_index_percentage": "For this kind of engine, we calculate the total amount of data occupied and the ratio of index"
   },
   "formatter": {
     "migrate_data": "Need to migrate {0} data, please confirm whether to migrate?"

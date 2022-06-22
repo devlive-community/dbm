@@ -1,8 +1,15 @@
 import { BaseConfig } from "@renderer/config/base.config";
 
 export class MySQLConfig implements BaseConfig {
-  columnDiskUsedRatio: string;
-  columnItems: string;
+  columnDiskUsedRatio = `SELECT '{0}' AS db, '{1}' AS name`;
+  columnItems = `
+SELECT
+  TABLE_SCHEMA AS "database", TABLE_NAME AS tableName, COLUMN_NAME AS name,
+  DATA_TYPE AS type
+FROM information_schema.columns
+WHERE table_schema = '{0}' AND table_name = '{1}'
+GROUP BY COLUMN_NAME
+`;
   connectionFetchAll = `
 SELECT
   substring_index(host, ':', 1) AS categories,
@@ -11,15 +18,37 @@ FROM information_schema.processlist
 GROUP BY state, categories
 `;
   databaseCreate: string;
-  databaseDiskUsedRatio: string;
+  databaseDiskUsedRatio = `
+SELECT
+  table_schema AS name, '/' AS path,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2), 'MB') AS totalSize,
+  concat(truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS indexSize,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2) - truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS applySize,
+  round(sum(index_length) / SUM(data_length) * 100, 3) AS value
+FROM information_schema.tables
+GROUP BY TABLE_SCHEMA
+ORDER BY totalSize DESC
+  `;
   databaseFetchAll = `
 SELECT schema_name AS name
 FROM information_schema.schemata
 `;
-  databaseItems: string;
+  databaseItems = `
+SELECT TABLE_SCHEMA AS name, engine AS value
+FROM information_schema.tables
+GROUP BY TABLE_SCHEMA
+`;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
-  diskUsedRatio: string;
+  diskUsedRatio = `
+SELECT
+  'default' AS name, '/' AS path,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2), 'MB') AS totalSize,
+  concat(truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS indexSize,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2) - truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS applySize,
+  round((truncate(SUM(data_length) / 1024 / 1024, 2) - truncate(sum(index_length) / 1024 / 1024, 2)) / truncate(SUM(data_length) / 1024 / 1024, 2) * 100, 3) AS value
+FROM information_schema.tables
+`;
   processesFetchAll = `
 SELECT
     id, now() AS time, info AS query, time AS elapsed,
@@ -29,13 +58,31 @@ FROM information_schema.PROCESSLIST
   schemaFetchAll: string;
   serverInfo: string;
   slowQueryFetchAll: string;
-  tableDiskUsedRatio: string;
+  tableDiskUsedRatio = `
+SELECT
+  TABLE_NAME AS name, '/' AS path,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2), 'MB') AS totalSize,
+  concat(truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS indexSize,
+  concat(truncate(SUM(data_length) / 1024 / 1024, 2) - truncate(sum(index_length) / 1024 / 1024, 2), 'MB') AS applySize,
+  round(sum(index_length) / SUM(data_length) * 100, 3) AS value
+FROM information_schema.tables
+WHERE table_schema = '{0}'
+GROUP BY TABLE_NAME
+ORDER BY totalSize DESC
+  `;
   tableFetchAll = `
 SELECT table_name AS name
 FROM information_schema.tables
 WHERE table_schema = '{0}'
   `;
-  tableItems: string;
+  tableItems = `
+SELECT
+  table_schema AS "database", TABLE_NAME AS name,
+  ENGINE AS value, MAX_DATA_LENGTH AS total_rows
+FROM information_schema.tables
+WHERE table_schema = 'dataworks'
+GROUP BY TABLE_NAME
+`;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;

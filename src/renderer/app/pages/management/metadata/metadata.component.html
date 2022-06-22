@@ -39,6 +39,9 @@
       <app-component-antd-empty *ngIf="!selectNode; else hasComponentValue"></app-component-antd-empty>
       <ng-template #hasComponentValue>
         <nz-card nzTitle="{{selectNode.title}}" [nzExtra]="rightTemplate">
+          <nz-alert *ngIf="rootNode?.sourceType === dataSourceType.mysql"
+                    nzMessage="{{'alert.supported_engine_total_index_percentage'|translate}}"
+                    style="margin-bottom: 10px;"></nz-alert>
           <nz-skeleton *ngIf="loading.button; else hasSuccessTemplate" [nzActive]="true"></nz-skeleton>
           <ng-template #hasSuccessTemplate>
             <app-component-antd-empty *ngIf="items.length <= 0; else hasLoadTemplate">

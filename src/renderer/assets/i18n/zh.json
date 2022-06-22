@@ -292,7 +292,8 @@
     "not_support_data_source_type": "不支持的数据源类型",
     "get_analysis_failed": "获取远程数据失败",
     "delete_data_recommend_operation": "我们不建议您删除数据？ 此操作产生以下？",
-    "datasource_delete_following": "数据源删除后将无法使用基于它的所有操作"
+    "datasource_delete_following": "数据源删除后将无法使用基于它的所有操作",
+    "supported_engine_total_index_percentage": "针对于该类引擎我们的计算方式为数据的占用总数与索引的占比"
   },
   "formatter": {
     "migrate_data": "需要迁移{0}条数据, 请确认是否迁移?"

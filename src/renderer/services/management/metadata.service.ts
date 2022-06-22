@@ -17,19 +17,19 @@ import { ForwardService } from '@renderer/services/forward.service';
 import { FilterModel } from '@renderer/model/filter.model';
 import { FactoryService } from "@renderer/services/factory.service";
 import { PrestoService } from "@renderer/services/presto.service";
+import { MySQLService } from "@renderer/services/plugin/mysql.service";
 
 @Injectable()
 export class MetadataService extends ForwardService implements BaseService {
-  baseConfig: any;
   WORD = 'ENGINE';
 
   constructor(basicService: BasicService,
               factoryService: FactoryService,
               httpService: HttpService,
               sshService: SshService,
-              prestoService: PrestoService) {
-    super(basicService, factoryService, httpService, sshService, prestoService);
-    this.baseConfig = Factory.create(ClickhouseConfig);
+              prestoService: PrestoService,
+              mysqlService: MySQLService) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -38,7 +38,7 @@ export class MetadataService extends ForwardService implements BaseService {
 
   getDiskUsedAndRatio(request: RequestModel, config: ConfigModel): Promise<ResponseModel> {
     let sql;
-    const baseConfig = Factory.create(ClickhouseConfig);
+    const baseConfig = this.factoryService.forward(request.config.type);
     switch (config.type) {
       case TypeEnum.disk:
         sql = baseConfig.diskUsedRatio;
@@ -58,32 +58,33 @@ export class MetadataService extends ForwardService implements BaseService {
   }
 
   getChild(request: RequestModel, config: ConfigModel, filter?: FilterModel): Promise<ResponseModel> {
+    const baseConfig = this.factoryService.forward(request.config.type);
     let sql;
     switch (config.type) {
       case TypeEnum.server:
         if (filter) {
           if (filter.precise) {
-            sql = StringUtils.format(this.baseConfig.databaseItemsFilterPrecise, [filter.value]);
+            sql = StringUtils.format(baseConfig.databaseItemsFilterPrecise, [filter.value]);
           } else {
-            sql = StringUtils.format(this.baseConfig.databaseItemsFilterFuzzy, [filter.value]);
+            sql = StringUtils.format(baseConfig.databaseItemsFilterFuzzy, [filter.value]);
           }
         } else {
-          sql = this.baseConfig.databaseItems;
+          sql = baseConfig.databaseItems;
         }
         break;
       case TypeEnum.database:
         if (filter) {
           if (filter.precise) {
-            sql = StringUtils.format(this.baseConfig.tableItemsFilterPrecise, [config.key, filter.value]);
+            sql = StringUtils.format(baseConfig.tableItemsFilterPrecise, [config.key, filter.value]);
           } else {
-            sql = StringUtils.format(this.baseConfig.tableItemsFilterFuzzy, [config.key, filter.value]);
+            sql = StringUtils.format(baseConfig.tableItemsFilterFuzzy, [config.key, filter.value]);
           }
         } else {
-          sql = StringUtils.format(this.baseConfig.tableItems, [config.key]);
+          sql = StringUtils.format(baseConfig.tableItems, [config.key]);
         }
         break;
       case TypeEnum.table:
-        sql = StringUtils.format(this.baseConfig.columnItems, [config.database, config.key]);
+        sql = StringUtils.format(baseConfig.columnItems, [config.database, config.key]);
         break;
     }
     return this.getResponse(request, sql);

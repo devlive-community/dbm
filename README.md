@@ -7,18 +7,29 @@
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?size=25&width=750&lines=DBM+is+a+open+source+database+management+system.)](https://git.io/typing-svg)
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=EdurtIO/dbm)
-
 **Documentation**
 
 [中文](http://dbm-zh.edurt.io/) <br />
 [English](https://dbm.edurt.io/)
+
+## Contributors
+
+---
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=EdurtIO/dbm)
+
+## Stargazers over time
+
+---
+
+[![Stargazers over time](https://starchart.cc/EdurtIO/dbm.svg)](https://starchart.cc/EdurtIO/dbm)
 
 ## Overview
 
 ---
 
 ![](https://visitor-badge.glitch.me/badge?page_id=dbm)
+[![](https://tokei.rs/b1/github/EdurtIO/dbm)](https://github.com/EdurtIO/dbm)
 ![version](https://img.shields.io/github/v/release/EdurtIO/dbm.svg)
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/EdurtIO/dbm/latest/total?style=flat-square)

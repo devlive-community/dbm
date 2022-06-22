@@ -13,13 +13,17 @@ export class OperationConfig {
       {
         type: TypeEnum.server,
         actions: [OperationEnum.info],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql]
       },
-      {type: TypeEnum.database, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.filter],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {
         type: TypeEnum.database,
         actions: [OperationEnum.create],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql]
       }
     ];
     opertions.push(server);

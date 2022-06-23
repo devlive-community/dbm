@@ -22,4 +22,5 @@ export class PostgresqlConfig implements BaseConfig {
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;
   version = `SELECT current_setting('server_version') AS version`;
+  stopProcessor: string;
 }

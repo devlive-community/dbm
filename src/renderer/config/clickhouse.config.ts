@@ -157,4 +157,5 @@ DESC {0}.{1}
   serverInfo = `
 SELECT * FROM system.build_options
   `;
+  stopProcessor = `KILL QUERY WHERE query_id = '{0}'`;
 }

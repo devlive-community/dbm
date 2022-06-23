@@ -50,8 +50,14 @@
           <td>
             <button nz-button nzShape="circle" nzSize="small" nzType="primary"
                     nz-tooltip nzTooltipTitle="{{'common.ddl' | translate}}"
-                    (click)="handlerShowDDL(column)">
+                    (click)="handlerShowModal(column, 'ddl')">
               <i class="fa fa-search"></i>
+            </button>
+            <button *ngIf="currentDataSource.type === dataSourceType.clickhosue" nz-button nzShape="circle"
+                    nzSize="small" nzDanger nzType="primary"
+                    nz-tooltip nzTooltipTitle="{{'common.stop' | translate}}"
+                    (click)="handlerShowModal(column)">
+              <i class="fa fa-stop-circle"></i>
             </button>
           </td>
         </tr>
@@ -78,5 +84,50 @@
   </nz-input-number>
 </ng-template>
 <app-component-ddl-query [visible]="disabled.dialog" [text]="queryDDL"
-                         (emitter)="handlerCloseModal()">
+                         (emitter)="handlerCloseModal('ddl')">
 </app-component-ddl-query>
+
+<nz-modal *ngIf="currentProcessor" [(nzVisible)]="dialog.stop"
+          nzTitle="{{'common.stop'|translate}} {{this.currentProcessor.id}}"
+          [nzMaskClosable]="false"
+          (nzOnCancel)="handlerCloseModal()">
+  <ng-container *nzModalContent>
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-alert nzBanner nzMessage="{{'alert.stop_it'|translate}}">
+          </nz-alert>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-tag [nzColor]="'#f50'">{{'common.no_rollback'|translate}}</nz-tag>
+          {{'alert.stop_it_result'|translate}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-input-group [nzAddOnBefore]="addOnBefore" [nzAddOnAfter]="suffixButton">
+            <input type="text" name="inputValue" nz-input [(ngModel)]="inputValue" (change)="handlerValidate()"/>
+          </nz-input-group>
+          <ng-template #addOnBefore>
+            <button nz-button nzDanger nzType="link"
+                    nz-tooltip="{{currentProcessor.id}}"
+                    ellipsis [ellipsis-content]="currentProcessor.id"
+                    style="width: 120px;">
+            </button>
+          </ng-template>
+          <ng-template #suffixButton>
+            <button nz-button nzType="link" (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" nzDanger [disabled]="disabled.button"
+            (click)="handlerStop()" [nzLoading]="stopLoading">
+      {{'common.stop'|translate}}
+    </button>
+  </div>
+</nz-modal>

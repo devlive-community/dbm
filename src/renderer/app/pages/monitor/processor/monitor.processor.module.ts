@@ -10,20 +10,22 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { MonitorService } from '@renderer/services/monitor/monitor.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { EditorService } from '@renderer/services/editor/editor.service';
+import { EllipsisModule } from "ngx-ellipsis";
 
 const MONITOR_PROCESSOR_ROUTES: Routes = [
   {path: '', component: MonitorProcessorComponent}
 ];
 
 @NgModule({
-  imports: [
-    CommonShareModule,
-    NgZorroAntdModule,
-    TranslateModule,
-    FormsModule,
-    RouterModule.forChild(MONITOR_PROCESSOR_ROUTES),
-    CommonModule
-  ],
+    imports: [
+        CommonShareModule,
+        NgZorroAntdModule,
+        TranslateModule,
+        FormsModule,
+        RouterModule.forChild(MONITOR_PROCESSOR_ROUTES),
+        CommonModule,
+        EllipsisModule
+    ],
   exports: [],
   declarations: [
     MonitorProcessorComponent

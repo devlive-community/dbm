@@ -62,4 +62,5 @@ LIMIT 100
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;
   serverInfo = this.version;
+  stopProcessor: string;
 }

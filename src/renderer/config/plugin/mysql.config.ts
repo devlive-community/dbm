@@ -97,4 +97,5 @@ GROUP BY TABLE_NAME
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;
   version = `SELECT version() AS version`;
+  stopProcessor: string;
 }

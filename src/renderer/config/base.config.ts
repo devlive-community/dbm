@@ -20,4 +20,5 @@ export interface BaseConfig {
   tableItemsFilterFuzzy: string;
   columnItems: string;
   serverInfo: string;
+  stopProcessor: string;
 }

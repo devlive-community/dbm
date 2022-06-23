@@ -25,6 +25,10 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
   processors: ResponseDataModel;
   queryDDL: string;
   chartsConfig: ChartsModel;
+  currentDataSource: DatasourceModel;
+  currentProcessor: any;
+  inputValue: string;
+  stopLoading: boolean = false;
 
   constructor(private datasourceService: DatasourceService,
               private monitorService: MonitorService,
@@ -44,7 +48,8 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
     this.loading.button = true;
     this.processors = null;
     const request = new RequestModel();
-    request.config = await this.datasourceService.getByAliasAsync(this.threshold.datasource);
+    this.currentDataSource = await this.datasourceService.getByAliasAsync(this.threshold.datasource);
+    request.config = this.currentDataSource;
     this.monitorService.getProcesses(request).then(response => {
       if (response.status) {
         this.processors = response.data;
@@ -75,13 +80,24 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
     return headers.filter(value => value.name !== 'query');
   }
 
-  handlerShowDDL(item: BaseModel) {
-    this.disabled.dialog = true;
-    this.queryDDL = item['query'];
+  handlerShowModal(item: BaseModel, type?: string) {
+    this.currentProcessor = item;
+    if (type) {
+      this.disabled.dialog = true;
+      this.queryDDL = item['query'];
+    } else {
+      this.dialog.stop = true;
+    }
   }
 
-  handlerCloseModal() {
-    this.disabled.dialog = false;
+  handlerCloseModal(type?: string) {
+    this.currentProcessor = null;
+    if (type) {
+      this.disabled.dialog = false;
+    } else {
+      this.dialog.stop = false;
+      this.stopLoading = false;
+    }
   }
 
   handlerInitChart(response) {
@@ -93,6 +109,34 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
     series.data = data;
     series.name = 'Count';
     this.chartsConfig.series.push(series);
+  }
+
+  handlerValidate() {
+    if (this.inputValue === this.currentProcessor?.id) {
+      this.disabled.button = false;
+    } else {
+      this.disabled.button = true;
+    }
+  }
+
+  handlerQuicklyEnter() {
+    this.inputValue = this.currentProcessor?.id;
+    this.handlerValidate();
+  }
+
+  handlerStop() {
+    this.stopLoading = true;
+    const request = new RequestModel();
+    request.config = this.currentDataSource;
+    this.monitorService.stop(request, this.inputValue).then(response => {
+      if (response.status) {
+        this.messageService.success(response.message);
+        this.handlerCloseModal();
+      } else {
+        this.messageService.error(response.message);
+      }
+      this.stopLoading = false;
+    });
   }
 
   ngOnDestroy() {

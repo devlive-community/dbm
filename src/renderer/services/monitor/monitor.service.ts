@@ -55,4 +55,9 @@ export class MonitorService extends ForwardService implements BaseService {
     const sql = this.factoryService.forward(request.config.type).connectionFetchAll;
     return this.getResponse(request, sql);
   }
+
+  stop(request: RequestModel, id: string): Promise<ResponseModel> {
+    const sql = StringUtils.format(this.factoryService.forward(request.config.type).stopProcessor, [id]);
+    return this.getResponse(request, sql);
+  }
 }

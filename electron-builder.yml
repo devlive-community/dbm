@@ -29,12 +29,16 @@ releaseInfo:
 directories:
   output: ./release
 files:
-  - '**/*'
+#  - '**/*'
   - '!**/*.ts'
   - '!scripts'
   - '!src'
-#  - '!node_modules/rxjs/{_esm5,_esm2015,src,bundles}'
   - '!node_modules'
+  - '!docs'
+  - '!release'
+  - '!.github'
+  - '!.vscode'
+  - 'dist'
 compression: normal
 asar: false
 

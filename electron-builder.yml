@@ -6,25 +6,54 @@ forceCodeSigning: false
 
 releaseInfo:
   releaseNotes: |
-    #### Enhancement
+    #### General
 
     ---
 
-    #### Docs
+    - Add multiple editor theme
+    - Redesign data source deletion prompt
+    - Support metadata management to jump to the query page
+    - Delete the domain name incubator tag
+    - Add some trend charts and project badges
+    - Fix that the editor cannot boot when it automatically prompts for multiple options, and the option is highlighted
+    - Compressed and packaged binary software package
+
+    #### Security
 
     ---
 
-    #### Optimize
+    - Upgrade angular to `14.0.1`
+    - Upgrade electron to `16.2.0`
 
-    ----
+    #### ClickHouse
 
-    #### Bug
+    ---
+
+    - Support the currently stopped running process
+
+    #### Trino & Presto
 
     ---
 
-    #### UI
+    - Supports query result time and total number of data [issues-158](https://github.com/EdurtIO/dbm/issues/158)
+
+    #### MySQL
 
     ---
+
+    - Support quick query operation [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Supports query result time and total number of data [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Supports monitor → processors [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Supports monitor → connection [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Supports metadata management of disk usage [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management menu server related operations [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+
+    #### PostgreSQL
+
+    ---
+
+    - Support PostgreSQL (custom query and data source management)
+    - Add PostgreSQL docs
 
 directories:
   output: ./release

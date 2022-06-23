@@ -1,17 +1,18 @@
-import {BaseService} from '@renderer/services/base.service';
-import {ResponseModel} from '@renderer/model/response.model';
-import {RequestModel} from '@renderer/model/request.model';
-import {DatasourceModel} from '@renderer/model/datasource.model';
-import {HttpService} from '@renderer/services/http.service';
-import {Injectable} from '@angular/core';
-import {PromiseExtended} from 'dexie';
-import {PersistenceService} from '@renderer/services/persistence.service';
-import {DexieDb} from '@renderer/db/dexiedb';
-import {SshService} from '@renderer/services/ssh.service';
-import {BasicService} from '@renderer/services/system/basic.service';
-import {PrestoService} from "@renderer/services/presto.service";
-import {FactoryService} from "@renderer/services/factory.service";
+import { BaseService } from '@renderer/services/base.service';
+import { ResponseModel } from '@renderer/model/response.model';
+import { RequestModel } from '@renderer/model/request.model';
+import { DatasourceModel } from '@renderer/model/datasource.model';
+import { HttpService } from '@renderer/services/http.service';
+import { Injectable } from '@angular/core';
+import { PromiseExtended } from 'dexie';
+import { PersistenceService } from '@renderer/services/persistence.service';
+import { DexieDb } from '@renderer/db/dexiedb';
+import { SshService } from '@renderer/services/ssh.service';
+import { BasicService } from '@renderer/services/system/basic.service';
+import { PrestoService } from "@renderer/services/presto.service";
+import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 
 @Injectable()
 export class DatasourceService extends PersistenceService implements BaseService {
@@ -23,8 +24,9 @@ export class DatasourceService extends PersistenceService implements BaseService
     httpService: HttpService,
     sshService: SshService,
     prestoService: PrestoService,
-    mysqlService: MySQLService) {
-    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService);
+    mysqlService: MySQLService,
+    postgresqlService: PostgresqlService) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService);
     this.db = new DexieDb();
   }
 
@@ -71,6 +73,13 @@ export class DatasourceService extends PersistenceService implements BaseService
 
   findByAlias(alias: string): PromiseExtended<DatasourceModel> {
     return this.db.DataSourceTable.where('alias').equals(alias).first();
+  }
+
+  findById(id: number): PromiseExtended<DatasourceModel> {
+    return this.db.DataSourceTable
+      .orderBy('created')
+      .filter(value => id.toString() === value.id.toString())
+      .first();
   }
 
   async getByAliasAsync(alias: string): Promise<DatasourceModel> {

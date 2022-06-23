@@ -1,5 +1,9 @@
+import { DatabaseEnum } from "@renderer/enum/database.enum";
+
 export class BaseComponent {
   keys = Object.keys;
+
+  dataSourceType = DatabaseEnum;
 
   loading = {
     button: false
@@ -12,6 +16,7 @@ export class BaseComponent {
     create: false,
     delete: false,
     update: false,
-    select: false
+    select: false,
+    stop: false
   };
 }

@@ -1,0 +1,41 @@
+<nz-modal [(nzVisible)]="applyValue.visible" [nzTitle]="modalTitle" [nzContent]="modalContent"
+          [nzFooter]="modalFooter" nzMaskClosable="false" (nzOnCancel)="handlerCloseModal()">
+  <ng-template #modalTitle>
+    {{'common.delete' | translate}}{{'common.datasource' | translate}}
+  </ng-template>
+  <ng-template #modalContent>
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-alert nzBanner nzMessage="{{'alert.delete_data_recommend_operation'|translate}}">
+          </nz-alert>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-tag [nzColor]="'#f50'">{{'common.no_rollback'|translate}}</nz-tag>
+          {{'alert.datasource_delete_following'|translate}}
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <nz-input-group [nzAddOnBefore]="addOnBefore" [nzAddOnAfter]="suffixButton">
+            <input type="text" name="inputValue" nz-input [(ngModel)]="inputValue" (change)="handlerValidate()"/>
+          </nz-input-group>
+          <ng-template #addOnBefore>
+            <button nz-button nzDanger nzType="link">{{this.applyValue.value.alias}}</button>
+          </ng-template>
+          <ng-template #suffixButton>
+            <button nz-button nzType="link" (click)="handlerQuicklyEnter()">{{'common.quicklyEnter'|translate}}</button>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="primary" nzDanger [disabled]="disabled.button" [nzLoading]="loading.button"
+            (click)="handlerDelete()">
+      <span>{{'common.delete'|translate}}</span>
+    </button>
+  </ng-template>
+</nz-modal>

@@ -9,6 +9,7 @@ import { BasicService } from '@renderer/services/system/basic.service';
 import { ForwardService } from '@renderer/services/forward.service';
 import { FactoryService } from "@renderer/services/factory.service";
 import { PrestoService } from "@renderer/services/presto.service";
+import { MySQLService } from "@renderer/services/plugin/mysql.service";
 
 @Injectable()
 export class MonitorService extends ForwardService implements BaseService {
@@ -16,8 +17,9 @@ export class MonitorService extends ForwardService implements BaseService {
               sshService: SshService,
               basicService: BasicService,
               factoryService: FactoryService,
-              prestoService: PrestoService) {
-    super(basicService, factoryService, httpService, sshService, prestoService);
+              prestoService: PrestoService,
+              mysqlService: MySQLService) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -36,22 +38,26 @@ export class MonitorService extends ForwardService implements BaseService {
 
   getMutations(request: RequestModel): Promise<ResponseModel> {
     const sql = `
-SELECT
-  database,
-  table,
-  mutation_id AS id,
-  command AS query,
-  create_time AS createTime,
-  now() - create_time AS "elapsedTime(ms)"
-FROM
-  system.mutations
-WHERE is_done = 0
-  `;
+      SELECT database,
+        table,
+        mutation_id AS id,
+        command AS query,
+        create_time AS createTime,
+        now() - create_time AS "elapsedTime(ms)"
+      FROM
+        system.mutations
+      WHERE is_done = 0
+    `;
     return this.getResponse(request, sql);
   }
 
   getConnections(request: RequestModel): Promise<ResponseModel> {
     const sql = this.factoryService.forward(request.config.type).connectionFetchAll;
+    return this.getResponse(request, sql);
+  }
+
+  stop(request: RequestModel, id: string): Promise<ResponseModel> {
+    const sql = StringUtils.format(this.factoryService.forward(request.config.type).stopProcessor, [id]);
     return this.getResponse(request, sql);
   }
 }

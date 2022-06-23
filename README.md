@@ -7,18 +7,29 @@
 
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?size=25&width=750&lines=DBM+is+a+open+source+database+management+system.)](https://git.io/typing-svg)
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=EdurtIO/dbm)
-
 **Documentation**
 
 [中文](http://dbm-zh.edurt.io/) <br />
 [English](https://dbm.edurt.io/)
+
+## Contributors
+
+---
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=EdurtIO/dbm)
+
+## Stargazers over time
+
+---
+
+[![Stargazers over time](https://starchart.cc/EdurtIO/dbm.svg)](https://starchart.cc/EdurtIO/dbm)
 
 ## Overview
 
 ---
 
 ![](https://visitor-badge.glitch.me/badge?page_id=dbm)
+[![](https://tokei.rs/b1/github/EdurtIO/dbm)](https://github.com/EdurtIO/dbm)
 ![version](https://img.shields.io/github/v/release/EdurtIO/dbm.svg)
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/downloads-pre/EdurtIO/dbm/latest/total?style=flat-square)
@@ -73,11 +84,19 @@ DBM can query data from any SQL-speaking datastore or data engine (ClickHouse an
 
 Here are some of the major database solutions that are supported:
 
+<style>
+.a {
+    display: inline-block;
+    padding: 0 5px;
+}
+</style>
+
 <p align="center">
-  <img src="./src/shared/assets/integrate/clickhouse.png" alt="ClickHouse" border="0" width="133" height="34" />
-  <img src="./src/shared/assets/integrate/trino.png" alt="Trino" border="0" width="46" height="46"/>
-  <img src="./src/shared/assets/integrate/presto.png" alt="Presto" border="0" width="152" height="46"/>
-  <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" border="0" width="auto" height="50"/>
+  <img src="./src/shared/assets/integrate/clickhouse.png" alt="ClickHouse" class="a" width="133" height="34" />
+  <img src="./src/shared/assets/integrate/trino.png" alt="Trino" class="a" width="46" height="46"/>
+  <img src="./src/shared/assets/integrate/presto.png" alt="Presto" class="a" width="152" height="46"/>
+  <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" class="a" width="auto" height="50"/>
+  <img src="./src/shared/assets/integrate/postgresql.png" alt="PostgreSQL" class="a" width="auto" height="50"/>
 </p>
 
 ## Features

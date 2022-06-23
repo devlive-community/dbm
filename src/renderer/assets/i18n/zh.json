@@ -164,7 +164,9 @@
     "catalog": "Catalog",
     "search": "搜索",
     "reset": "重置",
-    "mysql": "MySQL"
+    "mysql": "MySQL",
+    "postgresql": "PostgreSQL",
+    "stop": "停止"
   },
   "language": {
     "english": "英语",
@@ -273,7 +275,8 @@
       "clickhouse": "整合ClickHouse数据源",
       "trino": "整合Trino数据源",
       "presto": "整合Presto数据源",
-      "mysql": "整合MySQL数据源"
+      "mysql": "整合MySQL数据源",
+      "postgresql": "整合PostgreSQL数据源"
     }
   },
   "alert": {
@@ -287,10 +290,15 @@
     "ttl_remove": "TTL配置移除后, 系统将不会在对数据进行删除操作",
     "only_one_column": "不能删除数据表中的所有列, 该数据表必须至少包含一列",
     "delete_it": "我们不建议你删除它?这个操作会产生以下结果?",
+    "stop_it": "我们不建议你停止它?这个操作会产生以下结果?",
+    "stop_it_result": "停止操作会导致本次操作失败",
     "migrate_datasource": "数据源存储方式已经修改请迁移数据后继续使用原有存储内容",
     "migrate_data_success": "迁移成功后源数据将被清理!",
     "not_support_data_source_type": "不支持的数据源类型",
-    "get_analysis_failed": "获取远程数据失败"
+    "get_analysis_failed": "获取远程数据失败",
+    "delete_data_recommend_operation": "我们不建议您删除数据？ 此操作产生以下？",
+    "datasource_delete_following": "数据源删除后将无法使用基于它的所有操作",
+    "supported_engine_total_index_percentage": "针对于该类引擎我们的计算方式为数据的占用总数与索引的占比"
   },
   "formatter": {
     "migrate_data": "需要迁移{0}条数据, 请确认是否迁移?"

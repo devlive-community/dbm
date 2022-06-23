@@ -45,7 +45,19 @@
 @import "~codemirror/theme/paraiso-dark.css";
 @import "~codemirror/theme/paraiso-light.css";
 @import "~codemirror/theme/pastel-on-dark.css";
+@import "~codemirror/theme/railscasts.css";
+@import "~codemirror/theme/rubyblue.css";
+@import "~codemirror/theme/seti.css";
+@import "~codemirror/theme/shadowfox.css";
+@import "~codemirror/theme/solarized.css";
+@import "~codemirror/theme/ssms.css";
+@import "~codemirror/theme/the-matrix.css";
+@import "~codemirror/theme/tomorrow-night-bright.css";
+@import "~codemirror/theme/tomorrow-night-eighties.css";
+@import "~codemirror/theme/ttcn.css";
+@import "~codemirror/theme/twilight.css";
 //@import "~codemirror/theme/";
 
 // Wait for all themes to load after loading, load the hint style to prevent style confusion
 @import './editor.hints.css';
+@import "~codemirror/addon/hint/show-hint.css";

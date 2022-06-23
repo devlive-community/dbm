@@ -47,12 +47,12 @@
                   nz-tooltip nzTooltipTitle="{{'common.copy' | translate}}">
             <i class="fa fa-copy" (click)="handlerOpenModal(3, data.alias)"></i>
           </button>
-          <button nz-button nzShape="circle" nzSize="small" nzDanger
-                  nz-popconfirm nzPopconfirmTitle="Are you sure?" [nzPopconfirmShowArrow]="false"
-                  nz-tooltip nzTooltipTitle="{{'common.delete' | translate}}"
-                  [nzCancelText]="'common.cancel'|translate"
-                  [nzOkText]="'common.ok'|translate"
-                  (nzOnConfirm)="handlerDelete(data.id)">
+          <button nz-button nzShape="circle" nzSize="small" nzType="dashed"
+                  nz-tooltip nzTooltipTitle="{{'common.quote' | translate}}"
+                  [routerLink]="['/query/query']" [queryParams]="{id: data.id, type: 'datasource'}">
+            <i class="fa fa-reply-all"></i>
+          </button>
+          <button nz-button nzShape="circle" nzSize="small" nzDanger (click)="handlerDeleteModal(true, data)">
             <i class="fa fa-trash"></i>
           </button>
           <button *ngIf="!data.status" nz-button nzShape="circle" nzSize="small" nzType="primary"
@@ -187,3 +187,6 @@
     </div>
   </ng-template>
 </nz-modal>
+<app-component-datasource-delete *ngIf="applyDeleteValue?.visible" [applyValue]="applyDeleteValue"
+                                 (emitter)="handlerDeleteModal(null, null, $event)">
+</app-component-datasource-delete>

@@ -40,6 +40,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   };
   database: string;
   table: string;
+  dataSourceType = DatabaseEnum;
 
   constructor(private nzContextMenuService: NzContextMenuService,
               private dataSourceService: DatasourceService,
@@ -55,7 +56,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         configModel.title = k.alias;
         configModel.type = TypeEnum.disk;
         configModel.disabled = k.status ? false : true;
-        if (k.type === DatabaseEnum.mysql) {
+        if (k.type === DatabaseEnum.postgresql) {
           configModel.disabled = true;
         }
         if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino) {
@@ -181,6 +182,7 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     this.handlerLevel(this.selectNode);
     const request = new RequestModel();
     const dataSource = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
+    this.rootNode['sourceType'] = dataSource.type;
     request.config = dataSource;
     if (dataSource.type === DatabaseEnum.trino || dataSource.type === DatabaseEnum.presto) {
       this.items = [];

@@ -30,7 +30,7 @@ export class MonitorConnectionComponent extends BaseComponent implements OnDestr
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.mysql) {
+        if (item.type === DatabaseEnum.postgresql) {
           item.status = false;
         }
         return item;

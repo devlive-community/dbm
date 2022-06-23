@@ -10,6 +10,7 @@ import { PrestoService } from "@renderer/services/presto.service";
 import { DatabaseEnum } from "@renderer/enum/database.enum";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 
 export class ForwardService {
   constructor(
@@ -18,7 +19,8 @@ export class ForwardService {
     protected httpService: HttpService,
     protected sshService: SshService,
     protected prestoService?: PrestoService,
-    protected mysqlService?: MySQLService
+    protected mysqlService?: MySQLService,
+    protected postgresqlService?: PostgresqlService
   ) {
   }
 
@@ -41,6 +43,9 @@ export class ForwardService {
             break
           case DatabaseEnum.mysql:
             response = this.mysqlService.execute(configure, sql);
+            break
+          case DatabaseEnum.postgresql:
+            response = this.postgresqlService.execute(configure, sql);
             break
         }
         return response;

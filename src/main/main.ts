@@ -25,7 +25,7 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: isDevelopment,
       contextIsolation: false,
-      enableRemoteModule: false,
+      // enableRemoteModule: false,
       // Fix Access-Control-Allow-Origin
       webSecurity: false
     }

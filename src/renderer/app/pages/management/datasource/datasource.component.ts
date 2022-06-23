@@ -13,6 +13,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { RequestModel } from '@renderer/model/request.model';
 import { DatabaseEnum } from "@renderer/enum/database.enum";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { DatasourceDeleteModel } from "@renderer/components/datasource/delete/datasource.delete.model";
 
 @Component({
   selector: 'app-management-datasource',
@@ -67,6 +68,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
       value: null
     }
   }
+  applyDeleteValue: DatasourceDeleteModel;
 
   constructor(private service: DatasourceService,
               private messageService: NzMessageService,
@@ -171,19 +173,22 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
     this.service.getAll()
       .then(response => {
         this.tableDetails = response;
+
       })
       .catch(() => {
         this.messageService.error(this.translateService.instant('common.error'));
       });
   }
 
-  handlerDelete(id: number) {
-    this.service.delete(id).then(() => {
-      this.messageService.success(this.translateService.instant('common.success'));
+  handlerDeleteModal(show: boolean, value: DatasourceModel, emitterValue?: DatasourceDeleteModel) {
+    if (emitterValue == null) {
+      this.applyDeleteValue = new DatasourceDeleteModel();
+      this.applyDeleteValue.visible = show;
+      this.applyDeleteValue.value = value;
+    } else {
+      this.applyDeleteValue = null;
       this.handlerGetAll();
-    }).catch(error => {
-      this.messageService.error(error);
-    });
+    }
   }
 
   handlerUpdate() {

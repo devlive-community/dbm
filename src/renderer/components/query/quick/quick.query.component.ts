@@ -67,6 +67,11 @@ export class QuickQueryComponent extends BaseComponent {
     } else {
       this.spanSize = 8;
     }
+
+    if (request.config.type === DatabaseEnum.postgresql) {
+      request.config.database = this.database;
+    }
+
     switch (quick) {
       case QuickEnum.database:
         this.disabled.dialog = true;

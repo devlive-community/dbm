@@ -6,7 +6,12 @@ export class PostgresqlConfig implements BaseConfig {
   connectionFetchAll: string;
   databaseCreate: string;
   databaseDiskUsedRatio: string;
-  databaseFetchAll: string;
+  databaseFetchAll = `
+    SELECT datname AS name
+    FROM pg_database
+    WHERE datistemplate = false
+    GROUP BY datname
+  `;
   databaseItems: string;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
@@ -16,7 +21,12 @@ export class PostgresqlConfig implements BaseConfig {
   serverInfo: string;
   slowQueryFetchAll: string;
   tableDiskUsedRatio: string;
-  tableFetchAll: string;
+  tableFetchAll = `
+    SELECT table_name AS name
+    FROM information_schema.tables
+    WHERE table_type = 'BASE TABLE'
+    AND table_schema = 'public'
+  `;
   tableItems: string;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;

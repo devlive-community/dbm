@@ -31,7 +31,11 @@ export class OperationConfig {
     database.name = TypeEnum.database.toString();
     database.type = TypeEnum.database;
     database.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.create],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.table, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.database, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.database, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},

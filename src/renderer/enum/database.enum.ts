@@ -14,6 +14,7 @@ export enum DatabaseEnum {
   jdbc = 'JDBC',
   sqlite = 'SQLite',
   odbc = 'ODBC',
+  mongodb = 'MongoDB',
 
   // DataSource Type
   clickhosue = 'ClickHouse',

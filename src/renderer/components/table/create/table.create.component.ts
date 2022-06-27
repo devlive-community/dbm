@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { TableConfig } from '@renderer/config/table.config';
 import { ColumnModel } from '@renderer/model/column.model';
@@ -15,7 +15,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   selector: 'app-component-create-table',
   templateUrl: './table.create.component.html'
 })
-export class CreateTableComponent extends BaseComponent {
+export class CreateTableComponent extends BaseComponent implements AfterViewInit {
   @Input()
   config: ConfigModel;
   @Input()
@@ -23,7 +23,7 @@ export class CreateTableComponent extends BaseComponent {
   @Output()
   emitter = new EventEmitter<ConfigModel>();
   current = 0;
-  tableEngines: DatabaseModel[];
+  tableEngines: DatabaseModel[] = new Array();
   configure: DatabaseModel;
   selectValue: string;
   columns: ColumnModel[] = new Array();
@@ -33,7 +33,6 @@ export class CreateTableComponent extends BaseComponent {
               private dataSourceService: DatasourceService,
               private messageService: NzMessageService) {
     super();
-    this.tableEngines = new TableConfig().getConfigFromJson();
     this.columnTypes.push('Int8',
       'Int16',
       'Int32',
@@ -52,6 +51,20 @@ export class CreateTableComponent extends BaseComponent {
       'Float32',
       'Float64',
       'BIGINT');
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dataSourceService.getByAliasAsync(this.config.value).then(response => {
+        new TableConfig().getConfig()
+          .forEach(item => {
+            item.engines = item.engines.filter(engine => engine.supportedSource.find(value => value === response.type) !== undefined)
+            if (item.engines.length > 0) {
+              this.tableEngines.push(item);
+            }
+          });
+      });
+    }, 0);
   }
 
   handlerChange(value: DatabaseModel) {

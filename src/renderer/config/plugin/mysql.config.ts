@@ -93,8 +93,16 @@ FROM information_schema.tables
 WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
 `;
-  tableItemsFilterFuzzy: string;
-  tableItemsFilterPrecise: string;
+  tableItemsFilterFuzzy = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}' AND table_name LIKE '%{1}%'
+  `;
+  tableItemsFilterPrecise = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}' AND table_name = '{1}'
+  `;
   tableSchemaFetchAll: string;
   version = `SELECT version() AS version`;
   stopProcessor: string;

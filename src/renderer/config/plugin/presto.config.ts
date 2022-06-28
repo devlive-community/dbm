@@ -63,4 +63,6 @@ LIMIT 100
   tableItemsFilterPrecise: string;
   serverInfo = this.version;
   stopProcessor: string;
+  showCreateDatabase: string;
+  showTableWithSize: string;
 }

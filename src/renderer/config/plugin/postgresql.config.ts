@@ -34,4 +34,5 @@ export class PostgresqlConfig implements BaseConfig {
   version = `SELECT current_setting('server_version') AS version`;
   stopProcessor: string;
   showCreateDatabase: string;
+  showTableWithSize: string;
 }

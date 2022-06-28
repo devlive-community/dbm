@@ -22,4 +22,5 @@ export interface BaseConfig {
   serverInfo: string;
   stopProcessor: string;
   showCreateDatabase: string;
+  showTableWithSize: string;
 }

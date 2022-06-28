@@ -159,4 +159,10 @@ SELECT * FROM system.build_options
   `;
   stopProcessor = `KILL QUERY WHERE query_id = '{0}'`;
   showCreateDatabase = 'SHOW CREATE DATABASE `{0}`';
+  showTableWithSize = `
+SELECT name, engine, total_rows AS totalRows,
+       formatReadableSize(total_bytes) AS totalSize
+FROM system.tables
+WHERE database = '{0}'
+  `;
 }

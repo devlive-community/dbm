@@ -64,4 +64,5 @@ LIMIT 100
   serverInfo = this.version;
   stopProcessor: string;
   showCreateDatabase: string;
+  showTableWithSize: string;
 }

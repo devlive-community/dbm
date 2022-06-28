@@ -42,7 +42,11 @@ export class OperationConfig {
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
       },
       {type: TypeEnum.database, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.database, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.structure],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.database, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(database);

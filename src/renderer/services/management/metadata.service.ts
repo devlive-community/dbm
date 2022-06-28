@@ -5,8 +5,6 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { RequestModel } from '@renderer/model/request.model';
 import { ConfigModel } from '@renderer/model/config.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
-import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
-import { Factory } from '@renderer/factory';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
@@ -123,7 +121,7 @@ export class MetadataService extends ForwardService implements BaseService {
   }
 
   getDatabaseDDL(request: RequestModel, value: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('SHOW CREATE DATABASE `{0}`', [value]);
+    const sql = StringUtils.format(this.factoryService.forward(request.config.type).showCreateDatabase, [value]);
     return this.getResponse(request, sql);
   }
 

@@ -158,4 +158,5 @@ DESC {0}.{1}
 SELECT * FROM system.build_options
   `;
   stopProcessor = `KILL QUERY WHERE query_id = '{0}'`;
+  showCreateDatabase = 'SHOW CREATE DATABASE `{0}`';
 }

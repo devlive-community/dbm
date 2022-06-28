@@ -21,4 +21,5 @@ export interface BaseConfig {
   columnItems: string;
   serverInfo: string;
   stopProcessor: string;
+  showCreateDatabase: string;
 }

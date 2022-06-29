@@ -58,7 +58,11 @@ export class OperationConfig {
     table.name = TypeEnum.table.toString();
     table.type = TypeEnum.table;
     table.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.preview],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.table, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.table, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.table, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},

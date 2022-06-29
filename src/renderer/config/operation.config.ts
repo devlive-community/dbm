@@ -63,7 +63,11 @@ export class OperationConfig {
         actions: [OperationEnum.preview],
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
       },
-      {type: TypeEnum.table, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.delete],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {
         type: TypeEnum.table,
         actions: [OperationEnum.structure],

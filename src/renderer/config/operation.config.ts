@@ -64,7 +64,11 @@ export class OperationConfig {
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
       },
       {type: TypeEnum.table, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.structure],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.table, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.table, actions: [OperationEnum.truncate], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.table, actions: [OperationEnum.clean], supportedSource: [DatabaseEnum.clickhosue]},

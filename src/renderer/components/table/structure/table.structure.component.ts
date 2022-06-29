@@ -10,6 +10,7 @@ import { TableService } from '@renderer/services/management/table.service';
 import { ClipboardComService } from '@renderer/services/other/clipboard.service';
 import { SqlUtils } from '@renderer/utils/sql.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-component-structure-table',
@@ -28,10 +29,10 @@ export class StructureTableComponent extends BaseComponent implements AfterViewI
   editorConfig: SystemEditorModel;
 
   constructor(private dataSourceService: DatasourceService,
-    private tableService: TableService,
-    private messageService: NzMessageService,
-    private clipboardComService: ClipboardComService,
-    private editorService: EditorService) {
+              private tableService: TableService,
+              private messageService: NzMessageService,
+              private clipboardComService: ClipboardComService,
+              private editorService: EditorService) {
     super();
     this.editorConfig = this.editorService.get();
   }
@@ -57,7 +58,11 @@ export class StructureTableComponent extends BaseComponent implements AfterViewI
     _value.name = this.value;
     this.tableService.getCreateStatement(request, _value).then(response => {
       if (response.status) {
-        this.structure = response?.data?.columns[0]?.statement;
+        if (request.config.type === DatabaseEnum.mysql) {
+          this.structure = response?.data?.columns[0]?.['Create Table'];
+        } else {
+          this.structure = response?.data?.columns[0]?.statement;
+        }
       } else {
         this.messageService.error(response.message);
       }

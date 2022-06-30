@@ -167,7 +167,8 @@
     "reset": "Reset",
     "mysql": "MySQL",
     "postgresql": "PostgreSQL",
-    "stop": "Stop"
+    "stop": "Stop",
+    "location": "Location"
   },
   "language": {
     "english": "English",

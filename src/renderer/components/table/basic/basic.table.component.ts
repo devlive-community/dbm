@@ -2,11 +2,9 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { BaseComponent } from '@renderer/app/base.component';
 import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
 import { ExportToCsv } from 'export-to-csv';
-import { StringUtils } from '@renderer/utils/string.utils';
-import { TranslateService } from '@ngx-translate/core';
 import { Md5 } from 'ts-md5';
-
-const lodash = require('lodash');
+import { TableExportModel } from "@renderer/components/table/basic/table.export.model";
+import { StringUtils } from "@renderer/utils/string.utils";
 
 @Component({
   selector: 'app-component-basic-table',
@@ -18,14 +16,16 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
   public configuration: Config;
   public headers: Columns[] = new Array();
   public id: string;
+  exportInfo: TableExportModel;
 
-  constructor(private translateService: TranslateService) {
+  constructor() {
     super();
     this.configuration = {...DefaultConfig};
     this.configuration.horizontalScroll = true;
     this.configuration.paginationRangeEnabled = false;
     this.configuration.searchEnabled = true;
     this.id = Md5.hashStr(new Date().toString());
+    this.exportInfo = new TableExportModel()
   }
 
   ngAfterViewInit(): void {
@@ -33,23 +33,36 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
       this.value?.headers.forEach(column => {
         this.headers.push({key: column.name, title: column.name});
       });
+      this.handlerValidate();
     }, 0);
   }
 
+  handlerValidate() {
+    if (StringUtils.isNotEmpty(this.exportInfo.name)) {
+      this.disabled.button = false;
+    } else {
+      this.disabled.button = true;
+    }
+  }
+
+  handlerDialog(isClose: boolean = false): void {
+    if (isClose) {
+      this.dialog.create = true;
+    } else {
+      this.dialog.create = false;
+    }
+  }
+
   handlerExportToCSV(): void {
-    const filename = StringUtils.format('{0}{1}-{2}',
-      [this.translateService.instant('common.query'),
-        this.translateService.instant('common.result'),
-        lodash.now().toString()]);
     const options = {
       fieldSeparator: ',',
-      quoteStrings: '"',
+      quoteStrings: '',
       decimalSeparator: '.',
       showLabels: true,
       showTitle: false,
       useTextFile: false,
       useBom: true,
-      filename: filename,
+      filename: this.exportInfo.name,
       useKeysAsHeaders: true
     };
     const csvExporter = new ExportToCsv(options);

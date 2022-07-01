@@ -1,12 +1,12 @@
 <div *ngIf="headers.length > 0; else notHasValues">
-  <button nz-button nzType="primary" nz-dropdown [nzDropdownMenu]="export" style="margin-top: -22px; float: right;">
-    {{'common.export'|translate}}&nbsp;<i class="fa fa-angle-down"></i>
+  <button nz-button nzType="primary" (click)="handlerDialog(true)" style="margin-top: -22px; float: right;">
+    <i class="fa fa-external-link-square"></i>&nbsp;{{'common.export'|translate}}
   </button>
-  <nz-dropdown-menu #export="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item (click)="handlerExportToCSV()">{{'common.csv'|translate}}</li>
-    </ul>
-  </nz-dropdown-menu>
+  <!--  <nz-dropdown-menu #export="nzDropdownMenu">-->
+  <!--    <ul nz-menu>-->
+  <!--      <li nz-menu-item >{{'common.csv'|translate}}</li>-->
+  <!--    </ul>-->
+  <!--  </nz-dropdown-menu>-->
   <ngx-table [id]="id" [data]="value.columns"
              [configuration]="configuration" [columns]="headers">
   </ngx-table>
@@ -20,3 +20,35 @@
     </ng-template>
   </nz-empty>
 </ng-template>
+
+<nz-modal [(nzVisible)]="dialog.create" [nzTitle]="modalTitle"
+          [nzContent]="modalContent" [nzFooter]="modalFooter"
+          (nzOnCancel)="handlerDialog()">
+  <ng-template #modalTitle>
+    <i class="fa fa-external-link-square"></i>&nbsp;{{'common.export'|translate}}{{'common.result'|translate}}
+  </ng-template>
+  <form nz-form center>
+    <ng-template #modalContent>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">{{'common.name'|translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback [nzSpan]="12" nzErrorTip="{{'placeholder.required'|translate}}">
+          <input nz-input [(ngModel)]="exportInfo.name" (ngModelChange)="handlerValidate()" name="name"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">{{'common.type'|translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback [nzSpan]="12" nzErrorTip="{{'placeholder.required'|translate}}">
+          <nz-radio-group [(ngModel)]="exportInfo.type" name="type">
+            <label nz-radio nzValue="CSV">CSV</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" [disabled]="disabled.button"
+              (click)="handlerExportToCSV()">
+        {{'common.export'|translate}}
+      </button>
+    </ng-template>
+  </form>
+</nz-modal>

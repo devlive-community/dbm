@@ -115,7 +115,11 @@ export class OperationConfig {
         actions: [OperationEnum.delete],
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
       },
-      {type: TypeEnum.column, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.rename],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.column, actions: [OperationEnum.comment], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(column);

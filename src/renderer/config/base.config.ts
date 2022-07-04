@@ -19,6 +19,7 @@ export interface BaseConfig {
   tableItemsFilterPrecise: string;
   tableItemsFilterFuzzy: string;
   columnItems: string;
+  columnRename: string;
   serverInfo: string;
   stopProcessor: string;
   showCreateDatabase: string;

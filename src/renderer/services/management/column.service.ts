@@ -13,6 +13,7 @@ import { BasicService } from '@renderer/services/system/basic.service';
 import { ForwardService } from '@renderer/services/forward.service';
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Injectable()
 export class ColumnService extends ForwardService implements BaseService {
@@ -45,8 +46,15 @@ export class ColumnService extends ForwardService implements BaseService {
     return this.getResponse(request, sql);
   }
 
-  rename(request: RequestModel, value: DatabaseModel, newName: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('ALTER TABLE {0} RENAME COLUMN {1} TO {2}', [SqlUtils.getTableName(value.database, value.table), value.name, newName]);
+  rename(request: RequestModel, value: DatabaseModel, newName: string, originColumnType: string): Promise<ResponseModel> {
+    let sql;
+    if (request.config.type === DatabaseEnum.mysql) {
+      sql = StringUtils.format(this.factoryService.forward(request.config.type).columnRename,
+        [SqlUtils.getTableName(value.database, value.table), value.name, newName, originColumnType]);
+    } else {
+      sql = StringUtils.format(this.factoryService.forward(request.config.type).columnRename,
+        [SqlUtils.getTableName(value.database, value.table), value.name, newName]);
+    }
     return this.getResponse(request, sql);
   }
 

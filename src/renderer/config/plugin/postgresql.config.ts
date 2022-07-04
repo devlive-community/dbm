@@ -35,4 +35,5 @@ export class PostgresqlConfig implements BaseConfig {
   stopProcessor: string;
   showCreateDatabase: string;
   showTableWithSize: string;
+  columnRename: string;
 }

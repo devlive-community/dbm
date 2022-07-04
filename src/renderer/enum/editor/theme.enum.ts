@@ -55,5 +55,11 @@ export enum EditorThemeEnum {
   'tomorrow-night-bright' = ('tomorrow-night-bright'),
   'tomorrow-night-eighties' = ('tomorrow-night-eighties'),
   'ttcn' = ('ttcn'),
-  'twilight' = ('twilight')
+  'twilight' = ('twilight'),
+  'vibrant-ink' = ('vibrant-ink'),
+  'xq-dark' = ('xq-dark'),
+  'xq-light' = ('xq-light'),
+  'yeti' = ('yeti'),
+  'yonce' = ('yonce'),
+  'zenburn' = ('zenburn')
 }

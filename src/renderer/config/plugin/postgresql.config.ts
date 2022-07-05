@@ -36,4 +36,5 @@ export class PostgresqlConfig implements BaseConfig {
   showCreateDatabase: string;
   showTableWithSize: string;
   columnRename: string;
+  columnAddComment: string;
 }

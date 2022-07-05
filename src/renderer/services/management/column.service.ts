@@ -40,9 +40,17 @@ export class ColumnService extends ForwardService implements BaseService {
     return this.getResponse(request, sql);
   }
 
-  comment(request: RequestModel, value: DatabaseModel, comment: string): Promise<ResponseModel> {
-    const sql = StringUtils.format(`ALTER TABLE {0} COMMENT COLUMN {1} '{2}'`,
-      [SqlUtils.getTableName(value.database, value.table), value.name, StringUtils.appendBackslash(comment)]);
+  comment(request: RequestModel, value: DatabaseModel, comment: string, originColumnType: string): Promise<ResponseModel> {
+    let sql;
+    if (request.config.type === DatabaseEnum.mysql) {
+      sql = StringUtils.format(this.factoryService.forward(request.config.type).columnAddComment,
+        [SqlUtils.getTableName(value.database, value.table), value.name, value.name, originColumnType, comment]);
+      console.log(sql);
+    }
+    else {
+      sql = StringUtils.format(this.factoryService.forward(request.config.type).columnAddComment,
+        [SqlUtils.getTableName(value.database, value.table), value.name, StringUtils.appendBackslash(comment)]);
+    }
     return this.getResponse(request, sql);
   }
 

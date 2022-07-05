@@ -119,4 +119,7 @@ GROUP BY TABLE_NAME
   columnRename= `
 ALTER TABLE {0} CHANGE COLUMN {1} {2} {3}
   `;
+  columnAddComment = `
+ALTER TABLE {0} CHANGE COLUMN {1} {2} {3} COMMENT '{4}'
+  `;
 }

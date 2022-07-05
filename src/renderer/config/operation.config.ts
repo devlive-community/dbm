@@ -13,7 +13,7 @@ export class OperationConfig {
       {
         type: TypeEnum.server,
         actions: [OperationEnum.info],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       },
       {
         type: TypeEnum.database,

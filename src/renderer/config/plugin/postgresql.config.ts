@@ -15,7 +15,14 @@ export class PostgresqlConfig implements BaseConfig {
   databaseItems: string;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
-  diskUsedRatio: string;
+  diskUsedRatio = `
+    SELECT
+      'default' AS name, '/' AS path,
+      SUM(pg_database_size(pg_database.datname)) AS totalBytes,
+      pg_size_pretty(SUM(pg_database_size(pg_database.datname))) AS totalSize,
+      0 AS value
+    FROM pg_database
+  `;
   processesFetchAll: string;
   schemaFetchAll: string;
   serverInfo = `

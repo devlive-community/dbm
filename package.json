@@ -1,6 +1,6 @@
 {
   "name": "dbm",
-  "version": "1.20.0-SNAPSHOT",
+  "version": "1.20.0",
   "author": "qianmoQ <shicheng@ttxit.com>",
   "description": "DataBase GUI",
   "github": "https://github.com/EdurtIO/dbm.git",

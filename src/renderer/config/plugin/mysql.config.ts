@@ -5,7 +5,8 @@ export class MySQLConfig implements BaseConfig {
   columnItems = `
 SELECT
   TABLE_SCHEMA AS "database", TABLE_NAME AS tableName, COLUMN_NAME AS name,
-  DATA_TYPE AS type
+  -- DATA_TYPE AS type
+  concat(DATA_TYPE, '(', CHARACTER_MAXIMUM_LENGTH, ')') AS type
 FROM information_schema.columns
 WHERE table_schema = '{0}' AND table_name = '{1}'
 GROUP BY COLUMN_NAME
@@ -93,9 +94,32 @@ FROM information_schema.tables
 WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
 `;
-  tableItemsFilterFuzzy: string;
-  tableItemsFilterPrecise: string;
+  tableItemsFilterFuzzy = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}' AND table_name LIKE '%{1}%'
+  `;
+  tableItemsFilterPrecise = `
+SELECT table_name AS name
+FROM information_schema.tables
+WHERE table_schema = '{0}' AND table_name = '{1}'
+  `;
   tableSchemaFetchAll: string;
   version = `SELECT version() AS version`;
   stopProcessor: string;
+  showCreateDatabase = 'SHOW CREATE DATABASE `{0}`';
+  showTableWithSize = `
+SELECT
+  TABLE_NAME AS name, ENGINE AS engine, TABLE_ROWS AS totalRows,
+  concat(round(sum(data_length/1024/1024),2), 'MB') AS totalSize
+FROM information_schema.tables
+WHERE table_schema = '{0}'
+GROUP BY TABLE_NAME
+  `;
+  columnRename= `
+ALTER TABLE {0} CHANGE COLUMN {1} {2} {3}
+  `;
+  columnAddComment = `
+ALTER TABLE {0} CHANGE COLUMN {1} {2} {3} COMMENT '{4}'
+  `;
 }

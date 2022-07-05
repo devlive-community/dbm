@@ -56,7 +56,12 @@
 @import "~codemirror/theme/tomorrow-night-eighties.css";
 @import "~codemirror/theme/ttcn.css";
 @import "~codemirror/theme/twilight.css";
-//@import "~codemirror/theme/";
+@import "~codemirror/theme/vibrant-ink.css";
+@import "~codemirror/theme/xq-dark.css";
+@import "~codemirror/theme/xq-light.css";
+@import "~codemirror/theme/yeti.css";
+@import "~codemirror/theme/yonce.css";
+@import "~codemirror/theme/zenburn.css";
 
 // Wait for all themes to load after loading, load the hint style to prevent style confusion
 @import './editor.hints.css';

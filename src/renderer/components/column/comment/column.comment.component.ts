@@ -21,6 +21,8 @@ export class CommentColumnComponent extends BaseComponent implements AfterViewIn
   database: string;
   @Input()
   table: string;
+  @Input()
+  originColumnType: string;
   @Output()
   emitter = new EventEmitter<ConfigModel>();
   inputValue: string;
@@ -47,7 +49,7 @@ export class CommentColumnComponent extends BaseComponent implements AfterViewIn
     _value.database = this.database;
     _value.table = this.table;
     _value.name = this.value;
-    this.columnService.comment(request, _value, this.inputValue).then(response => {
+    this.columnService.comment(request, _value, this.inputValue, this.originColumnType).then(response => {
       if (response.status) {
         this.messageService.success(response.message);
         this.config.status = false;

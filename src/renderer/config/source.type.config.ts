@@ -21,6 +21,14 @@ export class SourceTypeConfig {
       false,
       null,
       './renderer/assets/icon/source/ClickHouse.svg'));
+    // MySQL
+    basicEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.mysql'),
+      TranslateUtils.getValue('tooltip.source.mysql'),
+      DatabaseEnum.mysql,
+      null,
+      false,
+      null,
+      './renderer/assets/icon/source/MySQL.svg'));
     basicType.engines = basicEngines;
 
     // -------------- Experimental ----------------
@@ -45,14 +53,6 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/Trino.svg'));
-    // MySQL
-    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.mysql'),
-      TranslateUtils.getValue('tooltip.source.mysql'),
-      DatabaseEnum.mysql,
-      null,
-      true,
-      null,
-      './renderer/assets/icon/source/MySQL.svg'));
     // PostgreSQL
     experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.postgresql'),
       TranslateUtils.getValue('tooltip.source.postgresql'),

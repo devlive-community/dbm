@@ -10,7 +10,7 @@
     </app-component-delete-column>
     <app-component-rename-column *ngIf="menu.command === operation.rename" [config]=" config"
                                  [value]="value?.origin?.key" [database]="database" [table]="table"
-                                 (emitter)="handlerEmitter($event)">
+                                 [originColumnType]="value?.origin?.value" (emitter)="handlerEmitter($event)">
     </app-component-rename-column>
     <app-component-create-column *ngIf="menu.command === operation.create" [config]="config"
                                  [value]="value?.origin?.key" [database]="database" [table]="table"
@@ -18,7 +18,7 @@
     </app-component-create-column>
     <app-component-comment-column *ngIf="menu.command === operation.comment" [config]="config"
                                   [value]="value?.origin?.key" [database]="database" [table]="table"
-                                  (emitter)="handlerEmitter($event)">
+                                  [originColumnType]="value?.origin?.value" (emitter)="handlerEmitter($event)">
     </app-component-comment-column>
   </div>
 </nz-modal>

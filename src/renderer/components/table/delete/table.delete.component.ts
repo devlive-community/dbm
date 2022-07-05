@@ -6,6 +6,7 @@ import { RequestModel } from '@renderer/model/request.model';
 import { DatasourceService } from '@renderer/services/management/datasource.service';
 import { TableService } from '@renderer/services/management/table.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-component-delete-table',
@@ -34,14 +35,18 @@ export class DeleteTableComponent extends BaseComponent implements AfterViewInit
     setTimeout(async () => {
       const request = new RequestModel();
       request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
-      this.tableService.getSize(request, this.database, this.value)
-      .then(response => {
-        if (response.status) {
-          this.tableInfo = response.data?.columns[0];
-        } else {
-          this.messageService.error(response.message);
-        }
-      });
+      if (request.config.type === DatabaseEnum.clickhosue) {
+        this.tableService.getSize(request, this.database, this.value)
+          .then(response => {
+            if (response.status) {
+              this.tableInfo = response.data?.columns[0];
+            } else {
+              this.messageService.error(response.message);
+            }
+          });
+      } else {
+        this.tableInfo = { flag: 0 };
+      }
     }, 0);
   }
 

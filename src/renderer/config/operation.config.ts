@@ -13,7 +13,7 @@ export class OperationConfig {
       {
         type: TypeEnum.server,
         actions: [OperationEnum.info],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       },
       {
         type: TypeEnum.database,
@@ -31,10 +31,26 @@ export class OperationConfig {
     database.name = TypeEnum.database.toString();
     database.type = TypeEnum.database;
     database.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.filter], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.database, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.database, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.create],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.filter],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.delete],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.structure],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.database, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]}
     ];
     opertions.push(database);
@@ -42,11 +58,31 @@ export class OperationConfig {
     table.name = TypeEnum.table.toString();
     table.type = TypeEnum.table;
     table.operations = [
-      {type: TypeEnum.table, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.structure], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.table, actions: [OperationEnum.truncate], supportedSource: [DatabaseEnum.clickhosue]},
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.preview],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.delete],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.structure],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.rename],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.table,
+        actions: [OperationEnum.truncate],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
       {type: TypeEnum.table, actions: [OperationEnum.clean], supportedSource: [DatabaseEnum.clickhosue]},
       {type: TypeEnum.table, actions: [OperationEnum.optimize], supportedSource: [DatabaseEnum.clickhosue]},
       {
@@ -64,11 +100,31 @@ export class OperationConfig {
     column.name = TypeEnum.column.toString();
     column.type = TypeEnum.column;
     column.operations = [
-      {type: TypeEnum.column, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.comment], supportedSource: [DatabaseEnum.clickhosue]}
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.preview],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.create],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.delete],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.rename],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.comment],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      }
     ];
     opertions.push(column);
     return opertions;

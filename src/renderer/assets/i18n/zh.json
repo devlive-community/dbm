@@ -166,7 +166,8 @@
     "reset": "重置",
     "mysql": "MySQL",
     "postgresql": "PostgreSQL",
-    "stop": "停止"
+    "stop": "停止",
+    "location": "位置"
   },
   "language": {
     "english": "英语",
@@ -234,7 +235,8 @@
       "jdbc": "允许ClickHouse通过JDBC连接到外部数据库",
       "sqlite": "The engine allows to import and export data to SQLite and supports queries to SQLite tables directly from ClickHouse.",
       "odbc": "Allows ClickHouse to connect to external databases via ODBC",
-      "mongodb": "MongoDB engine is read-only table engine which allows to read data (SELECT queries) from remote MongoDB collection. Engine supports only non-nested data types. INSERT queries are not supported."
+      "mongodb": "MongoDB engine is read-only table engine which allows to read data (SELECT queries) from remote MongoDB collection. Engine supports only non-nested data types. INSERT queries are not supported.",
+      "default": "默认表引擎"
     },
     "property": {
       "timeSeconds": "Retention time in RAM (unit per second)",

@@ -6,12 +6,27 @@ import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
 import { PropertyEnum } from '@renderer/enum/property.enum';
 
-const tableConfigJson = require('./table.config.json');
-
 @Injectable()
 export class TableConfig {
   getConfig(): DatabaseModel[] {
     const tableEngines = new Array();
+    /**
+     * Default Engine
+     */
+    const defaultTable = new DatabaseModel();
+    defaultTable.name = TranslateUtils.getValue('common.default');
+    defaultTable.description = TranslateUtils.getValue('tooltip.table.default');
+    defaultTable.supportedSource = [DatabaseEnum.mysql];
+    const defaultEngines = new Array();
+    const i_default = DatabaseModel.builder(TranslateUtils.getValue('common.default'),
+      TranslateUtils.getValue('tooltip.table.default'),
+      DatabaseEnum.none,
+      null)
+    i_default.supportedSource = [DatabaseEnum.mysql];
+    defaultEngines.push(i_default);
+    defaultTable.engines = defaultEngines;
+    tableEngines.push(defaultTable);
+
     /**
      * Log Engine
      */
@@ -19,29 +34,42 @@ export class TableConfig {
     logTable.name = StringUtils.format('{0}',
       [TranslateUtils.getValue('common.log')]);
     logTable.description = TranslateUtils.getValue('tooltip.table.log');
+    logTable.supportedSource = [DatabaseEnum.clickhosue];
     const logEngines = new Array();
+
     // Log
-    logEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.log'),
+    const log = DatabaseModel.builder(TranslateUtils.getValue('common.log'),
       TranslateUtils.getValue('tooltip.table.log'),
       DatabaseEnum.log,
-      null));
+      null)
+    log.supportedSource = [DatabaseEnum.clickhosue];
+    logEngines.push(log);
+
     // TinyLog
-    logEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.tinylog'),
+    const tinylog = DatabaseModel.builder(TranslateUtils.getValue('common.tinylog'),
       TranslateUtils.getValue('tooltip.table.log'),
       DatabaseEnum.tinylog,
-      null));
+      null)
+    tinylog.supportedSource = [DatabaseEnum.clickhosue];
+    logEngines.push(tinylog);
+
     // StripeLog
-    logEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.stripelog'),
+    const stripelog = DatabaseModel.builder(TranslateUtils.getValue('common.stripelog'),
       TranslateUtils.getValue('tooltip.table.log'),
       DatabaseEnum.stripelog,
-      null));
+      null);
+    stripelog.supportedSource = [DatabaseEnum.clickhosue];
+    logEngines.push(stripelog);
     logTable.engines = logEngines;
     tableEngines.push(logTable);
+
     const integrationTable = new DatabaseModel();
     integrationTable.name = StringUtils.format('{0}',
       [TranslateUtils.getValue('common.integration')]);
     integrationTable.description = TranslateUtils.getValue('tooltip.table.integration');
+    integrationTable.supportedSource = [DatabaseEnum.clickhosue];
     const integrationEngines = new Array();
+
     // Kafka
     const kafkaProperties = new Array();
     kafkaProperties.push(PropertyModel.builder('broker',
@@ -64,12 +92,15 @@ export class TableConfig {
       TranslateUtils.getValue('placeholder.format'),
       TranslateUtils.getValue('tooltip.property.format'),
       'kafka_format'));
-    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.kafka.toString(),
+    const kafka = DatabaseModel.builder(DatabaseEnum.kafka.toString(),
       TranslateUtils.getValue('tooltip.table.kafka'),
       DatabaseEnum.kafka,
       kafkaProperties,
       false,
-      PropertyEnum.key));
+      PropertyEnum.key);
+    kafka.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(kafka);
+
     // HDFS
     const hdfsProperties = new Array();
     hdfsProperties.push(PropertyModel.builder('uri',
@@ -84,12 +115,15 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.property.format'),
       null,
       false));
-    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.hdfs.toString(),
+    const hdfs = DatabaseModel.builder(DatabaseEnum.hdfs.toString(),
       TranslateUtils.getValue('tooltip.table.hdfs'),
       DatabaseEnum.hdfs,
       hdfsProperties,
       false,
-      PropertyEnum.name));
+      PropertyEnum.name);
+    hdfs.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(hdfs);
+
     // JDBC
     const jdbcProperties = new Array();
     jdbcProperties.push(PropertyModel.builder('uri',
@@ -110,12 +144,15 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.property.table'),
       null,
       false));
-    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.jdbc.toString(),
+    const jdbc = DatabaseModel.builder(DatabaseEnum.jdbc.toString(),
       TranslateUtils.getValue('tooltip.table.jdbc'),
       DatabaseEnum.jdbc,
       jdbcProperties,
       false,
-      PropertyEnum.name));
+      PropertyEnum.name);
+    jdbc.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(jdbc);
+
     // SQLite
     const sqliteProperties = new Array();
     sqliteProperties.push(PropertyModel.builder('path',
@@ -130,12 +167,15 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.property.table'),
       null,
       false));
-    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.sqlite.toString(),
+    const sqlite = DatabaseModel.builder(DatabaseEnum.sqlite.toString(),
       TranslateUtils.getValue('tooltip.table.sqlite'),
       DatabaseEnum.sqlite,
       sqliteProperties,
       false,
-      PropertyEnum.name));
+      PropertyEnum.name);
+    sqlite.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(sqlite);
+
     // ODBC
     const odbcProperties = new Array();
     odbcProperties.push(PropertyModel.builder('path',
@@ -156,18 +196,70 @@ export class TableConfig {
       TranslateUtils.getValue('tooltip.property.table'),
       null,
       false));
-    integrationEngines.push(DatabaseModel.builder(DatabaseEnum.odbc.toString(),
+    const odbc = DatabaseModel.builder(DatabaseEnum.odbc.toString(),
       TranslateUtils.getValue('tooltip.table.odbc'),
       DatabaseEnum.odbc,
       odbcProperties,
       false,
-      PropertyEnum.name));
+      PropertyEnum.name);
+    odbc.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(odbc);
+
+    // MongoDB
+    const mongodbProperties = new Array();
+    mongodbProperties.push(PropertyModel.builder('uri',
+      TranslateUtils.getValue('common.uri'),
+      TranslateUtils.getValue('placeholder.uri'),
+      TranslateUtils.getValue('tooltip.property.mongodb.uri'),
+      null,
+      false,
+      true));
+    mongodbProperties.push(PropertyModel.builder('database',
+      TranslateUtils.getValue('common.database'),
+      TranslateUtils.getValue('tooltip.property.mongodb.database'),
+      TranslateUtils.getValue('tooltip.property.mongodb.database'),
+      null,
+      false,
+      true));
+    mongodbProperties.push(PropertyModel.builder('collection',
+      TranslateUtils.getValue('common.collection'),
+      TranslateUtils.getValue('placeholder.collection'),
+      TranslateUtils.getValue('tooltip.property.mongodb.collection'),
+      null,
+      false,
+      true));
+    mongodbProperties.push(PropertyModel.builder('username',
+      TranslateUtils.getValue('common.username'),
+      TranslateUtils.getValue('tooltip.property.mongodb.username'),
+      TranslateUtils.getValue('tooltip.property.mongodb.username'),
+      null,
+      false,
+      true));
+    mongodbProperties.push(PropertyModel.builder('password',
+      TranslateUtils.getValue('common.password'),
+      TranslateUtils.getValue('tooltip.property.mongodb.password'),
+      TranslateUtils.getValue('tooltip.property.mongodb.password'),
+      null,
+      false,
+      true));
+    mongodbProperties.push(PropertyModel.builder('options',
+      TranslateUtils.getValue('common.options'),
+      TranslateUtils.getValue('tooltip.property.mongodb.options'),
+      TranslateUtils.getValue('tooltip.property.mongodb.options'),
+      null,
+      false,
+      false));
+    const mongodb = DatabaseModel.builder(DatabaseEnum.mongodb.toString(),
+      TranslateUtils.getValue('tooltip.table.mongodb'),
+      DatabaseEnum.mongodb,
+      mongodbProperties,
+      false,
+      PropertyEnum.name);
+    mongodb.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(mongodb);
+
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);
     return tableEngines;
-  }
-
-  getConfigFromJson(): DatabaseModel[] {
-    return tableConfigJson;
   }
 }

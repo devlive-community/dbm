@@ -9,6 +9,7 @@ import { ClipboardComService } from '@renderer/services/other/clipboard.service'
 import { EditorService } from '@renderer/services/editor/editor.service';
 import { SystemEditorModel } from '@renderer/model/system.model';
 import { SqlUtils } from '@renderer/utils/sql.utils';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-component-database-structure',
@@ -54,7 +55,11 @@ export class DatabaseStructureComponent extends BaseComponent implements AfterVi
     request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.metadataService.getDatabaseDDL(request, this.value).then(response => {
       if (response.status) {
-        this.structure = response?.data?.columns[0]?.statement;
+        if (request.config.type === DatabaseEnum.mysql) {
+          this.structure = response?.data?.columns[0]?.['Create Database'];
+        } else {
+          this.structure = response?.data?.columns[0]?.statement;
+        }
       } else {
         this.messageService.error(response.message);
       }

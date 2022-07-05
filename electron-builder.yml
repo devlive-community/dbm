@@ -1,7 +1,15 @@
 appId: 'io.edurt.dbm'
+
 artifactName: ${name}-${version}-${os}-${arch}.${ext}
+
 productName: 'dbm'
-publish: { provider: github, releaseType: draft, vPrefixedTagName: true }
+
+publish: {
+  provider: github,
+  releaseType: draft,
+  vPrefixedTagName: true
+}
+
 forceCodeSigning: false
 
 releaseInfo:
@@ -10,55 +18,47 @@ releaseInfo:
 
     ---
 
+    - Support custom file names for downloading result data
     - Add multiple editor theme
-    - Redesign data source deletion prompt
-    - Support metadata management to jump to the query page
-    - Delete the domain name incubator tag
-    - Add some trend charts and project badges
-    - Fix that the editor cannot boot when it automatically prompts for multiple options, and the option is highlighted
-    - Compressed and packaged binary software package
 
-    #### Security
+    #### Dependencies
 
     ---
 
-    - Upgrade angular to `14.0.1`
-    - Upgrade electron to `16.2.0`
-
-    #### ClickHouse
-
-    ---
-
-    - Support the currently stopped running process
-
-    #### Trino & Presto
-
-    ---
-
-    - Supports query result time and total number of data [issues-158](https://github.com/EdurtIO/dbm/issues/158)
+    - Bump eslint-plugin-jsdoc from 35.3.2 to 39.3.3
+    - Bump angular-highcharts from 13.0.1 to 14.1.5
+    - Bump karma-jasmine-html-reporter from 1.7.0 to 2.0.0
 
     #### MySQL
 
     ---
 
-    - Support quick query operation [issues-180](https://github.com/EdurtIO/dbm/issues/180)
-    - Supports query result time and total number of data [issues-180](https://github.com/EdurtIO/dbm/issues/180)
-    - Supports monitor → processors [issues-180](https://github.com/EdurtIO/dbm/issues/180)
-    - Supports monitor → connection [issues-180](https://github.com/EdurtIO/dbm/issues/180)
-    - Supports metadata management of disk usage [issues-180](https://github.com/EdurtIO/dbm/issues/180)
-    - Support metadata management menu server related operations [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to build data tables [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to filter tables [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to show database ddl [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to delete database [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to preview table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to show table ddl [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to delete table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to rename table, truncate table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to preview column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to create column, delete column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to rename column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to add column comment [issues-180](https://github.com/EdurtIO/dbm/issues/180)
 
     #### PostgreSQL
 
     ---
 
-    - Support PostgreSQL (custom query and data source management)
-    - Add PostgreSQL docs
+    - Supports quick query
+    - Support metadata management menu server related operations
+    - Supports metadata management of disk usage
 
 directories:
   output: ./release
+
 files:
-#  - '**/*'
+  #  - '**/*'
   - '!**/*.ts'
   - '!scripts'
   - '!src'
@@ -68,7 +68,9 @@ files:
   - '!.github'
   - '!.vscode'
   - 'dist'
+
 compression: normal
+
 asar: false
 
 mac:

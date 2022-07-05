@@ -5,8 +5,6 @@ import { ResponseModel } from '@renderer/model/response.model';
 import { RequestModel } from '@renderer/model/request.model';
 import { ConfigModel } from '@renderer/model/config.model';
 import { TypeEnum } from '@renderer/enum/type.enum';
-import { ClickhouseConfig } from '@renderer/config/clickhouse.config';
-import { Factory } from '@renderer/factory';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { DatabaseModel } from '@renderer/model/database.model';
 import { DatabaseEnum } from '@renderer/enum/database.enum';
@@ -18,6 +16,7 @@ import { FilterModel } from '@renderer/model/filter.model';
 import { FactoryService } from "@renderer/services/factory.service";
 import { PrestoService } from "@renderer/services/presto.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 
 @Injectable()
 export class MetadataService extends ForwardService implements BaseService {
@@ -28,8 +27,9 @@ export class MetadataService extends ForwardService implements BaseService {
               httpService: HttpService,
               sshService: SshService,
               prestoService: PrestoService,
-              mysqlService: MySQLService) {
-    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService);
+              mysqlService: MySQLService,
+              postgresqlService: PostgresqlService) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
@@ -123,7 +123,7 @@ export class MetadataService extends ForwardService implements BaseService {
   }
 
   getDatabaseDDL(request: RequestModel, value: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('SHOW CREATE DATABASE `{0}`', [value]);
+    const sql = StringUtils.format(this.factoryService.forward(request.config.type).showCreateDatabase, [value]);
     return this.getResponse(request, sql);
   }
 

@@ -5,7 +5,8 @@ export class MySQLConfig implements BaseConfig {
   columnItems = `
 SELECT
   TABLE_SCHEMA AS "database", TABLE_NAME AS tableName, COLUMN_NAME AS name,
-  DATA_TYPE AS type
+  -- DATA_TYPE AS type
+  concat(DATA_TYPE, '(', CHARACTER_MAXIMUM_LENGTH, ')') AS type
 FROM information_schema.columns
 WHERE table_schema = '{0}' AND table_name = '{1}'
 GROUP BY COLUMN_NAME
@@ -114,5 +115,11 @@ SELECT
 FROM information_schema.tables
 WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
+  `;
+  columnRename= `
+ALTER TABLE {0} CHANGE COLUMN {1} {2} {3}
+  `;
+  columnAddComment = `
+ALTER TABLE {0} CHANGE COLUMN {1} {2} {3} COMMENT '{4}'
   `;
 }

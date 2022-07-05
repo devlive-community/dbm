@@ -21,6 +21,8 @@ export class RenameColumnComponent extends BaseComponent {
     database: string;
     @Input()
     table: string;
+    @Input()
+    originColumnType: string;
     @Output()
     emitter = new EventEmitter<any>();
     inputValue: string;
@@ -47,7 +49,7 @@ export class RenameColumnComponent extends BaseComponent {
         _value.database = this.database;
         _value.table = this.table;
         _value.name = this.value;
-        this.columnService.rename(request, _value, this.inputValue).then(response => {
+        this.columnService.rename(request, _value, this.inputValue, this.originColumnType).then(response => {
             if (response.status) {
                 this.messageService.success(response.message);
                 this.emitter.emit(true);

@@ -165,4 +165,10 @@ SELECT name, engine, total_rows AS totalRows,
 FROM system.tables
 WHERE database = '{0}'
   `;
+  columnRename = `
+ALTER TABLE {0} RENAME COLUMN {1} TO {2}
+  `;
+  columnAddComment = `
+ALTER TABLE {0} COMMENT COLUMN {1} '{2}'
+  `;
 }

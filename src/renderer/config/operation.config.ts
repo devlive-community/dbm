@@ -100,11 +100,31 @@ export class OperationConfig {
     column.name = TypeEnum.column.toString();
     column.type = TypeEnum.column;
     column.operations = [
-      {type: TypeEnum.column, actions: [OperationEnum.preview], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.create], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.delete], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]},
-      {type: TypeEnum.column, actions: [OperationEnum.comment], supportedSource: [DatabaseEnum.clickhosue]}
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.preview],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.create],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.delete],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.rename],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      },
+      {
+        type: TypeEnum.column,
+        actions: [OperationEnum.comment],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+      }
     ];
     opertions.push(column);
     return opertions;

@@ -18,14 +18,18 @@ export class PostgresqlConfig implements BaseConfig {
   diskUsedRatio: string;
   processesFetchAll: string;
   schemaFetchAll: string;
-  serverInfo: string;
+  serverInfo = `
+    SELECT name AS name, setting AS value
+    FROM pg_catalog.pg_settings
+    ORDER BY category
+  `;
   slowQueryFetchAll: string;
   tableDiskUsedRatio: string;
   tableFetchAll = `
     SELECT table_name AS name
     FROM information_schema.tables
     WHERE table_type = 'BASE TABLE'
-    AND table_schema = 'public'
+      AND table_schema = 'public'
   `;
   tableItems: string;
   tableItemsFilterFuzzy: string;

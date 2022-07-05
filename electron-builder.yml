@@ -14,7 +14,45 @@ forceCodeSigning: false
 
 releaseInfo:
   releaseNotes: |
+    #### General
 
+    ---
+
+    - Support custom file names for downloading result data
+    - Add multiple editor theme
+
+    #### Dependencies
+
+    ---
+
+    - Bump eslint-plugin-jsdoc from 35.3.2 to 39.3.3
+    - Bump angular-highcharts from 13.0.1 to 14.1.5
+    - Bump karma-jasmine-html-reporter from 1.7.0 to 2.0.0
+
+    #### MySQL
+
+    ---
+
+    - Support metadata management to build data tables [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to filter tables [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to show database ddl [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to delete database [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to preview table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to show table ddl [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to delete table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to rename table, truncate table [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to preview column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to create column, delete column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to rename column [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Support metadata management to add column comment [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+
+    #### PostgreSQL
+
+    ---
+
+    - Supports quick query
+    - Support metadata management menu server related operations
+    - Supports metadata management of disk usage
 
 directories:
   output: ./release

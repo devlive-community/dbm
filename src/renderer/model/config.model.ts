@@ -3,6 +3,7 @@ import { TypeEnum } from '@renderer/enum/type.enum';
 import { MenuModel } from '@renderer/model/menu.model';
 import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 import { FilterModel } from '@renderer/model/filter.model';
+import { RequestModel } from "@renderer/model/request.model";
 
 export class ConfigModel extends BaseModel {
   title: string;
@@ -17,4 +18,5 @@ export class ConfigModel extends BaseModel {
   menu: MenuModel;
   disabled: boolean;
   currentNode: NzTreeNode;
+  request: RequestModel
 }

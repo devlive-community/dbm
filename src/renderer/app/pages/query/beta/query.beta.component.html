@@ -1,0 +1,64 @@
+<nz-skeleton *ngIf="isLoading; else layoutTemplate" [nzActive]="true"></nz-skeleton>
+<ng-template #layoutTemplate>
+  <nz-layout class="layout" style="width: {{bodySize.width}}px; height: {{bodySize.height}}px;">
+    <nz-sider style="height: {{bodySize.height}}px;">
+      <nz-card [nzTitle]="leftDataSourceTitle" [nzLoading]="dataSpinning.database"
+               style="height: {{bodySize.height}}px;">
+        <nz-divider></nz-divider>
+        <nz-tree [nzData]="selectDataSourceNodes" nzBlockNode nzAsyncData
+                 (nzExpandChange)="handlerNodeLoad($event)" [nzTreeTemplate]="nzTreeTemplate"
+                 (nzClick)="handlerNodeClick($event)" nzVirtualHeight="{{bodySize.height - 40}}px">
+          <ng-template #nzTreeTemplate let-node let-origin="origin">
+            <i nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" (nzVisibleChange)="handlerVisibleChange($event)"
+               class="fa fa-{{handlerApplyIcon(origin.type)}}">&nbsp;{{origin.title}}&nbsp;<em *ngIf="origin?.children"
+                                                                                               class="f50">({{origin?.children.length}})</em></i>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item *ngFor="let menu of selectData.currentMenu" (click)="handlerCommand(menu)">
+                  <i *ngIf="menu.icon" class="fa {{menu.icon}}"></i>&nbsp;{{menu.name}}
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-template>
+        </nz-tree>
+      </nz-card>
+    </nz-sider>
+    <nz-layout class="right-layout" style="margin-left: 5px;">
+      <div nz-row [nzGutter]="[0, 3]">
+        <div nz-col class="gutter-row" [nzSpan]="24">
+          <nz-card id="queryEditorContainer" [nzActions]="[runActions]">
+            <ace [config]="config" [mode]="'sql'" [theme]="'eclipse'" [(value)]="applyEditor"></ace>
+          </nz-card>
+          <ng-template #runActions>
+            <nz-button-group>
+              <button nz-button [disabled]="!selectData.dataSource" [nzLoading]="dataSpinning.running"
+                      (click)="handlerExecute()">
+                <i nz-icon nzType="caret-right"></i> {{'common.execute'|translate}}
+              </button>
+            </nz-button-group>
+          </ng-template>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="24">
+          <nz-card>
+            <nz-skeleton *ngIf="dataSpinning.running" [nzActive]="true"></nz-skeleton>
+            <nz-card-meta [nzDescription]="cardMetaTemplate"></nz-card-meta>
+            <ng-template #cardMetaTemplate>
+              <div id="queryResultContainer" style="margin-top: 4px;"></div>
+            </ng-template>
+          </nz-card>
+        </div>
+      </div>
+    </nz-layout>
+  </nz-layout>
+</ng-template>
+<ng-template #leftDataSourceTitle>
+  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="{{'common.datasource'|translate}}" style="width: 198px"
+             [(ngModel)]="selectData.dataSource" (ngModelChange)="handlerDataSourceChange($event)">
+    <nz-option nzCustomContent *ngFor="let dataSource of dataSources" [nzLabel]="dataSource.alias"
+               [nzValue]="dataSource.alias" [nzDisabled]="!dataSource.status">
+      <nz-avatar nzSize="small" nzSrc="./renderer/assets/icon/source/{{dataSource.type}}.svg">
+      </nz-avatar>
+      {{dataSource.alias}}
+    </nz-option>
+  </nz-select>
+</ng-template>

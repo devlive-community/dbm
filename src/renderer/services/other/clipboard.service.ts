@@ -10,6 +10,6 @@ export class ClipboardComService {
 
   copy(text: string) {
     this.clipboardService.copy(text);
-    this.messageService.success('Success');
+    this.messageService.success('Copy to clipboard successfully!');
   }
 }

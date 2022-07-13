@@ -6,6 +6,7 @@ export class OperationModel {
   name: string;
   type: TypeEnum;
   operations: OperationNodeModel[];
+  icon?: string;
 }
 
 export class OperationNodeModel {
@@ -13,4 +14,5 @@ export class OperationNodeModel {
   actions: OperationEnum[];
   children?: OperationNodeModel[];
   supportedSource?: DatabaseEnum[] = [DatabaseEnum.clickhosue];
+  icon?: string;
 }

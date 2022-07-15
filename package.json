@@ -50,7 +50,6 @@
     "@angular/platform-browser-dynamic": "14.0.1",
     "@angular/router": "14.0.1",
     "@ant-design/icons-angular": "^13.1.0",
-    "@antv/s2": "^1.23.0",
     "@ctrl/ngx-codemirror": "^5.1.1",
     "@dalongrong/presto-client": "^0.6.5",
     "@ngx-translate/core": "^14.0.0",

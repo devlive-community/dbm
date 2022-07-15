@@ -52,3 +52,11 @@
 :host ::ng-deep .ant-btn-group .ant-btn+.ant-btn {
   margin-left: -9px;
 }
+
+:host ::ng-deep .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+  cursor: pointer;
+}
+
+:host ::ng-deep .ant-btn-text:focus, .ant-btn-text:hover {
+  background: #f5f5f5;
+}

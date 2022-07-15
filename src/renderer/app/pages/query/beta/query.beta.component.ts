@@ -14,9 +14,10 @@ import { DatabaseEnum } from "@renderer/enum/database.enum";
 import { MenuCommonService } from "@renderer/services/common/menu.common.service";
 import { ConfigModel } from "@renderer/model/config.model";
 import { OperationModel } from "@renderer/model/operation.model";
-import { TableSheet } from "@antv/s2";
-import { debounce } from 'lodash';
 import { QueryService } from "@renderer/services/query/query.service";
+import { ObjectUtils } from "@renderer/utils/object.utils";
+import { TranslateService } from "@ngx-translate/core";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-query-beta',
@@ -43,16 +44,33 @@ export class QueryBetaComponent implements AfterViewInit {
   dataSources: DatasourceModel[] = new Array<DatasourceModel>();
   selectDataSourceNodes: any[] = [];
   requestConfig: RequestModel;
-  applyEditor: string;
-  config: any = {
-    minLines: 10,
-    maxLines: 10,
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true
+  applyEditor = {
+    value: null,
+    configuration: {
+      minLines: 10,
+      maxLines: 10,
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    }
   };
+  applyResult = {
+    headers: [],
+    columns: [],
+    message: null,
+    height: 0,
+    width: 0
+  };
+  applyClickType = TypeEnum;
+  applyClick = {
+    type: TypeEnum.column,
+    value: null,
+    header: null
+  }
 
-  constructor(private datasourceService: DatasourceService,
+  constructor(private transactionService: TranslateService,
+              private modalService: NzModalService,
+              private datasourceService: DatasourceService,
               private databaseService: DatabaseService,
               private tableService: TableService,
               private columnService: ColumnService,
@@ -164,41 +182,60 @@ export class QueryBetaComponent implements AfterViewInit {
 
   handlerExecute() {
     this.dataSpinning.running = true;
-    const container = document.getElementById('queryResultContainer');
-    const queryEditorContainer = document.getElementById('queryEditorContainer');
-    // Clear the last query result
-    container.innerHTML = '';
-    const s2Options = {
-      width: this.bodySize.width - 207,
-      height: this.bodySize.height - queryEditorContainer.offsetHeight,
-    }
+    // Cleared the last query data
+    this.applyResult.headers = [];
+    this.applyResult.columns = [];
+    this.applyResult.message = null;
+
+    new ResizeObserver(([entry] = []) => {
+      // Subtract the default bottom page height
+      const queryEditorContainer = document.getElementById('queryEditorContainer');
+      if (ObjectUtils.isNotNull(queryEditorContainer)) {
+        this.applyResult.height = this.bodySize.height - queryEditorContainer.offsetHeight - 100;
+        this.applyResult.width = queryEditorContainer.offsetWidth;
+      }
+    }).observe(document.body);
+
     this.datasourceService.findByAlias(this.selectData.dataSource)
       .then(currentDataSource => {
         const request = new RequestModel();
         request.config = currentDataSource;
-        this.queryService.forward(request, this.applyEditor)
+        this.queryService.forward(request, this.applyEditor.value)
           .then(response => {
             if (response.status) {
-              const s2DataConfig = {
-                fields: {
-                  columns: response.data.headers.map(item => item.name),
-                },
-                data: response.data.columns
-              };
-              const s2 = new TableSheet(container, s2DataConfig, s2Options);
-              const debounceRender = debounce((width, height) => {
-                s2.changeSheetSize(width, height)
-                s2.render(false);
-              }, 0)
-              new ResizeObserver(([entry] = []) => {
-                debounceRender(this.bodySize.width - 207, this.bodySize.height - queryEditorContainer.offsetHeight);
-              }).observe(document.body);
-              s2.render();
+              this.applyResult.headers = response.data.headers;
+              this.applyResult.columns = response.data.columns;
             } else {
-              container.innerHTML = response.message;
+              this.applyResult.message = response.message;
             }
             this.dataSpinning.running = false;
           });
       });
+  }
+
+  handlerShowMoreEllipsis() {
+    this.modalService.error({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.transactionService.instant('common.ok'),
+      nzContent: this.applyResult.message
+    });
+  }
+
+  handlerCellClick(cellType: TypeEnum, header: string, value: string) {
+    this.applyClick.type = cellType;
+    this.applyClick.header = header;
+    this.applyClick.value = value;
+  }
+
+  handlerShowFullValue() {
+    this.modalService.info({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.transactionService.instant('common.ok'),
+      nzContent: this.applyClick.value.toString()
+    });
   }
 }

@@ -16,6 +16,8 @@ import { MenuCommonService } from "@renderer/services/common/menu.common.service
 import { CodemirrorModule } from "@ctrl/ngx-codemirror";
 import { EditorService } from "@renderer/services/editor/editor.service";
 import { AceModule } from "ngx-ace-wrapper";
+import { TableModule } from "ngx-easy-table";
+import { EllipsisModule } from "ngx-ellipsis";
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryBetaComponent}
@@ -30,7 +32,9 @@ const QUERY_ROUTES: Routes = [
     CommonShareModule,
     CodemirrorModule,
     AceModule,
-    RouterModule.forChild(QUERY_ROUTES)
+    RouterModule.forChild(QUERY_ROUTES),
+    TableModule,
+    EllipsisModule
   ],
   exports: [],
   declarations: [

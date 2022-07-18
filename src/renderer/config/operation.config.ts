@@ -18,12 +18,12 @@ export class OperationConfig {
       {
         type: TypeEnum.database,
         actions: [OperationEnum.filter],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       },
       {
         type: TypeEnum.database,
         actions: [OperationEnum.create],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.trino, DatabaseEnum.presto, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       }
     ];
     opertions.push(server);

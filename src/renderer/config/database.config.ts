@@ -21,7 +21,7 @@ export class DatabaseConfig {
       TranslateUtils.getValue('tooltip.database.default'),
       DatabaseEnum.none,
       null);
-    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.mysql);
+    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.mysql, DatabaseEnum.postgresql);
     defaultEngines.push(defaultEngine);
     defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.atomic'),
       TranslateUtils.getValue('tooltip.database.atomic'),

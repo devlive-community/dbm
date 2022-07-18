@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef } from "@angular/core";
 import { DatasourceService } from "@renderer/services/management/datasource.service";
 import { DatasourceModel } from "@renderer/model/datasource.model";
 import { DatabaseService } from "@renderer/services/management/database.service";
@@ -15,6 +15,8 @@ import { MenuCommonService } from "@renderer/services/common/menu.common.service
 import { ConfigModel } from "@renderer/model/config.model";
 import { OperationModel } from "@renderer/model/operation.model";
 import { QueryService } from "@renderer/services/query/query.service";
+import { NzContextMenuService } from "ng-zorro-antd/dropdown";
+import { DefaultConfig } from "ngx-easy-table";
 import { ObjectUtils } from "@renderer/utils/object.utils";
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd/modal";
@@ -24,7 +26,7 @@ import { NzModalService } from "ng-zorro-antd/modal";
   templateUrl: 'query.beta.component.html',
   styleUrls: ['query.beta.component.scss']
 })
-export class QueryBetaComponent implements AfterViewInit {
+export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
   dataSpinning = {
     database: false,
     running: false
@@ -44,6 +46,7 @@ export class QueryBetaComponent implements AfterViewInit {
   dataSources: DatasourceModel[] = new Array<DatasourceModel>();
   selectDataSourceNodes: any[] = [];
   requestConfig: RequestModel;
+  applyClickType = TypeEnum;
   applyEditor = {
     value: null,
     configuration: {
@@ -55,28 +58,34 @@ export class QueryBetaComponent implements AfterViewInit {
     }
   };
   applyResult = {
+    configuration: {...DefaultConfig},
     headers: [],
     columns: [],
-    message: null,
-    height: 0,
-    width: 0
+    height: 0
   };
-  applyClickType = TypeEnum;
   applyClick = {
     type: TypeEnum.column,
     value: null,
     header: null
   }
 
-  constructor(private transactionService: TranslateService,
-              private modalService: NzModalService,
+  constructor(private nzContextMenuService: NzContextMenuService,
+              private elementRef: ElementRef,
+              private changeDetectorRef: ChangeDetectorRef,
               private datasourceService: DatasourceService,
               private databaseService: DatabaseService,
               private tableService: TableService,
               private columnService: ColumnService,
               private iconCommonService: IconCommonService,
               private menuCommonService: MenuCommonService,
-              private queryService: QueryService) {
+              private queryService: QueryService,
+              private translateService: TranslateService,
+              private modalService: NzModalService) {
+    this.applyResult.configuration.horizontalScroll = true;
+    this.applyResult.configuration.paginationRangeEnabled = false;
+    this.applyResult.configuration.searchEnabled = true;
+    this.applyResult.configuration.paginationEnabled = false;
+    this.applyResult.configuration.clickEvent = true;
     this.datasourceService.getAll().then(data => {
       this.dataSources = data.filter(item => item.type === DatabaseEnum.clickhosue);
     });
@@ -86,6 +95,19 @@ export class QueryBetaComponent implements AfterViewInit {
     setTimeout(() => {
       this.handlerResize();
     }, 0);
+  }
+
+  ngAfterViewChecked(): void {
+    const queryEditorContainer = this.elementRef.nativeElement.querySelector('#queryEditorContainer');
+    if (ObjectUtils.isNotNull(queryEditorContainer)) {
+      // Subtract the default bottom page height 64px
+      this.applyResult.height = this.bodySize.height - queryEditorContainer.offsetHeight - 64;
+    }
+    const queryResultContainer = this.elementRef.nativeElement.querySelector('#queryResultContainer');
+    if (ObjectUtils.isNotNull(queryResultContainer)) {
+      queryResultContainer.style.height = this.applyResult.height + 'px';
+    }
+    this.changeDetectorRef.detectChanges();
   }
 
   handlerResize() {
@@ -185,16 +207,6 @@ export class QueryBetaComponent implements AfterViewInit {
     // Cleared the last query data
     this.applyResult.headers = [];
     this.applyResult.columns = [];
-    this.applyResult.message = null;
-
-    new ResizeObserver(([entry] = []) => {
-      // Subtract the default bottom page height
-      const queryEditorContainer = document.getElementById('queryEditorContainer');
-      if (ObjectUtils.isNotNull(queryEditorContainer)) {
-        this.applyResult.height = this.bodySize.height - queryEditorContainer.offsetHeight - 100;
-        this.applyResult.width = queryEditorContainer.offsetWidth;
-      }
-    }).observe(document.body);
 
     this.datasourceService.findByAlias(this.selectData.dataSource)
       .then(currentDataSource => {
@@ -203,24 +215,21 @@ export class QueryBetaComponent implements AfterViewInit {
         this.queryService.forward(request, this.applyEditor.value)
           .then(response => {
             if (response.status) {
-              this.applyResult.headers = response.data.headers;
+              response.data.headers.forEach(column => {
+                this.applyResult.headers.push({key: column.name, title: column.name});
+              });
               this.applyResult.columns = response.data.columns;
+              if (this.applyResult.headers.length > 0) {
+                this.applyResult.columns = response.data.columns;
+                if (this.applyResult.columns.length > 0) {
+                  this.applyResult.configuration.paginationEnabled = true;
+                }
+              }
             } else {
-              this.applyResult.message = response.message;
             }
             this.dataSpinning.running = false;
           });
       });
-  }
-
-  handlerShowMoreEllipsis() {
-    this.modalService.error({
-      nzWidth: '80%',
-      nzKeyboard: false,
-      nzMaskClosable: false,
-      nzOkText: this.transactionService.instant('common.ok'),
-      nzContent: this.applyResult.message
-    });
   }
 
   handlerCellClick(cellType: TypeEnum, header: string, value: string) {
@@ -234,7 +243,7 @@ export class QueryBetaComponent implements AfterViewInit {
       nzWidth: '80%',
       nzKeyboard: false,
       nzMaskClosable: false,
-      nzOkText: this.transactionService.instant('common.ok'),
+      nzOkText: this.translateService.instant('common.ok'),
       nzContent: this.applyClick.value.toString()
     });
   }

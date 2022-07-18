@@ -4,7 +4,7 @@ export class PostgresqlConfig implements BaseConfig {
   columnDiskUsedRatio: string;
   columnItems: string;
   connectionFetchAll: string;
-  databaseCreate: string;
+  databaseCreate = `CREATE DATABASE {0}`;
   databaseDiskUsedRatio: string;
   databaseFetchAll = `
     SELECT datname AS name
@@ -12,9 +12,24 @@ export class PostgresqlConfig implements BaseConfig {
     WHERE datistemplate = false
     GROUP BY datname
   `;
-  databaseItems: string;
-  databaseItemsFilterFuzzy: string;
-  databaseItemsFilterPrecise: string;
+  databaseItems = `
+    SELECT datname AS name
+    FROM pg_database
+    WHERE datistemplate = false
+    GROUP BY datname
+  `;
+  databaseItemsFilterFuzzy = `
+    SELECT datname AS name
+    FROM pg_database
+    WHERE datistemplate = false AND datname LIKE '%{0}%'
+    GROUP BY datname
+  `;
+  databaseItemsFilterPrecise = `
+    SELECT datname AS name
+    FROM pg_database
+    WHERE datistemplate = false AND datname = '{0}'
+    GROUP BY datname
+  `;
   diskUsedRatio = `
     SELECT
       'default' AS name, '/' AS path,
@@ -31,7 +46,15 @@ export class PostgresqlConfig implements BaseConfig {
     ORDER BY category
   `;
   slowQueryFetchAll: string;
-  tableDiskUsedRatio: string;
+  tableDiskUsedRatio = `
+    SELECT
+      table_name AS name,
+      pg_total_relation_size('"' || table_schema || '"."' || table_name || '"') AS totalBytes,
+      pg_size_pretty(pg_total_relation_size('"' || table_schema || '"."' || table_name || '"')) AS totalSize
+    FROM information_schema.tables
+    WHERE table_catalog = '{0}'
+    ORDER BY table_schema, pg_total_relation_size('"' || table_schema || '"."' || table_name || '"') DESC
+  `;
   tableFetchAll = `
     SELECT table_name AS name
     FROM information_schema.tables

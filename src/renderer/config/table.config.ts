@@ -16,13 +16,13 @@ export class TableConfig {
     const defaultTable = new DatabaseModel();
     defaultTable.name = TranslateUtils.getValue('common.default');
     defaultTable.description = TranslateUtils.getValue('tooltip.table.default');
-    defaultTable.supportedSource = [DatabaseEnum.mysql];
+    defaultTable.supportedSource = [DatabaseEnum.mysql, DatabaseEnum.postgresql];
     const defaultEngines = new Array();
     const i_default = DatabaseModel.builder(TranslateUtils.getValue('common.default'),
       TranslateUtils.getValue('tooltip.table.default'),
       DatabaseEnum.none,
       null)
-    i_default.supportedSource = [DatabaseEnum.mysql];
+    i_default.supportedSource = [DatabaseEnum.mysql, DatabaseEnum.postgresql];
     defaultEngines.push(i_default);
     defaultTable.engines = defaultEngines;
     tableEngines.push(defaultTable);

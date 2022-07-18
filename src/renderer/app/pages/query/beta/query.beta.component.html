@@ -38,31 +38,21 @@
             </nz-button-group>
           </ng-template>
         </div>
-        <div nz-col class="gutter-row" [nzSpan]="24" [ngStyle]="{'height': applyResult.height}">
+        <div nz-col class="gutter-row" [nzSpan]="24">
           <nz-card>
             <nz-skeleton *ngIf="dataSpinning.running" [nzActive]="true"></nz-skeleton>
-            <div *ngIf="applyResult.headers.length > 0; else failedQueryTemplate" >
-              <nz-table #basicTable [nzData]="applyResult.columns" nzSize="small"
-                        [nzScroll]="{x: applyResult.width * 10 + 'px', y: applyResult.height + 'px'}">
-                <thead>
-                  <tr>
-                    <th *ngFor="let header of applyResult.headers" nzEllipsis>
-                      <div nz-popover nzPopoverTrigger="click" nzPopoverContent="{{header?.name}}">
-                        {{header?.name}}
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let column of basicTable.data">
-                    <td *ngFor="let header of applyResult.headers" nzEllipsis
+            <div *ngIf="applyResult.headers.length > 0" style="margin-top: 4px;">
+              <ngx-table [id]="'queryResultContainer'" [configuration]="applyResult.configuration"
+                         [data]="applyResult.columns" [columns]="applyResult.headers">
+                <ng-template let-row let-index="index">
+                    <td *ngFor="let header of applyResult.headers"
                         nz-dropdown nzTrigger="click" [nzDropdownMenu]="cellClickMenu"
-                        (click)="handlerCellClick(applyClickType.column, header, column[header.name])">
-                        {{column[header.name]}}
+                        (click)="handlerCellClick(applyClickType.column, header, row[header.key])"
+                        style="cursor: pointer;">
+                      {{row[header.key]}}
                     </td>
-                  </tr>
-                </tbody>
-              </nz-table>
+                </ng-template>
+              </ngx-table>
               <nz-dropdown-menu #cellClickMenu="nzDropdownMenu">
                 <ul *ngIf="applyClick.header" nz-menu>
                   <li nz-menu-item>
@@ -73,15 +63,6 @@
                 </ul>
               </nz-dropdown-menu>
             </div>
-            <ng-template #failedQueryTemplate>
-              <nz-alert *ngIf="applyResult.message" nzType="error" style="margin: 10px;"
-                        [nzDescription]="descriptionTemplate">
-              </nz-alert>
-              <ng-template #descriptionTemplate>
-                <div style ="width: {{applyResult.width - 45}}px; height: {{applyResult.height + 42}}px;"  ellipsis="  ... {{'common.more'|translate}}" [ellipsis-content]="applyResult.message"
-                     (ellipsis-click-more)="handlerShowMoreEllipsis()"></div>
-              </ng-template>
-            </ng-template>
           </nz-card>
         </div>
       </div>

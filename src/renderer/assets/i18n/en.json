@@ -168,7 +168,8 @@
     "mysql": "MySQL",
     "postgresql": "PostgreSQL",
     "stop": "Stop",
-    "location": "Location"
+    "location": "Location",
+    "failed": "Failed"
   },
   "language": {
     "english": "English",

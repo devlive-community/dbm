@@ -167,7 +167,8 @@
     "mysql": "MySQL",
     "postgresql": "PostgreSQL",
     "stop": "停止",
-    "location": "位置"
+    "location": "位置",
+    "failed": "失败"
   },
   "language": {
     "english": "英语",

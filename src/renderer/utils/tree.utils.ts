@@ -3,7 +3,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 
 export class TreeUtils {
-  public static builderTreeNode(array, type): ConfigModel[] {
+  public static builderTreeNode(array, type, isLeaf?: boolean): ConfigModel[] {
     const elements = new Array();
     if (StringUtils.getLength(array) > 0) {
       array.forEach(e => {
@@ -22,6 +22,7 @@ export class TreeUtils {
         if (StringUtils.isNotEmpty(e.table)) {
           element.table = e.table;
         }
+        element.isLeaf = isLeaf;
         element.type = type;
         elements.push(element);
       });

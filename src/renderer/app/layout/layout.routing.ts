@@ -14,6 +14,10 @@ const LAYOUT_ROUTES: Routes = [
         loadChildren: () => import('../pages/home/home.module').then(m => m.HomeModule)
       },
       {
+        path: 'query/beta',
+        loadChildren: () => import('../pages/query/beta/query.beta.module').then(m => m.QueryBetaModule)
+      },
+      {
         path: 'query',
         children: [
           {

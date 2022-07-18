@@ -1,0 +1,62 @@
+.ant-layout {
+  background-color: #ffffff;
+}
+
+.ant-layout-sider {
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.ant-layout-header {
+  background-color: #ffffff;
+  padding: 0 0 0 5px;
+}
+
+.ant-layout-content {
+  background-color: #ffffff;
+  padding: 5px 0 0 5px;
+  margin-top: -10px;
+}
+
+:host ::ng-deep .ant-card-small>.ant-card-head {
+  padding: 0;
+  min-height: 32px;
+}
+
+:host ::ng-deep .ant-card-small>.ant-card-body {
+  padding: 0;
+}
+
+:host ::ng-deep .ant-divider-horizontal {
+  margin: 0;
+}
+
+:host ::ng-deep .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: 0px solid #d9d9d9;
+}
+
+:host ::ng-deep .ant-card-small>.ant-card-head>.ant-card-head-wrapper>.ant-card-head-title {
+  padding: 0;
+}
+
+:host ::ng-deep .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  box-shadow: 0 0 0 0 rgb(24 144 255 / 20%);
+  border-right-width: 0px;
+}
+
+:host ::ng-deep .ant-card-actions>li {
+  margin: 4px;
+  text-align: unset;
+}
+
+:host ::ng-deep .ant-btn-group .ant-btn+.ant-btn {
+  margin-left: -9px;
+}
+
+:host ::ng-deep .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+  cursor: pointer;
+}
+
+:host ::ng-deep .ant-btn-text:focus, .ant-btn-text:hover {
+  background: #f5f5f5;
+}

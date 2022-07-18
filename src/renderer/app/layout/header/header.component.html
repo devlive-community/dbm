@@ -5,6 +5,7 @@
     </a>
   </div>
   <ul nz-menu nzMode="horizontal">
+    <li nz-submenu [nzTitle]="betaQueryTitle"></li>
     <li nz-submenu [nzTitle]="queryMenuItemTitle">
       <ul>
         <li nz-menu-item>
@@ -114,6 +115,13 @@
   </ng-template>
   <ng-template #githubItemTitle>
     <i class="fa fa-github"></i>&nbsp;{{'common.github'|translate}}
+  </ng-template>
+  <ng-template #betaQueryTitle>
+    <nz-ribbon nzColor="#f50" [nzText]="'beta'">
+      <a [routerLink]="['/query/beta']" class="dropdown-item">
+        <i nz-icon nzType="console-sql" nzTheme="outline"></i> {{'common.query'|translate}}
+      </a>
+    </nz-ribbon>
   </ng-template>
 </nz-header>
 <nz-modal [(nzVisible)]="dialog.update" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"

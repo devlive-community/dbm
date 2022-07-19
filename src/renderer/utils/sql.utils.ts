@@ -7,7 +7,7 @@ export class SqlUtils {
   }
 
   static getTableName(database: string, table: string): string {
-    return StringUtils.format('`{0}`.`{1}`', [database, table]);
+    return StringUtils.format('{0}.{1}', [database, table]);
   }
 
   /**

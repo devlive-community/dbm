@@ -78,7 +78,15 @@ export class PostgresqlConfig implements BaseConfig {
   version = `SELECT current_setting('server_version') AS version`;
   stopProcessor: string;
   showCreateDatabase: string;
-  showTableWithSize: string;
+  showTableWithSize = `
+    SELECT
+      table_name AS name,
+      pg_total_relation_size('"' || table_schema || '"."' || table_name || '"') AS totalBytes,
+      pg_size_pretty(pg_total_relation_size('"' || table_schema || '"."' || table_name || '"')) AS totalSize
+    FROM information_schema.tables
+    WHERE table_schema = '{0}'
+    ORDER BY table_schema, pg_total_relation_size('"' || table_schema || '"."' || table_name || '"') DESC
+  `;
   columnRename: string;
   columnAddComment: string;
 }

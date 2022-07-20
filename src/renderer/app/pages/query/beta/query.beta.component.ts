@@ -278,4 +278,10 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
   handlerFormatter() {
     this.applyEditor.value = SqlUtils.formatter(this.applyEditor.value);
   }
+
+  handlerCancel() {
+    this.dataSpinning.running = false;
+    this.applyResult.status = false;
+    this.applyResult.message = this.translateService.instant('common.cancel');
+  }
 }

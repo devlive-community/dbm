@@ -40,6 +40,10 @@
               <i nz-icon nzType="format-painter" nzTheme="outline"></i>
               {{'common.format'|translate}}
             </button>
+            <button nz-button nzDanger nzType="primary" [disabled]="!dataSpinning.running" (click)="handlerCancel()">
+              <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+              {{'common.cancel'|translate}}
+            </button>
           </ng-template>
         </div>
         <div nz-col class="gutter-row" [nzSpan]="24">

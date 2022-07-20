@@ -34,7 +34,7 @@ export class OperationConfig {
       {
         type: TypeEnum.table,
         actions: [OperationEnum.create],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       },
       {
         type: TypeEnum.table,
@@ -44,7 +44,7 @@ export class OperationConfig {
       {
         type: TypeEnum.database,
         actions: [OperationEnum.delete],
-        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql, DatabaseEnum.postgresql]
       },
       {
         type: TypeEnum.database,

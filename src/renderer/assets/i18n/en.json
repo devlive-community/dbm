@@ -169,7 +169,8 @@
     "postgresql": "PostgreSQL",
     "stop": "Stop",
     "location": "Location",
-    "failed": "Failed"
+    "failed": "Failed",
+    "druid": "Druid"
   },
   "language": {
     "english": "English",
@@ -278,7 +279,8 @@
       "trino": "Integrate Trino data sources",
       "presto": "Integrate Presto data sources",
       "mysql": "Integrate MySQL data sources",
-      "postgresql": "Integrate PostgreSQL data sources"
+      "postgresql": "Integrate PostgreSQL data sources",
+      "druid": "Integrate Druid data sources"
     }
   },
   "alert": {

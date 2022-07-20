@@ -168,7 +168,8 @@
     "postgresql": "PostgreSQL",
     "stop": "停止",
     "location": "位置",
-    "failed": "失败"
+    "failed": "失败",
+    "druid": "Druid"
   },
   "language": {
     "english": "英语",
@@ -279,7 +280,8 @@
       "trino": "整合Trino数据源",
       "presto": "整合Presto数据源",
       "mysql": "整合MySQL数据源",
-      "postgresql": "整合PostgreSQL数据源"
+      "postgresql": "整合PostgreSQL数据源",
+      "druid": "整合Druid数据源"
     }
   },
   "alert": {

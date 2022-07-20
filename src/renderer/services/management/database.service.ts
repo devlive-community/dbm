@@ -9,6 +9,7 @@ import { BasicService } from '@renderer/services/system/basic.service';
 import { ForwardService } from '@renderer/services/forward.service';
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
+import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 
 @Injectable()
 export class DatabaseService extends ForwardService implements BaseService {
@@ -16,8 +17,9 @@ export class DatabaseService extends ForwardService implements BaseService {
               factoryService: FactoryService,
               sshService: SshService,
               basicService: BasicService,
-              mysqlService: MySQLService) {
-    super(basicService, factoryService, httpService, sshService, null, mysqlService);
+              mysqlService: MySQLService,
+              postgresqlService: PostgresqlService) {
+    super(basicService, factoryService, httpService, sshService, null, mysqlService, postgresqlService);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

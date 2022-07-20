@@ -6,6 +6,7 @@ export class DatasourceModel {
   alias: string;
   host: string;
   port: number = 8123;
+  url: string;
   username: string;
   password: string;
   status = false;

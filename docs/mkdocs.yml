@@ -25,7 +25,7 @@ theme:
     - content.code.annotate
     - content.tabs.link
     #    - header.autohide
-    #    - navigation.expand
+    - navigation.expand
     - navigation.indexes
     #    - navigation.instant
     - navigation.sections
@@ -132,6 +132,7 @@ plugins:
           Datasource_Presto_Trino: Presto & Trino (Experimental)
           Datasource_ClickHouse: ClickHouse
           Datasource_PostgreSQL: PostgreSQL (Experimental)
+          Datasource_Druid: Druid (Experimental)
         zh:
           Home: 主页
           Documentation: 文档
@@ -154,6 +155,7 @@ plugins:
           Datasource_Presto_Trino: Presto & Trino (Experimental)
           Datasource_ClickHouse: ClickHouse
           Datasource_PostgreSQL: PostgreSQL (Experimental)
+          Datasource_Druid: Druid (Experimental)
   - redirects:
       redirect_maps:
         release-latest.md: release/1.20.0-20220706.md
@@ -172,6 +174,7 @@ nav:
             - Datasource_Presto_Trino: reference/management/datasource/presto_trino.md
             - Datasource_MySQL: reference/management/datasource/mysql.md
             - Datasource_PostgreSQL: reference/management/datasource/postgresql.md
+            - Datasource_Druid: reference/management/datasource/druid.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md

@@ -20,6 +20,8 @@ import { DefaultConfig } from "ngx-easy-table";
 import { ObjectUtils } from "@renderer/utils/object.utils";
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd/modal";
+import { StringUtils } from "@renderer/utils/string.utils";
+import { SqlUtils } from "@renderer/utils/sql.utils";
 
 @Component({
   selector: 'app-query-beta',
@@ -61,7 +63,10 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     configuration: {...DefaultConfig},
     headers: [],
     columns: [],
-    height: 0
+    message: null,
+    status: false,
+    height: 0,
+    width: 0
   };
   applyClick = {
     type: TypeEnum.column,
@@ -102,6 +107,10 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     if (ObjectUtils.isNotNull(queryEditorContainer)) {
       // Subtract the default bottom page height 64px
       this.applyResult.height = this.bodySize.height - queryEditorContainer.offsetHeight - 64;
+      if (StringUtils.isNotEmpty(this.applyResult.message)) {
+        this.applyResult.height = this.applyResult.height - 36;
+      }
+      this.applyResult.width = queryEditorContainer.offsetWidth;
     }
     const queryResultContainer = this.elementRef.nativeElement.querySelector('#queryResultContainer');
     if (ObjectUtils.isNotNull(queryResultContainer)) {
@@ -207,6 +216,8 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     // Cleared the last query data
     this.applyResult.headers = [];
     this.applyResult.columns = [];
+    this.applyResult.message = null;
+    this.applyResult.status = false;
 
     this.datasourceService.findByAlias(this.selectData.dataSource)
       .then(currentDataSource => {
@@ -214,18 +225,24 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
         request.config = currentDataSource;
         this.queryService.forward(request, this.applyEditor.value)
           .then(response => {
+            this.applyResult.status = response.status;
             if (response.status) {
-              response.data.headers.forEach(column => {
-                this.applyResult.headers.push({key: column.name, title: column.name});
-              });
-              this.applyResult.columns = response.data.columns;
-              if (this.applyResult.headers.length > 0) {
+              if (ObjectUtils.isNotNull(response.data)) {
+                response.data.headers.forEach(column => {
+                  this.applyResult.headers.push({key: column.name, title: column.name});
+                });
                 this.applyResult.columns = response.data.columns;
-                if (this.applyResult.columns.length > 0) {
-                  this.applyResult.configuration.paginationEnabled = true;
+                if (this.applyResult.headers.length > 0) {
+                  this.applyResult.columns = response.data.columns;
+                  if (this.applyResult.columns.length > 0) {
+                    this.applyResult.configuration.paginationEnabled = true;
+                  }
                 }
+              } else {
+                this.applyResult.message = response.message;
               }
             } else {
+              this.applyResult.message = response.message;
             }
             this.dataSpinning.running = false;
           });
@@ -246,5 +263,25 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
       nzOkText: this.translateService.instant('common.ok'),
       nzContent: this.applyClick.value.toString()
     });
+  }
+
+  handlerShowMoreEllipsis() {
+    this.modalService.error({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.translateService.instant('common.ok'),
+      nzContent: this.applyResult.message
+    });
+  }
+
+  handlerFormatter() {
+    this.applyEditor.value = SqlUtils.formatter(this.applyEditor.value);
+  }
+
+  handlerCancel() {
+    this.dataSpinning.running = false;
+    this.applyResult.status = false;
+    this.applyResult.message = this.translateService.instant('common.cancel');
   }
 }

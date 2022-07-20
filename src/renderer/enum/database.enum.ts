@@ -20,5 +20,6 @@ export enum DatabaseEnum {
   clickhosue = 'ClickHouse',
   trino = 'Trino',
   presto = 'Presto',
-  postgresql = 'PostgreSQL'
+  postgresql = 'PostgreSQL',
+  druid = 'Druid'
 }

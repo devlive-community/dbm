@@ -36,6 +36,10 @@
                 <i nz-icon nzType="caret-right"></i> {{'common.execute'|translate}}
               </button>
             </nz-button-group>
+            <button nz-button nzType="primary" (click)="handlerFormatter()">
+              <i nz-icon nzType="format-painter" nzTheme="outline"></i>
+              {{'common.format'|translate}}
+            </button>
           </ng-template>
         </div>
         <div nz-col class="gutter-row" [nzSpan]="24">

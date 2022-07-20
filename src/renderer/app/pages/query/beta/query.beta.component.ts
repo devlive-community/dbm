@@ -21,6 +21,7 @@ import { ObjectUtils } from "@renderer/utils/object.utils";
 import { TranslateService } from "@ngx-translate/core";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { StringUtils } from "@renderer/utils/string.utils";
+import { SqlUtils } from "@renderer/utils/sql.utils";
 
 @Component({
   selector: 'app-query-beta',
@@ -272,5 +273,9 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
       nzOkText: this.translateService.instant('common.ok'),
       nzContent: this.applyResult.message
     });
+  }
+
+  handlerFormatter() {
+    this.applyEditor.value = SqlUtils.formatter(this.applyEditor.value);
   }
 }

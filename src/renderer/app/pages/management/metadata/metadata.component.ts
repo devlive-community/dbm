@@ -56,8 +56,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         configModel.title = k.alias;
         configModel.type = TypeEnum.disk;
         configModel.disabled = k.status ? false : true;
-        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino) {
+        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino || k.type === DatabaseEnum.druid) {
           configModel.isLeaf = true;
+        }
+        if (k.type === DatabaseEnum.druid) {
+          configModel.disabled = true;
         }
         if (configModel.disabled) {
           configModel.isLeaf = true;

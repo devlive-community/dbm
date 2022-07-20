@@ -6,6 +6,7 @@ import { DefaultBuilder } from "@renderer/services/builder/default.builder";
 import { ClickhouseBuilder } from "@renderer/services/builder/clickhouse.builder";
 import { PrestoConfig } from "@renderer/config/plugin/presto.config";
 import { ClickhouseConfig } from "@renderer/config/plugin/clickhouse.config";
+import { DruidConfig } from "@renderer/config/plugin/druid.config";
 
 export class FactoryService {
   public forward(type: string) {
@@ -19,6 +20,8 @@ export class FactoryService {
         return Factory.create(MySQLConfig);
       case DatabaseEnum.postgresql:
         return Factory.create(PostgresqlConfig);
+      case DatabaseEnum.druid:
+        return Factory.create(DruidConfig);
       default:
         new Error("Unsupported database type");
         return null;

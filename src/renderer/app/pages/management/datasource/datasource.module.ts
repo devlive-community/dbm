@@ -26,6 +26,7 @@ import { DatasourceDeleteComponent } from "@renderer/components/datasource/delet
 import {
     DatasourcePostgresqlComponent
 } from "@renderer/components/datasource/postgresql/datasource.postgresql.component";
+import { DatasourceDruidComponent } from "@renderer/components/datasource/druid/datasource.druid.component";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -51,7 +52,8 @@ const DATASOURCE_ROUTES: Routes = [
         DatasourceTrinoComponent,
         DatasourceMysqlComponent,
         DatasourceDeleteComponent,
-        DatasourcePostgresqlComponent
+        DatasourcePostgresqlComponent,
+        DatasourceDruidComponent
     ],
   providers: [
     DatasourceService,

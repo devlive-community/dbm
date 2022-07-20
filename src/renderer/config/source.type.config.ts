@@ -61,6 +61,14 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/PostgreSQL.svg'));
+    // Apache Druid
+    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.druid'),
+      TranslateUtils.getValue('tooltip.source.druid'),
+      DatabaseEnum.druid,
+      null,
+      true,
+      null,
+      './renderer/assets/icon/source/Druid.svg'));
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

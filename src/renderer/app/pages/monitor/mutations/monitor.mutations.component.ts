@@ -34,7 +34,8 @@ export class MonitorMutationsComponent extends BaseComponent implements OnDestro
       this.dataSources = response.map(item => {
         if (item.type === DatabaseEnum.trino || item.type === DatabaseEnum.presto
           || item.type === DatabaseEnum.mysql
-          || item.type === DatabaseEnum.postgresql) {
+          || item.type === DatabaseEnum.postgresql
+          || item.type === DatabaseEnum.druid) {
           item.status = false;
         }
         return item;

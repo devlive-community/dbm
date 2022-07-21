@@ -76,6 +76,15 @@ export class DatabaseConfig {
       properties,
       true);
     experimentalEngines.push(materializedMysql);
+
+    // MaterializedPostgreSQL
+    const materializedPostgreSQL = DatabaseModel.builder(TranslateUtils.getValue('common.materialized_postgresql'),
+      TranslateUtils.getValue('tooltip.database.materialized_postgresql'),
+      DatabaseEnum.materialized_postgresql,
+      properties,
+      true);
+    experimentalEngines.push(materializedPostgreSQL);
+
     experimentalDatabase.engines = experimentalEngines;
     return databaseEngines;
   }

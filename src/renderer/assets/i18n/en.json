@@ -170,7 +170,8 @@
     "stop": "Stop",
     "location": "Location",
     "failed": "Failed",
-    "druid": "Druid"
+    "druid": "Druid",
+    "materialized_postgresql": "MaterializePostgreSQL"
   },
   "language": {
     "english": "English",
@@ -226,7 +227,8 @@
       "atomic": "It supports non-blocking DROP TABLE and RENAME TABLE queries and atomic EXCHANGE TABLES queries. Atomic database engine is used by default.",
       "lazy": "Keeps tables in RAM only expiration_time_in_seconds seconds after last access. Can be used only with *Log tables.",
       "mysql": "Allows to connect to databases on a remote MySQL server and perform INSERT and SELECT queries to exchange data between ClickHouse and MySQL.",
-      "materialized_mysql": "Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables. ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries."
+      "materialized_mysql": "Creates ClickHouse database with all the tables existing in MySQL, and all the data in those tables. ClickHouse server works as MySQL replica. It reads binlog and performs DDL and DML queries.",
+      "materialized_postgresql": "Creates a ClickHouse database with tables from PostgreSQL database. Firstly, database with engine MaterializedPostgreSQL creates a snapshot of PostgreSQL database and loads required tables. Required tables can include any subset of tables from any subset of schemas from specified database. Along with the snapshot database engine acquires LSN and once initial dump of tables is performed - it starts pulling updates from WAL. After database is created, newly added tables to PostgreSQL database are not automatically added to replication. They have to be added manually with ATTACH TABLE db.table query."
     },
     "table": {
       "log": "Lightweight engines with minimum functionality. They’re the most effective when you need to quickly write many small tables (up to approximately 1 million rows) and read them later as a whole.",

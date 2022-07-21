@@ -4,6 +4,7 @@ export enum DatabaseEnum {
   lazy = 'Lazy',
   mysql = 'MySQL',
   materialized_mysql = 'MaterializedMySQL',
+  materialized_postgresql = 'MaterializedPostgreSQL',
 
   // Table Engine
   log = 'Log',

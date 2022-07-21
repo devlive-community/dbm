@@ -1,27 +1,28 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef } from "@angular/core";
-import { DatasourceService } from "@renderer/services/management/datasource.service";
-import { DatasourceModel } from "@renderer/model/datasource.model";
-import { DatabaseService } from "@renderer/services/management/database.service";
-import { RequestModel } from "@renderer/model/request.model";
-import { TreeUtils } from "@renderer/utils/tree.utils";
-import { TypeEnum } from "@renderer/enum/type.enum";
-import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
-import { TableService } from "@renderer/services/management/table.service";
-import { ColumnService } from "@renderer/services/management/column.service";
-import { DatabaseModel } from "@renderer/model/database.model";
-import { IconCommonService } from "@renderer/services/common/icon.common.service";
-import { DatabaseEnum } from "@renderer/enum/database.enum";
-import { MenuCommonService } from "@renderer/services/common/menu.common.service";
-import { ConfigModel } from "@renderer/model/config.model";
-import { OperationModel } from "@renderer/model/operation.model";
-import { QueryService } from "@renderer/services/query/query.service";
-import { NzContextMenuService } from "ng-zorro-antd/dropdown";
-import { DefaultConfig } from "ngx-easy-table";
-import { ObjectUtils } from "@renderer/utils/object.utils";
 import { TranslateService } from "@ngx-translate/core";
-import { NzModalService } from "ng-zorro-antd/modal";
-import { StringUtils } from "@renderer/utils/string.utils";
+import { DatabaseEnum } from "@renderer/enum/database.enum";
+import { TypeEnum } from "@renderer/enum/type.enum";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { ConfigModel } from "@renderer/model/config.model";
+import { DatabaseModel } from "@renderer/model/database.model";
+import { DatasourceModel } from "@renderer/model/datasource.model";
+import { OperationModel } from "@renderer/model/operation.model";
+import { RequestModel } from "@renderer/model/request.model";
+import { IconCommonService } from "@renderer/services/common/icon.common.service";
+import { MenuCommonService } from "@renderer/services/common/menu.common.service";
+import { ColumnService } from "@renderer/services/management/column.service";
+import { DatabaseService } from "@renderer/services/management/database.service";
+import { DatasourceService } from "@renderer/services/management/datasource.service";
+import { TableService } from "@renderer/services/management/table.service";
+import { QueryService } from "@renderer/services/query/query.service";
+import { ObjectUtils } from "@renderer/utils/object.utils";
 import { SqlUtils } from "@renderer/utils/sql.utils";
+import { StringUtils } from "@renderer/utils/string.utils";
+import { TreeUtils } from "@renderer/utils/tree.utils";
+import { NzContextMenuService } from "ng-zorro-antd/dropdown";
+import { NzModalService } from "ng-zorro-antd/modal";
+import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
+import { DefaultConfig } from "ngx-easy-table";
 
 @Component({
   selector: 'app-query-beta',
@@ -74,8 +75,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     header: null
   }
 
-  constructor(private nzContextMenuService: NzContextMenuService,
-              private elementRef: ElementRef,
+  constructor(private elementRef: ElementRef,
               private changeDetectorRef: ChangeDetectorRef,
               private datasourceService: DatasourceService,
               private databaseService: DatabaseService,
@@ -83,9 +83,9 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
               private columnService: ColumnService,
               private iconCommonService: IconCommonService,
               private menuCommonService: MenuCommonService,
-              private queryService: QueryService,
               private translateService: TranslateService,
-              private modalService: NzModalService) {
+              private modalService: NzModalService,
+              private pluginFactory: PluginFactory) {
     this.applyResult.configuration.horizontalScroll = true;
     this.applyResult.configuration.paginationRangeEnabled = false;
     this.applyResult.configuration.searchEnabled = true;
@@ -223,7 +223,8 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
       .then(currentDataSource => {
         const request = new RequestModel();
         request.config = currentDataSource;
-        this.queryService.forward(request, this.applyEditor.value)
+        this.pluginFactory.createService(currentDataSource.type)
+          .getResponse(request, this.applyEditor.value)
           .then(response => {
             this.applyResult.status = response.status;
             if (response.status) {

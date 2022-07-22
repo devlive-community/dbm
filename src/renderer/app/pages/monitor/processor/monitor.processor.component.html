@@ -53,10 +53,8 @@
                     (click)="handlerShowModal(column, 'ddl')">
               <i class="fa fa-search"></i>
             </button>
-            <button *ngIf="currentDataSource.type === dataSourceType.clickhosue" nz-button nzShape="circle"
-                    nzSize="small" nzDanger nzType="primary"
-                    nz-tooltip nzTooltipTitle="{{'common.stop' | translate}}"
-                    (click)="handlerShowModal(column)">
+            <button nz-button nzShape="circle" nzSize="small" nzDanger nzType="primary"
+                    nz-tooltip nzTooltipTitle="{{'common.stop' | translate}}" (click)="handlerShowModal(column)">
               <i class="fa fa-stop-circle"></i>
             </button>
           </td>

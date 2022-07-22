@@ -106,7 +106,7 @@ WHERE table_schema = '{0}' AND table_name = '{1}'
   `;
   tableSchemaFetchAll: string;
   version = `SELECT version() AS version`;
-  stopProcessor: string;
+  stopProcessor = `kill query {0}`;
   showCreateDatabase = 'SHOW CREATE DATABASE `{0}`';
   showTableWithSize = `
 SELECT

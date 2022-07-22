@@ -61,7 +61,7 @@ export class PrestoConfig implements BaseConfig {
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;
   serverInfo = this.version;
-  stopProcessor: string;
+  stopProcessor = `CALL system.runtime.kill_query(query_id => '{0}', message => 'Use dbm client kill {0} this query')`;
   showCreateDatabase: string;
   showTableWithSize: string;
   columnRename: string;

@@ -47,6 +47,9 @@ export class ForwardService {
           case DatabaseEnum.postgresql:
             response = this.postgresqlService.execute(configure, sql);
             break
+          case DatabaseEnum.druid:
+            response = this.httpService.post(UrlUtils.formatUrl(request), sql, true);
+            break
         }
         return response;
       case 'SSH':

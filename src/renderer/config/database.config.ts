@@ -21,7 +21,7 @@ export class DatabaseConfig {
       TranslateUtils.getValue('tooltip.database.default'),
       DatabaseEnum.none,
       null);
-    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.mysql);
+    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.mysql, DatabaseEnum.postgresql);
     defaultEngines.push(defaultEngine);
     defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.atomic'),
       TranslateUtils.getValue('tooltip.database.atomic'),
@@ -76,6 +76,15 @@ export class DatabaseConfig {
       properties,
       true);
     experimentalEngines.push(materializedMysql);
+
+    // MaterializedPostgreSQL
+    const materializedPostgreSQL = DatabaseModel.builder(TranslateUtils.getValue('common.materialized_postgresql'),
+      TranslateUtils.getValue('tooltip.database.materialized_postgresql'),
+      DatabaseEnum.materialized_postgresql,
+      properties,
+      true);
+    experimentalEngines.push(materializedPostgreSQL);
+
     experimentalDatabase.engines = experimentalEngines;
     return databaseEngines;
   }

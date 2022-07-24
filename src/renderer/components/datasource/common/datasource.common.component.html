@@ -10,3 +10,6 @@
 <app-component-datasource-postgresql [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
                                      *ngIf="configure.type === datasourceType.postgresql">
 </app-component-datasource-postgresql>
+<app-component-datasource-druid [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
+                                *ngIf="configure.type === datasourceType.druid">
+</app-component-datasource-druid>

@@ -4,6 +4,7 @@ export enum DatabaseEnum {
   lazy = 'Lazy',
   mysql = 'MySQL',
   materialized_mysql = 'MaterializedMySQL',
+  materialized_postgresql = 'MaterializedPostgreSQL',
 
   // Table Engine
   log = 'Log',
@@ -20,5 +21,6 @@ export enum DatabaseEnum {
   clickhosue = 'ClickHouse',
   trino = 'Trino',
   presto = 'Presto',
-  postgresql = 'PostgreSQL'
+  postgresql = 'PostgreSQL',
+  druid = 'Druid'
 }

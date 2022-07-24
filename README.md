@@ -12,6 +12,12 @@
 [中文](http://dbm-zh.edurt.io/) <br />
 [English](https://dbm.edurt.io/)
 
+## Security
+
+---
+
+[![OSCS Status](https://www.oscs1024.com/platform/badge/qianmoQ/dbm.git.svg?size=small)](https://www.murphysec.com/dr/jv6PXUWIeGXUsjTRup)
+
 ## Contributors
 
 ---
@@ -90,6 +96,7 @@ Here are some of the major database solutions that are supported:
   <img src="./src/shared/assets/integrate/presto.png" alt="Presto" class="a" width="152" height="46"/>
   <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" class="a" width="auto" height="50"/>
   <img src="./src/shared/assets/integrate/postgresql.png" alt="PostgreSQL" class="a" width="auto" height="50"/>
+  <img src="./src/shared/assets/integrate/druid.png" alt="Druid" class="a" width="auto" height="34"/>
 </p>
 
 ## Features

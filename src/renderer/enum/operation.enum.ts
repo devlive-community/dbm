@@ -13,5 +13,10 @@ export enum OperationEnum {
   filter = ('filter'),
   ttl = ('ttl'),
   ttl_modify = ('ttl_modify'),
-  ttl_remove = ('ttl_remove')
+  ttl_remove = ('ttl_remove'),
+  copy = ('copy'),
+
+  select_from = ('select_from'),
+  select_all = ('select_all'),
+  select_all_count = ('select_all_count'),
 }

@@ -90,4 +90,13 @@ The current Trino release is version <img src="https://img.shields.io/github/v/r
     * **Issues**: [GitHub issues](https://github.com/trinodb/trino/issues)
     * **Source Code**: [Code](https://github.com/trinodb/trino)
     * **YouTube channel** [YouTube channel](https://www.youtube.com/c/trinodb)
+
+- __Druid__
+
+    ---
+
+    * **Documentation**: [trino.io](https://druid.apache.org/docs/latest/design/)
+    * **Issues**: [GitHub issues](https://github.com/apache/druid/issues)
+    * **Source Code**: [Code](https://github.com/apache/druid)
+    * **Meetups** [Meetups](https://www.meetup.com/topics/apache-druid/)
 </div>

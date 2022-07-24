@@ -5,10 +5,9 @@
              [nzTreeTemplate]="nzTreeTemplate">
     </nz-tree>
     <ng-template #nzTreeTemplate let-node let-origin="origin">
-      <span (contextmenu)="handlerContextMenu($event, menu, origin)">
-        <i class="fa fa-{{origin.type}}"></i>&nbsp;{{origin.title}}
-        <em *ngIf="origin?.children" class="f50">({{origin?.children.length}})</em>
-      </span>
+      <i (contextmenu)="handlerContextMenu($event, menu, origin)"
+         class="fa fa-{{origin.type}}">&nbsp;{{origin.title}}&nbsp;<em *ngIf="origin?.children"
+                                                                                         class="f50">({{origin?.children.length}})</em></i>
     </ng-template>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>

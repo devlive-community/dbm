@@ -29,7 +29,7 @@ export class MonitorQueryComponent extends BaseComponent {
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.mysql || item.type === DatabaseEnum.postgresql) {
+        if (item.type === DatabaseEnum.mysql || item.type === DatabaseEnum.postgresql || item.type === DatabaseEnum.druid) {
           item.status = false;
         }
         return item;

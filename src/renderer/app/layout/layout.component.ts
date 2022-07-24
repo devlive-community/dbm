@@ -23,16 +23,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
       }
 
       nz-content {
-        padding: 0 10px;
+        padding: 0 10px 10px 10px;
       }
 
       nz-footer {
         text-align: center;
-      }
-
-      .inner-content {
-        padding: 24px;
-        min-height: 280px;
       }
 
       .ant-layout {

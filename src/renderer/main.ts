@@ -14,6 +14,15 @@ import 'codemirror/addon/fold/foldgutter';
 import 'codemirror/addon/fold/brace-fold';
 import 'codemirror/addon/fold/comment-fold';
 
+import 'brace';
+import 'brace/mode/sql';
+import 'brace/ext/language_tools';
+import 'brace/ext/static_highlight';
+import 'brace/ext/statusbar';
+import 'brace/ext/beautify';
+import 'brace/theme/eclipse';
+import 'brace/theme/monokai';
+
 if (environment.production) {
   enableProdMode();
 }

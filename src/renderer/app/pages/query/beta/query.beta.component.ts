@@ -14,12 +14,10 @@ import { ColumnService } from "@renderer/services/management/column.service";
 import { DatabaseService } from "@renderer/services/management/database.service";
 import { DatasourceService } from "@renderer/services/management/datasource.service";
 import { TableService } from "@renderer/services/management/table.service";
-import { QueryService } from "@renderer/services/query/query.service";
 import { ObjectUtils } from "@renderer/utils/object.utils";
 import { SqlUtils } from "@renderer/utils/sql.utils";
 import { StringUtils } from "@renderer/utils/string.utils";
 import { TreeUtils } from "@renderer/utils/tree.utils";
-import { NzContextMenuService } from "ng-zorro-antd/dropdown";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
 import { DefaultConfig } from "ngx-easy-table";
@@ -208,7 +206,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     configure.table = this.selectData.table;
     configure.value = this.selectData.currentValue.key;
     configure.request = this.requestConfig;
-    this.menuCommonService.applySqlForOperation(command, configure);
+    this.applyEditor.value = this.menuCommonService.applySqlForOperation(command, configure);
   }
 
   handlerExecute() {

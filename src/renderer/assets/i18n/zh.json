@@ -16,7 +16,6 @@
     "action": "操作",
     "delete": "删除",
     "edit": "修改",
-    "name": "名称",
     "query": "查询",
     "execute": "执行",
     "history": "历史",
@@ -24,9 +23,7 @@
     "cancel": "取消",
     "select": "选择",
     "quick": "Quick",
-    "result": "结果",
     "editor": "编辑器",
-    "id": "ID",
     "server": "服务",
     "state": "状态",
     "time": "时间",
@@ -74,7 +71,6 @@
     "atomic": "Atomic",
     "expiration": "过期",
     "lazy": "Lazy",
-    "mysql": "MySQL",
     "materialized_mysql": "MaterializeMySQL",
     "github": "GitHub",
     "drop": "Drop",
@@ -138,7 +134,6 @@
     "remove": "移除",
     "status": "状态",
     "success": "成功",
-    "description": "描述",
     "comment": "评论",
     "snippet": "片段",
     "id": "标记",
@@ -170,7 +165,8 @@
     "location": "位置",
     "failed": "失败",
     "druid": "Druid",
-    "materialized_postgresql": "MaterializePostgreSQL"
+    "materialized_postgresql": "MaterializePostgreSQL",
+    "elasticsearch": "ElasticSearch"
   },
   "language": {
     "english": "英语",
@@ -283,7 +279,8 @@
       "presto": "整合Presto数据源",
       "mysql": "整合MySQL数据源",
       "postgresql": "整合PostgreSQL数据源",
-      "druid": "整合Druid数据源"
+      "druid": "整合Druid数据源",
+      "elasticsearch": "整合ElasticSearch数据源"
     }
   },
   "alert": {

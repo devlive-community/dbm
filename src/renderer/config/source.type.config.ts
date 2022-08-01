@@ -69,6 +69,14 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/Druid.svg'));
+    // ElasticSearch
+    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.elasticsearch'),
+    TranslateUtils.getValue('tooltip.source.elasticsearch'),
+    DatabaseEnum.elasticsearch,
+    null,
+    true,
+    null,
+    './renderer/assets/icon/source/ElasticSearch.svg'));
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

@@ -17,6 +17,10 @@ import { PrestoService } from "@renderer/services/presto.service";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { PluginToken } from "@renderer/token/plugin.token";
+import { ClickHousePlugin } from "@renderer/plugin/clickhouse.plugin";
+import { ElasticsearchPlugin } from "@renderer/plugin/elasticsearch.plugin";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -48,7 +52,10 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     PrestoService,
     FactoryService,
     MySQLService,
-    PostgresqlService
+    PostgresqlService,
+    PluginFactory,
+    {provide: PluginToken, useClass: ClickHousePlugin, multi: true},
+    {provide: PluginToken, useClass: ElasticsearchPlugin, multi: true}
   ]
 })
 export class LayoutModule {

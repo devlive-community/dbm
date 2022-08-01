@@ -91,12 +91,13 @@ DBM can query data from any SQL-speaking datastore or data engine (ClickHouse an
 Here are some of the major database solutions that are supported:
 
 <p align="center">
-  <img src="./src/shared/assets/integrate/clickhouse.png" alt="ClickHouse" class="a" width="133" height="34" />
-  <img src="./src/shared/assets/integrate/trino.png" alt="Trino" class="a" width="46" height="46"/>
-  <img src="./src/shared/assets/integrate/presto.png" alt="Presto" class="a" width="152" height="46"/>
-  <img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" class="a" width="auto" height="50"/>
-  <img src="./src/shared/assets/integrate/postgresql.png" alt="PostgreSQL" class="a" width="auto" height="50"/>
-  <img src="./src/shared/assets/integrate/druid.png" alt="Druid" class="a" width="auto" height="34"/>
+  <a href="https://clickhouse.com" target="_blank"><img src="./src/shared/assets/integrate/clickhouse.png" alt="ClickHouse" class="a" width="133" height="34" /></a>
+  <a href="https://trino.io" target="_blank"><img src="./src/shared/assets/integrate/trino.png" alt="Trino" class="a" width="46" height="46"/></a>
+  <a href="https://prestodb.io" target="_blank"><img src="./src/shared/assets/integrate/presto.png" alt="Presto" class="a" width="152" height="46"/></a>
+  <a href="https://www.mysql.com" target="_blank"><img src="./src/shared/assets/integrate/mysql.png" alt="MySQL" class="a" width="auto" height="50"/></a>
+  <a href="https://www.postgresql.org" target="_blank"><img src="./src/shared/assets/integrate/postgresql.png" alt="PostgreSQL" class="a" width="auto" height="50"/></a>
+  <a href="https://druid.apache.org" target="_blank"><img src="./src/shared/assets/integrate/druid.png" alt="Druid" class="a" width="auto" height="34"/></a>
+  <a href="https://www.elastic.co/cn/elasticsearch" target="_blank"><img src="./src/shared/assets/integrate/elasticsearch.svg" alt="ElasticSearch" class="a" width="auto" height="34"/></a>
 </p>
 
 ## Features

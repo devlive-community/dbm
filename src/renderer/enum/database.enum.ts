@@ -22,5 +22,6 @@ export enum DatabaseEnum {
   trino = 'Trino',
   presto = 'Presto',
   postgresql = 'PostgreSQL',
-  druid = 'Druid'
+  druid = 'Druid',
+  elasticsearch = 'ElasticSearch'
 }

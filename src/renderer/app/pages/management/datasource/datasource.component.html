@@ -112,8 +112,8 @@
         <div *ngFor="let engine of sourceTypes" [nzSpan]="24" nz-col>
           <app-component-antd-drivider [description]="engine.description" [title]="engine.name">
           </app-component-antd-drivider>
-          <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[8, 8]" nz-row>
-            <div *ngFor="let value of engine.engines" [nzSpan]="6" nz-col>
+          <div *ngIf="engine.engines; else notHasEngines" [nzGutter]="[3, 20]" nz-row>
+            <div *ngFor="let value of engine.engines" [nzSpan]="6" nz-col style="text-align: center;">
               <div class="">
                 <nz-radio-group [(ngModel)]="formInfo.type" (ngModelChange)="handlerChange(value)">
                   <label [nzValue]="value.name" nz-radio-button>

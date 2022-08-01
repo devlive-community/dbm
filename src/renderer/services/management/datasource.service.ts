@@ -13,6 +13,7 @@ import { PrestoService } from "@renderer/services/presto.service";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
 
 @Injectable()
 export class DatasourceService extends PersistenceService implements BaseService {
@@ -25,8 +26,9 @@ export class DatasourceService extends PersistenceService implements BaseService
     sshService: SshService,
     prestoService: PrestoService,
     mysqlService: MySQLService,
-    postgresqlService: PostgresqlService) {
-    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService);
+    postgresqlService: PostgresqlService,
+    pluginFactory: PluginFactory) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService, pluginFactory);
     this.db = new DexieDb();
   }
 

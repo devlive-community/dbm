@@ -36,7 +36,8 @@ export class MonitorProcessorComponent extends BaseComponent implements OnDestro
     super();
     this.datasourceService.getAll().then(response => {
       this.dataSources = response.map(item => {
-        if (item.type === DatabaseEnum.postgresql || item.type === DatabaseEnum.druid) {
+        if (item.type === DatabaseEnum.postgresql || item.type === DatabaseEnum.druid
+          || item.type === DatabaseEnum.elasticsearch) {
           item.status = false;
         }
         return item;

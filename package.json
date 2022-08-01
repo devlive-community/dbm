@@ -1,13 +1,14 @@
 {
   "name": "dbm",
-  "version": "1.21.0",
+  "version": "1.22.0-SNAPSHOT",
   "author": "qianmoQ <shicheng@ttxit.com>",
-  "description": "DataBase GUI",
+  "description": "Full platform database management tool, supports ClickHouse, Presto, Trino, MySQL, PostgreSQL...",
   "github": "https://github.com/EdurtIO/dbm.git",
   "homepage": "https://dbm.edurt.io",
   "keywords": [
     "angular",
     "angular 12",
+    "angular 14",
     "electron",
     "typescript",
     "windows",
@@ -17,7 +18,9 @@
     "clickhouse",
     "trino",
     "presto",
-    "mysql"
+    "mysql",
+    "apache druid",
+    "postgresql"
   ],
   "publish": [
     {

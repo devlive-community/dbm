@@ -38,4 +38,9 @@ export class UrlUtils {
     }
     return remoteUrl;
   }
+
+  public static formatUrlWithHostAndPort(request: RequestModel): string {
+    const protocol = StringUtils.getValue(request.config.protocol, 'http');
+    return StringUtils.format('{0}://{1}:{2}', [protocol, request.config.host, request.config.port]);
+  }
 }

@@ -18,6 +18,10 @@ import { QuoteSnippetComponent } from '@renderer/components/snippet/quote/quote.
 import { SnippetService } from '@renderer/services/snippet/snippet.service';
 import { TableModule } from 'ngx-easy-table';
 import { EllipsisModule } from 'ngx-ellipsis';
+import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { PluginToken } from "@renderer/token/plugin.token";
+import { ClickHousePlugin } from "@renderer/plugin/clickhouse.plugin";
+import { ElasticsearchPlugin } from "@renderer/plugin/elasticsearch.plugin";
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryComponent}
@@ -48,7 +52,10 @@ const QUERY_ROUTES: Routes = [
     QueryService,
     QueryHistoryService,
     QueryQuickService,
-    SnippetService
+    SnippetService,
+    PluginFactory,
+    {provide: PluginToken, useClass: ClickHousePlugin, multi: true},
+    {provide: PluginToken, useClass: ElasticsearchPlugin, multi: true}
   ]
 })
 export class QueryModule {

@@ -11,6 +11,7 @@ import { DatabaseEnum } from "@renderer/enum/database.enum";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
 
 export class ForwardService {
   constructor(
@@ -20,7 +21,8 @@ export class ForwardService {
     protected sshService: SshService,
     protected prestoService?: PrestoService,
     protected mysqlService?: MySQLService,
-    protected postgresqlService?: PostgresqlService
+    protected postgresqlService?: PostgresqlService,
+    protected pluginFactory?: PluginFactory
   ) {
   }
 
@@ -50,6 +52,9 @@ export class ForwardService {
           case DatabaseEnum.druid:
             response = this.httpService.post(UrlUtils.formatUrl(request), sql, true);
             break
+          case DatabaseEnum.elasticsearch:
+            response = this.pluginFactory.createService(configure.type).getResponse(request, sql);
+            break;
         }
         return response;
       case 'SSH':

@@ -1,0 +1,41 @@
+<form nz-form [formGroup]="validateForm" class="login-form">
+  <app-component-antd-drivider title="{{'common.basic'|translate}}">
+  </app-component-antd-drivider>
+  <div [nzGutter]="[8, 8]" nz-row>
+    <div [nzSpan]="3" nz-col>
+    </div>
+    <div [nzSpan]="18" nz-col>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="alias">
+          {{'common.alias'|translate}}
+        </nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.alias'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="alias" [(ngModel)]="configure.alias"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="host">{{'common.host'| translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.host'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="host" [(ngModel)]="configure.host"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="port">{{'common.port'| translate}}</nz-form-label>
+        <nz-form-control nzHasFeedback nzErrorTip="{{'placeholder.port'|translate}}">
+          <nz-input-group>
+            <input type="text" nz-input formControlName="port" [(ngModel)]="configure.port"
+                   (blur)="handlerValidate()"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div [nzSpan]="3" nz-col>
+    </div>
+  </div>
+</form>

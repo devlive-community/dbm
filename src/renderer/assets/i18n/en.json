@@ -24,9 +24,7 @@
     "cancel": "Cancel",
     "select": "Select",
     "quick": "Quick",
-    "result": "Result",
     "editor": "Editor",
-    "id": "ID",
     "server": "Server",
     "state": "State",
     "time": "Time",
@@ -74,7 +72,6 @@
     "atomic": "Atomic",
     "expiration": "Expiration",
     "lazy": "Lazy",
-    "mysql": "MySQL",
     "materialized_mysql": "MaterializeMySQL",
     "github": "GitHub",
     "drop": "Drop",
@@ -143,8 +140,6 @@
     "comment": "Comment",
     "snippet": "Snippet",
     "id": "ID",
-    "name": "Name",
-    "description": "Description",
     "code": "Code",
     "created": "Created",
     "updated": "Updated",
@@ -171,7 +166,8 @@
     "location": "Location",
     "failed": "Failed",
     "druid": "Druid",
-    "materialized_postgresql": "MaterializePostgreSQL"
+    "materialized_postgresql": "MaterializePostgreSQL",
+    "elasticsearch": "ElasticSearch"
   },
   "language": {
     "english": "English",
@@ -282,7 +278,8 @@
       "presto": "Integrate Presto data sources",
       "mysql": "Integrate MySQL data sources",
       "postgresql": "Integrate PostgreSQL data sources",
-      "druid": "Integrate Druid data sources"
+      "druid": "Integrate Druid data sources",
+      "elasticsearch": "Integrate ElasticSearch data sources"
     }
   },
   "alert": {

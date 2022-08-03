@@ -54,13 +54,13 @@
               <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                  <input (change)="handlerValidate()" [(ngModel)]="configure.targetName" name="name" nz-input
+                  <input (change)="handlerValidateStep('Basic')" [(ngModel)]="configure.targetName" name="name" nz-input
                          type="text"/>
                 </nz-form-control>
               </nz-form-item>
             </nz-tab>
             <!-- Column Settings -->
-            <nz-tab [nzTitle]="columnSettingTemplate">
+            <nz-tab [nzDisabled]="!validated.basic" [nzTitle]="columnSettingTemplate">
               <ng-template #columnSettingTemplate>
                 <i nz-icon nzType="delete-column"></i>
                 {{'common.column'|translate}}
@@ -78,7 +78,7 @@
                       <div [nzSpan]="8" nz-col>
                         <input [(ngModel)]="column.name" nz-input type="text" [ngModelOptions]="{standalone: true}"
                                placeholder="{{'common.column'|translate}}{{'common.name'|translate}}"
-                               style="width: 100%;"/>
+                               (ngModelChange)="handlerValidateStep('Column')" style="width: 100%;"/>
                       </div>
                       <div [nzSpan]="6" nz-col>
                         <nz-select [(ngModel)]="column.type" [ngModelOptions]="{standalone: true}"
@@ -110,7 +110,8 @@
               </div>
             </nz-tab>
             <!-- Properties Settings -->
-            <nz-tab *ngIf="configure.properties?.length > 0" [nzTitle]="propertySettingTemplate">
+            <nz-tab *ngIf="configure.properties?.length > 0" [nzDisabled]="!validated.column"
+                    [nzTitle]="propertySettingTemplate">
               <ng-template #propertySettingTemplate>
                 <i nz-icon nzType="property-safety"></i>
                 {{'common.property'|translate}}
@@ -129,6 +130,24 @@
                                       [experimental]="configure.experimental"
                                       (emitter)="handlerComponentEmitter($event, false)">
               </app-component-property>
+            </nz-tab>
+            <!-- Partition Settings -->
+            <nz-tab *ngIf="configure.partitionConfigure?.enable" [nzDisabled]="!validated.property"
+                    [nzTitle]="partitionSettingTemplate">
+              <ng-template #partitionSettingTemplate>
+                <i nz-icon nzType="partition"></i>
+                {{'common.partition'|translate}}
+              </ng-template>
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.column'|translate}}</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-select nzMode="multiple" [(ngModel)]="configure.partitionConfigure.columns"
+                             [ngModelOptions]="{standalone: true}">
+                    <nz-option *ngFor="let column of columns" [nzLabel]="column.name"
+                               [nzValue]="column.name"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
             </nz-tab>
           </nz-tabset>
         </form>

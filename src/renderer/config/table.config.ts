@@ -5,6 +5,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
 import { PropertyEnum } from '@renderer/enum/property.enum';
+import { HiveTableEngine } from "@renderer/config/engine/table/engine.table.hive.config";
 
 @Injectable()
 export class TableConfig {
@@ -301,6 +302,9 @@ export class TableConfig {
       PropertyEnum.name);
     mysql.supportedSource = [DatabaseEnum.clickhosue];
     integrationEngines.push(mysql);
+
+    // Hive
+    integrationEngines.push(HiveTableEngine);
 
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);

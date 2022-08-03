@@ -307,5 +307,15 @@
   },
   "formatter": {
     "migrate_data": "需要迁移{0}条数据, 请确认是否迁移?"
+  },
+  "engine": {
+    "table": {
+      "hive": {
+        "description": "The Hive engine allows you to perform SELECT quries on HDFS Hive table.",
+        "uri": "Hive Metastore address, egg: thrift://host:port",
+        "database": "Remote database name",
+        "table": "Remote table name"
+      }
+    }
   }
 }

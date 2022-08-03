@@ -30,6 +30,14 @@ export class DatabaseModel {
   optionalProperties: PropertyModel[];
   supportedSource: DatabaseEnum[] = [DatabaseEnum.clickhosue];
 
+  /**
+   * Optional parameter. Whether zone configuration is supported
+   */
+  partitionConfigure = {
+    enable: false,
+    columns: []
+  }
+
   public static builder(name: string,
                         description: string,
                         type: DatabaseEnum,

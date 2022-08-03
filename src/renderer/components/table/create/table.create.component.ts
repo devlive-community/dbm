@@ -28,6 +28,10 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
   selectValue: string;
   columns: ColumnModel[] = new Array();
   columnTypes: string[] = new Array();
+  currentConfigureStep = {
+    index: 0,
+    status: 'process'
+  };
 
   constructor(private tableService: TableService,
               private dataSourceService: DatasourceService,
@@ -131,5 +135,10 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
         this.messageService.error(response.message);
       }
     });
+  }
+
+  handlerConfigureStepIndexChange(index: number): void {
+    this.currentConfigureStep.index = index;
+    this.currentConfigureStep.status = 'process';
   }
 }

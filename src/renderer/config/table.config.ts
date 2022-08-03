@@ -5,6 +5,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
 import { PropertyEnum } from '@renderer/enum/property.enum';
+import { HiveTableEngine } from "@renderer/config/engine/table/engine.table.hive.config";
 
 @Injectable()
 export class TableConfig {
@@ -257,6 +258,53 @@ export class TableConfig {
       PropertyEnum.name);
     mongodb.supportedSource = [DatabaseEnum.clickhosue];
     integrationEngines.push(mongodb);
+
+    // MySQL
+    const mysqlProperties = new Array();
+    mysqlProperties.push(PropertyModel.builder('uri',
+      TranslateUtils.getValue('common.uri'),
+      TranslateUtils.getValue('placeholder.uri'),
+      TranslateUtils.getValue('tooltip.property.mongodb.uri'),
+      null,
+      false,
+      true));
+    mysqlProperties.push(PropertyModel.builder('database',
+      TranslateUtils.getValue('common.database'),
+      TranslateUtils.getValue('placeholder.database'),
+      TranslateUtils.getValue('tooltip.property.database'),
+      null,
+      false));
+    mysqlProperties.push(PropertyModel.builder('table',
+      TranslateUtils.getValue('common.table'),
+      TranslateUtils.getValue('placeholder.table'),
+      TranslateUtils.getValue('tooltip.property.table'),
+      null,
+      false));
+    mysqlProperties.push(PropertyModel.builder('username',
+      TranslateUtils.getValue('common.username'),
+      TranslateUtils.getValue('tooltip.property.username'),
+      TranslateUtils.getValue('tooltip.property.username'),
+      null,
+      false,
+      true));
+    mysqlProperties.push(PropertyModel.builder('password',
+      TranslateUtils.getValue('common.password'),
+      TranslateUtils.getValue('tooltip.property.password'),
+      TranslateUtils.getValue('tooltip.property.password'),
+      null,
+      false,
+      true));
+    const mysql = DatabaseModel.builder(DatabaseEnum.mysql.toString(),
+      TranslateUtils.getValue('tooltip.table.mysql'),
+      DatabaseEnum.mysql,
+      mysqlProperties,
+      false,
+      PropertyEnum.name);
+    mysql.supportedSource = [DatabaseEnum.clickhosue];
+    integrationEngines.push(mysql);
+
+    // Hive
+    integrationEngines.push(HiveTableEngine);
 
     integrationTable.engines = integrationEngines;
     tableEngines.push(integrationTable);

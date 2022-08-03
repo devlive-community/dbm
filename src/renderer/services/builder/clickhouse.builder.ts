@@ -13,6 +13,9 @@ export class ClickhouseBuilder implements BaseBuilder {
     sql += StringUtils.format(') {0}\n', [this.builderEngine(configure)]);
     const mergeProperties = this.mergeProperties(configure);
     sql += this.builderProperties(mergeProperties);
+    if (configure.partitionConfigure.enable) {
+      sql += this.builderPartition(configure);
+    }
     return sql;
   }
 
@@ -120,5 +123,11 @@ export class ClickhouseBuilder implements BaseBuilder {
       applyArray = applyArray.concat(filterOptionalProperties);
     }
     return applyArray;
+  }
+
+  private builderPartition(configure: DatabaseModel): string {
+    let partition = configure.partitionConfigure.columns.join(' , ');
+    const partitionStr = StringUtils.format('\nPARTITION BY ({0})', [partition]);
+    return partitionStr;
   }
 }

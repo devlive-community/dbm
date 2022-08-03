@@ -28,6 +28,11 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
   selectValue: string;
   columns: ColumnModel[] = new Array();
   columnTypes: string[] = new Array();
+  validated = {
+    basic: false,
+    column: false,
+    property: false
+  }
 
   constructor(private tableService: TableService,
               private dataSourceService: DatasourceService,
@@ -71,6 +76,30 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
     this.configure = cloneDeep(value);
   }
 
+  handlerValidateStep(step: string) {
+    switch (step) {
+      case 'Basic':
+        if (StringUtils.isNotEmpty(this.configure.targetName)) {
+          this.validated.basic = true;
+        } else {
+          this.validated.basic = false;
+        }
+        break;
+      case 'Column':
+        const emptyCount = this.columns.filter(column => StringUtils.isEmpty(column.name)).length;
+        if (emptyCount === 0) {
+          this.validated.column = true;
+        } else {
+          this.validated.column = false;
+        }
+        break;
+      case 'Property':
+        this.validated.property = this.configure.validate;
+        break;
+    }
+    this.handlerValidate();
+  }
+
   handlerValidate() {
     let flag;
     if (this.configure.validate != undefined) {
@@ -107,7 +136,7 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
     } else {
       this.configure.optionalProperties = $event.properties;
     }
-    this.handlerValidate();
+    this.handlerValidateStep('Property');
   }
 
   handlerPrevious(): void {

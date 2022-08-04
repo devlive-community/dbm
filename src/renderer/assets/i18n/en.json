@@ -167,7 +167,9 @@
     "failed": "Failed",
     "druid": "Druid",
     "materialized_postgresql": "MaterializePostgreSQL",
-    "elasticsearch": "ElasticSearch"
+    "elasticsearch": "ElasticSearch",
+    "character": "Character",
+    "collation": "Collation"
   },
   "language": {
     "english": "English",

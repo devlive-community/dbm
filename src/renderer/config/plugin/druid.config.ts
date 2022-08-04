@@ -34,4 +34,5 @@ export class DruidConfig implements BaseConfig {
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;
   version = `SELECT '-' AS version`;
+  getCharacterAndCollation: string;
 }

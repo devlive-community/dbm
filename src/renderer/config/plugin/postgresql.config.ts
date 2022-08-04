@@ -95,4 +95,5 @@ export class PostgresqlConfig implements BaseConfig {
   `;
   columnRename: string;
   columnAddComment: string;
+  getCharacterAndCollation: string;
 }

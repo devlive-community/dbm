@@ -41,27 +41,65 @@
         </div>
         <div [nzSpan]="24" class="gutter-row" nz-col>
           <form nz-form>
-            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.basic'|translate}}"></nz-divider>
-            <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24">
-                <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input (change)="handlerValidate()" [(ngModel)]="configure.name" name="name" nz-input type="text"/>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
-            <app-component-database-engine-lazy *ngIf="configure.type === databaseType.lazy"
-                                                (emitter)="handlerComponentEmitter($event)">
-            </app-component-database-engine-lazy>
-            <app-component-property [properties]="properties"
-                                    [experimental]="configure.experimental"
-                                    (emitter)="handlerComponentEmitter($event)">
-            </app-component-property>
+            <nz-tabset nzAnimated="false">
+              <!-- Basic Settings -->
+              <nz-tab [nzTitle]="basicSettingTemplate">
+                <ng-template #basicSettingTemplate>
+                  <i nz-icon nzType="build"></i>
+                  {{'common.basic'|translate}}
+                </ng-template>
+                <nz-form-item>
+                  <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input (change)="handlerValidate()" [(ngModel)]="configure.name" name="name" nz-input type="text"/>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
+                <app-component-database-engine-lazy *ngIf="configure.type === databaseType.lazy"
+                                                    (emitter)="handlerComponentEmitter($event)">
+                </app-component-database-engine-lazy>
+                <app-component-property [properties]="properties"
+                                        [experimental]="configure.experimental"
+                                        (emitter)="handlerComponentEmitter($event)">
+                </app-component-property>
+              </nz-tab>
+              <!-- CharacterSet and Collation Settings -->
+              <nz-tab *ngIf="configure.characterAndCollationConfigure.enable"
+                      [nzTitle]="characterSetAndCollationSettingTemplate"
+                      (nzClick)="handlerLoadCharacterAndCollation()">
+                <ng-template #characterSetAndCollationSettingTemplate>
+                  <i nz-icon nzType="block"></i>
+                  {{'common.character'|translate}} & {{'common.collation'|translate}}
+                </ng-template>
+                <nz-form-item *ngIf="configure.characterAndCollationConfigure.characterSetConfigure.enable">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.character'|translate}}</nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-select name="characterValue" nzShowSearch
+                               [(ngModel)]="configure.characterAndCollationConfigure.characterSetConfigure.value"
+                               (ngModelChange)="handlerChangeCharacter($event)">
+                      <nz-option *ngFor="let character of collationConfigure.characters" [nzValue]="character"
+                                 [nzLabel]="character"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="configure.characterAndCollationConfigure.collationConfigure.enable">
+                  <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.collation'|translate}}</nz-form-label>
+                  <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-select name="collationValue" nzShowSearch
+                               [(ngModel)]="configure.characterAndCollationConfigure.collationConfigure.value">
+                      <nz-option *ngFor="let collation of collationConfigure.collations" [nzValue]="collation"
+                                 [nzLabel]="collation"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-tab>
+            </nz-tabset>
           </form>
         </div>
       </div>

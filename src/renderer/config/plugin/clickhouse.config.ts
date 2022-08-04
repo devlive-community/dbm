@@ -171,4 +171,5 @@ ALTER TABLE {0} RENAME COLUMN {1} TO {2}
   columnAddComment = `
 ALTER TABLE {0} COMMENT COLUMN {1} '{2}'
   `;
+  getCharacterAndCollation: string;
 }

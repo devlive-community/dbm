@@ -27,4 +27,5 @@ export class ElasticsearchConfig implements BaseConfig {
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;
   version = `SELECT 1 AS version`;
+  getCharacterAndCollation: string;
 }

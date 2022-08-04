@@ -151,6 +151,7 @@ export class CreateTableComponent extends BaseComponent implements AfterViewInit
     const request = new RequestModel();
     request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.configure.database = this.value;
+    request.config.database = this.value;
     this.tableService.createTable(request, this.configure, this.columns).then(response => {
       if (response.status) {
         this.messageService.success(response.message);

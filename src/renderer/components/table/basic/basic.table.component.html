@@ -2,13 +2,14 @@
   <button nz-button nzType="primary" (click)="handlerDialog(true)" style="margin-top: -22px; float: right;">
     <i class="fa fa-external-link-square"></i>&nbsp;{{'common.export'|translate}}
   </button>
-  <!--  <nz-dropdown-menu #export="nzDropdownMenu">-->
-  <!--    <ul nz-menu>-->
-  <!--      <li nz-menu-item >{{'common.csv'|translate}}</li>-->
-  <!--    </ul>-->
-  <!--  </nz-dropdown-menu>-->
-  <ngx-table [id]="id" [data]="value.columns"
-             [configuration]="configuration" [columns]="headers">
+  <ngx-table [id]="id" [data]="value.columns" [configuration]="configuration" [columns]="headers">
+    <ng-template let-row let-index="index">
+      <td *ngFor="let header of headers" style="max-width: 300px;"
+          ellipsis [ellipsis-content]="row[header.key]"
+          (ellipsis-click-more)="handlerShowMoreEllipsis(row[header.key])">
+        {{row[header.key]}}
+      </td>
+    </ng-template>
   </ngx-table>
 </div>
 <ng-template #notHasValues>

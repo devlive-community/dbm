@@ -5,6 +5,8 @@ import { ExportToCsv } from 'export-to-csv';
 import { Md5 } from 'ts-md5';
 import { TableExportModel } from "@renderer/components/table/basic/table.export.model";
 import { StringUtils } from "@renderer/utils/string.utils";
+import { TranslateService } from "@ngx-translate/core";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-component-basic-table',
@@ -18,7 +20,8 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
   public id: string;
   exportInfo: TableExportModel;
 
-  constructor() {
+  constructor(private translateService: TranslateService,
+              private modalService: NzModalService) {
     super();
     this.configuration = {...DefaultConfig};
     this.configuration.horizontalScroll = true;
@@ -67,5 +70,15 @@ export class BasicTableComponent extends BaseComponent implements AfterViewInit 
     };
     const csvExporter = new ExportToCsv(options);
     csvExporter.generateCsv(this.value.columns);
+  }
+
+  handlerShowMoreEllipsis(value: any): void {
+    this.modalService.info({
+      nzWidth: '80%',
+      nzKeyboard: false,
+      nzMaskClosable: false,
+      nzOkText: this.translateService.instant('common.ok'),
+      nzContent: value.toString()
+    });
   }
 }

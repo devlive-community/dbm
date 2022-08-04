@@ -122,4 +122,12 @@ ALTER TABLE {0} CHANGE COLUMN {1} {2} {3}
   columnAddComment = `
 ALTER TABLE {0} CHANGE COLUMN {1} {2} {3} COMMENT '{4}'
   `;
+  getCharacterAndCollation = `
+    SELECT
+      CHARACTER_SET_NAME AS 'name',
+      GROUP_CONCAT(COLLATION_NAME ORDER BY COLLATION_NAME ASC) AS 'values'
+    FROM information_schema.COLLATIONS
+    GROUP BY CHARACTER_SET_NAME
+    ORDER BY CHARACTER_SET_NAME ASC
+  `;
 }

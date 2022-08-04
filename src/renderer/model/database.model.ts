@@ -38,6 +38,21 @@ export class DatabaseModel {
     columns: []
   }
 
+  /**
+   * Database character set and collation rules
+   */
+  characterAndCollationConfigure = {
+    enable: false,
+    characterSetConfigure: {
+      enable: false,
+      value: null
+    },
+    collationConfigure: {
+      enable: false,
+      value: null
+    }
+  }
+
   public static builder(name: string,
                         description: string,
                         type: DatabaseEnum,

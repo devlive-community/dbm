@@ -7,7 +7,7 @@ export class PostgresqlConfig implements BaseConfig {
     table_schema AS "database", table_name AS tableName, column_name AS name,
     data_type AS type
   FROM information_schema.columns
-  WHERE table_schema = '{0}' AND table_name = '{1}'
+  WHERE table_name = '{0}'
   `;
   connectionFetchAll: string;
   databaseCreate = `CREATE DATABASE {0}`;
@@ -68,9 +68,15 @@ export class PostgresqlConfig implements BaseConfig {
       AND table_schema = 'public'
   `;
   tableItems = `
-    SELECT table_schema AS "database", TABLE_NAME AS name
+--     SELECT table_schema AS "database", TABLE_NAME AS name
+--     FROM information_schema.tables
+--     WHERE table_catalog = '{0}'
+--     AND table_type = 'BASE TABLE'
+--     AND table_schema = 'public'
+    SELECT table_name AS name
     FROM information_schema.tables
-    WHERE table_schema = '{0}'
+    WHERE table_type = 'BASE TABLE'
+    AND table_schema = 'public'
   `;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;
@@ -89,4 +95,5 @@ export class PostgresqlConfig implements BaseConfig {
   `;
   columnRename: string;
   columnAddComment: string;
+  getCharacterAndCollation: string;
 }

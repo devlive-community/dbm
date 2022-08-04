@@ -13,6 +13,7 @@ import * as cloneDeep from 'lodash/cloneDeep';
 import { PropertyModel } from '@renderer/model/property.model';
 import { NzTreeNode } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
 import { MenuModel } from '@renderer/model/menu.model';
+import { CollationService } from "@renderer/services/management/collation.service";
 
 @Component({
   selector: 'app-component-database',
@@ -35,9 +36,15 @@ export class DatabaseBasicComponent extends BaseComponent implements AfterViewIn
   configure: DatabaseModel;
   databaseType = DatabaseEnum;
   properties: PropertyModel[];
+  collationConfigure = {
+    elements: [],
+    characters: [],
+    collations: []
+  };
 
   constructor(private dataSourceService: DatasourceService,
               private metadataService: MetadataService,
+              private collationService: CollationService,
               private messageService: NzMessageService) {
     super();
     this.configure = new DatabaseModel();
@@ -97,19 +104,53 @@ export class DatabaseBasicComponent extends BaseComponent implements AfterViewIn
     this.handlerValidate();
   }
 
-  async handlerComplete() {
-    const request = new RequestModel();
-    request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
-    this.metadataService.createDatabase(request, this.configure).then(response => {
-      if (response.status) {
-        this.messageService.success(response.message);
-        this.config.status = true;
-        this.config.menu = this.menu;
-        this.config.currentNode = this.node;
-        this.emitter.emit(this.config);
-      } else {
-        this.messageService.error(response.message);
-      }
-    });
+  handlerComplete() {
+    this.dataSourceService.getByAliasAsync(this.config.value)
+      .then(dataSource => {
+        const request = new RequestModel();
+        request.config = dataSource;
+        this.metadataService.createDatabase(request, this.configure)
+          .then(response => {
+            if (response.status) {
+              this.messageService.success(response.message);
+              this.config.status = true;
+              this.config.menu = this.menu;
+              this.config.currentNode = this.node;
+              this.emitter.emit(this.config);
+            } else {
+              this.messageService.error(response.message);
+            }
+          });
+      });
+
+  }
+
+  handlerLoadCharacterAndCollation() {
+    if (this.collationConfigure.characters.length <= 0) {
+      this.dataSourceService.getByAliasAsync(this.config.value)
+        .then(dataSource => {
+          const request = new RequestModel();
+          request.config = dataSource;
+          this.collationService.getCharacterAndCollation(request)
+            .then(response => {
+              response.data.columns.forEach(v => {
+                const collation = {
+                  name: v['name'],
+                  values: v['values'].split(',')
+                };
+                this.collationConfigure.characters.push(v['name']);
+                this.collationConfigure.elements.push(collation);
+              });
+            })
+        });
+    }
+  }
+
+  handlerChangeCharacter(value: string) {
+    this.configure.characterAndCollationConfigure.collationConfigure.value = null;
+    if (this.configure.characterAndCollationConfigure.collationConfigure.enable) {
+      this.collationConfigure.collations = this.collationConfigure.elements
+        .filter(item => item.name === value)[0].values;
+    }
   }
 }

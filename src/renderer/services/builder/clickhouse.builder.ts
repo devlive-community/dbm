@@ -6,7 +6,7 @@ import { PropertyModel } from "@renderer/model/property.model";
 import { DatabaseModel } from "@renderer/model/database.model";
 import { PropertyEnum } from "@renderer/enum/property.enum";
 
-export class ClickhouseBuilder implements BaseBuilder {
+export class ClickhouseBuilder extends BaseBuilder {
   public builder(configure: DatabaseModel, columns: ColumnModel[]): string {
     let sql = StringUtils.format('CREATE TABLE {0} (\n', [SqlUtils.getTableName(configure.database, configure.targetName)]);
     sql += StringUtils.format('{0}\n', [this.builderColumnsToString(columns)]);

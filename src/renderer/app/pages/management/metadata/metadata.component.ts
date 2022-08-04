@@ -24,6 +24,8 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   selectNode: any;
   selectMenu: MenuModel;
   rootNode: any;
+  selectDatabase: string;
+  selectTable: string;
   switchType = TypeEnum.disk;
   outerHeight: number;
   contextMenus: MenuModel[];
@@ -185,6 +187,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     const dataSource = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
     this.rootNode['sourceType'] = dataSource.type;
     request.config = dataSource;
+    if (dataSource.type === DatabaseEnum.postgresql) {
+      request.config.database = this.selectDatabase;
+    }
     if (dataSource.type === DatabaseEnum.trino || dataSource.type === DatabaseEnum.presto) {
       this.items = [];
       this.loading.button = false;
@@ -215,6 +220,12 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     if (node?.getChildren().length === 0 && node?.isExpanded) {
       const request = new RequestModel();
       request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
+
+      if (request.config.type === DatabaseEnum.postgresql) {
+        request.config.database = this.selectDatabase;
+        originNode.database = this.selectTable;
+      }
+
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
           node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
@@ -235,12 +246,16 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     switch (node.level) {
       case 0:
         this.rootNode = node.origin;
+        this.selectDatabase = '';
+        this.selectTable = '';
         break;
       case 1:
         node.origin.type = TypeEnum.database;
+        this.selectDatabase = node.origin.key;
         break;
       case 2:
         node.origin.type = TypeEnum.table;
+        this.selectTable = node.origin.key;
         break;
       case 3:
         node.origin.type = TypeEnum.column;

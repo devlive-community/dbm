@@ -8,7 +8,10 @@ export class DruidConfig implements BaseConfig {
   connectionFetchAll: string;
   databaseCreate: string;
   databaseDiskUsedRatio: string;
-  databaseFetchAll: string;
+  databaseFetchAll = `
+    SELECT SCHEMA_NAME AS name
+    FROM INFORMATION_SCHEMA.SCHEMATA
+  `;
   databaseItems: string;
   databaseItemsFilterFuzzy: string;
   databaseItemsFilterPrecise: string;
@@ -21,10 +24,15 @@ export class DruidConfig implements BaseConfig {
   slowQueryFetchAll: string;
   stopProcessor: string;
   tableDiskUsedRatio: string;
-  tableFetchAll: string;
+  tableFetchAll = `
+    SELECT TABLE_NAME AS name
+    FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = '{0}'
+  `;
   tableItems: string;
   tableItemsFilterFuzzy: string;
   tableItemsFilterPrecise: string;
   tableSchemaFetchAll: string;
   version = `SELECT '-' AS version`;
+  getCharacterAndCollation: string;
 }

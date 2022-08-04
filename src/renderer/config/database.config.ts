@@ -4,6 +4,7 @@ import { DatabaseModel } from '@renderer/model/database.model';
 import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
+import { DefaultEngine } from "@renderer/config/engine/database/mysql/engine.database.mysql.default.config";
 
 @Injectable()
 export class DatabaseConfig {
@@ -21,8 +22,12 @@ export class DatabaseConfig {
       TranslateUtils.getValue('tooltip.database.default'),
       DatabaseEnum.none,
       null);
-    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.mysql, DatabaseEnum.postgresql);
+    defaultEngine.supportedSource.push(DatabaseEnum.presto, DatabaseEnum.trino, DatabaseEnum.postgresql);
     defaultEngines.push(defaultEngine);
+
+    // MySQL
+    defaultEngines.push(DefaultEngine);
+
     defaultEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.atomic'),
       TranslateUtils.getValue('tooltip.database.atomic'),
       DatabaseEnum.atomic,

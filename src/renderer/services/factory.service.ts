@@ -8,6 +8,7 @@ import { PrestoConfig } from "@renderer/config/plugin/presto.config";
 import { ClickhouseConfig } from "@renderer/config/plugin/clickhouse.config";
 import { DruidConfig } from "@renderer/config/plugin/druid.config";
 import { ElasticsearchConfig } from "@renderer/config/plugin/elasticsearch.config";
+import { PostgresqlBuilder } from "@renderer/services/builder/postgresql.builder";
 
 export class FactoryService {
   public forward(type: string) {
@@ -35,6 +36,8 @@ export class FactoryService {
     switch (type) {
       case DatabaseEnum.clickhosue:
         return Factory.create(ClickhouseBuilder);
+      case DatabaseEnum.postgresql:
+        return Factory.create(PostgresqlBuilder);
       default:
         return Factory.create(DefaultBuilder);
     }

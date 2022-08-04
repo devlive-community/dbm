@@ -166,7 +166,9 @@
     "failed": "失败",
     "druid": "Druid",
     "materialized_postgresql": "MaterializePostgreSQL",
-    "elasticsearch": "ElasticSearch"
+    "elasticsearch": "ElasticSearch",
+    "character": "字符集",
+    "collation": "排序规则"
   },
   "language": {
     "english": "英语",

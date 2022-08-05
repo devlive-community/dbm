@@ -51,7 +51,11 @@ export class OperationConfig {
         actions: [OperationEnum.structure],
         supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.mysql]
       },
-      {type: TypeEnum.database, actions: [OperationEnum.rename], supportedSource: [DatabaseEnum.clickhosue]}
+      {
+        type: TypeEnum.database,
+        actions: [OperationEnum.rename],
+        supportedSource: [DatabaseEnum.clickhosue, DatabaseEnum.postgresql]
+      }
     ];
     opertions.push(database);
     const table = new OperationModel();

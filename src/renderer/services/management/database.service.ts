@@ -10,6 +10,8 @@ import { ForwardService } from '@renderer/services/forward.service';
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { ConfigFactory } from "@renderer/factory/config.factory";
 
 @Injectable()
 export class DatabaseService extends ForwardService implements BaseService {
@@ -18,12 +20,14 @@ export class DatabaseService extends ForwardService implements BaseService {
               sshService: SshService,
               basicService: BasicService,
               mysqlService: MySQLService,
-              postgresqlService: PostgresqlService) {
-    super(basicService, factoryService, httpService, sshService, null, mysqlService, postgresqlService);
+              postgresqlService: PostgresqlService,
+              pluginFactory: PluginFactory,
+              configFactory: ConfigFactory) {
+    super(basicService, factoryService, httpService, sshService, null, mysqlService, postgresqlService, pluginFactory, configFactory);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {
-    return this.forward(request, sql);
+    return this.pluginFactory.createService(request.config.type).getResponse(request, sql);
   }
 
   getAll(request: RequestModel): Promise<ResponseModel> {
@@ -48,7 +52,8 @@ export class DatabaseService extends ForwardService implements BaseService {
   }
 
   rename(request: RequestModel, source: string, target: string): Promise<ResponseModel> {
-    const sql = StringUtils.format('RENAME DATABASE `{0}` TO `{1}`', [source, target]);
+    const sourceSql = this.configFactory.createConfig(request.config.type).getStatement('databaseRename');
+    const sql = StringUtils.format(sourceSql, [source, target]);
     return this.getResponse(request, sql);
   }
 }

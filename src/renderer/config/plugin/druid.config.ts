@@ -35,4 +35,5 @@ export class DruidConfig implements BaseConfig {
   tableSchemaFetchAll: string;
   version = `SELECT '-' AS version`;
   getCharacterAndCollation: string;
+  databaseRename: string;
 }

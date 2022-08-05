@@ -28,4 +28,5 @@ export class ElasticsearchConfig implements BaseConfig {
   tableSchemaFetchAll: string;
   version = `SELECT 1 AS version`;
   getCharacterAndCollation: string;
+  databaseRename: string;
 }

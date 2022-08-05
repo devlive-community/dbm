@@ -26,4 +26,6 @@ export interface BaseConfig {
   showCreateDatabase: string;
   showTableWithSize: string;
   getCharacterAndCollation: string;
+  // database
+  databaseRename: string;
 }

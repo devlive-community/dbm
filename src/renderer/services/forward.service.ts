@@ -12,6 +12,7 @@ import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
 import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { ConfigFactory } from "@renderer/factory/config.factory";
 
 export class ForwardService {
   constructor(
@@ -22,7 +23,8 @@ export class ForwardService {
     protected prestoService?: PrestoService,
     protected mysqlService?: MySQLService,
     protected postgresqlService?: PostgresqlService,
-    protected pluginFactory?: PluginFactory
+    protected pluginFactory?: PluginFactory,
+    protected configFactory?: ConfigFactory
   ) {
   }
 

@@ -96,4 +96,5 @@ export class PostgresqlConfig implements BaseConfig {
   columnRename: string;
   columnAddComment: string;
   getCharacterAndCollation: string;
+  databaseRename = `ALTER DATABASE "{0}" RENAME TO "{1}"`;
 }

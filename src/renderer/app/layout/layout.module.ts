@@ -25,6 +25,9 @@ import { MysqlPlugin } from "@renderer/plugin/mysql.plugin";
 import { ConfigFactory } from "@renderer/factory/config.factory";
 import { ConfigToken } from "@renderer/token/config.token";
 import { MysqlConfig } from "@renderer/config/mysql.config";
+import { ClickHouseConfig } from "@renderer/config/clickhouse.config";
+import { PostgreSQLConfig } from "@renderer/config/postgresql.config";
+import { PostgreSQLPlugin } from "@renderer/plugin/postgresql.plugin";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -57,13 +60,17 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     FactoryService,
     MySQLService,
     PostgresqlService,
+    /* Plugin */
     PluginFactory,
     {provide: PluginToken, useClass: ClickHousePlugin, multi: true},
     {provide: PluginToken, useClass: ElasticsearchPlugin, multi: true},
     {provide: PluginToken, useClass: MysqlPlugin, multi: true},
+    {provide: PluginToken, useClass: PostgreSQLPlugin, multi: true},
     /* Config */
     ConfigFactory,
-    {provide: ConfigToken, useClass: MysqlConfig, multi: true}
+    {provide: ConfigToken, useClass: MysqlConfig, multi: true},
+    {provide: ConfigToken, useClass: ClickHouseConfig, multi: true},
+    {provide: ConfigToken, useClass: PostgreSQLConfig, multi: true},
   ]
 })
 export class LayoutModule {

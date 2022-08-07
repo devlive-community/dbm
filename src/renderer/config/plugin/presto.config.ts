@@ -67,4 +67,5 @@ export class PrestoConfig implements BaseConfig {
   showTableWithSize: string;
   columnRename: string;
   columnAddComment: string;
+  databaseRename: string;
 }

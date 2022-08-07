@@ -6,6 +6,7 @@ import { DatasourceService } from '@renderer/services/management/datasource.serv
 import { StringUtils } from '@renderer/utils/string.utils';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DatabaseService } from '@renderer/services/management/database.service';
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 @Component({
   selector: 'app-component-rename-database',
@@ -37,14 +38,16 @@ export class DatabaseRenameComponent extends BaseComponent implements AfterViewI
     this.checkStatus = true;
     const request = new RequestModel();
     request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
-    this.databaseService.getDatabase(request, this.value)
-    .then(response => {
-      if (response.status) {
-        this.checkStatus = response.data?.columns[0]?.isSupport;
-      } else {
-        this.messageService.error(response.message);
-      }
-    });
+    if (request.config.type === DatabaseEnum.clickhosue) {
+      this.databaseService.getDatabase(request, this.value)
+        .then(response => {
+          if (response.status) {
+            this.checkStatus = response.data?.columns[0]?.isSupport;
+          } else {
+            this.messageService.error(response.message);
+          }
+        });
+    }
   }
 
   handlerValidate() {
@@ -60,15 +63,15 @@ export class DatabaseRenameComponent extends BaseComponent implements AfterViewI
     const request = new RequestModel();
     request.config = await this.dataSourceService.getByAliasAsync(this.config.value);
     this.databaseService.rename(request, this.value, this.inputValue)
-    .then(response => {
-      if (response.status) {
-        this.messageService.success(response.message);
-        this.config.status = true;
-        this.emitter.emit(this.config);
-      } else {
-        this.messageService.error(response.message);
-      }
-      this.loading.button = false;
-    });
+      .then(response => {
+        if (response.status) {
+          this.messageService.success(response.message);
+          this.config.status = true;
+          this.emitter.emit(this.config);
+        } else {
+          this.messageService.error(response.message);
+        }
+        this.loading.button = false;
+      });
   }
 }

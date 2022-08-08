@@ -13,6 +13,7 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { DatabaseEnum } from "@renderer/enum/database.enum";
+import { StringUtils } from "@renderer/utils/string.utils";
 
 @Component({
   selector: 'app-management-metadata',
@@ -187,9 +188,13 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     const dataSource = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
     this.rootNode['sourceType'] = dataSource.type;
     request.config = dataSource;
+
     if (dataSource.type === DatabaseEnum.postgresql) {
-      request.config.database = this.selectDatabase;
+      if (StringUtils.isNotEmpty(this.selectDatabase)) {
+        request.config.database = this.selectDatabase;
+      }
     }
+
     if (dataSource.type === DatabaseEnum.trino || dataSource.type === DatabaseEnum.presto) {
       this.items = [];
       this.loading.button = false;
@@ -222,7 +227,9 @@ export class MetadataComponent extends BaseComponent implements OnInit {
       request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
 
       if (request.config.type === DatabaseEnum.postgresql) {
-        request.config.database = this.selectDatabase;
+        if (StringUtils.isNotEmpty(this.selectDatabase)) {
+          request.config.database = this.selectDatabase;
+        }
         originNode.database = this.selectTable;
       }
 

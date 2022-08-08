@@ -21,6 +21,7 @@ export class FactoryService {
       case DatabaseEnum.mysql:
         return Factory.create(MySQLConfig);
       case DatabaseEnum.postgresql:
+      case DatabaseEnum.hologres:
         return Factory.create(PostgresqlConfig);
       case DatabaseEnum.druid:
         return Factory.create(DruidConfig);

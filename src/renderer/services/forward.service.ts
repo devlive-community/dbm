@@ -49,6 +49,7 @@ export class ForwardService {
             response = this.mysqlService.execute(configure, sql);
             break
           case DatabaseEnum.postgresql:
+          case DatabaseEnum.hologres:
             response = this.postgresqlService.execute(configure, sql);
             break
           case DatabaseEnum.druid:

@@ -112,6 +112,7 @@ export class MetadataService extends ForwardService implements BaseService {
       case DatabaseEnum.mysql:
       case DatabaseEnum.materialized_mysql:
       case DatabaseEnum.materialized_postgresql:
+      case DatabaseEnum.postgresql:
         suffix = this.builderDatabaseMySQL(database);
         break;
     }

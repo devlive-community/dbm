@@ -5,6 +5,7 @@ import { StringUtils } from '@renderer/utils/string.utils';
 import { TranslateUtils } from '@renderer/utils/translate.utils';
 import { PropertyModel } from '@renderer/model/property.model';
 import { DefaultEngine } from "@renderer/config/engine/database/mysql/engine.database.mysql.default.config";
+import { PostgreSQLDatabaseEngine } from "@renderer/config/engine/database/engine.database.postgresql";
 
 @Injectable()
 export class DatabaseConfig {
@@ -36,6 +37,7 @@ export class DatabaseConfig {
       TranslateUtils.getValue('tooltip.database.lazy'),
       DatabaseEnum.lazy,
       null));
+
     // mysql
     const properties = new Array();
     properties.push(PropertyModel.builder('host',
@@ -62,6 +64,10 @@ export class DatabaseConfig {
       TranslateUtils.getValue('tooltip.database.mysql'),
       DatabaseEnum.mysql,
       properties));
+
+    // PostgreSQL
+    defaultEngines.push(PostgreSQLDatabaseEngine);
+
     basicDatabase.engines = defaultEngines;
     databaseEngines.push(basicDatabase);
     /**

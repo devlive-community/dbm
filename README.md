@@ -98,6 +98,7 @@ Here are some of the major database solutions that are supported:
   <a href="https://www.postgresql.org" target="_blank"><img src="./src/shared/assets/integrate/postgresql.png" alt="PostgreSQL" class="a" width="auto" height="50"/></a>
   <a href="https://druid.apache.org" target="_blank"><img src="./src/shared/assets/integrate/druid.png" alt="Druid" class="a" width="auto" height="34"/></a>
   <a href="https://www.elastic.co/cn/elasticsearch" target="_blank"><img src="./src/shared/assets/integrate/elasticsearch.svg" alt="ElasticSearch" class="a" width="auto" height="34"/></a>
+  <a href="https://www.alibabacloud.com/product/hologres" target="_blank"><img src="./src/shared/assets/integrate/hologres.svg" alt="Hologres" class="a" width="auto" height="34"/></a>
 </p>
 
 ## Features

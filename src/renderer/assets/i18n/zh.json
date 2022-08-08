@@ -168,7 +168,10 @@
     "materialized_postgresql": "MaterializePostgreSQL",
     "elasticsearch": "ElasticSearch",
     "character": "字符集",
-    "collation": "排序规则"
+    "collation": "排序规则",
+    "hologres": "Hologres",
+    "accesskey_id": "AccessKey ID",
+    "accesskey_secret": "AccessKey Secret"
   },
   "language": {
     "english": "英语",
@@ -284,7 +287,8 @@
       "mysql": "整合MySQL数据源",
       "postgresql": "整合PostgreSQL数据源",
       "druid": "整合Druid数据源",
-      "elasticsearch": "整合ElasticSearch数据源"
+      "elasticsearch": "整合ElasticSearch数据源",
+      "hologres": "整合Alibaba Hologres数据源"
     }
   },
   "alert": {

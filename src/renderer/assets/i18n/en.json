@@ -169,7 +169,10 @@
     "materialized_postgresql": "MaterializePostgreSQL",
     "elasticsearch": "ElasticSearch",
     "character": "Character",
-    "collation": "Collation"
+    "collation": "Collation",
+    "hologres": "Hologres",
+    "accesskey_id": "AccessKey ID",
+    "accesskey_secret": "AccessKey Secret"
   },
   "language": {
     "english": "English",
@@ -283,7 +286,8 @@
       "mysql": "Integrate MySQL data sources",
       "postgresql": "Integrate PostgreSQL data sources",
       "druid": "Integrate Druid data sources",
-      "elasticsearch": "Integrate ElasticSearch data sources"
+      "elasticsearch": "Integrate ElasticSearch data sources",
+      "hologres": "Integrate Alibaba Hologres data sources"
     }
   },
   "alert": {

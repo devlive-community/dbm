@@ -30,6 +30,7 @@ import { DatasourceDruidComponent } from "@renderer/components/datasource/druid/
 import {
     DatasourceElasticSearchComponent
 } from "@renderer/components/datasource/elasticsearch/datasource.elasticsearch.component";
+import { DatasourceHologresComponent } from "@renderer/components/datasource/hologres/datasource.hologres.component";
 
 const DATASOURCE_ROUTES: Routes = [
   {path: '', component: DatasourceComponent}
@@ -57,7 +58,8 @@ const DATASOURCE_ROUTES: Routes = [
         DatasourceDeleteComponent,
         DatasourcePostgresqlComponent,
         DatasourceDruidComponent,
-        DatasourceElasticSearchComponent
+        DatasourceElasticSearchComponent,
+        DatasourceHologresComponent
     ],
   providers: [
     DatasourceService,

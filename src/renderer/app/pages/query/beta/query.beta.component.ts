@@ -62,6 +62,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     configuration: {...DefaultConfig},
     headers: [],
     columns: [],
+    statistics: null,
     message: null,
     status: false,
     height: 0,
@@ -231,6 +232,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
                   this.applyResult.headers.push({key: column.name, title: column.name});
                 });
                 this.applyResult.columns = response.data.columns;
+                this.applyResult.statistics = response.data.statistics;
                 if (this.applyResult.headers.length > 0) {
                   this.applyResult.columns = response.data.columns;
                   if (this.applyResult.columns.length > 0) {

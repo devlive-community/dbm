@@ -36,6 +36,7 @@ export class ForwardService {
     const configure = request.config;
     switch (configure.protocol) {
       case 'HTTP':
+      case 'HTTPS':
         let response;
         switch (configure.type) {
           case DatabaseEnum.clickhosue:

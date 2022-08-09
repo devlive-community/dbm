@@ -11,7 +11,7 @@
     </ng-template>
   </nz-empty>
   <ng-template #notHasValues>
-    <nz-table #basicTable [nzData]="tableDetails">
+    <nz-table #basicTable [nzData]="tableDetails" nzTableLayout="fixed">
       <thead>
       <tr>
         <th>{{'common.alias' | translate}}</th>
@@ -31,13 +31,15 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of basicTable.data" style="{{!data.status ? 'color: #F50;': ''}}">
-        <td>{{data.alias}}</td>
-        <td>{{data.name ? data.name : '-'}}</td>
-        <td>{{data.host}}</td>
-        <td>{{data.protocol}}</td>
-        <td>{{data.type}}</td>
-        <td>{{data.username ? data.username : '-'}}</td>
-        <td>{{data.version ? data.version : '-'}}</td>
+        <td nzEllipsis>{{data.alias}}</td>
+        <td nzEllipsis>{{data.name ? data.name : '-'}}</td>
+        <td nzEllipsis>{{data.host}}</td>
+        <td nzEllipsis>{{data.protocol}}</td>
+        <td>
+          <nz-avatar nzIcon="user" nzSrc="/renderer/assets/icon/source/{{data.type}}.svg"></nz-avatar>
+        </td>
+        <td nzEllipsis>{{data.username ? data.username : '-'}}</td>
+        <td nzEllipsis>{{data.version ? data.version : '-'}}</td>
         <td>
           <button nz-button nzShape="circle" nzSize="small" nzType="primary"
                   nz-tooltip nzTooltipTitle="{{'common.edit' | translate}}">

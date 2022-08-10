@@ -18,19 +18,71 @@ releaseInfo:
 
     ---
 
-    - Support the new editor to delete the data table shortcut menu
+    - Rebuild the table configuration layout
+    - Fix the query result is not displayed in the column data under certain circumstances
+    - Optimize the display type icon of the data source list
+
+    #### Editor
+
+    ---
+
+    - Support the new editor to delete the data table shortcut menu (new editor)
+    - Display and query additional information (new editor)
+
+    #### Security
+
+    ---
+
+    - Upgrade electron `16.2.0` to `20.0.1`
+
 
     #### Dependencies
 
     ---
 
+    - Bump wait-on from `5.3.0` to `6.0.1`
+
+    #### ClickHouse
+
+    ---
+
+    - Support `MySQL` table engine
+    - Support `Hive` table engine
+    - Support `PostgreSQL` database engine
+    - Support https protocol [issues-247](https://github.com/EdurtIO/dbm/issues/247)
+
     #### MySQL
 
     ---
 
+    - Support metadata management, build a database, specify character sets & collation [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+    - Fix only_full_group_by could not obtain metadata [issues-180](https://github.com/EdurtIO/dbm/issues/180)
+
     #### PostgreSQL
 
     ---
+
+    - Fix the exception of the metadata management build table
+    - Support rename database
+    - Fix failure to query when database is empty
+
+    #### Apache Druid
+
+    ---
+
+    - Support quick query
+
+    #### ElasticSearch
+
+    ---
+
+    - Support ElasticSearch (query and data source management)
+
+    #### Hologres
+
+    ---
+
+    - Support Hologres (query and data source management)
 
 directories:
   output: ./release

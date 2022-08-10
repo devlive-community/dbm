@@ -3,10 +3,9 @@ import { BaseConfig } from "@renderer/config/base.config";
 export class MySQLConfig implements BaseConfig {
   columnDiskUsedRatio = `SELECT '{0}' AS db, '{1}' AS name`;
   columnItems = `
-SELECT
-  TABLE_SCHEMA AS "database", TABLE_NAME AS tableName, COLUMN_NAME AS name,
+SELECT TABLE_SCHEMA AS "database", TABLE_NAME AS tableName, COLUMN_NAME AS name
   -- DATA_TYPE AS type
-  concat(DATA_TYPE, '(', CHARACTER_MAXIMUM_LENGTH, ')') AS type
+--   concat(DATA_TYPE, '(', CHARACTER_MAXIMUM_LENGTH, ')') AS type
 FROM information_schema.columns
 WHERE table_schema = '{0}' AND table_name = '{1}'
 GROUP BY COLUMN_NAME
@@ -87,9 +86,7 @@ FROM information_schema.tables
 WHERE table_schema = '{0}'
   `;
   tableItems = `
-SELECT
-  table_schema AS "database", TABLE_NAME AS name,
-  ENGINE AS value, MAX_DATA_LENGTH AS total_rows
+SELECT table_schema AS "database", TABLE_NAME AS name
 FROM information_schema.tables
 WHERE table_schema = '{0}'
 GROUP BY TABLE_NAME
@@ -122,4 +119,13 @@ ALTER TABLE {0} CHANGE COLUMN {1} {2} {3}
   columnAddComment = `
 ALTER TABLE {0} CHANGE COLUMN {1} {2} {3} COMMENT '{4}'
   `;
+  getCharacterAndCollation = `
+    SELECT
+      CHARACTER_SET_NAME AS 'name',
+      GROUP_CONCAT(COLLATION_NAME ORDER BY COLLATION_NAME ASC) AS 'values'
+    FROM information_schema.COLLATIONS
+    GROUP BY CHARACTER_SET_NAME
+    ORDER BY CHARACTER_SET_NAME ASC
+  `;
+  databaseRename: string;
 }

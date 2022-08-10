@@ -133,6 +133,8 @@ plugins:
           Datasource_ClickHouse: ClickHouse
           Datasource_PostgreSQL: PostgreSQL (Experimental)
           Datasource_Druid: Druid (Experimental)
+          Datasource_Hologres: Hologres (Experimental)
+          Datasource_ElasticSearch: ElasticSearch (Experimental)
         zh:
           Home: 主页
           Documentation: 文档
@@ -156,9 +158,11 @@ plugins:
           Datasource_ClickHouse: ClickHouse
           Datasource_PostgreSQL: PostgreSQL (Experimental)
           Datasource_Druid: Druid (Experimental)
+          Datasource_Hologres: Hologres (Experimental)
+          Datasource_ElasticSearch: ElasticSearch (Experimental)
   - redirects:
       redirect_maps:
-        release-latest.md: release/1.20.0-20220706.md
+        release-latest.md: release/1.22.0-20220812.md
 
 nav:
   - Home: index.md
@@ -175,13 +179,16 @@ nav:
             - Datasource_MySQL: reference/management/datasource/mysql.md
             - Datasource_PostgreSQL: reference/management/datasource/postgresql.md
             - Datasource_Druid: reference/management/datasource/druid.md
+            - Datasource_ElasticSearch: reference/management/datasource/elasticsearch.md
+            - Datasource_Hologres: reference/management/datasource/hologres.md
       - Monitor:
           - Processor: reference/monitor/monitor-processor.md
           - Connection: reference/monitor/monitor_connection.md
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md
   - Release Note:
-      - 1.21.0 (latest): release/1.21.0-20220725.md
+      - 1.22.0 (latest): release/1.22.0-20220812.md
+      - 1.21.0: release/1.21.0-20220725.md
       - 1.20.0: release/1.20.0-20220706.md
       - 1.19.0: release/1.19.0-20220623.md
       - 1.18.0: release/1.18.0-20220610.md

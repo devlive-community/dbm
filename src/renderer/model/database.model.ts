@@ -30,6 +30,29 @@ export class DatabaseModel {
   optionalProperties: PropertyModel[];
   supportedSource: DatabaseEnum[] = [DatabaseEnum.clickhosue];
 
+  /**
+   * Optional parameter. Whether zone configuration is supported
+   */
+  partitionConfigure = {
+    enable: false,
+    columns: []
+  }
+
+  /**
+   * Database character set and collation rules
+   */
+  characterAndCollationConfigure = {
+    enable: false,
+    characterSetConfigure: {
+      enable: false,
+      value: null
+    },
+    collationConfigure: {
+      enable: false,
+      value: null
+    }
+  }
+
   public static builder(name: string,
                         description: string,
                         type: DatabaseEnum,

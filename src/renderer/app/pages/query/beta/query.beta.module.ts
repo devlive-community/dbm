@@ -21,6 +21,7 @@ import { AceModule } from "ngx-ace-wrapper";
 import { TableModule } from "ngx-easy-table";
 import { EllipsisModule } from "ngx-ellipsis";
 import { QueryBetaComponent } from './query.beta.component';
+import { ElasticsearchPlugin } from "@renderer/plugin/elasticsearch.plugin";
 
 const QUERY_ROUTES: Routes = [
   {path: '', component: QueryBetaComponent}
@@ -54,7 +55,8 @@ const QUERY_ROUTES: Routes = [
     EditorService,
     QueryService,
     PluginFactory,
-    { provide: PluginToken, useClass: ClickHousePlugin, multi: true }
+    {provide: PluginToken, useClass: ClickHousePlugin, multi: true},
+    {provide: PluginToken, useClass: ElasticsearchPlugin, multi: true}
   ]
 })
 export class QueryBetaModule {

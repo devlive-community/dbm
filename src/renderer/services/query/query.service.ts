@@ -11,6 +11,7 @@ import { FactoryService } from "@renderer/services/factory.service";
 import { PrestoService } from "@renderer/services/presto.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
 
 const {Parser} = require('node-sql-parser');
 
@@ -22,8 +23,9 @@ export class QueryService extends ForwardService implements BaseService {
               factoryService: FactoryService,
               prestoService: PrestoService,
               mysqlService: MySQLService,
-              postgresqlService: PostgresqlService) {
-    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService);
+              postgresqlService: PostgresqlService,
+              pluginFactory: PluginFactory) {
+    super(basicService, factoryService, httpService, sshService, prestoService, mysqlService, postgresqlService, pluginFactory);
   }
 
   getResponse(request: RequestModel, sql?: string): Promise<ResponseModel> {

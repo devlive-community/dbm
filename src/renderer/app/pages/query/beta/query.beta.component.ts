@@ -14,12 +14,10 @@ import { ColumnService } from "@renderer/services/management/column.service";
 import { DatabaseService } from "@renderer/services/management/database.service";
 import { DatasourceService } from "@renderer/services/management/datasource.service";
 import { TableService } from "@renderer/services/management/table.service";
-import { QueryService } from "@renderer/services/query/query.service";
 import { ObjectUtils } from "@renderer/utils/object.utils";
 import { SqlUtils } from "@renderer/utils/sql.utils";
 import { StringUtils } from "@renderer/utils/string.utils";
 import { TreeUtils } from "@renderer/utils/tree.utils";
-import { NzContextMenuService } from "ng-zorro-antd/dropdown";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
 import { DefaultConfig } from "ngx-easy-table";
@@ -64,6 +62,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     configuration: {...DefaultConfig},
     headers: [],
     columns: [],
+    statistics: null,
     message: null,
     status: false,
     height: 0,
@@ -208,7 +207,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
     configure.table = this.selectData.table;
     configure.value = this.selectData.currentValue.key;
     configure.request = this.requestConfig;
-    this.menuCommonService.applySqlForOperation(command, configure);
+    this.applyEditor.value = this.menuCommonService.applySqlForOperation(command, configure);
   }
 
   handlerExecute() {
@@ -233,6 +232,7 @@ export class QueryBetaComponent implements AfterViewInit, AfterViewChecked {
                   this.applyResult.headers.push({key: column.name, title: column.name});
                 });
                 this.applyResult.columns = response.data.columns;
+                this.applyResult.statistics = response.data.statistics;
                 if (this.applyResult.headers.length > 0) {
                   this.applyResult.columns = response.data.columns;
                   if (this.applyResult.columns.length > 0) {

@@ -43,7 +43,7 @@
                     style="margin-bottom: 10px;"></nz-alert>
           <nz-skeleton *ngIf="loading.button; else hasSuccessTemplate" [nzActive]="true"></nz-skeleton>
           <ng-template #hasSuccessTemplate>
-            <app-component-antd-empty *ngIf="items.length <= 0; else hasLoadTemplate">
+            <app-component-antd-empty *ngIf="items?.length <= 0; else hasLoadTemplate">
             </app-component-antd-empty>
             <ng-template #hasLoadTemplate>
               <nz-table nzPageSize="20" #progressItemsTable [nzData]="items">

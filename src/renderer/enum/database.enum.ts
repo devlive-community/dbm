@@ -16,11 +16,14 @@ export enum DatabaseEnum {
   sqlite = 'SQLite',
   odbc = 'ODBC',
   mongodb = 'MongoDB',
+  hive = 'Hive',
 
   // DataSource Type
   clickhosue = 'ClickHouse',
   trino = 'Trino',
   presto = 'Presto',
   postgresql = 'PostgreSQL',
-  druid = 'Druid'
+  druid = 'Druid',
+  elasticsearch = 'ElasticSearch',
+  hologres = 'Hologres'
 }

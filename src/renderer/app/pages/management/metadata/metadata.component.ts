@@ -13,6 +13,7 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 import { DatabaseEnum } from "@renderer/enum/database.enum";
+import { StringUtils } from "@renderer/utils/string.utils";
 
 @Component({
   selector: 'app-management-metadata',
@@ -24,6 +25,8 @@ export class MetadataComponent extends BaseComponent implements OnInit {
   selectNode: any;
   selectMenu: MenuModel;
   rootNode: any;
+  selectDatabase: string;
+  selectTable: string;
   switchType = TypeEnum.disk;
   outerHeight: number;
   contextMenus: MenuModel[];
@@ -56,10 +59,11 @@ export class MetadataComponent extends BaseComponent implements OnInit {
         configModel.title = k.alias;
         configModel.type = TypeEnum.disk;
         configModel.disabled = k.status ? false : true;
-        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino || k.type === DatabaseEnum.druid) {
+        if (k.type === DatabaseEnum.presto || k.type === DatabaseEnum.trino || k.type === DatabaseEnum.druid
+          || k.type === DatabaseEnum.elasticsearch) {
           configModel.isLeaf = true;
         }
-        if (k.type === DatabaseEnum.druid) {
+        if (k.type === DatabaseEnum.druid || k.type === DatabaseEnum.elasticsearch) {
           configModel.disabled = true;
         }
         if (configModel.disabled) {
@@ -184,6 +188,13 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     const dataSource = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
     this.rootNode['sourceType'] = dataSource.type;
     request.config = dataSource;
+
+    if (dataSource.type === DatabaseEnum.postgresql) {
+      if (StringUtils.isNotEmpty(this.selectDatabase)) {
+        request.config.database = this.selectDatabase;
+      }
+    }
+
     if (dataSource.type === DatabaseEnum.trino || dataSource.type === DatabaseEnum.presto) {
       this.items = [];
       this.loading.button = false;
@@ -214,6 +225,14 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     if (node?.getChildren().length === 0 && node?.isExpanded) {
       const request = new RequestModel();
       request.config = await this.dataSourceService.getByAliasAsync(this.rootNode.value);
+
+      if (request.config.type === DatabaseEnum.postgresql) {
+        if (StringUtils.isNotEmpty(this.selectDatabase)) {
+          request.config.database = this.selectDatabase;
+        }
+        originNode.database = this.selectTable;
+      }
+
       this.metadataService.getChild(request, originNode).then(response => {
         if (response.status) {
           node.addChildren(TreeUtils.builderTreeNode(response.data.columns, originNode.type));
@@ -234,12 +253,16 @@ export class MetadataComponent extends BaseComponent implements OnInit {
     switch (node.level) {
       case 0:
         this.rootNode = node.origin;
+        this.selectDatabase = '';
+        this.selectTable = '';
         break;
       case 1:
         node.origin.type = TypeEnum.database;
+        this.selectDatabase = node.origin.key;
         break;
       case 2:
         node.origin.type = TypeEnum.table;
+        this.selectTable = node.origin.key;
         break;
       case 3:
         node.origin.type = TypeEnum.column;

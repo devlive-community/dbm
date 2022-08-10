@@ -13,3 +13,9 @@
 <app-component-datasource-druid [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
                                 *ngIf="configure.type === datasourceType.druid">
 </app-component-datasource-druid>
+<app-component-datasource-elasticsearch [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
+                                        *ngIf="configure.type === datasourceType.elasticsearch">
+</app-component-datasource-elasticsearch>
+<app-component-datasource-hologres [configure]="configure" (emitterValue)="handlerEmitterValue($event)"
+                                   *ngIf="configure.type === datasourceType.hologres">
+</app-component-datasource-hologres>

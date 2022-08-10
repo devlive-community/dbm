@@ -1,6 +1,7 @@
 import { BaseConfig } from "@renderer/config/base.config";
 
 export class PrestoConfig implements BaseConfig {
+  getCharacterAndCollation: string;
   version = `
     SELECT node_version AS version
     FROM system.runtime.nodes LIMIT 1
@@ -66,4 +67,5 @@ export class PrestoConfig implements BaseConfig {
   showTableWithSize: string;
   columnRename: string;
   columnAddComment: string;
+  databaseRename: string;
 }

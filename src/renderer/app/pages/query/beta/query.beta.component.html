@@ -44,6 +44,20 @@
               <i nz-icon nzType="close-circle" nzTheme="outline"></i>
               {{'common.cancel'|translate}}
             </button>
+            <div *ngIf="applyResult.headers.length > 0 && applyResult?.statistics" style="float: right;">
+              <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.rows'|translate}}">
+                <i class="fa fa-columns"></i> {{applyResult.columns.length}}
+              </nz-tag>
+              <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.elapsed'|translate}}">
+                <i class="fa fa-clock-o"></i> {{applyResult.statistics.elapsed}}
+              </nz-tag>
+              <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.rowsRead'|translate}}">
+                <i class="fa fa-columns"></i> {{applyResult.statistics.rows_read}}
+              </nz-tag>
+              <nz-tag [nzColor]="'#87d068'" nz-tooltip nzTooltipTitle="{{'tooltip.bytesRead'|translate}}">
+                <i class="fa fa-braille"></i> {{applyResult.statistics.bytes_read}}
+              </nz-tag>
+            </div>
           </ng-template>
         </div>
         <div nz-col class="gutter-row" [nzSpan]="24">

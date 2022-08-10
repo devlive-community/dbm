@@ -14,8 +14,9 @@ import { UrlUtils } from "@renderer/utils/url.utils";
 export class ClickHousePlugin implements PluginInterface {
 
   constructor(private httpService: HttpService,
-    private sshService: SshService,
-    private basicService: BasicService) { }
+              private sshService: SshService,
+              private basicService: BasicService) {
+  }
 
   getName(): DatabaseEnum {
     return DatabaseEnum.clickhosue;
@@ -29,6 +30,7 @@ export class ClickHousePlugin implements PluginInterface {
     const configure = request.config;
     switch (configure.protocol) {
       case 'HTTP':
+      case 'HTTPS':
         return this.httpService.post(UrlUtils.formatUrl(request), sql);
       case 'SSH':
         const basicConfig = this.getConfig();

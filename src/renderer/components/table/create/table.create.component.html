@@ -37,78 +37,119 @@
       <div [nzSpan]="24" nz-col>
       </div>
       <div [nzSpan]="24" nz-col>
-        <form nz-form>
-          <nz-divider nzOrientation="left" nzPlain nzText="{{'common.basic'|translate}}"></nz-divider>
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-              <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-              <input (change)="handlerValidate()" [(ngModel)]="configure.targetName" name="name" nz-input type="text"/>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-divider nzOrientation="left" nzPlain nzText="{{'common.column'|translate}}"></nz-divider>
-          <div nz-row [nzGutter]="[4, 8]">
-            <nz-form-item *ngFor="let column of columns; let i = index">
-              <nz-form-control>
-                <div nz-row [nzGutter]="[4, 8]">
-                  <div [nzSpan]="2" nz-col>
-                    <button nz-button nzType="primary" nzDanger nzShape="circle" nz-tooltip
-                            nzTooltipTitle="{{'common.delete'|translate}}" (click)="handlerRemoveColumn(column)">
-                      <i class="fa fa-trash"></i>
+        <form nz-form style="margin-top: 10px;">
+          <nz-tabset nzAnimated="false">
+            <!-- Basic Settings -->
+            <nz-tab [nzTitle]="basicSettingTemplate">
+              <ng-template #basicSettingTemplate>
+                <i nz-icon nzType="build"></i>
+                {{'common.basic'|translate}}
+              </ng-template>
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.engine'|translate}}</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-tag [nzColor]="'#2db7f5'">{{configure.type}}</nz-tag>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.name'|translate}}</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <input (change)="handlerValidateStep('Basic')" [(ngModel)]="configure.targetName" name="name" nz-input
+                         type="text"/>
+                </nz-form-control>
+              </nz-form-item>
+            </nz-tab>
+            <!-- Column Settings -->
+            <nz-tab [nzDisabled]="!validated.basic" [nzTitle]="columnSettingTemplate">
+              <ng-template #columnSettingTemplate>
+                <i nz-icon nzType="delete-column"></i>
+                {{'common.column'|translate}}
+              </ng-template>
+              <div nz-row [nzGutter]="[4, 8]">
+                <nz-form-item *ngFor="let column of columns; let i = index">
+                  <nz-form-control>
+                    <div nz-row [nzGutter]="[4, 8]">
+                      <div [nzSpan]="2" nz-col>
+                        <button nz-button nzType="primary" nzDanger nzShape="circle" nz-tooltip
+                                nzTooltipTitle="{{'common.delete'|translate}}" (click)="handlerRemoveColumn(column)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                      <div [nzSpan]="8" nz-col>
+                        <input [(ngModel)]="column.name" nz-input type="text" [ngModelOptions]="{standalone: true}"
+                               placeholder="{{'common.column'|translate}}{{'common.name'|translate}}"
+                               (ngModelChange)="handlerValidateStep('Column')" style="width: 100%;"/>
+                      </div>
+                      <div [nzSpan]="6" nz-col>
+                        <nz-select [(ngModel)]="column.type" [ngModelOptions]="{standalone: true}"
+                                   style="width: 130px;">
+                          <nz-option nzValue="{{type}}" nzLabel="{{type}}" *ngFor="let type of columnTypes"></nz-option>
+                        </nz-select>
+                      </div>
+                      <div [nzSpan]="6" nz-col>
+                        <input [(ngModel)]="column.description" nz-input type="text"
+                               [ngModelOptions]="{standalone: true}"/>
+                      </div>
+                      <div [nzSpan]="2" nz-col>
+                        <nz-switch nz-tooltip nzTooltipTitle="{{'common.nullable'|translate}}?"
+                                   [(ngModel)]="column.empty"
+                                   [ngModelOptions]="{standalone: true}">
+                        </nz-switch>
+                      </div>
+                    </div>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item [nzSpan]="24" nz-col>
+                  <nz-form-control>
+                    <button nz-button nzType="dashed" (click)="handlerAddColumn()" nz-tooltip
+                            nzTooltipTitle="{{'common.add'|translate}}">
+                      <i class="fa fa-plus"></i>
                     </button>
-                  </div>
-                  <div [nzSpan]="8" nz-col>
-                    <input [(ngModel)]="column.name" nz-input type="text" [ngModelOptions]="{standalone: true}"
-                           placeholder="{{'common.column'|translate}}{{'common.name'|translate}}" style="width: 100%;"/>
-                  </div>
-                  <div [nzSpan]="6" nz-col>
-                    <nz-select [(ngModel)]="column.type" [ngModelOptions]="{standalone: true}" style="width: 130px;">
-                      <nz-option nzValue="{{type}}" nzLabel="{{type}}" *ngFor="let type of columnTypes"></nz-option>
-                    </nz-select>
-                  </div>
-                  <div [nzSpan]="6" nz-col>
-                    <input [(ngModel)]="column.description" nz-input type="text"
-                           [ngModelOptions]="{standalone: true}"/>
-                  </div>
-                  <div [nzSpan]="2" nz-col>
-                    <nz-switch nz-tooltip nzTooltipTitle="{{'common.nullable'|translate}}?" [(ngModel)]="column.empty"
-                               [ngModelOptions]="{standalone: true}">
-                    </nz-switch>
-                  </div>
-                </div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item [nzSpan]="24" nz-col>
-              <nz-form-control>
-                <button nz-button nzType="dashed" (click)="handlerAddColumn()" nz-tooltip
-                        nzTooltipTitle="{{'common.add'|translate}}">
-                  <i class="fa fa-plus"></i>
-                </button>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <div *ngIf="configure.properties?.length > 0">
-            <nz-divider nzOrientation="left" nzPlain nzText="{{'common.property'|translate}}"></nz-divider>
-            <app-component-property [properties]="configure.properties" [experimental]="configure.experimental"
-                                    (emitter)="handlerComponentEmitter($event, true)">
-            </app-component-property>
-          </div>
-
-          <nz-collapse nzAccordion *ngIf="configure.optionalProperties?.length > 0">
-            <nz-collapse-panel nzHeader="{{'common.property'|translate}} [{{'common.optional'|translate}}]">
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </nz-tab>
+            <!-- Properties Settings -->
+            <nz-tab *ngIf="configure.properties?.length > 0" [nzDisabled]="!validated.column"
+                    [nzTitle]="propertySettingTemplate">
+              <ng-template #propertySettingTemplate>
+                <i nz-icon nzType="property-safety"></i>
+                {{'common.property'|translate}}
+              </ng-template>
+              <app-component-property [properties]="configure.properties" [experimental]="configure.experimental"
+                                      (emitter)="handlerComponentEmitter($event, true)">
+              </app-component-property>
+            </nz-tab>
+            <!-- Properties[Optional] Settings -->
+            <nz-tab *ngIf="configure.optionalProperties?.length> 0" [nzTitle]="propertyOptionalSettingTemplate">
+              <ng-template #propertyOptionalSettingTemplate>
+                <i nz-icon nzType="property-safety"></i>
+                {{'common.property'|translate}}
+              </ng-template>
               <app-component-property [properties]="configure.optionalProperties"
                                       [experimental]="configure.experimental"
                                       (emitter)="handlerComponentEmitter($event, false)">
               </app-component-property>
-            </nz-collapse-panel>
-          </nz-collapse>
+            </nz-tab>
+            <!-- Partition Settings -->
+            <nz-tab *ngIf="configure.partitionConfigure?.enable" [nzDisabled]="!validated.property"
+                    [nzTitle]="partitionSettingTemplate">
+              <ng-template #partitionSettingTemplate>
+                <i nz-icon nzType="partition"></i>
+                {{'common.partition'|translate}}
+              </ng-template>
+              <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24">{{'common.column'|translate}}</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                  <nz-select nzMode="multiple" [(ngModel)]="configure.partitionConfigure.columns"
+                             [ngModelOptions]="{standalone: true}">
+                    <nz-option *ngFor="let column of columns" [nzLabel]="column.name"
+                               [nzValue]="column.name"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </nz-tab>
+          </nz-tabset>
         </form>
       </div>
     </div>

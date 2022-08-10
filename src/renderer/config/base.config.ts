@@ -25,4 +25,7 @@ export interface BaseConfig {
   stopProcessor: string;
   showCreateDatabase: string;
   showTableWithSize: string;
+  getCharacterAndCollation: string;
+  // database
+  databaseRename: string;
 }

@@ -42,6 +42,7 @@ import { ColumnCreateComponent } from '@renderer/components/column/create/column
 import { CommentColumnComponent } from '@renderer/components/column/comment/column.comment.component';
 import { DatabaseFilterComponent } from '@renderer/components/database/filter/database.filter.component';
 import { TableFilterComponent } from '@renderer/components/table/filter/table.filter.component';
+import { CollationService } from "@renderer/services/management/collation.service";
 
 const MANAGEMENT_METADATA_ROUTES: Routes = [
   {path: '', component: MetadataComponent}
@@ -96,7 +97,8 @@ const MANAGEMENT_METADATA_ROUTES: Routes = [
     EditorService,
     TableService,
     ColumnService,
-    DatabaseService
+    DatabaseService,
+    CollationService
   ]
 })
 export class MetadataModule {

@@ -112,9 +112,26 @@ export class MetadataService extends ForwardService implements BaseService {
       case DatabaseEnum.mysql:
       case DatabaseEnum.materialized_mysql:
       case DatabaseEnum.materialized_postgresql:
+      case DatabaseEnum.postgresql:
         suffix = this.builderDatabaseMySQL(database);
         break;
     }
+
+    if (request.config.type === DatabaseEnum.mysql) {
+      if (database.characterAndCollationConfigure.enable) {
+        if (database.characterAndCollationConfigure.characterSetConfigure.enable
+          && StringUtils.isNotEmpty(database.characterAndCollationConfigure.characterSetConfigure.value)) {
+          suffix += StringUtils.format(` CHARACTER SET '{0}'`,
+            [database.characterAndCollationConfigure.characterSetConfigure.value]);
+        }
+        if (database.characterAndCollationConfigure.collationConfigure.enable
+          && StringUtils.isNotEmpty(database.characterAndCollationConfigure.collationConfigure.value)) {
+          suffix += StringUtils.format(` COLLATE '{0}'`,
+            [database.characterAndCollationConfigure.collationConfigure.value]);
+        }
+      }
+    }
+
     return this.getResponse(request, StringUtils.format('{0} {1}', [prefix, suffix]));
   }
 

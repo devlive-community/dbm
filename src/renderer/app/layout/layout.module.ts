@@ -17,6 +17,17 @@ import { PrestoService } from "@renderer/services/presto.service";
 import { FactoryService } from "@renderer/services/factory.service";
 import { MySQLService } from "@renderer/services/plugin/mysql.service";
 import { PostgresqlService } from "@renderer/services/plugin/postgresql.service";
+import { PluginFactory } from "@renderer/factory/plugin.factory";
+import { PluginToken } from "@renderer/token/plugin.token";
+import { ClickHousePlugin } from "@renderer/plugin/clickhouse.plugin";
+import { ElasticsearchPlugin } from "@renderer/plugin/elasticsearch.plugin";
+import { MysqlPlugin } from "@renderer/plugin/mysql.plugin";
+import { ConfigFactory } from "@renderer/factory/config.factory";
+import { ConfigToken } from "@renderer/token/config.token";
+import { MysqlConfig } from "@renderer/config/mysql.config";
+import { ClickHouseConfig } from "@renderer/config/clickhouse.config";
+import { PostgreSQLConfig } from "@renderer/config/postgresql.config";
+import { PostgreSQLPlugin } from "@renderer/plugin/postgresql.plugin";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -48,7 +59,18 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     PrestoService,
     FactoryService,
     MySQLService,
-    PostgresqlService
+    PostgresqlService,
+    /* Plugin */
+    PluginFactory,
+    {provide: PluginToken, useClass: ClickHousePlugin, multi: true},
+    {provide: PluginToken, useClass: ElasticsearchPlugin, multi: true},
+    {provide: PluginToken, useClass: MysqlPlugin, multi: true},
+    {provide: PluginToken, useClass: PostgreSQLPlugin, multi: true},
+    /* Config */
+    ConfigFactory,
+    {provide: ConfigToken, useClass: MysqlConfig, multi: true},
+    {provide: ConfigToken, useClass: ClickHouseConfig, multi: true},
+    {provide: ConfigToken, useClass: PostgreSQLConfig, multi: true},
   ]
 })
 export class LayoutModule {

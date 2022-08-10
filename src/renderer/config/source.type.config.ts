@@ -3,6 +3,7 @@ import {DatabaseEnum} from '@renderer/enum/database.enum';
 import {DatabaseModel} from '@renderer/model/database.model';
 import {StringUtils} from '@renderer/utils/string.utils';
 import {TranslateUtils} from '@renderer/utils/translate.utils';
+import { HologresDataSource } from "@renderer/config/source/source.hologres";
 
 @Injectable()
 export class SourceTypeConfig {
@@ -69,6 +70,18 @@ export class SourceTypeConfig {
       true,
       null,
       './renderer/assets/icon/source/Druid.svg'));
+    // ElasticSearch
+    experimentalEngines.push(DatabaseModel.builder(TranslateUtils.getValue('common.elasticsearch'),
+    TranslateUtils.getValue('tooltip.source.elasticsearch'),
+    DatabaseEnum.elasticsearch,
+    null,
+    true,
+    null,
+    './renderer/assets/icon/source/ElasticSearch.svg'));
+
+    // Hologres
+    experimentalEngines.push(HologresDataSource);
+
     experimentalType.engines = experimentalEngines;
 
     typeEngines.push(basicType, experimentalType);

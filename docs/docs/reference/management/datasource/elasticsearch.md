@@ -6,6 +6,8 @@ template: overrides/main.html
 
     It is mainly used to describe how the software builds the ElasticSearch data source for subsequent operations.
 
+    Based on XPACK plug-ins, the ElasticSearch data source is built on the basis of the [ElasticSearch](https://www.elastic.co/products/elasticsearch) plug-in.
+
 !!! warning "System requirements"
 
     \>= `1.22.0`

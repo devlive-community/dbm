@@ -1,0 +1,21 @@
+.ant-layout-header {
+  background: #fff;
+}
+
+.ant-layout-content {
+  background-color: #ffffff;
+  padding: 5px 0 0 5px;
+  margin-top: -10px;
+}
+
+:host ::ng-deep .ant-card-small > .ant-card-head {
+  padding: 0;
+}
+
+:host ::ng-deep .ant-card-small > .ant-card-body {
+  padding: 0;
+}
+
+:host ::ng-deep .ant-divider-horizontal {
+  margin: 0;
+}

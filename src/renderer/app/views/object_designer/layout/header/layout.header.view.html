@@ -1,0 +1,12 @@
+<nz-select class="custom-select" [(ngModel)]="applyDataSource.current" nzBorderless nzSize="small"
+           (ngModelChange)="handlerDataSourceChange($event)">
+  <nz-option nzCustomContent *ngFor="let dataSource of applyDataSource.list" [nzLabel]="dataSource.alias"
+             [nzValue]="dataSource.alias" [nzDisabled]="!dataSource.status">
+    <nz-avatar nzSize="small" nzSrc="./renderer/assets/icon/source/{{dataSource.type}}.svg">
+    </nz-avatar>
+    {{dataSource.alias}}
+  </nz-option>
+</nz-select>
+
+<object-designer-layout-header-database *ngIf="applyData.type === actionType.database && applyData.isOpen">
+</object-designer-layout-header-database>

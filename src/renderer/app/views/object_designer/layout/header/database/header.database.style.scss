@@ -1,0 +1,19 @@
+:host ::ng-deep .action-buttons {
+  margin-left: 10px;
+}
+
+:host ::ng-deep .action-button {
+  margin-left: 10px;
+}
+
+:host ::ng-deep .action-button-success {
+  color: #00c853;
+}
+
+:host ::ng-deep .action-button-danger {
+  color: #ff7875;
+}
+
+:host ::ng-deep .ant-divider-horizontal {
+  margin: 0;
+}

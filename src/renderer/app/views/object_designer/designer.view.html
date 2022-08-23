@@ -1,0 +1,33 @@
+<nz-card [nzTitle]="containerTitle" [nzExtra]="extraTemplate">
+  <nz-layout style="min-height: 580px;">
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <nz-divider></nz-divider>
+      <nz-spin nzSimple *ngIf="loading.database; else loadingDatabaseSuccessful" nzSize="small"
+               style="margin: 10px"></nz-spin>
+      <ng-template #loadingDatabaseSuccessful>
+        <nz-tree nzShowLine [nzData]="applyDataForArray.databases" nzBlockNode nzAsyncData
+                 (nzExpandChange)="handlerNodeLoad($event)" [nzTreeTemplate]="nzTreeTemplate"
+                 (nzClick)="handlerNodeClick($event)">
+          <ng-template #nzTreeTemplate let-node let-origin="origin">
+            <i nz-dropdown nzTrigger="click" class="fa fa-{{handlerApplyIcon(origin.type)}}">&nbsp;{{origin.title}}&nbsp;</i>
+          </ng-template>
+        </nz-tree>
+      </ng-template>
+    </nz-sider>
+
+    <nz-layout class="inner-layout">
+      <object-designer-layout-content [applyData]="applyData">
+      </object-designer-layout-content>
+    </nz-layout>
+  </nz-layout>
+</nz-card>
+
+<ng-template #containerTitle>
+  <object-designer-layout-header [applyData]="applyData" (emitter)="handlerDataSource($event)">
+  </object-designer-layout-header>
+</ng-template>
+
+<ng-template #extraTemplate>
+
+</ng-template>
+

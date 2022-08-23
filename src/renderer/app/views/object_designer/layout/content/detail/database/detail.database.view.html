@@ -1,5 +1,5 @@
 <nz-table #basicTable [nzData]="tableData" [nzShowPagination]="false" nzFrontPagination="false"
-          [nzScroll]="{x: '1200px'}" nzTableLayout="fixed" nzSize="small">
+          [nzScroll]="{x: applyData.width + 'px', y: (applyData.height - 40) + 'px'}" nzTableLayout="fixed" nzSize="small">
   <thead>
   <tr>
     <th>{{'table.tableName'|translate}}</th>

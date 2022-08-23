@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { RequestModel } from "@renderer/model/request.model";
 import { TreeUtils } from "@renderer/utils/tree.utils";
 import { TypeEnum } from "@renderer/enum/type.enum";
@@ -16,7 +16,7 @@ const _ = require("lodash");
   templateUrl: 'designer.view.html',
   styleUrls: ['designer.style.scss']
 })
-export class DesignerComponent {
+export class DesignerComponent implements AfterViewInit{
   applyDataForArray = {
     databases: []
   }
@@ -29,6 +29,20 @@ export class DesignerComponent {
               private databaseService: DatabaseService,
               private tableService: TableService,
               private iconCommonService: IconCommonService) {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.handlerResize();
+    }, 0);
+  }
+
+  handlerResize() {
+    new ResizeObserver(([entry] = []) => {
+      const [size] = entry.borderBoxSize || [];
+      this.applyData.width = size.inlineSize - 18;
+      this.applyData.height = size.blockSize - 130;
+    }).observe(document.body);
   }
 
   /**

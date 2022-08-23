@@ -7,4 +7,6 @@ export class DesignerApplyData {
   isOpen: boolean = false; // Whether the current node is enabled
   type: TypeEnum; // Current node type
   currentValue: string;
+  width: number;
+  height: number;
 }

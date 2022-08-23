@@ -1,5 +1,5 @@
 <nz-card [nzTitle]="containerTitle" [nzExtra]="extraTemplate">
-  <nz-layout style="min-height: 580px;">
+  <nz-layout style="width: {{applyData.width}}px; height: {{applyData.height}}px;">
     <nz-sider nzWidth="200px" nzTheme="light">
       <nz-divider></nz-divider>
       <nz-spin nzSimple *ngIf="loading.database; else loadingDatabaseSuccessful" nzSize="small"
@@ -7,7 +7,7 @@
       <ng-template #loadingDatabaseSuccessful>
         <nz-tree nzShowLine [nzData]="applyDataForArray.databases" nzBlockNode nzAsyncData
                  (nzExpandChange)="handlerNodeLoad($event)" [nzTreeTemplate]="nzTreeTemplate"
-                 (nzClick)="handlerNodeClick($event)">
+                 (nzClick)="handlerNodeClick($event)" nzVirtualHeight="{{applyData.height}}px">
           <ng-template #nzTreeTemplate let-node let-origin="origin">
             <i nz-dropdown nzTrigger="click" class="fa fa-{{handlerApplyIcon(origin.type)}}">&nbsp;{{origin.title}}&nbsp;</i>
           </ng-template>

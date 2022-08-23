@@ -1,0 +1,17 @@
+<nz-table #basicTable [nzData]="tableData.columns" [nzShowPagination]="false" nzFrontPagination="false"
+          [nzScroll]="{x: applyData.width + 'px', y: (applyData.height - 40) + 'px'}" nzTableLayout="fixed"
+          nzSize="small">
+  <thead>
+  <tr>
+    <th nzEllipsis *ngFor="let header of tableData.headers" class="td">{{header.name}}</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let column of basicTable.data;">
+    <td *ngFor="let header of tableData.headers" nzEllipsis class="td">
+      {{column[header.name]}}
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

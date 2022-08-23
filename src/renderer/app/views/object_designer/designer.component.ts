@@ -16,7 +16,7 @@ const _ = require("lodash");
   templateUrl: 'designer.view.html',
   styleUrls: ['designer.style.scss']
 })
-export class DesignerComponent implements AfterViewInit{
+export class DesignerComponent implements AfterViewInit {
   applyDataForArray = {
     databases: []
   }
@@ -82,26 +82,31 @@ export class DesignerComponent implements AfterViewInit{
               event.node.addChildren([]);
             }
             this.applyData.isOpen = true;
+            this.applyData.reload = true;
           });
         break;
       default:
+        this.applyData.isOpen = true;
+        this.applyData.reload = true;
         event.node.addChildren([]);
     }
   }
 
   handlerNodeClick(event: NzFormatEmitEvent) {
-    if (this.applyData.isOpen && (this.applyData.currentValue !== event.node.origin.key)) {
-      this.applyData.isOpen = false;
-    }
+    this.applyData.reload = false;
+    this.applyData.isOpen = true;
     // Since the component is unselected when clicked again, we set it to selected by default
     if (!event.node.isSelected) {
       event.node.isSelected = true;
     }
     if (event.node.level === 0) {
       this.applyData.type = TypeEnum.database;
+      this.applyData.database = event.node.origin.key;
     } else {
       this.applyData.type = TypeEnum.table;
+      this.applyData.table = event.node.origin.key;
     }
+    this.handlerNodeLoad(event);
   }
 
   handlerApplyIcon(type: TypeEnum) {

@@ -17,6 +17,9 @@ import {
 import {
   LayoutContentDetailDatabaseComponent
 } from "@renderer/app/views/object_designer/layout/content/detail/database/detail.database.component";
+import {
+    LayoutDetailTableComponent
+} from "@renderer/app/views/object_designer/layout/content/detail/table/detail.table.component";
 
 const DESIGNER_ROUTES: Routes = [
   {path: '', component: DesignerComponent}
@@ -32,13 +35,14 @@ const DESIGNER_ROUTES: Routes = [
     RouterModule.forChild(DESIGNER_ROUTES)
   ],
   exports: [],
-  declarations: [
-    DesignerComponent,
-    LayoutHeaderComponent,
-    LayoutContentComponent,
-    LayoutHeaderDatabaseComponent,
-    LayoutContentDetailDatabaseComponent
-  ],
+    declarations: [
+        DesignerComponent,
+        LayoutHeaderComponent,
+        LayoutContentComponent,
+        LayoutHeaderDatabaseComponent,
+        LayoutContentDetailDatabaseComponent,
+        LayoutDetailTableComponent
+    ],
   providers: [
     DatabaseService,
     TableService,

@@ -16,7 +16,7 @@
     </nz-sider>
 
     <nz-layout class="inner-layout">
-      <object-designer-layout-content [applyData]="applyData">
+      <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData">
       </object-designer-layout-content>
     </nz-layout>
   </nz-layout>

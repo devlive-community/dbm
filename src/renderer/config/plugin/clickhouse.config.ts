@@ -181,4 +181,5 @@ ALTER TABLE {0} COMMENT COLUMN {1} '{2}'
   FROM system.tables
   WHERE database = '{0}'
   `
+  metadataManagementFetchTableData = "SELECT * FROM `{0}`.`{1}` LIMIT {2}, {3}"
 }

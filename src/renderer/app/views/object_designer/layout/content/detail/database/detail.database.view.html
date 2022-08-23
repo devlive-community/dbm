@@ -1,5 +1,6 @@
 <nz-table #basicTable [nzData]="tableData" [nzShowPagination]="false" nzFrontPagination="false"
-          [nzScroll]="{x: applyData.width + 'px', y: (applyData.height - 40) + 'px'}" nzTableLayout="fixed" nzSize="small">
+          [nzScroll]="{x: applyData.width + 'px', y: (applyData.height - 40) + 'px'}" nzTableLayout="fixed"
+          nzSize="small">
   <thead>
   <tr>
     <th>{{'table.tableName'|translate}}</th>
@@ -11,7 +12,9 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of basicTable.data">
-    <td nzEllipsis>{{data['tableName']}}</td>
+    <td nzEllipsis>
+      <i nz-icon nzType="table" class="color-00c853"></i>&nbsp;{{data['tableName']}}
+    </td>
     <td nzEllipsis>{{data['tableTotalRows']}}</td>
     <td nzEllipsis>{{data['tableTotalSize']}}</td>
     <td nzEllipsis>{{data['tableEngine']}}</td>

@@ -3,4 +3,8 @@
     <object-designer-layout-content-detail-database [applyData]="applyData">
     </object-designer-layout-content-detail-database>
   </ng-container>
+  <ng-container *ngIf="applyData.type === actionType.table">
+    <object-designer-layout-content-detail-table [applyData]="applyData">
+    </object-designer-layout-content-detail-table>
+  </ng-container>
 </ng-container>

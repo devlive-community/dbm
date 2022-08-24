@@ -1,24 +1,5 @@
-<nz-table #basicTable [nzData]="tableData" [nzShowPagination]="false" nzFrontPagination="false"
-          [nzScroll]="{x: applyData.width + 'px', y: (applyData.height - 40) + 'px'}" nzTableLayout="fixed"
-          nzSize="small">
-  <thead>
-  <tr>
-    <th>{{'table.tableName'|translate}}</th>
-    <th>{{'table.tableTotalRows'|translate}}</th>
-    <th>{{'table.tableTotalSize'|translate}}</th>
-    <th>{{'table.tableEngine'|translate}}</th>
-    <th>{{'table.tableModificationTime'|translate}}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of basicTable.data">
-    <td nzEllipsis>
-      <i nz-icon nzType="table" class="color-00c853"></i>&nbsp;{{data['tableName']}}
-    </td>
-    <td nzEllipsis>{{data['tableTotalRows']}}</td>
-    <td nzEllipsis>{{data['tableTotalSize']}}</td>
-    <td nzEllipsis>{{data['tableEngine']}}</td>
-    <td nzEllipsis>{{data['tableModificationTime']}}</td>
-  </tr>
-  </tbody>
-</nz-table>
+<nz-skeleton *ngIf="loading.tableContainer; else noData" [nzActive]="true"></nz-skeleton>
+<div id="queryResultContainer"></div>
+<ng-template #noData>
+  <nz-empty *ngIf="tableDataSize === 0" nzNotFoundImage="simple"></nz-empty>
+</ng-template>

@@ -8,6 +8,8 @@ import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
 import { IconCommonService } from "@renderer/services/common/icon.common.service";
 import { TableService } from "@renderer/services/management/table.service";
 import { DesignerApplyData } from "@renderer/app/views/object_designer/model/designer.apply.data";
+import { AssertUtils } from "@renderer/app/views/object_designer/utils/assert.utils";
+import { DesignerColumn } from "@renderer/app/views/object_designer/model/designer.column";
 
 const _ = require("lodash");
 
@@ -21,6 +23,7 @@ export class DesignerComponent implements AfterViewInit {
     databases: []
   }
   applyData = new DesignerApplyData();
+  applyColumns: DesignerColumn[] = [];
   loading = {
     database: false
   }
@@ -95,6 +98,8 @@ export class DesignerComponent implements AfterViewInit {
   handlerNodeClick(event: NzFormatEmitEvent) {
     this.applyData.reload = false;
     this.applyData.isOpen = true;
+    this.applyData.resetCommand(this.applyData);
+    this.applyColumns = [];
     // Since the component is unselected when clicked again, we set it to selected by default
     if (!event.node.isSelected) {
       event.node.isSelected = true;
@@ -111,5 +116,9 @@ export class DesignerComponent implements AfterViewInit {
 
   handlerApplyIcon(type: TypeEnum) {
     return this.iconCommonService.applyIcon(type);
+  }
+
+  handlerEmitterColumns(applyColumns: DesignerColumn[]) {
+    this.applyColumns = applyColumns;
   }
 }

@@ -174,7 +174,9 @@
     "accesskey_id": "AccessKey ID",
     "accesskey_secret": "AccessKey Secret",
     "designer": "Designer",
-    "is_null": "Is Null"
+    "is_null": "Is Null",
+    "key": "Key",
+    "length": "Length"
   },
   "language": {
     "english": "English",

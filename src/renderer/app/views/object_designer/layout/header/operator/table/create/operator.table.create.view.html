@@ -1,0 +1,16 @@
+<button class="action-buttons" nz-button nzSize="small"
+        nz-popconfirm [nzPopconfirmTitle]="nzPopconfirmTitle"
+        nzPopconfirmPlacement="bottom" (nzOnConfirm)="handlerCreateTable()">
+  <i nz-icon nzType="save"></i>{{'common.save'|translate}}
+  <ng-template #nzPopconfirmTitle>
+    <nz-input-group nzAddOnBefore="{{'common.table'|translate}}{{'common.name'|translate}}">
+      <input type="text" nz-input [(ngModel)]="applyTableName"/>
+    </nz-input-group>
+  </ng-template>
+</button>
+<nz-divider nzType="vertical"></nz-divider>
+<button nz-button nzSize="small" nzType="text" nz-tooltip
+        nzTooltipTitle="{{'common.new'|translate}}{{'common.column'|translate}}"
+        (click)="handlerPlusColumn()">
+  <i nz-icon nzType="plus-circle" class="color-00c853"></i>
+</button>

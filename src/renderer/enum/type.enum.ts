@@ -1,4 +1,5 @@
 export enum TypeEnum {
+  none,
   disk = ('disk'),
   server = ('server'),
   database = ('database'),

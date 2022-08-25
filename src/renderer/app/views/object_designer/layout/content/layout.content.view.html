@@ -1,4 +1,4 @@
-<ng-container *ngIf="applyData.isOpen">
+<ng-container *ngIf="(applyData.isOpen && !isCreateTable()); else createTable">
   <ng-container *ngIf="applyData.type === actionType.database">
     <object-designer-layout-content-detail-database [applyData]="applyData">
     </object-designer-layout-content-detail-database>
@@ -8,3 +8,11 @@
     </object-designer-layout-content-detail-table>
   </ng-container>
 </ng-container>
+
+<ng-template #createTable>
+  <object-designer-layout-content-operator-table-create *ngIf="isCreateTable()" [applyData]="applyData"
+                                                        [applyColumns]="applyColumns"
+                                                        (emitter)="handlerForward($event)">
+  </object-designer-layout-content-operator-table-create>
+</ng-template>
+

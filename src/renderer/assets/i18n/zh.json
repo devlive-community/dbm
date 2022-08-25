@@ -173,7 +173,9 @@
     "accesskey_id": "AccessKey ID",
     "accesskey_secret": "AccessKey Secret",
     "designer": "设计",
-    "is_null": "不是Null"
+    "is_null": "不是Null",
+    "key": "主键",
+    "length": "长度"
   },
   "language": {
     "english": "英语",

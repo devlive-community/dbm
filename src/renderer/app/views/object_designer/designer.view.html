@@ -16,14 +16,18 @@
     </nz-sider>
 
     <nz-layout class="inner-layout">
-      <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData">
+      <nz-divider></nz-divider>
+      <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData"
+                                      [applyColumns]="applyColumns" (emitter)="handlerEmitterColumns($event)">
       </object-designer-layout-content>
     </nz-layout>
   </nz-layout>
 </nz-card>
 
 <ng-template #containerTitle>
-  <object-designer-layout-header [applyData]="applyData" (emitter)="handlerDataSource($event)">
+  <object-designer-layout-header [applyData]="applyData" (emitter)="handlerDataSource($event)"
+                                 [applyColumns]="applyColumns"
+                                 (emitterColumns)="handlerEmitterColumns($event)">
   </object-designer-layout-header>
 </ng-template>
 

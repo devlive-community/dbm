@@ -175,7 +175,8 @@
     "designer": "设计",
     "is_null": "不是Null",
     "key": "主键",
-    "length": "长度"
+    "length": "长度",
+    "beta": "Beta"
   },
   "language": {
     "english": "英语",

@@ -176,7 +176,8 @@
     "designer": "Designer",
     "is_null": "Is Null",
     "key": "Key",
-    "length": "Length"
+    "length": "Length",
+    "beta": "Beta"
   },
   "language": {
     "english": "English",

@@ -5,7 +5,7 @@
     <ng-template #contentTemplate>
     </ng-template>
     <ng-template #footerTemplate>
-      <button nz-button nzType="primary" (click)="handlerOpenModal(0)">
+      <button nz-button nzType="primary" (click)="handlerOpenModal(actionTypeConform.create)">
         {{'common.add'|translate}}
       </button>
     </ng-template>
@@ -43,11 +43,11 @@
         <td>
           <button nz-button nzShape="circle" nzSize="small" nzType="primary"
                   nz-tooltip nzTooltipTitle="{{'common.edit' | translate}}">
-            <i class="fa fa-edit" (click)="handlerOpenModal(2, data.alias)"></i>
+            <i class="fa fa-edit" (click)="handlerOpenModal(actionTypeConform.update, data.alias)"></i>
           </button>
           <button nz-button nzShape="circle" nzSize="small" nzType="primary" [disabled]="!data.status"
                   nz-tooltip nzTooltipTitle="{{'common.copy' | translate}}">
-            <i class="fa fa-copy" (click)="handlerOpenModal(3, data.alias)"></i>
+            <i class="fa fa-copy" (click)="handlerOpenModal(actionTypeConform.copy, data.alias)"></i>
           </button>
           <button nz-button nzShape="circle" nzSize="small" nzType="dashed"
                   nz-tooltip nzTooltipTitle="{{'common.quote' | translate}}"
@@ -81,7 +81,7 @@
 <ng-template #titleTemplate>
   <button nz-button nzType="primary" nzShape="circle" nzSize="small"
           nz-tooltip nzTooltipTitle="{{'common.add' | translate}}"
-          (click)="handlerOpenModal(0)">
+          (click)="handlerOpenModal(actionTypeConform.create)">
     <i class="fa fa-plus"></i>
   </button>
   <button nz-button nzType="dashed" nzShape="circle" nzSize="small"

@@ -1,3 +1,7 @@
 :host ::ng-deep .ant-layout {
   background: #ffffff;
 }
+
+:host ::ng-deep .ant-tabs>.ant-tabs-nav, .ant-tabs>div>.ant-tabs-nav {
+  margin: 0;
+}

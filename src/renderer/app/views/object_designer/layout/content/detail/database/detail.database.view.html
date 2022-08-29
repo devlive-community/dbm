@@ -1,5 +1,23 @@
-<nz-skeleton *ngIf="loading.tableContainer; else noData" [nzActive]="true"></nz-skeleton>
-<div id="queryResultContainer"></div>
-<ng-template #noData>
-  <nz-empty *ngIf="tableDataSize === 0" nzNotFoundImage="simple"></nz-empty>
-</ng-template>
+<nz-skeleton *ngIf="loading.tableContainer" [nzActive]="true"></nz-skeleton>
+<div *ngIf="applyResultColumns.length > 0" style="margin-top: 4px;">
+  <nz-table #tableContainer nzSize="small" [nzData]="applyResultColumns">
+    <thead>
+    <tr>
+      <th>{{'table.tableName'|translate}}</th>
+      <th>{{'table.tableTotalRows'|translate}}</th>
+      <th>{{'table.tableTotalSize'|translate}}</th>
+      <th>{{'table.tableEngine'|translate}}</th>
+      <th>{{'table.tableModificationTime'|translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of tableContainer.data">
+      <td nzEllipsis>{{data['tableName']}}</td>
+      <td>{{data['tableTotalRows']}}</td>
+      <td>{{data['tableTotalSize']}}</td>
+      <td>{{data['tableEngine']}}</td>
+      <td>{{data['tableModificationTime']}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

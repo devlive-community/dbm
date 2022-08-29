@@ -1,5 +1,25 @@
-<nz-skeleton *ngIf="loading.tableContainer; else noData" [nzActive]="true"></nz-skeleton>
-<div id="queryResultContainer"></div>
-<ng-template #noData>
-  <nz-empty *ngIf="tableDataSize === 0" nzNotFoundImage="simple"></nz-empty>
-</ng-template>
+<nz-skeleton *ngIf="loading.tableContainer" [nzActive]="true"></nz-skeleton>
+<div *ngIf="applyResult.columns.length > 0" style="margin-top: 4px;">
+  <nz-table #tableContainer nzSize="small" [nzData]="applyResult.columns">
+    <thead>
+    <tr>
+      <th *ngFor="let header of applyResult.headers" nzEllipsis>
+        <div nz-popover nzPopoverTrigger="click"
+             nzPopoverContent="{{header}}">
+          {{header}}
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let column of tableContainer.data;">
+      <td *ngFor="let header of applyResult.headers" nzEllipsis>
+        <div nz-popover nzPopoverTrigger="click"
+             nzPopoverTitle="{{header}}" nzPopoverContent="{{column[header]}}">
+          {{column[header]}}
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>

@@ -177,7 +177,8 @@
     "is_null": "Is Null",
     "key": "Key",
     "length": "Length",
-    "beta": "Beta"
+    "beta": "Beta",
+    "sql": "SQL"
   },
   "language": {
     "english": "English",

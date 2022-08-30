@@ -4,6 +4,9 @@ import { PluginFactory } from "@renderer/factory/plugin.factory";
 import { RequestModel } from "@renderer/model/request.model";
 import { ConfigFactory } from "@renderer/factory/config.factory";
 import { StringUtils } from "@renderer/utils/string.utils";
+import { ActionEnum } from "@renderer/enum/action.enum";
+import { TypeEnum } from "@renderer/enum/type.enum";
+import { AssertUtils } from "@renderer/app/views/object_designer/utils/assert.utils";
 
 @Component({
   selector: 'object-designer-layout-content-detail-database',
@@ -46,5 +49,14 @@ export class LayoutContentDetailDatabaseComponent implements AfterViewInit {
           this.loading.tableContainer = false;
         });
     }, 0)
+  }
+
+  handlerNewTable() {
+    this.applyData.command.action = ActionEnum.create;
+    this.applyData.command.type = TypeEnum.table;
+  }
+
+  isCreateTable(): boolean {
+    return AssertUtils.isCreateTable(this.applyData);
   }
 }

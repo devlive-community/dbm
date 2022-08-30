@@ -1,7 +1,6 @@
-<nz-card [nzTitle]="containerTitle" [nzExtra]="extraTemplate">
-  <nz-layout style="width: {{applyData.width}}px; height: {{applyData.height}}px;">
-    <nz-sider nzWidth="200px" nzTheme="light">
-      <nz-divider></nz-divider>
+<nz-layout style="width: {{applyData.width}}px; height: {{applyData.height}}px;">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <nz-card [nzTitle]="siderContainerTitle">
       <nz-spin nzSimple *ngIf="loading.database; else loadingDatabaseSuccessful" nzSize="small"
                style="margin: 10px"></nz-spin>
       <ng-template #loadingDatabaseSuccessful>
@@ -11,27 +10,25 @@
           <ng-template #nzTreeTemplate let-node let-origin="origin">
             <i nz-dropdown nzTrigger="click" class="fa fa-{{handlerApplyIcon(origin.type)}}">&nbsp;{{origin.title}}&nbsp;</i>
           </ng-template>
-        </nz-tree><nz-divider></nz-divider>
+        </nz-tree>
       </ng-template>
-    </nz-sider>
 
-    <nz-layout class="inner-layout">
-      <nz-divider></nz-divider>
-      <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData"
-                                      [applyColumns]="applyColumns" (emitter)="handlerEmitterColumns($event)">
-      </object-designer-layout-content>
-    </nz-layout>
+      <ng-template #siderContainerTitle>
+        <nz-select class="custom-select" [(ngModel)]="applyDataSource.current" nzBorderless nzSize="small"
+                   (ngModelChange)="handlerDataSourceChange($event)">
+          <nz-option nzCustomContent *ngFor="let dataSource of applyDataSource.list" [nzLabel]="dataSource['alias']"
+                     [nzValue]="dataSource['alias']" [nzDisabled]="!dataSource.status">
+            <nz-avatar nzSize="small" nzSrc="./renderer/assets/icon/source/{{dataSource.type}}.svg">
+            </nz-avatar>
+            {{dataSource.alias}}
+          </nz-option>
+        </nz-select>
+      </ng-template>
+    </nz-card>
+  </nz-sider>
+
+  <nz-layout class="inner-layout">
+    <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData">
+    </object-designer-layout-content>
   </nz-layout>
-</nz-card>
-
-<ng-template #containerTitle>
-  <object-designer-layout-header [applyData]="applyData" (emitter)="handlerDataSource($event)"
-                                 [applyColumns]="applyColumns"
-                                 (emitterColumns)="handlerEmitterColumns($event)">
-  </object-designer-layout-header>
-</ng-template>
-
-<ng-template #extraTemplate>
-
-</ng-template>
-
+</nz-layout>

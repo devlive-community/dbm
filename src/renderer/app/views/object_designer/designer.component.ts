@@ -8,8 +8,7 @@ import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
 import { IconCommonService } from "@renderer/services/common/icon.common.service";
 import { TableService } from "@renderer/services/management/table.service";
 import { DesignerApplyData } from "@renderer/app/views/object_designer/model/designer.apply.data";
-import { AssertUtils } from "@renderer/app/views/object_designer/utils/assert.utils";
-import { DesignerColumn } from "@renderer/app/views/object_designer/model/designer.column";
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 const _ = require("lodash");
 
@@ -22,8 +21,11 @@ export class DesignerComponent implements AfterViewInit {
   applyDataForArray = {
     databases: []
   }
+  applyDataSource = {
+    current: null,
+    list: []
+  }
   applyData = new DesignerApplyData();
-  applyColumns: DesignerColumn[] = [];
   loading = {
     database: false
   }
@@ -36,6 +38,9 @@ export class DesignerComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      this.dataSourceService.getAll().then(response => {
+        this.applyDataSource.list = response.filter(value => value.type === DatabaseEnum.clickhosue);
+      });
       this.handlerResize();
     }, 0);
   }
@@ -44,7 +49,7 @@ export class DesignerComponent implements AfterViewInit {
     new ResizeObserver(([entry] = []) => {
       const [size] = entry.borderBoxSize || [];
       this.applyData.width = size.inlineSize - 18;
-      this.applyData.height = size.blockSize - 130;
+      this.applyData.height = size.blockSize - 90;
     }).observe(document.body);
   }
 
@@ -52,7 +57,7 @@ export class DesignerComponent implements AfterViewInit {
    * After the data source detects changes, refresh all databases of the data source
    * @param value Selected data source
    */
-  handlerDataSource(value: string): void {
+  handlerDataSourceChange(value: string): void {
     this.loading.database = true;
     this.dataSourceService.findByAlias(value)
       .then(response => {
@@ -99,7 +104,6 @@ export class DesignerComponent implements AfterViewInit {
     this.applyData.reload = false;
     this.applyData.isOpen = true;
     this.applyData.resetCommand(this.applyData);
-    this.applyColumns = [];
     // Since the component is unselected when clicked again, we set it to selected by default
     if (!event.node.isSelected) {
       event.node.isSelected = true;
@@ -116,9 +120,5 @@ export class DesignerComponent implements AfterViewInit {
 
   handlerApplyIcon(type: TypeEnum) {
     return this.iconCommonService.applyIcon(type);
-  }
-
-  handlerEmitterColumns(applyColumns: DesignerColumn[]) {
-    this.applyColumns = applyColumns;
   }
 }

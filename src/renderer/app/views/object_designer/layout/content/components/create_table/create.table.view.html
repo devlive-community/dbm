@@ -1,0 +1,82 @@
+<nz-card [nzTitle]="titleTemplate">
+  <nz-tabset nzAnimated="false">
+    <nz-tab [nzTitle]="columnTemplate">
+      <ng-template #columnTemplate>
+        <i class="fa fa-columns"></i>
+        {{'common.column'|translate}} <span *ngIf="applyColumns.length > 0">({{applyColumns.length}})</span>
+      </ng-template>
+      <div *ngIf="applyColumns.length > 0">
+        <nz-table #tableContainer nzSize="small" [nzFrontPagination]="false"
+                  [nzShowPagination]="false" [nzData]="applyColumns">
+          <thead>
+          <tr>
+            <th>{{'common.name'|translate}}</th>
+            <th>{{'common.type'|translate}}</th>
+            <th>{{'common.length'|translate}}</th>
+            <th>{{'common.is_null'|translate}}</th>
+            <th>{{'common.comment'|translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of tableContainer.data">
+            <td nzEllipsis>
+              <input nz-input [(ngModel)]="data['name']"/>
+            </td>
+            <td>
+              <nz-select [(ngModel)]="data['type']" [nzDropdownRender]="renderTemplate" style="min-width: 120px;">
+                <nz-option *ngFor="let iType of dataType" nzValue="{{iType}}" nzLabel="{{iType}}"></nz-option>
+              </nz-select>
+              <ng-template #renderTemplate>
+                <nz-divider></nz-divider>
+                <div class="container">
+                  <input type="text" nz-input style="width: 100px" #inputElement/>
+                  <a (click)="handlerAddDataType(inputElement)">
+                    <span nz-icon nzType="plus"></span>
+                  </a>
+                </div>
+              </ng-template>
+            </td>
+            <td>
+              <nz-input-number [(ngModel)]="data['length']" [nzMin]="1" [nzStep]="1"></nz-input-number>
+            </td>
+            <td>
+              <nz-switch [(ngModel)]="data['isNull']"></nz-switch>
+            </td>
+            <td>
+              <textarea rows="1" nz-input [(ngModel)]="data['comment']"></textarea>
+            </td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="sqlPreviewTemplate" (nzSelect)="handlerSqlPreview()">
+      <ng-template #sqlPreviewTemplate>
+        <i class="fa fa-eye"></i>
+        {{'common.sql'|translate}} {{'common.preview'|translate}}
+      </ng-template>
+      <ace [config]="applyEditor.configuration" [mode]="'sql'" [theme]="'eclipse'" [(value)]="applyEditor.value"></ace>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>
+
+<ng-template #titleTemplate>
+  <button class="action-buttons" nz-button nzSize="small"
+          nz-tooltip nzTooltipTitle="{{'common.save'|translate}}"
+          nz-popconfirm [nzPopconfirmTitle]="nzPopconfirmTitle"
+          nzPopconfirmPlacement="bottom" (nzOnConfirm)="handlerCreateTable()">
+    <i nz-icon nzType="save"></i>
+    <ng-template #nzPopconfirmTitle>
+      <nz-input-group nzAddOnBefore="{{'common.table'|translate}}{{'common.name'|translate}}">
+        <input type="text" nz-input [(ngModel)]="applyTableName"/>
+      </nz-input-group>
+    </ng-template>
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzSize="small" nzType="text"
+          nz-tooltip nzTooltipTitle="{{'common.new'|translate}}{{'common.column'|translate}}"
+          (click)="handlerPlusColumn()">
+    <i nz-icon nzType="plus-circle" class="action-button-success"></i>
+  </button>
+</ng-template>

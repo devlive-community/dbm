@@ -4,6 +4,7 @@
       <nz-table #tableContainer nzSize="small" [nzData]="applyResultColumns">
         <thead>
         <tr>
+          <th></th>
           <th>{{'table.tableName'|translate}}</th>
           <th>{{'table.tableTotalRows'|translate}}</th>
           <th>{{'table.tableTotalSize'|translate}}</th>
@@ -13,6 +14,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let data of tableContainer.data">
+          <td [nzChecked]="applySelectTable.checkedTables.has(data['tableName'])"
+              (nzCheckedChange)="handlerTableChecked(data['tableName'], $event)"></td>
           <td nzEllipsis>{{data['tableName']}}</td>
           <td>{{data['tableTotalRows']}}</td>
           <td>{{data['tableTotalSize']}}</td>
@@ -30,6 +33,12 @@
             (click)="handlerNewTable()">
       <i nz-icon nzType="plus-circle" class="action-button-success"></i>
     </button>
+    <button nz-button nzSize="small" nzType="text" [disabled]="applySelectTable.checkedTables.size <= 0"
+            nz-tooltip nzTooltipTitle="{{'common.delete'|translate}}{{'common.table'|translate}}"
+            (click)="handlerApplyDeleteTable()">
+      <span nz-icon nzType="minus-circle" class="action-button-danger"></span>
+      <span *ngIf="applySelectTable.checkedTables.size > 0">({{applySelectTable.checkedTables.size}})</span>
+    </button>
   </ng-template>
 </ng-container>
 
@@ -37,3 +46,16 @@
   <object-designer-layout-content-create-table [applyData]="applyData">
   </object-designer-layout-content-create-table>
 </ng-template>
+
+<nz-modal [(nzVisible)]="deleteTable.visible" nzTitle="{{'common.delete'|translate}}{{'common.table'|translate}}"
+          (nzOnCancel)="handlerCancelDeleteTable()">
+  <div center *nzModalContent>
+    <p>Are you sure you want to delete "{{applyData.table}}"?</p>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzDanger nzType="primary" (click)="handlerDeleteTable()"
+            [nzLoading]="deleteTable.loading">
+      {{'common.delete'|translate}}
+    </button>
+  </div>
+</nz-modal>

@@ -1,0 +1,39 @@
+<ng-container *ngIf="!isCreateTable(); else createTable">
+  <nz-card [nzTitle]="titleTemplate" [nzLoading]="loading.tableContainer">
+    <div *ngIf="applyResultColumns.length > 0" style="margin-top: 4px;">
+      <nz-table #tableContainer nzSize="small" [nzData]="applyResultColumns">
+        <thead>
+        <tr>
+          <th>{{'table.tableName'|translate}}</th>
+          <th>{{'table.tableTotalRows'|translate}}</th>
+          <th>{{'table.tableTotalSize'|translate}}</th>
+          <th>{{'table.tableEngine'|translate}}</th>
+          <th>{{'table.tableModificationTime'|translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of tableContainer.data">
+          <td nzEllipsis>{{data['tableName']}}</td>
+          <td>{{data['tableTotalRows']}}</td>
+          <td>{{data['tableTotalSize']}}</td>
+          <td>{{data['tableEngine']}}</td>
+          <td>{{data['tableModificationTime']}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-card>
+
+  <ng-template #titleTemplate>
+    <button nz-button nzSize="small" nzType="text"
+            nz-tooltip nzTooltipTitle="{{'common.new'|translate}}{{'common.table'|translate}}"
+            (click)="handlerNewTable()">
+      <i nz-icon nzType="plus-circle" class="action-button-success"></i>
+    </button>
+  </ng-template>
+</ng-container>
+
+<ng-template #createTable>
+  <object-designer-layout-content-create-table [applyData]="applyData">
+  </object-designer-layout-content-create-table>
+</ng-template>

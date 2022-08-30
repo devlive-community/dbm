@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { RequestModel } from "@renderer/model/request.model";
 import { TreeUtils } from "@renderer/utils/tree.utils";
 import { TypeEnum } from "@renderer/enum/type.enum";
@@ -8,6 +8,7 @@ import { NzFormatEmitEvent } from "ng-zorro-antd/tree";
 import { IconCommonService } from "@renderer/services/common/icon.common.service";
 import { TableService } from "@renderer/services/management/table.service";
 import { DesignerApplyData } from "@renderer/app/views/object_designer/model/designer.apply.data";
+import { DatabaseEnum } from "@renderer/enum/database.enum";
 
 const _ = require("lodash");
 
@@ -16,9 +17,13 @@ const _ = require("lodash");
   templateUrl: 'designer.view.html',
   styleUrls: ['designer.style.scss']
 })
-export class DesignerComponent {
+export class DesignerComponent implements AfterViewInit {
   applyDataForArray = {
     databases: []
+  }
+  applyDataSource = {
+    current: null,
+    list: []
   }
   applyData = new DesignerApplyData();
   loading = {
@@ -31,11 +36,28 @@ export class DesignerComponent {
               private iconCommonService: IconCommonService) {
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dataSourceService.getAll().then(response => {
+        this.applyDataSource.list = response.filter(value => value.type === DatabaseEnum.clickhosue);
+      });
+      this.handlerResize();
+    }, 0);
+  }
+
+  handlerResize() {
+    new ResizeObserver(([entry] = []) => {
+      const [size] = entry.borderBoxSize || [];
+      this.applyData.width = size.inlineSize - 18;
+      this.applyData.height = size.blockSize - 90;
+    }).observe(document.body);
+  }
+
   /**
    * After the data source detects changes, refresh all databases of the data source
    * @param value Selected data source
    */
-  handlerDataSource(value: string): void {
+  handlerDataSourceChange(value: string): void {
     this.loading.database = true;
     this.dataSourceService.findByAlias(value)
       .then(response => {
@@ -68,26 +90,32 @@ export class DesignerComponent {
               event.node.addChildren([]);
             }
             this.applyData.isOpen = true;
+            this.applyData.reload = true;
           });
         break;
       default:
+        this.applyData.isOpen = true;
+        this.applyData.reload = true;
         event.node.addChildren([]);
     }
   }
 
   handlerNodeClick(event: NzFormatEmitEvent) {
-    if (this.applyData.isOpen && (this.applyData.currentValue !== event.node.origin.key)) {
-      this.applyData.isOpen = false;
-    }
+    this.applyData.reload = false;
+    this.applyData.isOpen = true;
+    this.applyData.resetCommand(this.applyData);
     // Since the component is unselected when clicked again, we set it to selected by default
     if (!event.node.isSelected) {
       event.node.isSelected = true;
     }
     if (event.node.level === 0) {
       this.applyData.type = TypeEnum.database;
+      this.applyData.database = event.node.origin.key;
     } else {
       this.applyData.type = TypeEnum.table;
+      this.applyData.table = event.node.origin.key;
     }
+    this.handlerNodeLoad(event);
   }
 
   handlerApplyIcon(type: TypeEnum) {

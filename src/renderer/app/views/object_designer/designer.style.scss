@@ -13,9 +13,28 @@
 }
 
 :host ::ng-deep .ant-card-small > .ant-card-body {
-  padding: 0;
+  padding: 2px;
 }
 
 :host ::ng-deep .ant-divider-horizontal {
   margin: 0;
 }
+
+:host ::ng-deep .inner-layout {
+  padding: 0 5px;
+}
+
+:host ::ng-deep .ant-layout {
+  background: #ffffff;
+}
+
+:host ::ng-deep .custom-select {
+  width: 200px;
+  border-right: #f5f6f5 1px solid;
+  margin-right: 10px;
+}
+
+//:host ::ng-deep .ant-tree {
+//  border-radius: 0px;
+//  border-right: 1px solid rgba(0,0,0,.06);
+//}

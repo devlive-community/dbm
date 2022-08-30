@@ -5,7 +5,19 @@
     </a>
   </div>
   <ul nz-menu nzMode="horizontal">
-    <li nz-submenu [nzTitle]="betaQueryTitle"></li>
+    <li nz-submenu [nzTitle]="betaMenuTitle" nz-popover nzPopoverPlacement="bottom"
+        [nzPopoverContent]="betaPopoverContent">
+      <ng-template #betaPopoverContent>
+        <nz-space [nzSize]="30">
+          <a *nzSpaceItem [routerLink]="['/query/beta']">
+            <nz-avatar [nzSize]="64" nzIcon="console-sql" style="background-color:#87d068;"></nz-avatar>
+          </a>
+          <a *nzSpaceItem [routerLink]="['/object/designer']">
+            <nz-avatar [nzSize]="64" nzIcon="appstore-add" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+          </a>
+        </nz-space>
+      </ng-template>
+    </li>
     <li nz-submenu [nzTitle]="queryMenuItemTitle">
       <ul>
         <li nz-menu-item>
@@ -35,11 +47,6 @@
         <li nz-menu-item>
           <a [routerLink]="['/management/metadata']" class="dropdown-item">
             <i class="fa fa-archive"> {{ 'common.metadata' | translate }}</i>
-          </a>
-        </li>
-        <li nz-menu-item>
-          <a [routerLink]="['/object/designer']" class="dropdown-item">
-            <i class="fa fa-street-view"> {{'common.designer'|translate}}</i>
           </a>
         </li>
       </ul>
@@ -121,11 +128,9 @@
   <ng-template #githubItemTitle>
     <i class="fa fa-github"></i>&nbsp;{{'common.github'|translate}}
   </ng-template>
-  <ng-template #betaQueryTitle>
-    <nz-ribbon nzColor="#f50" [nzText]="'beta'">
-      <a [routerLink]="['/query/beta']" class="dropdown-item">
-        <i nz-icon nzType="console-sql" nzTheme="outline"></i> {{'common.query'|translate}}
-      </a>
+  <ng-template #betaMenuTitle>
+    <nz-ribbon nzColor="#f50" nzText="{{'common.beta'|translate}}">
+      {{'common.beta'|translate}}
     </nz-ribbon>
   </ng-template>
 </nz-header>

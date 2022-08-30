@@ -53,6 +53,7 @@ export class DatasourceComponent extends BaseComponent implements OnInit {
   formInfo: DatasourceModel;
   tableDetails: DatasourceModel[] = new Array<DatasourceModel>();
   actionType: ActionEnum;
+  actionTypeConform = ActionEnum;
   actionSource: string;
   currentStep: number = 1;
   showButton = {

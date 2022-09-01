@@ -51,6 +51,22 @@
       </div>
     </nz-tab>
 
+    <nz-tab [nzTitle]="engineTemplate">
+      <ng-template #engineTemplate>
+        <i class="fa fa-fire"></i>
+        {{'common.engine'|translate}}
+      </ng-template>
+      <div nz-row [nzGutter]="[16, 16]" style="padding: 10px;">
+          <div *ngFor="let engine of applyTableEngines" [nzSpan]="4" nz-col>
+            <nz-radio-group [(ngModel)]="applyData.engine">
+              <label nzValue="{{engine}}" nz-radio-button>
+                {{engine}}
+              </label>
+            </nz-radio-group>
+        </div>
+      </div>
+    </nz-tab>
+
     <nz-tab [nzTitle]="sqlPreviewTemplate" (nzSelect)="handlerSqlPreview()">
       <ng-template #sqlPreviewTemplate>
         <i class="fa fa-eye"></i>

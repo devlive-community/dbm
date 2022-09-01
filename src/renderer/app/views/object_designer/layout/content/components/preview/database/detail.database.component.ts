@@ -96,6 +96,7 @@ export class LayoutContentDetailDatabaseComponent implements AfterViewInit {
       .then(response => {
         if (response.status) {
           this.messageService.success("OK");
+          this.applySelectTable.checkedTables.delete(this.applyData.table);
           this.handlerInitializer();
         }
         this.deleteTable.loading = false;

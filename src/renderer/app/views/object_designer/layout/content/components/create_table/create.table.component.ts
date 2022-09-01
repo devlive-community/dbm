@@ -36,6 +36,7 @@ export class CreateTableComponent {
       enableLiveAutocompletion: true
     }
   };
+  applyTableEngines = ['Memory'];
 
   constructor(private builderFactory: BuilderFactory,
               private pluginFactory: PluginFactory,

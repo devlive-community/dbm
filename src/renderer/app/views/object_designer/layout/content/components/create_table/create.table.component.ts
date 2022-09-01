@@ -18,6 +18,7 @@ export class CreateTableComponent {
 
   applyTableName: string;
   applyColumns: DesignerColumn[] = [];
+  applyCheckedColumns = new Set<string>;
   dataType = [
     'varchar',
     'int',
@@ -57,6 +58,19 @@ export class CreateTableComponent {
     const column = new DesignerColumn();
     column.id = id;
     this.applyColumns = [...this.applyColumns, column];
+  }
+
+  handlerMinusColumn() {
+    this.applyColumns = this.applyColumns.filter(column => !this.applyCheckedColumns.has(column.id));
+  }
+
+  handlerColumnChecked(column: string, checked: boolean) {
+    if (checked) {
+      this.applyCheckedColumns.add(column);
+    } else {
+      this.applyCheckedColumns.delete(column);
+      this.applyData.table = null;
+    }
   }
 
   handlerSqlPreview() {

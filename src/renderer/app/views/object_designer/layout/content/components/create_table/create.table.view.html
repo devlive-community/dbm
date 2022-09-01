@@ -10,6 +10,7 @@
                   [nzShowPagination]="false" [nzData]="applyColumns">
           <thead>
           <tr>
+            <th></th>
             <th>{{'common.name'|translate}}</th>
             <th>{{'common.type'|translate}}</th>
             <th>{{'common.length'|translate}}</th>
@@ -19,6 +20,8 @@
           </thead>
           <tbody>
           <tr *ngFor="let data of tableContainer.data">
+            <td [nzChecked]="applyCheckedColumns.has(data['id'])"
+                (nzCheckedChange)="handlerColumnChecked(data['id'], $event)"></td>
             <td nzEllipsis>
               <input nz-input [(ngModel)]="data['name']"/>
             </td>
@@ -57,12 +60,12 @@
         {{'common.engine'|translate}}
       </ng-template>
       <div nz-row [nzGutter]="[16, 16]" style="padding: 10px;">
-          <div *ngFor="let engine of applyTableEngines" [nzSpan]="4" nz-col>
-            <nz-radio-group [(ngModel)]="applyData.engine">
-              <label nzValue="{{engine}}" nz-radio-button>
-                {{engine}}
-              </label>
-            </nz-radio-group>
+        <div *ngFor="let engine of applyTableEngines" [nzSpan]="4" nz-col>
+          <nz-radio-group [(ngModel)]="applyData.engine">
+            <label nzValue="{{engine}}" nz-radio-button>
+              {{engine}}
+            </label>
+          </nz-radio-group>
         </div>
       </div>
     </nz-tab>
@@ -94,5 +97,11 @@
           nz-tooltip nzTooltipTitle="{{'common.new'|translate}}{{'common.column'|translate}}"
           (click)="handlerPlusColumn()">
     <i nz-icon nzType="plus-circle" class="action-button-success"></i>
+  </button>
+  <button nz-button nzSize="small" nzType="text" [disabled]="applyCheckedColumns.size <= 0"
+          nz-tooltip nzTooltipTitle="{{'common.delete'|translate}}{{'common.column'|translate}}"
+          (click)="handlerMinusColumn()">
+    <span nz-icon nzType="minus-circle" class="action-button-danger"></span>
+    <span *ngIf="applyCheckedColumns.size > 0">({{applyCheckedColumns.size}})</span>
   </button>
 </ng-template>

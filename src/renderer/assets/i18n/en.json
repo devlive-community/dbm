@@ -178,7 +178,8 @@
     "key": "Key",
     "length": "Length",
     "beta": "Beta",
-    "sql": "SQL"
+    "sql": "SQL",
+    "insert": "Insert"
   },
   "language": {
     "english": "English",

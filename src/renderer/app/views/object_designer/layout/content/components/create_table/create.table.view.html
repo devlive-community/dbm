@@ -98,6 +98,11 @@
           (click)="handlerPlusColumn()">
     <i nz-icon nzType="plus-circle" class="action-button-success"></i>
   </button>
+  <button nz-button nzSize="small" nzType="text"
+          nz-tooltip nzTooltipTitle="{{'common.insert'|translate}}{{'common.column'|translate}}"
+          (click)="handlerPlusPreColumn()">
+    <i nz-icon nzType="left-circle" [nzTheme]="'twotone'" [nzTwotoneColor]="'#1890ff'"></i>
+  </button>
   <button nz-button nzSize="small" nzType="text" [disabled]="applyCheckedColumns.size <= 0"
           nz-tooltip nzTooltipTitle="{{'common.delete'|translate}}{{'common.column'|translate}}"
           (click)="handlerMinusColumn()">

@@ -4,25 +4,26 @@ import { PluginFactory } from "@renderer/factory/plugin.factory";
 import { ConfigFactory } from "@renderer/factory/config.factory";
 import { StringUtils } from "@renderer/utils/string.utils";
 import { RequestModel } from "@renderer/model/request.model";
-import { ResponseDataModel } from "@renderer/model/response.model";
 
 @Component({
-  selector: 'object-designer-layout-content-detail-table',
-  templateUrl: './detail.table.view.html',
-  styleUrls: ['./detail.table.style.scss']
+  selector: 'object-designer-layout-content-preview-table',
+  templateUrl: './preview.table.view.html',
+  styleUrls: ['./preview.table.style.scss']
 })
-export class LayoutDetailTableComponent implements AfterViewInit {
+export class PreviewTableComponent implements AfterViewInit {
   @Input()
   applyData: DesignerApplyData;
 
-  tableData = new ResponseDataModel();
-  tableDataSize = 0;
   loading = {
     tableContainer: false
   }
   applyResult = {
     headers: [],
-    columns: []
+    columns: [],
+    checkedColumns: []
+  }
+  applyVisible = {
+    columnDrawer: false
   }
 
   constructor(private pluginFactory: PluginFactory,
@@ -32,7 +33,6 @@ export class LayoutDetailTableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.loading.tableContainer = true;
-      this.tableDataSize = 0;
       const request = new RequestModel();
       request.config = this.applyData.dataSource;
       const type = this.applyData.dataSource.type;
@@ -43,10 +43,10 @@ export class LayoutDetailTableComponent implements AfterViewInit {
         .getResponse(request, sql)
         .then(response => {
           if (response.status) {
-            this.tableDataSize = response.data.rows;
-            if (this.tableDataSize > 0) {
+            if (response.data.rows > 0) {
               Object.keys(response.data.columns[0]).forEach(column => {
                 this.applyResult.headers.push(column);
+                this.applyResult.checkedColumns.push({label: column, value: column, checked: true})
               })
               this.applyResult.columns = response.data.columns;
             }
@@ -54,5 +54,19 @@ export class LayoutDetailTableComponent implements AfterViewInit {
           this.loading.tableContainer = false;
         });
     }, 0);
+  }
+
+  handlerShowColumnDrawer() {
+    this.applyVisible.columnDrawer = true;
+  }
+
+  handlerCloseColumnDrawer() {
+    this.applyVisible.columnDrawer = false;
+  }
+
+  handlerColumnChecked() {
+    this.applyResult.headers = this.applyResult.checkedColumns
+      .filter(item => item.checked)
+      .map(item => item.value);
   }
 }

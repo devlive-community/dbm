@@ -8,27 +8,7 @@ import { ipcRenderer, shell } from 'electron';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-    `
-      .logo {
-        width: 120px;
-        height: 31px;
-        background: rgba(255, 255, 255, 0.2);
-        margin: 0px 30px 15px 30px;
-        float: left;
-      }
-
-      nz-header {
-        position: fixed;
-        width: 100%;
-        z-index: 1;
-      }
-
-      .ant-layout-header {
-        padding: 0;
-      }
-    `
-  ]
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends BaseComponent implements OnInit {
   version: string = PackageUtils.get('version');

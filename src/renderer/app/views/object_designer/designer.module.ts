@@ -13,13 +13,13 @@ import { TableService } from "@renderer/services/management/table.service";
 import {
   LayoutContentDetailDatabaseComponent
 } from "@renderer/app/views/object_designer/layout/content/components/preview/database/detail.database.component";
-import {
-  LayoutDetailTableComponent
-} from "@renderer/app/views/object_designer/layout/content/components/preview/table/detail.table.component";
 import { AceModule } from "ngx-ace-wrapper";
 import {
   CreateTableComponent
 } from "@renderer/app/views/object_designer/layout/content/components/create_table/create.table.component";
+import {
+  PreviewTableComponent
+} from "@renderer/app/views/object_designer/layout/content/components/preview_table/preview.table.component";
 
 const DESIGNER_ROUTES: Routes = [
   {path: '', component: DesignerComponent}
@@ -40,8 +40,8 @@ const DESIGNER_ROUTES: Routes = [
     DesignerComponent,
     LayoutContentComponent,
     LayoutContentDetailDatabaseComponent,
-    LayoutDetailTableComponent,
-    CreateTableComponent
+    CreateTableComponent,
+    PreviewTableComponent
   ],
   providers: [
     DatabaseService,

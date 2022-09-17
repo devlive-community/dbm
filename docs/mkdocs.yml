@@ -162,7 +162,7 @@ plugins:
           Datasource_ElasticSearch: ElasticSearch (Experimental)
   - redirects:
       redirect_maps:
-        release-latest.md: release/1.22.0-20220812.md
+        release-latest.md: release/1.23.0-20220917.md
 
 nav:
   - Home: index.md
@@ -187,7 +187,8 @@ nav:
           - Mutations: reference/monitor/monitor_mutations.md
           - Query: reference/monitor/monitor_query.md
   - Release Note:
-      - 1.22.0 (latest): release/1.22.0-20220812.md
+      - 1.23.0 (latest): release/1.23.0-20220917.md
+      - 1.22.0: release/1.22.0-20220812.md
       - 1.21.0: release/1.21.0-20220725.md
       - 1.20.0: release/1.20.0-20220706.md
       - 1.19.0: release/1.19.0-20220623.md

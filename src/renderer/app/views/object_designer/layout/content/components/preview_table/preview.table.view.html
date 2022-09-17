@@ -23,10 +23,12 @@
   </nz-table>
 
   <ng-template #titleTemplate>
-    <button nz-button nzSize="small" nzType="text"
-            nz-tooltip nzTooltipTitle="{{'common.column'|translate}}" (click)="handlerShowColumnDrawer()">
-      <i nz-icon nzType="table" class="action-button-1890"></i>
-    </button>
+    <nz-radio-group [(ngModel)]="applyVisible.columnDrawer" nzSize="small"
+                    (ngModelChange)="handlerShowColumnDrawer($event)">
+      <label nz-radio-button nzValue="column">
+        <i nz-icon nzType="table" class="action-button-1890"></i>
+      </label>
+    </nz-radio-group>
   </ng-template>
 </nz-card>
 

@@ -23,7 +23,7 @@ export class PreviewTableComponent implements AfterViewInit {
     checkedColumns: []
   }
   applyVisible = {
-    columnDrawer: false
+    columnDrawer: null
   }
 
   constructor(private pluginFactory: PluginFactory,
@@ -43,25 +43,23 @@ export class PreviewTableComponent implements AfterViewInit {
         .getResponse(request, sql)
         .then(response => {
           if (response.status) {
-            if (response.data.rows > 0) {
-              Object.keys(response.data.columns[0]).forEach(column => {
-                this.applyResult.headers.push(column);
-                this.applyResult.checkedColumns.push({label: column, value: column, checked: true})
-              })
-              this.applyResult.columns = response.data.columns;
-            }
+            response.data.headers.forEach(column => {
+              this.applyResult.headers.push(column['name']);
+              this.applyResult.checkedColumns.push({label: column['name'], value: column['name'], checked: true})
+            })
+            this.applyResult.columns = response.data.columns;
           }
           this.loading.tableContainer = false;
         });
     }, 0);
   }
 
-  handlerShowColumnDrawer() {
-    this.applyVisible.columnDrawer = true;
+  handlerShowColumnDrawer(value: string) {
+    this.applyVisible.columnDrawer = value;
   }
 
   handlerCloseColumnDrawer() {
-    this.applyVisible.columnDrawer = false;
+    this.applyVisible.columnDrawer = null;
   }
 
   handlerColumnChecked() {

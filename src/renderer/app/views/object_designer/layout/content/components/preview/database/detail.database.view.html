@@ -1,6 +1,6 @@
 <ng-container *ngIf="!isCreateTable(); else createTable">
   <nz-card [nzTitle]="titleTemplate" [nzLoading]="loading.tableContainer">
-    <div *ngIf="applyResultColumns.length > 0" style="margin-top: 4px;">
+    <div style="margin-top: 4px;">
       <nz-table #tableContainer nzSize="small" [nzData]="applyResultColumns">
         <thead>
         <tr>

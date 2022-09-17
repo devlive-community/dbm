@@ -1,0 +1,17 @@
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0px 30px 15px 30px;
+  float: left;
+}
+
+nz-header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.ant-layout-header {
+  padding: 0;
+}

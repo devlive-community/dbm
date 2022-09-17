@@ -10,10 +10,20 @@
       <ng-template #betaPopoverContent>
         <nz-space [nzSize]="30">
           <a *nzSpaceItem [routerLink]="['/query/beta']">
-            <nz-avatar [nzSize]="64" nzIcon="console-sql" style="background-color:#87d068;"></nz-avatar>
+            <nz-card nzBorderless="true" [nzCover]="coverQueryTemplate">
+              <nz-card-meta nzTitle="{{'common.query'|translate}}"></nz-card-meta>
+            </nz-card>
+            <ng-template #coverQueryTemplate>
+              <span nz-icon nzType="console-sql" style="color:#87d068; font-size: 35px;"></span>
+            </ng-template>
           </a>
           <a *nzSpaceItem [routerLink]="['/object/designer']">
-            <nz-avatar [nzSize]="64" nzIcon="appstore-add" style="color:#f56a00; background-color:#fde3cf;"></nz-avatar>
+            <nz-card nzBorderless="true" [nzCover]="coverObjectDesignerTemplate">
+              <nz-card-meta nzTitle="{{'common.designer'|translate}}"></nz-card-meta>
+            </nz-card>
+            <ng-template #coverObjectDesignerTemplate>
+              <span nz-icon nzType="appstore-add" style="color:#f56a00; font-size: 35px;"></span>
+            </ng-template>
           </a>
         </nz-space>
       </ng-template>

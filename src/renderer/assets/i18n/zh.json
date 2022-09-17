@@ -177,7 +177,8 @@
     "key": "主键",
     "length": "长度",
     "beta": "Beta",
-    "sql": "SQL"
+    "sql": "SQL",
+    "insert": "插入"
   },
   "language": {
     "english": "英语",

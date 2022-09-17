@@ -17,7 +17,9 @@ export class CreateTableComponent {
   applyData: DesignerApplyData;
 
   applyTableName: string;
-  applyColumns: DesignerColumn[] = [];
+  applyColumns: Array<DesignerColumn> = new Array<DesignerColumn>;
+  applyCheckedColumns: Set<string> = new Set<string>;
+  applyLastCheckedColumn: string = null;
   dataType = [
     'varchar',
     'int',
@@ -36,6 +38,7 @@ export class CreateTableComponent {
       enableLiveAutocompletion: true
     }
   };
+  applyTableEngines = ['Memory'];
 
   constructor(private builderFactory: BuilderFactory,
               private pluginFactory: PluginFactory,
@@ -49,13 +52,43 @@ export class CreateTableComponent {
     }
   }
 
-  handlerPlusColumn() {
+  handlerGenerateColumn(): DesignerColumn {
     const milliseconds = new Date().getTime();
     const random = (Math.random() * milliseconds).toFixed(0);
     const id = StringUtils.format('{0}_{1}', [milliseconds, random]);
     const column = new DesignerColumn();
     column.id = id;
-    this.applyColumns = [...this.applyColumns, column];
+    return column;
+  }
+
+  handlerPlusColumn() {
+    this.applyColumns = [...this.applyColumns, this.handlerGenerateColumn()];
+  }
+
+  handlerPlusPreColumn() {
+    if (this.applyCheckedColumns.size > 0) {
+      // If contained selected columns are added to the previous row of the column by default
+      const index = this.applyColumns.findIndex(item => this.applyLastCheckedColumn === item.id);
+      this.applyColumns.splice(index, 0, this.handlerGenerateColumn());
+      this.applyColumns = [...this.applyColumns];
+    } else {
+      // If not selected, the column is added to the first row by default
+      this.applyColumns = [this.handlerGenerateColumn(), ...this.applyColumns];
+    }
+  }
+
+  handlerMinusColumn() {
+    this.applyColumns = this.applyColumns.filter(column => !this.applyCheckedColumns.has(column.id));
+  }
+
+  handlerColumnChecked(column: string, checked: boolean) {
+    this.applyLastCheckedColumn = column;
+    if (checked) {
+      this.applyCheckedColumns.add(column);
+    } else {
+      this.applyCheckedColumns.delete(column);
+      this.applyData.table = null;
+    }
   }
 
   handlerSqlPreview() {

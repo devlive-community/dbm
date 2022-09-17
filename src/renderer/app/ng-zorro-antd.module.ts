@@ -39,6 +39,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzSpaceModule } from "ng-zorro-antd/space";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 
 @NgModule({
   declarations: [],
@@ -82,7 +83,8 @@ import { NzSpaceModule } from "ng-zorro-antd/space";
     NzDrawerModule,
     NzTypographyModule,
     NzIconModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzCheckboxModule
   ]
 })
 export class NgZorroAntdModule {

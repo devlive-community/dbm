@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.ant-avatar>img {
+.ant-avatar > img {
   width: 85%;
   height: 85%;
   display: unset;
@@ -26,6 +26,31 @@
   line-height: 16px;
 }
 
-.cdk-global-scrollblock {
-  overflow-y: hidden;
+// Action Button
+.action-buttons {
+  margin-left: 10px;
 }
+
+.action-button {
+  margin-left: 10px;
+}
+
+.action-button-success {
+  color: #00c853;
+}
+
+.action-button-1890 {
+  color: #1890ff;
+}
+
+.action-button-danger {
+  color: #ff7875;
+}
+
+.ant-divider-horizontal {
+  margin: 0;
+}
+
+//.cdk-global-scrollblock {
+//  overflow-y: hidden;
+//}

@@ -1,0 +1,41 @@
+<nz-card [nzTitle]="titleTemplate" [nzLoading]="loading.tableContainer">
+  <nz-table #tableContainer nzSize="small" [nzData]="applyResult.columns">
+    <thead>
+    <tr>
+      <th *ngFor="let header of applyResult.headers" nzEllipsis>
+        <div nz-popover nzPopoverTrigger="click"
+             nzPopoverContent="{{header}}">
+          {{header}}
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let column of tableContainer.data;">
+      <td *ngFor="let header of applyResult.headers" nzEllipsis>
+        <div nz-popover nzPopoverTrigger="click"
+             nzPopoverTitle="{{header}}" nzPopoverContent="{{column[header]}}">
+          {{column[header]}}
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <ng-template #titleTemplate>
+    <nz-radio-group [(ngModel)]="applyVisible.columnDrawer" nzSize="small"
+                    (ngModelChange)="handlerShowColumnDrawer($event)">
+      <label nz-radio-button nzValue="column">
+        <i nz-icon nzType="table" class="action-button-1890"></i>
+      </label>
+    </nz-radio-group>
+  </ng-template>
+</nz-card>
+
+<nz-drawer [nzClosable]="false" [nzVisible]="applyVisible.columnDrawer"
+           nzPlacement="right" nzTitle="{{applyData.table}}" (nzOnClose)="handlerCloseColumnDrawer()">
+  <ng-container *nzDrawerContent>
+    <nz-checkbox-group [(ngModel)]="applyResult.checkedColumns" (ngModelChange)="handlerColumnChecked()">
+    </nz-checkbox-group>
+  </ng-container>
+</nz-drawer>

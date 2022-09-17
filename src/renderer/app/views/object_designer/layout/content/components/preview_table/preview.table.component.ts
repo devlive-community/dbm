@@ -4,25 +4,26 @@ import { PluginFactory } from "@renderer/factory/plugin.factory";
 import { ConfigFactory } from "@renderer/factory/config.factory";
 import { StringUtils } from "@renderer/utils/string.utils";
 import { RequestModel } from "@renderer/model/request.model";
-import { ResponseDataModel } from "@renderer/model/response.model";
 
 @Component({
-  selector: 'object-designer-layout-content-detail-table',
-  templateUrl: './detail.table.view.html',
-  styleUrls: ['./detail.table.style.scss']
+  selector: 'object-designer-layout-content-preview-table',
+  templateUrl: './preview.table.view.html',
+  styleUrls: ['./preview.table.style.scss']
 })
-export class LayoutDetailTableComponent implements AfterViewInit {
+export class PreviewTableComponent implements AfterViewInit {
   @Input()
   applyData: DesignerApplyData;
 
-  tableData = new ResponseDataModel();
-  tableDataSize = 0;
   loading = {
     tableContainer: false
   }
   applyResult = {
     headers: [],
-    columns: []
+    columns: [],
+    checkedColumns: []
+  }
+  applyVisible = {
+    columnDrawer: null
   }
 
   constructor(private pluginFactory: PluginFactory,
@@ -32,7 +33,6 @@ export class LayoutDetailTableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.loading.tableContainer = true;
-      this.tableDataSize = 0;
       const request = new RequestModel();
       request.config = this.applyData.dataSource;
       const type = this.applyData.dataSource.type;
@@ -43,16 +43,28 @@ export class LayoutDetailTableComponent implements AfterViewInit {
         .getResponse(request, sql)
         .then(response => {
           if (response.status) {
-            this.tableDataSize = response.data.rows;
-            if (this.tableDataSize > 0) {
-              Object.keys(response.data.columns[0]).forEach(column => {
-                this.applyResult.headers.push(column);
-              })
-              this.applyResult.columns = response.data.columns;
-            }
+            response.data.headers.forEach(column => {
+              this.applyResult.headers.push(column['name']);
+              this.applyResult.checkedColumns.push({label: column['name'], value: column['name'], checked: true})
+            })
+            this.applyResult.columns = response.data.columns;
           }
           this.loading.tableContainer = false;
         });
     }, 0);
+  }
+
+  handlerShowColumnDrawer(value: string) {
+    this.applyVisible.columnDrawer = value;
+  }
+
+  handlerCloseColumnDrawer() {
+    this.applyVisible.columnDrawer = null;
+  }
+
+  handlerColumnChecked() {
+    this.applyResult.headers = this.applyResult.checkedColumns
+      .filter(item => item.checked)
+      .map(item => item.value);
   }
 }

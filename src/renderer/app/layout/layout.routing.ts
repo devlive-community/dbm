@@ -93,6 +93,15 @@ const LAYOUT_ROUTES: Routes = [
             loadChildren: () => import('../pages/monitor/query/monitor.query.module').then(m => m.MonitorQueryModule)
           }
         ]
+      },
+      {
+        path: 'object',
+        children: [
+          {
+            path: 'designer',
+            loadChildren: () => import('@renderer/app/views/object_designer/designer.module').then(m => m.DesignerModule)
+          }
+        ]
       }
     ]
   }

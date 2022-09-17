@@ -173,4 +173,14 @@ ALTER TABLE {0} COMMENT COLUMN {1} '{2}'
   `;
   getCharacterAndCollation: string;
   databaseRename = 'RENAME DATABASE `{0}` TO `{1}`';
+  /* Metadata management related SQL */
+  metadataManagementFetchTables = `
+  SELECT
+    name AS tableName, total_rows AS tableTotalRows, formatReadableSize(total_bytes) AS tableTotalSize,
+    engine AS tableEngine, metadata_modification_time AS tableModificationTime
+    -- , create_table_query AS tableContent
+  FROM system.tables
+  WHERE database = '{0}'
+  `
+  metadataManagementFetchTableData = "SELECT * FROM `{0}`.`{1}` LIMIT {2}, {3}"
 }

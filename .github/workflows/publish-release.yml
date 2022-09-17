@@ -34,7 +34,6 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       version: ${{ steps.package-version.outputs.version }}
 
-
   build-mac:
     runs-on: macos-latest
     needs: release
@@ -94,6 +93,8 @@ jobs:
           ./qshell fput edurtio-other dbm/releases/darwin/x64/latest-mac.yml ./release/latest-mac.yml --overwrite
 
 
+
+
   build-win:
     runs-on: windows-latest
     needs: release
@@ -123,11 +124,11 @@ jobs:
 
       - name: Download and upload to qiniu
         run: |
-          wget https://devtools.qiniu.com/qshell-v2.6.2-linux-amd64.tar.gz
-          tar -xvzf qshell-v2.6.2-linux-amd64.tar.gz
-          # echo '--------- Start ---------'
-          # ./qshell account ${{ env.TOKEN_AK }} ${{ env.TOKEN_SK }}
-          # echo '--------- End ---------'
-          ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
-          ./qshell fput edurtio-other dbm/releases/windows/x64/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe
+          echo '--------- Start ---------'
 
+          certutil.exe -urlcache -split -f  https://github.com/qianmoQ/assets/raw/main/windows/qshell.exe
+          ./qshell account 5eua7TZfgnNb81gmVUBcw4x7PpQuy-v9v1iFyD1R zCwoByIkA9AnlK0qO0DGveH7dKDXLG3CRqZ2mlTW dbm_qiniu
+          ./qshell fput edurtio-other dbm/releases/windows/x64/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe ./release/dbm-${{ needs.release.outputs.version }}-windows-x64-nsis-installer.exe --overwrite
+          ./qshell fput edurtio-other dbm/releases/windows/x64/latest-win.yml ./release/latest-win.yml --overwrite
+
+          echo '--------- End ---------'

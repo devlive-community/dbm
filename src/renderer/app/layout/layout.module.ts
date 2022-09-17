@@ -28,6 +28,9 @@ import { MysqlConfig } from "@renderer/config/mysql.config";
 import { ClickHouseConfig } from "@renderer/config/clickhouse.config";
 import { PostgreSQLConfig } from "@renderer/config/postgresql.config";
 import { PostgreSQLPlugin } from "@renderer/plugin/postgresql.plugin";
+import { BuilderFactory } from "@renderer/factory/builder.factory";
+import { BuilderToken } from "@renderer/token/builder.token";
+import { ClickhouseBuilder } from "@renderer/builder/clickhouse.builder";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, './renderer/assets/i18n/', '.json');
@@ -68,9 +71,12 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     {provide: PluginToken, useClass: PostgreSQLPlugin, multi: true},
     /* Config */
     ConfigFactory,
-    {provide: ConfigToken, useClass: MysqlConfig, multi: true},
     {provide: ConfigToken, useClass: ClickHouseConfig, multi: true},
+    {provide: ConfigToken, useClass: MysqlConfig, multi: true},
     {provide: ConfigToken, useClass: PostgreSQLConfig, multi: true},
+    /* Builder */
+    BuilderFactory,
+    {provide: BuilderToken, useClass: ClickhouseBuilder, multi: true}
   ]
 })
 export class LayoutModule {

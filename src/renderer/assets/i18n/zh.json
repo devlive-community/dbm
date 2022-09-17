@@ -171,7 +171,14 @@
     "collation": "排序规则",
     "hologres": "Hologres",
     "accesskey_id": "AccessKey ID",
-    "accesskey_secret": "AccessKey Secret"
+    "accesskey_secret": "AccessKey Secret",
+    "designer": "设计",
+    "is_null": "不是Null",
+    "key": "主键",
+    "length": "长度",
+    "beta": "Beta",
+    "sql": "SQL",
+    "insert": "插入"
   },
   "language": {
     "english": "英语",
@@ -324,5 +331,13 @@
         "table": "Remote table name"
       }
     }
+  },
+  "table": {
+    "tableName": "表名",
+    "tableTotalRows": "总行数",
+    "tableTotalSize": "总大小",
+    "tableEngine": "表引擎",
+    "tableModificationTime": "修改时间",
+    "tableContent": "表DDL"
   }
 }

@@ -1,0 +1,34 @@
+<nz-layout style="width: {{applyData.width}}px; height: {{applyData.height}}px;">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <nz-card [nzTitle]="siderContainerTitle">
+      <nz-spin nzSimple *ngIf="loading.database; else loadingDatabaseSuccessful" nzSize="small"
+               style="margin: 10px"></nz-spin>
+      <ng-template #loadingDatabaseSuccessful>
+        <nz-tree nzShowLine [nzData]="applyDataForArray.databases" nzBlockNode nzAsyncData
+                 (nzExpandChange)="handlerNodeLoad($event)" [nzTreeTemplate]="nzTreeTemplate"
+                 (nzClick)="handlerNodeClick($event)" nzVirtualHeight="{{applyData.height}}px">
+          <ng-template #nzTreeTemplate let-node let-origin="origin">
+            <i nz-dropdown nzTrigger="click" class="fa fa-{{handlerApplyIcon(origin.type)}}">&nbsp;{{origin.title}}&nbsp;</i>
+          </ng-template>
+        </nz-tree>
+      </ng-template>
+
+      <ng-template #siderContainerTitle>
+        <nz-select class="custom-select" [(ngModel)]="applyDataSource.current" nzBorderless nzSize="small"
+                   (ngModelChange)="handlerDataSourceChange($event)">
+          <nz-option nzCustomContent *ngFor="let dataSource of applyDataSource.list" [nzLabel]="dataSource['alias']"
+                     [nzValue]="dataSource['alias']" [nzDisabled]="!dataSource.status">
+            <nz-avatar nzSize="small" nzSrc="./renderer/assets/icon/source/{{dataSource.type}}.svg">
+            </nz-avatar>
+            {{dataSource.alias}}
+          </nz-option>
+        </nz-select>
+      </ng-template>
+    </nz-card>
+  </nz-sider>
+
+  <nz-layout class="inner-layout">
+    <object-designer-layout-content *ngIf="applyData.reload" [applyData]="applyData">
+    </object-designer-layout-content>
+  </nz-layout>
+</nz-layout>

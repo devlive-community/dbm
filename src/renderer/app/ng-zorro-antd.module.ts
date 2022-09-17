@@ -38,6 +38,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzSpaceModule } from "ng-zorro-antd/space";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
 
 @NgModule({
   declarations: [],
@@ -80,7 +82,9 @@ import { NzIconModule } from "ng-zorro-antd/icon";
     NzPaginationModule,
     NzDrawerModule,
     NzTypographyModule,
-    NzIconModule
+    NzIconModule,
+    NzSpaceModule,
+    NzCheckboxModule
   ]
 })
 export class NgZorroAntdModule {

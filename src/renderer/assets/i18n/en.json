@@ -172,7 +172,14 @@
     "collation": "Collation",
     "hologres": "Hologres",
     "accesskey_id": "AccessKey ID",
-    "accesskey_secret": "AccessKey Secret"
+    "accesskey_secret": "AccessKey Secret",
+    "designer": "Designer",
+    "is_null": "Is Null",
+    "key": "Key",
+    "length": "Length",
+    "beta": "Beta",
+    "sql": "SQL",
+    "insert": "Insert"
   },
   "language": {
     "english": "English",
@@ -323,5 +330,13 @@
         "table": "Remote table name"
       }
     }
+  },
+  "table": {
+    "tableName": "Table Name",
+    "tableTotalRows": "Total Rows",
+    "tableTotalSize": "Total Size",
+    "tableEngine": "Table Engine",
+    "tableModificationTime": "Modification Time",
+    "tableContent": "Table DDL"
   }
 }

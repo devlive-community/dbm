@@ -99,7 +99,7 @@
     "@angular-eslint/schematics": "12.3.1",
     "@angular-eslint/template-parser": "13.5.0",
     "@angular/cli": "14.0.1",
-    "@angular/compiler-cli": "14.0.1",
+    "@angular/compiler-cli": "16.0.1",
     "@types/jasmine": "3.7.6",
     "@types/jasminewd2": "2.0.10",
     "@types/mocha": "8.2.2",

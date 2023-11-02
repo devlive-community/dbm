@@ -1,4 +1,4 @@
-appId: 'io.edurt.dbm'
+appId: 'org.devlive.dbm'
 
 artifactName: ${name}-${version}-${os}-${arch}.${ext}
 

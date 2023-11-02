@@ -1,14 +1,14 @@
 site_name: Database GUI
-site_url: https://dbm.edurt.io/
+site_url: https://dbm.devlive.org
 site_author: qinamoQ
 site_description: >-
   Full platform database management tool, supports ClickHouse, Presto, Trino
 
-repo_name: EdurtIO/dbm
-repo_url: https://github.com/EdurtIO/dbm
-edit_uri: "https://github.com/EdurtIO/dbm/blob/master/docs/docs"
+repo_name: devlive-community/dbm
+repo_url: https://github.com/devlive-community/dbm
+edit_uri: "https://github.com/devlive-community/dbm/blob/dev/docs/docs"
 
-copyright: Copyright &copy; 2021 EdurtIO
+copyright: Copyright &copy; 2023 Devlive Community
 
 theme:
   name: null

@@ -1,10 +1,10 @@
 {
   "name": "dbm",
-  "version": "1.23.0",
-  "author": "qianmoQ <shicheng@ttxit.com>",
+  "version": "1.24.0",
+  "author": "qianmoQ <shicheng@devlive.org>",
   "description": "Full platform database management tool, supports ClickHouse, Presto, Trino, MySQL, PostgreSQL...",
-  "github": "https://github.com/EdurtIO/dbm.git",
-  "homepage": "https://dbm.edurt.io",
+  "github": "https://github.com/devlive-community/dbm.git",
+  "homepage": "https://dbm.devlive.org",
   "keywords": [
     "angular",
     "angular 12",
@@ -75,7 +75,7 @@
     "ng-zorro-antd": "13.3.1",
     "ngx-ace-wrapper": "^12.0.0",
     "ngx-clipboard": "^14.0.2",
-    "ngx-easy-table": "^15.2.0",
+    "ngx-easy-table": "15.2.0",
     "ngx-ellipsis": "^3.1.6",
     "ngx-markdown": "^13.1.0",
     "ngx-moment": "^6.0.2",

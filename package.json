@@ -109,7 +109,7 @@
     "cfonts": "^3.1.0",
     "chalk": "^4.1.1",
     "cross-env": "^7.0.3",
-    "electron": "20.0.1",
+    "electron": "28.0.0",
     "electron-builder": "23.0.3",
     "electron-reload": "1.5.0",
     "eslint": "7.29.0",
